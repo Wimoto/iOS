@@ -8,6 +8,7 @@
 
 #import "RightMenuViewController.h"
 #import "RightMenuCell.h"
+#import "SensorDataViewController.h"
 
 @interface RightMenuViewController ()
 
@@ -21,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.sensorsArray = [NSMutableArray arrayWithObjects:@"Sensor 1", @"Sensor 2", @"Sensors 3", nil];
+    self.sensorsArray = [NSMutableArray arrayWithObjects:@"Sensor 1", @"Sensor 2", @"Sensor 3", nil];
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
@@ -59,6 +60,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SensorDataViewController *sensorDataController = [[SensorDataViewController alloc] init];
+    UINavigationController *sensorDataNavController = [[UINavigationController alloc] initWithRootViewController:sensorDataController];
+    self.viewDeckController.centerController = sensorDataNavController;
+    [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
 
 @end

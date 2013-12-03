@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AppTableViewController.h"
+#import "IIViewDeckController.h"
 
 @interface RightMenuViewController : AppTableViewController
 
