@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AppViewController.h"
 #import "IIViewDeckController.h"
-#import "ZBarSDK.h"
 
 @interface LeftMenuViewController : AppViewController
 

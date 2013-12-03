@@ -6,10 +6,10 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+#import "Sensor.h"
 
 @interface RightMenuCell : UITableViewCell
 
-- (void)bindData:(NSString *)string;
+@property (nonatomic, strong) Sensor *sensor;
 
 @end

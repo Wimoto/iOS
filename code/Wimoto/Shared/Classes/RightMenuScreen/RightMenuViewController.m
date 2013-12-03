@@ -15,9 +15,11 @@
 #import "ThermoSensorDetailsViewController.h"
 #import "WaterSensorDetailsViewController.h"
 
+#import "SensorManager.h"
+
 @interface RightMenuViewController ()
 
-@property (nonatomic, strong) NSMutableArray *sensorsArray;
+@property (nonatomic, strong) NSArray *sensorsArray;
 @property (nonatomic, strong) IBOutlet RightMenuCell *tmpCell;
 
 @end
@@ -27,8 +29,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.sensorsArray = [NSMutableArray arrayWithObjects:@"Climate Sensor", @"Grow Sensor", @"Sentry Sensor", @"Thermo Sensor", @"Water Sensor", nil];
     self.tableView.tableFooterView = [[UIView alloc] init];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    _sensorsArray = [SensorManager getSensors];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,7 +66,7 @@
         cell = _tmpCell;
         self.tmpCell = nil;
     }
-    [cell bindData:[_sensorsArray objectAtIndex:indexPath.row]];
+    cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -66,19 +74,20 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row==0) {
+    Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    if (sensor.type==kSensorTypeClimate) {
         ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = climateController;
-    } else if (indexPath.row==1) {
+    } else if (sensor.type==kSensorTypeGrow) {
         GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = growController;
-    } else if (indexPath.row==2) {
+    } else if (sensor.type==kSensorTypeSentry) {
         SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = sentryController;
-    } else if (indexPath.row==3) {
+    } else if (sensor.type==kSensorTypeThermo) {
         ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = thermoController;
-    } else if (indexPath.row==4) {
+    } else if (sensor.type==kSensorTypeWater) {
         WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = waterController;
     }
