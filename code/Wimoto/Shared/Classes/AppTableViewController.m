@@ -1,18 +1,18 @@
 //
-//  AppViewController.m
+//  AppTableViewController.m
 //  Wimoto
 //
-//  Created by MC700 on 7/30/13.
+//  Created by Danny Kokarev on 03.12.13.
 //
 //
 
-#import "AppViewController.h"
+#import "AppTableViewController.h"
 
-@interface AppViewController ()
+@interface AppTableViewController ()
 
 @end
 
-@implementation AppViewController
+@implementation AppTableViewController
 
 - (id)init
 {

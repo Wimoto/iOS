@@ -15,13 +15,39 @@
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
+		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
+		30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8F184E139F000C651A /* CoreVideo.framework */; };
+		30B29E92184E13AA000C651A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E91184E13AA000C651A /* libiconv.dylib */; };
+		30B487C8184DF328002B0CD8 /* IISideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487C3184DF328002B0CD8 /* IISideController.m */; };
+		30B487C9184DF328002B0CD8 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487C5184DF328002B0CD8 /* IIViewDeckController.m */; };
+		30B487CA184DF328002B0CD8 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487C7184DF328002B0CD8 /* IIWrapController.m */; };
+		30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487CE184DF3A4002B0CD8 /* LeftMenuViewController.m */; };
+		30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487D5184DF801002B0CD8 /* RightMenuViewController.m */; };
+		30B487DD184DFA69002B0CD8 /* SensorDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */; };
+		30B487E0184DFBDA002B0CD8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B487DF184DFBDA002B0CD8 /* QuartzCore.framework */; };
+		30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */; };
+		30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */; };
+		30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E3184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib */; };
+		30B487E8184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E4184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib */; };
+		30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487EA184DFCD6002B0CD8 /* AppTableViewController.m */; };
+		30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487ED184DFE33002B0CD8 /* RightMenuCell.m */; };
+		30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487EF184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib */; };
+		30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487F5184E0A4F002B0CD8 /* HelpViewController.m */; };
+		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
+		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
+		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		30B48820184E0E16002B0CD8 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B4881A184E0E15002B0CD8 /* libzbar.a */; };
+		30B48821184E0E17002B0CD8 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881C184E0E15002B0CD8 /* zbar-back.png */; };
+		30B48822184E0E17002B0CD8 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881D184E0E16002B0CD8 /* zbar-help.html */; };
+		30B48823184E0E17002B0CD8 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */; };
+		30B48824184E0E17002B0CD8 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881F184E0E16002B0CD8 /* zbar-samples.png */; };
 		90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */; };
 		90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA817A7CF2F00353F80 /* Default.png */; };
 		90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA917A7CF2F00353F80 /* Default@2x.png */; };
 		90CFFEB517A7CF9C00353F80 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CFFEB317A7CF9C00353F80 /* DashboardViewController.m */; };
 		90CFFEBE17A7CFFD00353F80 /* DashboardViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEBD17A7CFFD00353F80 /* DashboardViewController_iPad.xib */; };
 		90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CFFEC217A7D01700353F80 /* AppViewController.m */; };
-		90CFFEC517A7D26E00353F80 /* DashboardViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEC417A7D26E00353F80 /* DashboardViewController_iPhone.xib */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +63,63 @@
 		2860E32D111B888700E27156 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Shared/main.m; sourceTree = "<group>"; };
+		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		30B29E8F184E139F000C651A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		30B29E91184E13AA000C651A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		30B487C2184DF328002B0CD8 /* IISideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IISideController.h; sourceTree = "<group>"; };
+		30B487C3184DF328002B0CD8 /* IISideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IISideController.m; sourceTree = "<group>"; };
+		30B487C4184DF328002B0CD8 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		30B487C5184DF328002B0CD8 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		30B487C6184DF328002B0CD8 /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
+		30B487C7184DF328002B0CD8 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
+		30B487CD184DF3A4002B0CD8 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewController.h; sourceTree = "<group>"; };
+		30B487CE184DF3A4002B0CD8 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
+		30B487D4184DF801002B0CD8 /* RightMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMenuViewController.h; sourceTree = "<group>"; };
+		30B487D5184DF801002B0CD8 /* RightMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightMenuViewController.m; sourceTree = "<group>"; };
+		30B487DA184DFA69002B0CD8 /* SensorDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorDataViewController.h; sourceTree = "<group>"; };
+		30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorDataViewController.m; sourceTree = "<group>"; };
+		30B487DF184DFBDA002B0CD8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B487E3184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightMenuViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B487E4184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorDataViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B487E9184DFCD6002B0CD8 /* AppTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppTableViewController.h; sourceTree = "<group>"; };
+		30B487EA184DFCD6002B0CD8 /* AppTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppTableViewController.m; sourceTree = "<group>"; };
+		30B487EC184DFE33002B0CD8 /* RightMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMenuCell.h; sourceTree = "<group>"; };
+		30B487ED184DFE33002B0CD8 /* RightMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightMenuCell.m; sourceTree = "<group>"; };
+		30B487EF184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightMenuCell_iPhone.xib; sourceTree = "<group>"; };
+		30B487F4184E0A4F002B0CD8 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		30B487F5184E0A4F002B0CD8 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		30B487F9184E0A6C002B0CD8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B48806184E0E15002B0CD8 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		30B48807184E0E15002B0CD8 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		30B48808184E0E15002B0CD8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		30B48809184E0E15002B0CD8 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		30B4880A184E0E15002B0CD8 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		30B4880B184E0E15002B0CD8 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		30B4880C184E0E15002B0CD8 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		30B4880D184E0E15002B0CD8 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		30B4880E184E0E15002B0CD8 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		30B4880F184E0E15002B0CD8 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		30B48810184E0E15002B0CD8 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
+		30B48811184E0E15002B0CD8 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		30B48812184E0E15002B0CD8 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		30B48813184E0E15002B0CD8 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		30B48814184E0E15002B0CD8 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		30B48815184E0E15002B0CD8 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		30B48816184E0E15002B0CD8 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		30B48817184E0E15002B0CD8 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		30B48818184E0E15002B0CD8 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		30B48819184E0E15002B0CD8 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		30B4881A184E0E15002B0CD8 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		30B4881C184E0E15002B0CD8 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		30B4881D184E0E16002B0CD8 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		30B4881F184E0E16002B0CD8 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		90CFFEA817A7CF2F00353F80 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -46,7 +129,6 @@
 		90CFFEBD17A7CFFD00353F80 /* DashboardViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController_iPad.xib; sourceTree = "<group>"; };
 		90CFFEC117A7D01700353F80 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
 		90CFFEC217A7D01700353F80 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
-		90CFFEC417A7D26E00353F80 /* DashboardViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController_iPhone.xib; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -55,7 +137,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B29E92184E13AA000C651A /* libiconv.dylib in Frameworks */,
+				30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */,
+				30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */,
+				30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */,
+				30B487E0184DFBDA002B0CD8 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				30B48820184E0E16002B0CD8 /* libzbar.a in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
@@ -75,7 +163,13 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				90CFFEB717A7CFC900353F80 /* DashboardScreen */,
+				30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */,
+				30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */,
+				30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */,
+				30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */,
+				30B487E3184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib */,
+				30B487EF184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib */,
+				30B487E4184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib */,
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
@@ -120,11 +214,149 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30B29E91184E13AA000C651A /* libiconv.dylib */,
+				30B29E8F184E139F000C651A /* CoreVideo.framework */,
+				30B29E8D184E1396000C651A /* CoreMedia.framework */,
+				30B29E8B184E138B000C651A /* AVFoundation.framework */,
+				30B487DF184DFBDA002B0CD8 /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		30B487C0184DF328002B0CD8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				30B48802184E0E15002B0CD8 /* ZBarSDK */,
+				30B487C1184DF328002B0CD8 /* ViewDeck */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		30B487C1184DF328002B0CD8 /* ViewDeck */ = {
+			isa = PBXGroup;
+			children = (
+				30B487C2184DF328002B0CD8 /* IISideController.h */,
+				30B487C3184DF328002B0CD8 /* IISideController.m */,
+				30B487C4184DF328002B0CD8 /* IIViewDeckController.h */,
+				30B487C5184DF328002B0CD8 /* IIViewDeckController.m */,
+				30B487C6184DF328002B0CD8 /* IIWrapController.h */,
+				30B487C7184DF328002B0CD8 /* IIWrapController.m */,
+			);
+			path = ViewDeck;
+			sourceTree = "<group>";
+		};
+		30B487CB184DF381002B0CD8 /* LeftMenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B487CD184DF3A4002B0CD8 /* LeftMenuViewController.h */,
+				30B487CE184DF3A4002B0CD8 /* LeftMenuViewController.m */,
+			);
+			path = LeftMenuScreen;
+			sourceTree = "<group>";
+		};
+		30B487CC184DF381002B0CD8 /* RightMenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B487D4184DF801002B0CD8 /* RightMenuViewController.h */,
+				30B487D5184DF801002B0CD8 /* RightMenuViewController.m */,
+				30B487EC184DFE33002B0CD8 /* RightMenuCell.h */,
+				30B487ED184DFE33002B0CD8 /* RightMenuCell.m */,
+			);
+			path = RightMenuScreen;
+			sourceTree = "<group>";
+		};
+		30B487D9184DFA54002B0CD8 /* SensorDataScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B487DA184DFA69002B0CD8 /* SensorDataViewController.h */,
+				30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */,
+			);
+			path = SensorDataScreen;
+			sourceTree = "<group>";
+		};
+		30B487F1184E0A32002B0CD8 /* HelpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B487F4184E0A4F002B0CD8 /* HelpViewController.h */,
+				30B487F5184E0A4F002B0CD8 /* HelpViewController.m */,
+			);
+			path = HelpScreen;
+			sourceTree = "<group>";
+		};
+		30B487F3184E0A32002B0CD8 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B487F9184E0A6C002B0CD8 /* SettingsViewController.h */,
+				30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		30B48802184E0E15002B0CD8 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				30B48803184E0E15002B0CD8 /* Headers */,
+				30B4881A184E0E15002B0CD8 /* libzbar.a */,
+				30B4881B184E0E15002B0CD8 /* Resources */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		30B48803184E0E15002B0CD8 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				30B48804184E0E15002B0CD8 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		30B48804184E0E15002B0CD8 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				30B48805184E0E15002B0CD8 /* zbar */,
+				30B4880F184E0E15002B0CD8 /* zbar.h */,
+				30B48810184E0E15002B0CD8 /* ZBarCameraSimulator.h */,
+				30B48811184E0E15002B0CD8 /* ZBarCaptureReader.h */,
+				30B48812184E0E15002B0CD8 /* ZBarHelpController.h */,
+				30B48813184E0E15002B0CD8 /* ZBarImage.h */,
+				30B48814184E0E15002B0CD8 /* ZBarImageScanner.h */,
+				30B48815184E0E15002B0CD8 /* ZBarReaderController.h */,
+				30B48816184E0E15002B0CD8 /* ZBarReaderView.h */,
+				30B48817184E0E15002B0CD8 /* ZBarReaderViewController.h */,
+				30B48818184E0E15002B0CD8 /* ZBarSDK.h */,
+				30B48819184E0E15002B0CD8 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		30B48805184E0E15002B0CD8 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				30B48806184E0E15002B0CD8 /* Decoder.h */,
+				30B48807184E0E15002B0CD8 /* Exception.h */,
+				30B48808184E0E15002B0CD8 /* Image.h */,
+				30B48809184E0E15002B0CD8 /* ImageScanner.h */,
+				30B4880A184E0E15002B0CD8 /* Processor.h */,
+				30B4880B184E0E15002B0CD8 /* Scanner.h */,
+				30B4880C184E0E15002B0CD8 /* Symbol.h */,
+				30B4880D184E0E15002B0CD8 /* Video.h */,
+				30B4880E184E0E15002B0CD8 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		30B4881B184E0E15002B0CD8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				30B4881C184E0E15002B0CD8 /* zbar-back.png */,
+				30B4881D184E0E16002B0CD8 /* zbar-help.html */,
+				30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */,
+				30B4881F184E0E16002B0CD8 /* zbar-samples.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		90CFFEA617A7CF2F00353F80 /* Shared */ = {
@@ -149,9 +381,17 @@
 		90CFFEB017A7CF8000353F80 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				30B487F1184E0A32002B0CD8 /* HelpScreen */,
+				30B487F3184E0A32002B0CD8 /* SettingsScreen */,
+				30B487D9184DFA54002B0CD8 /* SensorDataScreen */,
+				30B487CB184DF381002B0CD8 /* LeftMenuScreen */,
+				30B487CC184DF381002B0CD8 /* RightMenuScreen */,
+				30B487C0184DF328002B0CD8 /* Utils */,
 				90CFFEB117A7CF8000353F80 /* DashboardScreen */,
 				90CFFEC117A7D01700353F80 /* AppViewController.h */,
 				90CFFEC217A7D01700353F80 /* AppViewController.m */,
+				30B487E9184DFCD6002B0CD8 /* AppTableViewController.h */,
+				30B487EA184DFCD6002B0CD8 /* AppTableViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -161,14 +401,6 @@
 			children = (
 				90CFFEB217A7CF9C00353F80 /* DashboardViewController.h */,
 				90CFFEB317A7CF9C00353F80 /* DashboardViewController.m */,
-			);
-			path = DashboardScreen;
-			sourceTree = "<group>";
-		};
-		90CFFEB717A7CFC900353F80 /* DashboardScreen */ = {
-			isa = PBXGroup;
-			children = (
-				90CFFEC417A7D26E00353F80 /* DashboardViewController_iPhone.xib */,
 			);
 			path = DashboardScreen;
 			sourceTree = "<group>";
@@ -233,14 +465,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */,
+				30B48823184E0E17002B0CD8 /* zbar-helpicons.png in Resources */,
+				30B48824184E0E17002B0CD8 /* zbar-samples.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
+				30B48821184E0E17002B0CD8 /* zbar-back.png in Resources */,
+				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
+				30B48822184E0E17002B0CD8 /* zbar-help.html in Resources */,
 				90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */,
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
+				30B487E8184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib in Resources */,
+				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90CFFEBE17A7CFFD00353F80 /* DashboardViewController_iPad.xib in Resources */,
-				90CFFEC517A7D26E00353F80 /* DashboardViewController_iPhone.xib in Resources */,
 				90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */,
+				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
+				30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,10 +494,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
+				30B487C9184DF328002B0CD8 /* IIViewDeckController.m in Sources */,
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
+				30B487C8184DF328002B0CD8 /* IISideController.m in Sources */,
+				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
+				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
+				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
+				30B487CA184DF328002B0CD8 /* IIWrapController.m in Sources */,
 				90CFFEB517A7CF9C00353F80 /* DashboardViewController.m in Sources */,
+				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
+				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
+				30B487DD184DFA69002B0CD8 /* SensorDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +526,12 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/danny/Documents/WimotoGit/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
+				);
 				PRODUCT_NAME = Wimoto;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -288,8 +545,13 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/danny/Documents/WimotoGit/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
+				);
 				PRODUCT_NAME = Wimoto;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};
@@ -303,6 +565,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -317,6 +580,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};

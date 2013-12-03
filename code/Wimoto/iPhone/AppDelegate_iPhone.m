@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate_iPhone.h"
+#import "LeftMenuViewController.h"
+#import "IIViewDeckController.h"
+#import "RightMenuViewController.h"
+#import "SensorDataViewController.h"
 
 @implementation AppDelegate_iPhone
 
@@ -15,9 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    self.window.rootViewController = self.navigationController;
+    LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
+    RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
+    SensorDataViewController *sensorDataController = [[SensorDataViewController alloc] init];
+    UINavigationController *sensorNavController = [[UINavigationController alloc] initWithRootViewController:sensorDataController];
+    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:sensorNavController leftViewController:leftController rightViewController:rightController];
+    deckController.leftSize = 60.0;
+    deckController.rightSize = 60.0;
+    self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
