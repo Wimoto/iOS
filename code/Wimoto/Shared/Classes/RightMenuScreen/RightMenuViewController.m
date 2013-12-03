@@ -8,7 +8,12 @@
 
 #import "RightMenuViewController.h"
 #import "RightMenuCell.h"
-#import "SensorDataViewController.h"
+
+#import "ClimateSensorDetailsViewController.h"
+#import "GrowSensorDetailsViewController.h"
+#import "SentrySensorDetailsViewController.h"
+#import "ThermoSensorDetailsViewController.h"
+#import "WaterSensorDetailsViewController.h"
 
 @interface RightMenuViewController ()
 
@@ -22,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.sensorsArray = [NSMutableArray arrayWithObjects:@"Sensor 1", @"Sensor 2", @"Sensor 3", nil];
+    self.sensorsArray = [NSMutableArray arrayWithObjects:@"Climate Sensor", @"Grow Sensor", @"Sentry Sensor", @"Thermo Sensor", @"Water Sensor", nil];
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
@@ -60,10 +65,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SensorDataViewController *sensorDataController = [[SensorDataViewController alloc] init];
-    UINavigationController *sensorDataNavController = [[UINavigationController alloc] initWithRootViewController:sensorDataController];
-    self.viewDeckController.centerController = sensorDataNavController;
-    [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:^(IIViewDeckController *controller, BOOL success) {}];
+    
+    if (indexPath.row==0) {
+        ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
+        self.viewDeckController.centerController = climateController;
+    } else if (indexPath.row==1) {
+        GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
+        self.viewDeckController.centerController = growController;
+    } else if (indexPath.row==2) {
+        SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
+        self.viewDeckController.centerController = sentryController;
+    } else if (indexPath.row==3) {
+        ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
+        self.viewDeckController.centerController = thermoController;
+    } else if (indexPath.row==4) {
+        WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
+        self.viewDeckController.centerController = waterController;
+    }
+    [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
 
 @end

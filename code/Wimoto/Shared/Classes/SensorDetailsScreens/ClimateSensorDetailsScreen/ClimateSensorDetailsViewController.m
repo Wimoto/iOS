@@ -1,23 +1,22 @@
 //
-//  SensorDataViewController.m
+//  ClimateSensorDetailsViewController.m
 //  Wimoto
 //
-//  Created by Danny Kokarev on 03.12.13.
+//  Created by MC700 on 12/3/13.
 //
 //
 
-#import "SensorDataViewController.h"
+#import "ClimateSensorDetailsViewController.h"
 
-@interface SensorDataViewController ()
+@interface ClimateSensorDetailsViewController ()
 
 @end
 
-@implementation SensorDataViewController
+@implementation ClimateSensorDetailsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"Sensor data";
     // Do any additional setup after loading the view from its nib.
 }
 

@@ -24,7 +24,6 @@
 		30B487CA184DF328002B0CD8 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487C7184DF328002B0CD8 /* IIWrapController.m */; };
 		30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487CE184DF3A4002B0CD8 /* LeftMenuViewController.m */; };
 		30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487D5184DF801002B0CD8 /* RightMenuViewController.m */; };
-		30B487DD184DFA69002B0CD8 /* SensorDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */; };
 		30B487E0184DFBDA002B0CD8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B487DF184DFBDA002B0CD8 /* QuartzCore.framework */; };
 		30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */; };
 		30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */; };
@@ -37,17 +36,27 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
-		30B48820184E0E16002B0CD8 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B4881A184E0E15002B0CD8 /* libzbar.a */; };
-		30B48821184E0E17002B0CD8 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881C184E0E15002B0CD8 /* zbar-back.png */; };
-		30B48822184E0E17002B0CD8 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881D184E0E16002B0CD8 /* zbar-help.html */; };
-		30B48823184E0E17002B0CD8 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */; };
-		30B48824184E0E17002B0CD8 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4881F184E0E16002B0CD8 /* zbar-samples.png */; };
 		90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */; };
 		90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA817A7CF2F00353F80 /* Default.png */; };
 		90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA917A7CF2F00353F80 /* Default@2x.png */; };
 		90CFFEB517A7CF9C00353F80 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CFFEB317A7CF9C00353F80 /* DashboardViewController.m */; };
 		90CFFEBE17A7CFFD00353F80 /* DashboardViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEBD17A7CFFD00353F80 /* DashboardViewController_iPad.xib */; };
 		90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CFFEC217A7D01700353F80 /* AppViewController.m */; };
+		90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4AB8D184E528E004DDB1F /* ClimateSensorDetailsViewController.m */; };
+		90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */; };
+		90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4AB95184E53FC004DDB1F /* GrowSensorDetailsViewController.m */; };
+		90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */; };
+		90D4ABB9184E553E004DDB1F /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D4ABB3184E553E004DDB1F /* libzbar.a */; };
+		90D4ABBA184E553E004DDB1F /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABB5184E553E004DDB1F /* zbar-back.png */; };
+		90D4ABBB184E553E004DDB1F /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABB6184E553E004DDB1F /* zbar-help.html */; };
+		90D4ABBC184E553E004DDB1F /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABB7184E553E004DDB1F /* zbar-helpicons.png */; };
+		90D4ABBD184E553E004DDB1F /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABB8184E553E004DDB1F /* zbar-samples.png */; };
+		90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4ABBF184E55BE004DDB1F /* SentrySensorDetailsViewController.m */; };
+		90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */; };
+		90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4ABC6184E562F004DDB1F /* ThermoSensorDetailsViewController.m */; };
+		90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABCA184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib */; };
+		90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4ABCD184E56A4004DDB1F /* WaterSensorDetailsViewController.m */; };
+		90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -77,8 +86,6 @@
 		30B487CE184DF3A4002B0CD8 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
 		30B487D4184DF801002B0CD8 /* RightMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMenuViewController.h; sourceTree = "<group>"; };
 		30B487D5184DF801002B0CD8 /* RightMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightMenuViewController.m; sourceTree = "<group>"; };
-		30B487DA184DFA69002B0CD8 /* SensorDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorDataViewController.h; sourceTree = "<group>"; };
-		30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorDataViewController.m; sourceTree = "<group>"; };
 		30B487DF184DFBDA002B0CD8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -95,31 +102,6 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
-		30B48806184E0E15002B0CD8 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
-		30B48807184E0E15002B0CD8 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
-		30B48808184E0E15002B0CD8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		30B48809184E0E15002B0CD8 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
-		30B4880A184E0E15002B0CD8 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
-		30B4880B184E0E15002B0CD8 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
-		30B4880C184E0E15002B0CD8 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
-		30B4880D184E0E15002B0CD8 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
-		30B4880E184E0E15002B0CD8 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
-		30B4880F184E0E15002B0CD8 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
-		30B48810184E0E15002B0CD8 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
-		30B48811184E0E15002B0CD8 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
-		30B48812184E0E15002B0CD8 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
-		30B48813184E0E15002B0CD8 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
-		30B48814184E0E15002B0CD8 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
-		30B48815184E0E15002B0CD8 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
-		30B48816184E0E15002B0CD8 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
-		30B48817184E0E15002B0CD8 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
-		30B48818184E0E15002B0CD8 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
-		30B48819184E0E15002B0CD8 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
-		30B4881A184E0E15002B0CD8 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
-		30B4881C184E0E15002B0CD8 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
-		30B4881D184E0E16002B0CD8 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
-		30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
-		30B4881F184E0E16002B0CD8 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		90CFFEA817A7CF2F00353F80 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -129,6 +111,46 @@
 		90CFFEBD17A7CFFD00353F80 /* DashboardViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController_iPad.xib; sourceTree = "<group>"; };
 		90CFFEC117A7D01700353F80 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
 		90CFFEC217A7D01700353F80 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
+		90D4AB8C184E528E004DDB1F /* ClimateSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClimateSensorDetailsViewController.h; sourceTree = "<group>"; };
+		90D4AB8D184E528E004DDB1F /* ClimateSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClimateSensorDetailsViewController.m; sourceTree = "<group>"; };
+		90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClimateSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		90D4AB94184E53FC004DDB1F /* GrowSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensorDetailsViewController.h; sourceTree = "<group>"; };
+		90D4AB95184E53FC004DDB1F /* GrowSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensorDetailsViewController.m; sourceTree = "<group>"; };
+		90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GrowSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		90D4AB9F184E553E004DDB1F /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		90D4ABA0184E553E004DDB1F /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		90D4ABA1184E553E004DDB1F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		90D4ABA2184E553E004DDB1F /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		90D4ABA3184E553E004DDB1F /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		90D4ABA4184E553E004DDB1F /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		90D4ABA5184E553E004DDB1F /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		90D4ABA6184E553E004DDB1F /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		90D4ABA7184E553E004DDB1F /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		90D4ABA8184E553E004DDB1F /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		90D4ABA9184E553E004DDB1F /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
+		90D4ABAA184E553E004DDB1F /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		90D4ABAB184E553E004DDB1F /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		90D4ABAC184E553E004DDB1F /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		90D4ABAD184E553E004DDB1F /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		90D4ABAE184E553E004DDB1F /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		90D4ABAF184E553E004DDB1F /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		90D4ABB0184E553E004DDB1F /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		90D4ABB1184E553E004DDB1F /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		90D4ABB2184E553E004DDB1F /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		90D4ABB3184E553E004DDB1F /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		90D4ABB5184E553E004DDB1F /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		90D4ABB6184E553E004DDB1F /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		90D4ABB7184E553E004DDB1F /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		90D4ABB8184E553E004DDB1F /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		90D4ABBE184E55BE004DDB1F /* SentrySensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentrySensorDetailsViewController.h; sourceTree = "<group>"; };
+		90D4ABBF184E55BE004DDB1F /* SentrySensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentrySensorDetailsViewController.m; sourceTree = "<group>"; };
+		90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SentrySensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		90D4ABC5184E562F004DDB1F /* ThermoSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThermoSensorDetailsViewController.h; sourceTree = "<group>"; };
+		90D4ABC6184E562F004DDB1F /* ThermoSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoSensorDetailsViewController.m; sourceTree = "<group>"; };
+		90D4ABCA184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		90D4ABCC184E56A4004DDB1F /* WaterSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterSensorDetailsViewController.h; sourceTree = "<group>"; };
+		90D4ABCD184E56A4004DDB1F /* WaterSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterSensorDetailsViewController.m; sourceTree = "<group>"; };
+		90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -139,11 +161,11 @@
 			files = (
 				30B29E92184E13AA000C651A /* libiconv.dylib in Frameworks */,
 				30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */,
+				90D4ABB9184E553E004DDB1F /* libzbar.a in Frameworks */,
 				30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */,
 				30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */,
 				30B487E0184DFBDA002B0CD8 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				30B48820184E0E16002B0CD8 /* libzbar.a in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
@@ -163,6 +185,7 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				90D4AB91184E5336004DDB1F /* SensorDetailsScreens */,
 				30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */,
 				30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */,
 				30B487E1184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib */,
@@ -229,7 +252,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				30B48802184E0E15002B0CD8 /* ZBarSDK */,
+				90D4AB9B184E553E004DDB1F /* ZBarSDK */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 			);
 			path = Utils;
@@ -268,15 +291,6 @@
 			path = RightMenuScreen;
 			sourceTree = "<group>";
 		};
-		30B487D9184DFA54002B0CD8 /* SensorDataScreen */ = {
-			isa = PBXGroup;
-			children = (
-				30B487DA184DFA69002B0CD8 /* SensorDataViewController.h */,
-				30B487DB184DFA69002B0CD8 /* SensorDataViewController.m */,
-			);
-			path = SensorDataScreen;
-			sourceTree = "<group>";
-		};
 		30B487F1184E0A32002B0CD8 /* HelpScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,70 +307,6 @@
 				30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */,
 			);
 			path = SettingsScreen;
-			sourceTree = "<group>";
-		};
-		30B48802184E0E15002B0CD8 /* ZBarSDK */ = {
-			isa = PBXGroup;
-			children = (
-				30B48803184E0E15002B0CD8 /* Headers */,
-				30B4881A184E0E15002B0CD8 /* libzbar.a */,
-				30B4881B184E0E15002B0CD8 /* Resources */,
-			);
-			path = ZBarSDK;
-			sourceTree = "<group>";
-		};
-		30B48803184E0E15002B0CD8 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				30B48804184E0E15002B0CD8 /* ZBarSDK */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		30B48804184E0E15002B0CD8 /* ZBarSDK */ = {
-			isa = PBXGroup;
-			children = (
-				30B48805184E0E15002B0CD8 /* zbar */,
-				30B4880F184E0E15002B0CD8 /* zbar.h */,
-				30B48810184E0E15002B0CD8 /* ZBarCameraSimulator.h */,
-				30B48811184E0E15002B0CD8 /* ZBarCaptureReader.h */,
-				30B48812184E0E15002B0CD8 /* ZBarHelpController.h */,
-				30B48813184E0E15002B0CD8 /* ZBarImage.h */,
-				30B48814184E0E15002B0CD8 /* ZBarImageScanner.h */,
-				30B48815184E0E15002B0CD8 /* ZBarReaderController.h */,
-				30B48816184E0E15002B0CD8 /* ZBarReaderView.h */,
-				30B48817184E0E15002B0CD8 /* ZBarReaderViewController.h */,
-				30B48818184E0E15002B0CD8 /* ZBarSDK.h */,
-				30B48819184E0E15002B0CD8 /* ZBarSymbol.h */,
-			);
-			path = ZBarSDK;
-			sourceTree = "<group>";
-		};
-		30B48805184E0E15002B0CD8 /* zbar */ = {
-			isa = PBXGroup;
-			children = (
-				30B48806184E0E15002B0CD8 /* Decoder.h */,
-				30B48807184E0E15002B0CD8 /* Exception.h */,
-				30B48808184E0E15002B0CD8 /* Image.h */,
-				30B48809184E0E15002B0CD8 /* ImageScanner.h */,
-				30B4880A184E0E15002B0CD8 /* Processor.h */,
-				30B4880B184E0E15002B0CD8 /* Scanner.h */,
-				30B4880C184E0E15002B0CD8 /* Symbol.h */,
-				30B4880D184E0E15002B0CD8 /* Video.h */,
-				30B4880E184E0E15002B0CD8 /* Window.h */,
-			);
-			path = zbar;
-			sourceTree = "<group>";
-		};
-		30B4881B184E0E15002B0CD8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				30B4881C184E0E15002B0CD8 /* zbar-back.png */,
-				30B4881D184E0E16002B0CD8 /* zbar-help.html */,
-				30B4881E184E0E16002B0CD8 /* zbar-helpicons.png */,
-				30B4881F184E0E16002B0CD8 /* zbar-samples.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		90CFFEA617A7CF2F00353F80 /* Shared */ = {
@@ -383,7 +333,7 @@
 			children = (
 				30B487F1184E0A32002B0CD8 /* HelpScreen */,
 				30B487F3184E0A32002B0CD8 /* SettingsScreen */,
-				30B487D9184DFA54002B0CD8 /* SensorDataScreen */,
+				90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */,
 				30B487CB184DF381002B0CD8 /* LeftMenuScreen */,
 				30B487CC184DF381002B0CD8 /* RightMenuScreen */,
 				30B487C0184DF328002B0CD8 /* Utils */,
@@ -411,6 +361,139 @@
 				90CFFEBD17A7CFFD00353F80 /* DashboardViewController_iPad.xib */,
 			);
 			path = DashboardScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */,
+				90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */,
+				90D4AB89184E5270004DDB1F /* SentrySensorDetailsScreen */,
+				90D4AB8A184E5270004DDB1F /* ThermoSensorDetailsScreen */,
+				90D4AB8B184E5270004DDB1F /* WaterSensorDetailsScreen */,
+			);
+			path = SensorDetailsScreens;
+			sourceTree = "<group>";
+		};
+		90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB8C184E528E004DDB1F /* ClimateSensorDetailsViewController.h */,
+				90D4AB8D184E528E004DDB1F /* ClimateSensorDetailsViewController.m */,
+			);
+			path = ClimateSensorDetailsScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB94184E53FC004DDB1F /* GrowSensorDetailsViewController.h */,
+				90D4AB95184E53FC004DDB1F /* GrowSensorDetailsViewController.m */,
+			);
+			path = GrowSensorDetailsScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB89184E5270004DDB1F /* SentrySensorDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90D4ABBE184E55BE004DDB1F /* SentrySensorDetailsViewController.h */,
+				90D4ABBF184E55BE004DDB1F /* SentrySensorDetailsViewController.m */,
+			);
+			path = SentrySensorDetailsScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB8A184E5270004DDB1F /* ThermoSensorDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90D4ABC5184E562F004DDB1F /* ThermoSensorDetailsViewController.h */,
+				90D4ABC6184E562F004DDB1F /* ThermoSensorDetailsViewController.m */,
+			);
+			path = ThermoSensorDetailsScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB8B184E5270004DDB1F /* WaterSensorDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90D4ABCC184E56A4004DDB1F /* WaterSensorDetailsViewController.h */,
+				90D4ABCD184E56A4004DDB1F /* WaterSensorDetailsViewController.m */,
+			);
+			path = WaterSensorDetailsScreen;
+			sourceTree = "<group>";
+		};
+		90D4AB91184E5336004DDB1F /* SensorDetailsScreens */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */,
+				90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */,
+				90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */,
+				90D4ABCA184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib */,
+				90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */,
+			);
+			path = SensorDetailsScreens;
+			sourceTree = "<group>";
+		};
+		90D4AB9B184E553E004DDB1F /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB9C184E553E004DDB1F /* Headers */,
+				90D4ABB3184E553E004DDB1F /* libzbar.a */,
+				90D4ABB4184E553E004DDB1F /* Resources */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		90D4AB9C184E553E004DDB1F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB9D184E553E004DDB1F /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		90D4AB9D184E553E004DDB1F /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB9E184E553E004DDB1F /* zbar */,
+				90D4ABA8184E553E004DDB1F /* zbar.h */,
+				90D4ABA9184E553E004DDB1F /* ZBarCameraSimulator.h */,
+				90D4ABAA184E553E004DDB1F /* ZBarCaptureReader.h */,
+				90D4ABAB184E553E004DDB1F /* ZBarHelpController.h */,
+				90D4ABAC184E553E004DDB1F /* ZBarImage.h */,
+				90D4ABAD184E553E004DDB1F /* ZBarImageScanner.h */,
+				90D4ABAE184E553E004DDB1F /* ZBarReaderController.h */,
+				90D4ABAF184E553E004DDB1F /* ZBarReaderView.h */,
+				90D4ABB0184E553E004DDB1F /* ZBarReaderViewController.h */,
+				90D4ABB1184E553E004DDB1F /* ZBarSDK.h */,
+				90D4ABB2184E553E004DDB1F /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		90D4AB9E184E553E004DDB1F /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				90D4AB9F184E553E004DDB1F /* Decoder.h */,
+				90D4ABA0184E553E004DDB1F /* Exception.h */,
+				90D4ABA1184E553E004DDB1F /* Image.h */,
+				90D4ABA2184E553E004DDB1F /* ImageScanner.h */,
+				90D4ABA3184E553E004DDB1F /* Processor.h */,
+				90D4ABA4184E553E004DDB1F /* Scanner.h */,
+				90D4ABA5184E553E004DDB1F /* Symbol.h */,
+				90D4ABA6184E553E004DDB1F /* Video.h */,
+				90D4ABA7184E553E004DDB1F /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		90D4ABB4184E553E004DDB1F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90D4ABB5184E553E004DDB1F /* zbar-back.png */,
+				90D4ABB6184E553E004DDB1F /* zbar-help.html */,
+				90D4ABB7184E553E004DDB1F /* zbar-helpicons.png */,
+				90D4ABB8184E553E004DDB1F /* zbar-samples.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,21 +549,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */,
-				30B48823184E0E17002B0CD8 /* zbar-helpicons.png in Resources */,
-				30B48824184E0E17002B0CD8 /* zbar-samples.png in Resources */,
+				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
+				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
+				90D4ABBB184E553E004DDB1F /* zbar-help.html in Resources */,
+				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
-				30B48821184E0E17002B0CD8 /* zbar-back.png in Resources */,
 				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
-				30B48822184E0E17002B0CD8 /* zbar-help.html in Resources */,
+				90D4ABBC184E553E004DDB1F /* zbar-helpicons.png in Resources */,
 				90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */,
+				90D4ABBA184E553E004DDB1F /* zbar-back.png in Resources */,
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
 				30B487E8184DFCB7002B0CD8 /* SensorDataViewController_iPhone.xib in Resources */,
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
+				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				90CFFEBE17A7CFFD00353F80 /* DashboardViewController_iPad.xib in Resources */,
 				90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */,
+				90D4ABBD184E553E004DDB1F /* zbar-samples.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
 				30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */,
 			);
@@ -493,6 +581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				30B487C9184DF328002B0CD8 /* IIViewDeckController.m in Sources */,
@@ -504,10 +593,13 @@
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				30B487CA184DF328002B0CD8 /* IIWrapController.m in Sources */,
 				90CFFEB517A7CF9C00353F80 /* DashboardViewController.m in Sources */,
+				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
+				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
+				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
+				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
-				30B487DD184DFA69002B0CD8 /* SensorDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +620,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/danny/Documents/WimotoGit/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
+					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
 				PRODUCT_NAME = Wimoto;
 				VALID_ARCHS = "arm64 armv7";
@@ -547,7 +639,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/danny/Documents/WimotoGit/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
+					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
 				PRODUCT_NAME = Wimoto;
 				VALIDATE_PRODUCT = YES;

@@ -10,7 +10,7 @@
 #import "LeftMenuViewController.h"
 #import "IIViewDeckController.h"
 #import "RightMenuViewController.h"
-#import "SensorDataViewController.h"
+#import "ClimateSensorDetailsViewController.h"
 
 @implementation AppDelegate_iPhone
 
@@ -21,9 +21,8 @@
     
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
-    SensorDataViewController *sensorDataController = [[SensorDataViewController alloc] init];
-    UINavigationController *sensorNavController = [[UINavigationController alloc] initWithRootViewController:sensorDataController];
-    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:sensorNavController leftViewController:leftController rightViewController:rightController];
+    ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
+    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:climateController leftViewController:leftController rightViewController:rightController];
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     self.window.rootViewController = deckController;
