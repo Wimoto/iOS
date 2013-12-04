@@ -7,7 +7,12 @@
 //
 
 #import "AppViewController.h"
+#import "ASBSparkLineView.h"
+
+@class ASBSparkLineView;
+
 
 @interface ClimateSensorDetailsViewController : AppViewController
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *sparklineTemperature;
 
 @end

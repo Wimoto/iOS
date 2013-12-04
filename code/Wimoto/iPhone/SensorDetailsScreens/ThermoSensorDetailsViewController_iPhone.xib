@@ -74,11 +74,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.62227150229999995" blue="0.066370833439999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" id="B71-P9-8dJ" userLabel="sparkLineLight">
-                    <rect key="frame" x="85" y="456" width="100" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="0.62227150229999995" blue="0.066370833439999999" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
                 <view contentMode="scaleToFill" id="pIp-0X-2YB" userLabel="sparkLineHumidity" customClass="ASBSparkLineView">
                     <rect key="frame" x="85" y="295" width="100" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -123,6 +118,14 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="9sN-mJ-jof">
+                    <rect key="frame" x="-2" y="474" width="325" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="Gzl-2m-4wt">
+                    <rect key="frame" x="208" y="480" width="100" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="0.62227150229999995" blue="0.066370833439999999" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -131,10 +134,12 @@
     </objects>
     <resources>
         <image name="alarm_clock-512-white.png" width="512" height="512"/>
+        <image name="border.png" width="1591" height="350"/>
         <image name="cassette.png" width="512" height="512"/>
         <image name="cloud-download.png" width="549" height="512"/>
         <image name="cloud-upload.png" width="549" height="512"/>
         <image name="infrared_thermometer-512.png" width="512" height="512"/>
         <image name="thermometer-512.png" width="512" height="512"/>
+        <image name="wimoto.png" width="464" height="147"/>
     </resources>
 </document>

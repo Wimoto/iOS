@@ -148,6 +148,14 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="nVI-WJ-SnU">
+                    <rect key="frame" x="-2" y="474" width="325" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="QGq-lq-5jH">
+                    <rect key="frame" x="214" y="480" width="100" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.60000002384185791" green="0.91372555494308472" blue="0.48627454042434692" alpha="1" colorSpace="deviceRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -156,11 +164,13 @@
     </objects>
     <resources>
         <image name="alarm_clock-512-white.png" width="512" height="512"/>
+        <image name="border.png" width="1591" height="350"/>
         <image name="cassette.png" width="512" height="512"/>
         <image name="cloud-download.png" width="549" height="512"/>
         <image name="cloud-upload.png" width="549" height="512"/>
         <image name="plant_temperature-512.png" width="512" height="512"/>
         <image name="plant_under_rain-512.png" width="512" height="512"/>
         <image name="plant_under_sun-512.png" width="512" height="512"/>
+        <image name="wimoto.png" width="464" height="147"/>
     </resources>
 </document>
