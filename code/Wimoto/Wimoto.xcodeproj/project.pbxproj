@@ -35,6 +35,23 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
+		493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4929184EB2CB0000A2F6 /* temperature-512.png */; };
+		493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A492C184EB44B0000A2F6 /* humidity-512.png */; };
+		493A492F184EB6C50000A2F6 /* sun-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A492E184EB6C50000A2F6 /* sun-512.png */; };
+		493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */; };
+		493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */; };
+		493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4934184EB9C80000A2F6 /* plant_temperature-512.png */; };
+		493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4936184EBEBD0000A2F6 /* motion_detector-512.png */; };
+		493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4938184EBF810000A2F6 /* thermometer-512.png */; };
+		493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */; };
+		493A493D184EC3C00000A2F6 /* water-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A493C184EC3C00000A2F6 /* water-512.png */; };
+		493A4940184EC8370000A2F6 /* ASBSparkLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 493A493F184EC8370000A2F6 /* ASBSparkLineView.m */; };
+		493A4944184ECC390000A2F6 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4942184ECC390000A2F6 /* cloud.png */; };
+		493A4945184ECC390000A2F6 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4943184ECC390000A2F6 /* mail.png */; };
+		493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4946184ECECE0000A2F6 /* cloud-download.png */; };
+		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
+		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
 		90C64237184E6037008F40D2 /* SensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C64236184E6037008F40D2 /* SensorManager.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
 		90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */; };
@@ -96,6 +113,24 @@
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
+		493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_clock-512-white.png"; sourceTree = "<group>"; };
+		493A4929184EB2CB0000A2F6 /* temperature-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temperature-512.png"; sourceTree = "<group>"; };
+		493A492C184EB44B0000A2F6 /* humidity-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "humidity-512.png"; sourceTree = "<group>"; };
+		493A492E184EB6C50000A2F6 /* sun-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sun-512.png"; sourceTree = "<group>"; };
+		493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plant_under_rain-512.png"; sourceTree = "<group>"; };
+		493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plant_under_sun-512.png"; sourceTree = "<group>"; };
+		493A4934184EB9C80000A2F6 /* plant_temperature-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plant_temperature-512.png"; sourceTree = "<group>"; };
+		493A4936184EBEBD0000A2F6 /* motion_detector-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motion_detector-512.png"; sourceTree = "<group>"; };
+		493A4938184EBF810000A2F6 /* thermometer-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thermometer-512.png"; sourceTree = "<group>"; };
+		493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "infrared_thermometer-512.png"; sourceTree = "<group>"; };
+		493A493C184EC3C00000A2F6 /* water-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "water-512.png"; sourceTree = "<group>"; };
+		493A493E184EC8370000A2F6 /* ASBSparkLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASBSparkLineView.h; path = ../RightMenuScreen/ASBSparkLineView.h; sourceTree = "<group>"; };
+		493A493F184EC8370000A2F6 /* ASBSparkLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASBSparkLineView.m; path = ../RightMenuScreen/ASBSparkLineView.m; sourceTree = "<group>"; };
+		493A4942184ECC390000A2F6 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
+		493A4943184ECC390000A2F6 /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
+		493A4946184ECECE0000A2F6 /* cloud-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-download.png"; sourceTree = "<group>"; };
+		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
+		493A494A184ED3C00000A2F6 /* cassette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cassette.png; sourceTree = "<group>"; };
 		90C64235184E6037008F40D2 /* SensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorManager.h; sourceTree = "<group>"; };
 		90C64236184E6037008F40D2 /* SensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorManager.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
@@ -218,6 +253,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				493A4941184EC84B0000A2F6 /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				90C64235184E6037008F40D2 /* SensorManager.h */,
 				90C64236184E6037008F40D2 /* SensorManager.m */,
@@ -274,6 +310,38 @@
 				30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */,
 			);
 			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		493A492B184EB4250000A2F6 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				493A494A184ED3C00000A2F6 /* cassette.png */,
+				493A4934184EB9C80000A2F6 /* plant_temperature-512.png */,
+				493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */,
+				493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */,
+				493A4942184ECC390000A2F6 /* cloud.png */,
+				493A4946184ECECE0000A2F6 /* cloud-download.png */,
+				493A4947184ECECE0000A2F6 /* cloud-upload.png */,
+				493A4943184ECC390000A2F6 /* mail.png */,
+				493A493C184EC3C00000A2F6 /* water-512.png */,
+				493A4938184EBF810000A2F6 /* thermometer-512.png */,
+				493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */,
+				493A492E184EB6C50000A2F6 /* sun-512.png */,
+				493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */,
+				493A4936184EBEBD0000A2F6 /* motion_detector-512.png */,
+				493A4929184EB2CB0000A2F6 /* temperature-512.png */,
+				493A492C184EB44B0000A2F6 /* humidity-512.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		493A4941184EC84B0000A2F6 /* Sparklines */ = {
+			isa = PBXGroup;
+			children = (
+				493A493E184EC8370000A2F6 /* ASBSparkLineView.h */,
+				493A493F184EC8370000A2F6 /* ASBSparkLineView.m */,
+			);
+			name = Sparklines;
 			sourceTree = "<group>";
 		};
 		90C64238184E6061008F40D2 /* Models */ = {
@@ -382,6 +450,7 @@
 		90D4AB91184E5336004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				493A492B184EB4250000A2F6 /* Images */,
 				90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */,
 				90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */,
 				90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */,
@@ -444,21 +513,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */,
+				493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */,
+				493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */,
+				493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */,
+				493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */,
+				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
+				493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */,
+				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
+				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
+				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
 				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
+				493A4944184ECC390000A2F6 /* cloud.png in Resources */,
 				90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */,
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */,
+				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
+				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
+				493A4945184ECC390000A2F6 /* mail.png in Resources */,
+				493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */,
+				493A492F184EB6C50000A2F6 /* sun-512.png in Resources */,
 				30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */,
+				493A4940184EC8370000A2F6 /* ASBSparkLineView.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				30B487C9184DF328002B0CD8 /* IIViewDeckController.m in Sources */,
