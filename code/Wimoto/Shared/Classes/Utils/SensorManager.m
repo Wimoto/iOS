@@ -19,11 +19,11 @@ static SensorManager *sensorManager = nil;
     return sensorManager;
 }
 
-+ (NSArray*)getSensors {
++ (NSMutableArray*)getSensors {
     return [[SensorManager sensorManager] getSensors];
 }
 
-- (NSArray*)getSensors {
+- (NSMutableArray*)getSensors {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentDirectory stringByAppendingPathComponent:@"Sensors.plist"];
@@ -52,6 +52,23 @@ static SensorManager *sensorManager = nil;
     
     [sensorDescriptions addObject:[sensor dictionaryRepresentation]];
     
+    [sensorDescriptions writeToFile:plistPath atomically:YES];
+}
+
++ (void)setSensores:(NSArray *)array
+{
+    [[SensorManager sensorManager] setSensores:array];
+}
+
+- (void)setSensores:(NSArray *)array
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [documentDirectory stringByAppendingPathComponent:@"Sensors.plist"];
+    NSMutableArray *sensorDescriptions = [NSMutableArray array];
+	for (Sensor *sensor in array) {
+        [sensorDescriptions addObject:[sensor dictionaryRepresentation]];
+    }
     [sensorDescriptions writeToFile:plistPath atomically:YES];
 }
 

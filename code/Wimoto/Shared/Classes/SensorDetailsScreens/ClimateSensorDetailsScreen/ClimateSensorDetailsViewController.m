@@ -12,12 +12,14 @@
     NSMutableArray *m_temperatureData;
     NSMutableArray *m_humidityData;
     NSMutableArray *m_lightData;
+    NSMutableArray *m_bluetoothData;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, weak) IBOutlet UILabel *tempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
 
 - (void)setup;
 - (void)updateSensorValues;
@@ -60,9 +62,10 @@ const float tempMaxLimit = 37.4f;
     m_temperatureData = [[NSMutableArray alloc] init];
     m_humidityData = [[NSMutableArray alloc] init];
     m_lightData = [[NSMutableArray alloc] init];
+    m_bluetoothData = [[NSMutableArray alloc] init];
     
-    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, m_humidityData, m_lightData, nil];
-    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", @"humidity_data.txt", @"light_data.txt", nil];
+    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, m_humidityData, m_lightData, m_bluetoothData, nil];
+    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", @"humidity_data.txt", @"light_data.txt", @"bluetooth_data.txt", nil];
     
     [fileNames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
@@ -104,6 +107,8 @@ const float tempMaxLimit = 37.4f;
     _humidityLabel.text = [NSString stringWithFormat:@"%@", [m_humidityData objectAtIndex:humidityIndex]];
     int lightIndex = arc4random()%[m_lightData count];
     _lightLabel.text = [NSString stringWithFormat:@"%@", [m_lightData objectAtIndex:lightIndex]];
+    int bluetoothIndex = arc4random()%[m_bluetoothData count];
+    _bluetoothLabel.text = [NSString stringWithFormat:@"-%@db", [m_bluetoothData objectAtIndex:bluetoothIndex]];
 }
 
 @end

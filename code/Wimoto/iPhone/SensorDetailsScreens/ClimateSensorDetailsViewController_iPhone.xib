@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
             <connections>
+                <outlet property="bluetoothLabel" destination="KdY-vM-CDd" id="1pC-Vr-zK8"/>
                 <outlet property="humidityLabel" destination="bou-t8-gdO" id="3KR-B0-QCI"/>
                 <outlet property="lightLabel" destination="8uL-Ie-P0I" id="AAc-vC-oOB"/>
                 <outlet property="sparklineTemperature" destination="nFU-US-WhE" id="bHy-w5-MjM"/>

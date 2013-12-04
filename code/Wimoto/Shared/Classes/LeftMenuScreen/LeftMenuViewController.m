@@ -52,7 +52,7 @@
 
 - (IBAction)addNewSensorAction:(id)sender
 {
-    NSInteger typeIndex = (arc4random() % 400)/100;
+    NSInteger typeIndex = (arc4random() % 5);
     
     Sensor *sensor = [[Sensor alloc] init];
     sensor.type = typeIndex;

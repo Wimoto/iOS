@@ -19,7 +19,7 @@
 
 @interface RightMenuViewController ()
 
-@property (nonatomic, strong) NSArray *sensorsArray;
+@property (nonatomic, strong) NSMutableArray *sensorsArray;
 @property (nonatomic, strong) IBOutlet RightMenuCell *tmpCell;
 
 @end
@@ -68,6 +68,26 @@
     }
     cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return NO;
+    }
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_sensorsArray removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    [SensorManager setSensores:_sensorsArray];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

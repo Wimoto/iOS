@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A3017" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
+                <outlet property="bluetoothLabel" destination="3CF-Eq-6Uj" id="yn1-Ee-JaK"/>
+                <outlet property="tempIRLabel" destination="g3j-J0-PvV" id="jxs-EA-Jj4"/>
+                <outlet property="tempProbeLabel" destination="8t6-mc-eiS" id="Jin-bQ-Kw5"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -70,12 +73,12 @@
                     <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </switch>
                 <view contentMode="scaleToFill" id="JHS-k0-eef" userLabel="sparkLineTemperature" customClass="ASBSparkLineView">
-                    <rect key="frame" x="85" y="146" width="100" height="50"/>
+                    <rect key="frame" x="85" y="146" width="52" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.62227150229999995" blue="0.066370833439999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" id="pIp-0X-2YB" userLabel="sparkLineHumidity" customClass="ASBSparkLineView">
-                    <rect key="frame" x="85" y="295" width="100" height="50"/>
+                    <rect key="frame" x="85" y="295" width="52" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.62227150229999995" blue="0.066370833439999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>

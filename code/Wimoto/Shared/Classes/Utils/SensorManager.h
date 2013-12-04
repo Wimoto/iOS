@@ -10,7 +10,8 @@
 
 @interface SensorManager : NSObject
 
-+ (NSArray*)getSensors;
++ (NSMutableArray*)getSensors;
 + (void)addSensor:(Sensor*)sensor;
++ (void)setSensores:(NSArray *)array;
 
 @end
