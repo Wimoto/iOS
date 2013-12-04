@@ -35,6 +35,8 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		30CA318D184F6DDD00C0F2BF /* humidity_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 30CA318C184F6DDD00C0F2BF /* humidity_data.txt */; };
+		30CA318F184F714000C0F2BF /* light_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 30CA318E184F714000C0F2BF /* light_data.txt */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -115,6 +117,8 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		30CA318C184F6DDD00C0F2BF /* humidity_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = humidity_data.txt; sourceTree = "<group>"; };
+		30CA318E184F714000C0F2BF /* light_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = light_data.txt; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
 				493A494C184ED8C00000A2F6 /* temperature_data.txt */,
+				30CA318C184F6DDD00C0F2BF /* humidity_data.txt */,
+				30CA318E184F714000C0F2BF /* light_data.txt */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -528,6 +534,7 @@
 				493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */,
 				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
 				493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */,
+				30CA318F184F714000C0F2BF /* light_data.txt in Resources */,
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
@@ -548,6 +555,7 @@
 				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				30CA318D184F6DDD00C0F2BF /* humidity_data.txt in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
 				493A494D184ED8C00000A2F6 /* temperature_data.txt in Resources */,

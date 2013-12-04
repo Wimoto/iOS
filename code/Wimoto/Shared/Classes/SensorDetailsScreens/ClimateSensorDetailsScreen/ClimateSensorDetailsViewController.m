@@ -9,10 +9,18 @@
 #import "ClimateSensorDetailsViewController.h"
 
 @interface ClimateSensorDetailsViewController () {
-NSMutableArray *m_temperatureData;
+    NSMutableArray *m_temperatureData;
+    NSMutableArray *m_humidityData;
+    NSMutableArray *m_lightData;
 }
 
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, weak) IBOutlet UILabel *tempLabel;
+@property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lightLabel;
+
 - (void)setup;
+- (void)updateSensorValues;
 
 @end
 
@@ -41,12 +49,20 @@ const float tempMaxLimit = 37.4f;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_timer invalidate];
+}
+
 - (void)setup {
     
     m_temperatureData = [[NSMutableArray alloc] init];
+    m_humidityData = [[NSMutableArray alloc] init];
+    m_lightData = [[NSMutableArray alloc] init];
     
-    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, nil];
-    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", nil];
+    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, m_humidityData, m_lightData, nil];
+    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", @"humidity_data.txt", @"light_data.txt", nil];
     
     [fileNames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
@@ -67,6 +83,9 @@ const float tempMaxLimit = 37.4f;
                     [data addObject:num];
                 }
             }
+            if ([fileNames count]-1 == idx) {
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateSensorValues) userInfo:nil repeats:YES];
+            }
             
         } else {
             NSLog(@"failed to read in data file %@: %@", [fileNames objectAtIndex:idx], [err localizedDescription]);
@@ -74,6 +93,16 @@ const float tempMaxLimit = 37.4f;
         
     }];
     
+}
+
+- (void)updateSensorValues
+{
+    int tempIndex = arc4random()%[m_temperatureData count];
+    _tempLabel.text = [NSString stringWithFormat:@"%@", [m_temperatureData objectAtIndex:tempIndex]];
+    int humidityIndex = arc4random()%[m_humidityData count];
+    _humidityLabel.text = [NSString stringWithFormat:@"%@", [m_humidityData objectAtIndex:humidityIndex]];
+    int lightIndex = arc4random()%[m_lightData count];
+    _lightLabel.text = [NSString stringWithFormat:@"%@", [m_lightData objectAtIndex:lightIndex]];
 }
 
 @end
