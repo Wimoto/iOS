@@ -84,6 +84,7 @@ const float tempMaxLimit = 37.4f;
                 }
             }
             if ([fileNames count]-1 == idx) {
+                [self updateSensorValues];
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateSensorValues) userInfo:nil repeats:YES];
             }
             
