@@ -33,7 +33,9 @@ static BLEManager *bleManager = nil;
 - (id)init {
     self = [super init];
     if (self) {
-        _centralBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+        dispatch_queue_t centralQueue = dispatch_queue_create("com.wimoto.ios", DISPATCH_QUEUE_SERIAL);
+        
+        _centralBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue];
         _pendingConnections = [NSMutableArray array];
     }
     return self;
@@ -106,7 +108,9 @@ static BLEManager *bleManager = nil;
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     if ([_delegate respondsToSelector:@selector(didConnectPeripheral:)]) {
-        [_delegate didConnectPeripheral:peripheral];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_delegate didConnectPeripheral:peripheral];
+        });
     }
     
     [_pendingConnections removeObject:peripheral];
@@ -114,7 +118,9 @@ static BLEManager *bleManager = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     if ([_delegate respondsToSelector:@selector(didDisconnectPeripheral:)]) {
-        [_delegate didDisconnectPeripheral:peripheral];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_delegate didDisconnectPeripheral:peripheral];
+        });
     }
     
     [_pendingConnections removeObject:peripheral];
