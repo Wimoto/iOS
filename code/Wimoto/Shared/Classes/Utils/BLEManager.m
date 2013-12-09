@@ -46,7 +46,7 @@ static BLEManager *bleManager = nil;
 - (void)startScanForHRBelts {
     NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     
-    [_centralBluetoothManager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"180D"]] options:scanOptions];
+    [_centralBluetoothManager scanForPeripheralsWithServices:nil options:scanOptions];
 }
 
 - (void)stopScanForHRBelts {
