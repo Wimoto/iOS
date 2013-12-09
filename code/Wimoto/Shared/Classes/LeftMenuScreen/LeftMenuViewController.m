@@ -13,6 +13,8 @@
 #import "Sensor.h"
 #import "SensorManager.h"
 
+#import "SearchSensorViewController.h"
+
 @interface LeftMenuViewController ()
 
 - (IBAction)settingsAction:(id)sender;
@@ -52,36 +54,39 @@
 
 - (IBAction)addNewSensorAction:(id)sender
 {
-    NSInteger typeIndex = (arc4random() % 5);
+    SearchSensorViewController *searchViewController = [[SearchSensorViewController alloc] init];
+    self.viewDeckController.centerController = searchViewController;
     
-    Sensor *sensor = [[Sensor alloc] init];
-    sensor.type = typeIndex;
-    
-    [SensorManager addSensor:sensor];
-
-    NSString *message = @"";
-    switch (sensor.type) {
-        case kSensorTypeClimate:
-            message = @"Climate Sensor was added to sensors list";
-            break;
-        case kSensorTypeGrow:
-            message = @"Grow Sensor was added to sensors list";
-            break;
-        case kSensorTypeThermo:
-            message = @"Thermo Sensor was added to sensors list";
-            break;
-        case kSensorTypeSentry:
-            message = @"Sentry Sensor was added to sensors list";
-            break;
-        case kSensorTypeWater:
-            message = @"Water Sensor was added to sensors list";
-            break;
-        default:
-            break;
-    }
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
+//    NSInteger typeIndex = (arc4random() % 5);
+//    
+//    Sensor *sensor = [[Sensor alloc] init];
+//    sensor.type = typeIndex;
+//    
+//    [SensorManager addSensor:sensor];
+//
+//    NSString *message = @"";
+//    switch (sensor.type) {
+//        case kSensorTypeClimate:
+//            message = @"Climate Sensor was added to sensors list";
+//            break;
+//        case kSensorTypeGrow:
+//            message = @"Grow Sensor was added to sensors list";
+//            break;
+//        case kSensorTypeThermo:
+//            message = @"Thermo Sensor was added to sensors list";
+//            break;
+//        case kSensorTypeSentry:
+//            message = @"Sentry Sensor was added to sensors list";
+//            break;
+//        case kSensorTypeWater:
+//            message = @"Water Sensor was added to sensors list";
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alertView show];
     
 //    ZBarReaderViewController *reader = [[ZBarReaderViewController alloc] init];
 //    //reader.readerDelegate = self;

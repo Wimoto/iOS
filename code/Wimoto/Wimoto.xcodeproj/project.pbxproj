@@ -65,6 +65,12 @@
 		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
 		90C64237184E6037008F40D2 /* SensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C64236184E6037008F40D2 /* SensorManager.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
+		90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CD9B1718561B2300970B7D /* CoreBluetooth.framework */; };
+		90CD9B1F18561B6500970B7D /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B1E18561B6500970B7D /* BLEManager.m */; };
+		90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */; };
+		90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CD9B2618561D3D00970B7D /* SearchSensorViewController_iPhone.xib */; };
+		90CD9B2A18561DA400970B7D /* SensorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B2918561DA400970B7D /* SensorCell.m */; };
+		90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CD9B2D18561E4A00970B7D /* SensorCell_iPhone.xib */; };
 		90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */; };
 		90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA817A7CF2F00353F80 /* Default.png */; };
 		90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CFFEA917A7CF2F00353F80 /* Default@2x.png */; };
@@ -157,6 +163,15 @@
 		90C64236184E6037008F40D2 /* SensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorManager.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
 		90C6423A184E606D008F40D2 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
+		90CD9B1718561B2300970B7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		90CD9B1D18561B6500970B7D /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
+		90CD9B1E18561B6500970B7D /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
+		90CD9B2118561CFE00970B7D /* SearchSensorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSensorViewController.h; sourceTree = "<group>"; };
+		90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSensorViewController.m; sourceTree = "<group>"; };
+		90CD9B2618561D3D00970B7D /* SearchSensorViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchSensorViewController_iPhone.xib; sourceTree = "<group>"; };
+		90CD9B2818561DA400970B7D /* SensorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorCell.h; sourceTree = "<group>"; };
+		90CD9B2918561DA400970B7D /* SensorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorCell.m; sourceTree = "<group>"; };
+		90CD9B2D18561E4A00970B7D /* SensorCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorCell_iPhone.xib; sourceTree = "<group>"; };
 		90CFFEA717A7CF2F00353F80 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		90CFFEA817A7CF2F00353F80 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		90CFFEA917A7CF2F00353F80 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -185,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */,
 				30B29E92184E13AA000C651A /* libiconv.dylib in Frameworks */,
 				30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */,
 				30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */,
@@ -217,6 +233,8 @@
 				30B487E2184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib */,
 				30B487E3184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib */,
 				30B487EF184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib */,
+				90CD9B2618561D3D00970B7D /* SearchSensorViewController_iPhone.xib */,
+				90CD9B2D18561E4A00970B7D /* SensorCell_iPhone.xib */,
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
@@ -260,6 +278,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90CD9B1718561B2300970B7D /* CoreBluetooth.framework */,
 				30B29E91184E13AA000C651A /* libiconv.dylib */,
 				30B29E8F184E139F000C651A /* CoreVideo.framework */,
 				30B29E8D184E1396000C651A /* CoreMedia.framework */,
@@ -295,6 +314,8 @@
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				90C64235184E6037008F40D2 /* SensorManager.h */,
 				90C64236184E6037008F40D2 /* SensorManager.m */,
+				90CD9B1D18561B6500970B7D /* BLEManager.h */,
+				90CD9B1E18561B6500970B7D /* BLEManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -393,6 +414,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		90CD9B2018561CDB00970B7D /* SearchSensorScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90CD9B2118561CFE00970B7D /* SearchSensorViewController.h */,
+				90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */,
+				90CD9B2818561DA400970B7D /* SensorCell.h */,
+				90CD9B2918561DA400970B7D /* SensorCell.m */,
+			);
+			path = SearchSensorScreen;
+			sourceTree = "<group>";
+		};
 		90CFFEA617A7CF2F00353F80 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +452,7 @@
 				30B487F1184E0A32002B0CD8 /* HelpScreen */,
 				30B487F3184E0A32002B0CD8 /* SettingsScreen */,
 				90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */,
+				90CD9B2018561CDB00970B7D /* SearchSensorScreen */,
 				30B487CB184DF381002B0CD8 /* LeftMenuScreen */,
 				30B487CC184DF381002B0CD8 /* RightMenuScreen */,
 				30B487C0184DF328002B0CD8 /* Utils */,
@@ -563,6 +596,7 @@
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
+				90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				305A1195184FAD01001B8C14 /* contact_data.txt in Resources */,
@@ -580,6 +614,7 @@
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
+				90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */,
 				90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */,
 				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
@@ -608,6 +643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */,
+				90CD9B2A18561DA400970B7D /* SensorCell.m in Sources */,
 				493A4940184EC8370000A2F6 /* ASBSparkLineView.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
@@ -624,6 +660,8 @@
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
+				90CD9B1F18561B6500970B7D /* BLEManager.m in Sources */,
+				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
