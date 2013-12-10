@@ -8,6 +8,7 @@
 
 #import "SearchSensorViewController.h"
 #import "SensorCell.h"
+#import "SensorManager.h"
 
 @interface SearchSensorViewController ()
 
@@ -24,7 +25,6 @@
     [super viewDidLoad];
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
-    
     _sensorArray = [NSMutableArray array];
     
     [BLEManager sharedManager].delegate = self;
@@ -34,7 +34,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
@@ -51,17 +50,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"SensorCell";
-    
     SensorCell *cell = (SensorCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         [[NSBundle mainBundle] loadNibNamed:(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)?@"SensorCell_iPad":@"SensorCell_iPhone" owner:self options:nil];
         cell = _tmpCell;
         _tmpCell = nil;
     }
-    
     cell.sensor = [_sensorArray objectAtIndex:indexPath.row];
-    
     return cell;
 }
 
@@ -70,6 +65,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
     
 //    SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
 //    [self.navigationController pushViewController:sensorDetailsViewController animated:YES];

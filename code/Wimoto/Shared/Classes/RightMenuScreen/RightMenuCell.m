@@ -19,6 +19,7 @@
 - (void)setSensor:(Sensor *)sensor {
     _sensor = sensor;
     
+    /*
     NSString *title = @"";
     switch (sensor.type) {
         case kSensorTypeClimate:
@@ -39,8 +40,9 @@
         default:
             break;
     }
+     */
     
-    _sensorNameLabel.text = title;
+    _sensorNameLabel.text = [_sensor name];
 }
 
 @end
