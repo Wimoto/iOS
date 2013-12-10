@@ -64,12 +64,12 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
 {
-    for (CBService *aService in aPeripheral.services)
-    {
+    for (CBService *aService in aPeripheral.services) {
          //NSLog(@"service is %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
+        }
+        else if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A23"]] forService:aService];
         }
     }
@@ -77,14 +77,10 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
-    {
-        for (CBCharacteristic *aChar in service.characteristics)
-        {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
-            {
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
-                
                 uint8_t val = 1;
                 NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
                 [aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
@@ -92,8 +88,7 @@
         }
     }
     else if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
-        for (CBCharacteristic *aChar in service.characteristics)
-        {
+        for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
             }
@@ -103,27 +98,22 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
-    {
-        if( (characteristic.value)  || !error )
-        {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
+        if( (characteristic.value)  || !error ) {
             const uint8_t *reportData = [characteristic.value bytes];
             uint16_t bpm = 0;
-            
-            if ((reportData[0] & 0x01) == 0)
-            {
+            if ((reportData[0] & 0x01) == 0) {
                 bpm = reportData[1];
             }
-            else
-            {
+            else {
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.value = [NSNumber numberWithFloat:bpm];
             });
         }
-    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
         if (characteristic.value) {
             const uint64_t *vll = [characteristic.value bytes];
             uint64_t mk = vll[0];

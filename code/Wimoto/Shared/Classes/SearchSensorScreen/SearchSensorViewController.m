@@ -23,6 +23,8 @@
 {
     [super viewDidLoad];
     
+    _sensorTableView.tableFooterView = [[UIView alloc] init];
+    
     _sensorArray = [NSMutableArray array];
     
     [BLEManager sharedManager].delegate = self;
@@ -71,10 +73,6 @@
     
 //    SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
 //    [self.navigationController pushViewController:sensorDetailsViewController animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01;
 }
 
 #pragma mark - BLEManagerDelegate
