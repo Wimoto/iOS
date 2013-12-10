@@ -24,6 +24,8 @@
 		305A119A184FAD01001B8C14 /* thermoIR_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1191184FAD01001B8C14 /* thermoIR_data.txt */; };
 		305A119B184FAD01001B8C14 /* thermoProbe_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1192184FAD01001B8C14 /* thermoProbe_data.txt */; };
 		305A119C184FAD01001B8C14 /* waterLevel_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1193184FAD01001B8C14 /* waterLevel_data.txt */; };
+		30B25B0E18575FEF0027F2E7 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B25B0C18575FEF0027F2E7 /* GraphViewController.m */; };
+		30B25B131857636E0027F2E7 /* GraphViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
 		30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8F184E139F000C651A /* CoreVideo.framework */; };
@@ -109,6 +111,9 @@
 		305A1191184FAD01001B8C14 /* thermoIR_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thermoIR_data.txt; sourceTree = "<group>"; };
 		305A1192184FAD01001B8C14 /* thermoProbe_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thermoProbe_data.txt; sourceTree = "<group>"; };
 		305A1193184FAD01001B8C14 /* waterLevel_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waterLevel_data.txt; sourceTree = "<group>"; };
+		30B25B0B18575FEF0027F2E7 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		30B25B0C18575FEF0027F2E7 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		30B29E8F184E139F000C651A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -307,6 +312,15 @@
 			path = data;
 			sourceTree = "<group>";
 		};
+		30B25B0A18575FD80027F2E7 /* GraphScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B25B0B18575FEF0027F2E7 /* GraphViewController.h */,
+				30B25B0C18575FEF0027F2E7 /* GraphViewController.m */,
+			);
+			path = GraphScreen;
+			sourceTree = "<group>";
+		};
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +481,7 @@
 		90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				30B25B0A18575FD80027F2E7 /* GraphScreen */,
 				90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */,
 				90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */,
 				90D4AB89184E5270004DDB1F /* SentrySensorDetailsScreen */,
@@ -524,6 +539,7 @@
 		90D4AB91184E5336004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */,
 				493A492B184EB4250000A2F6 /* Images */,
 				90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */,
 				90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */,
@@ -603,6 +619,7 @@
 				305A119C184FAD01001B8C14 /* waterLevel_data.txt in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
+				30B25B131857636E0027F2E7 /* GraphViewController_iPhone.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
@@ -655,6 +672,7 @@
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
+				30B25B0E18575FEF0027F2E7 /* GraphViewController.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				30B487CA184DF328002B0CD8 /* IIWrapController.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,

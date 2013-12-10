@@ -108,12 +108,12 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
 
 // all the set accessors below are needed to cause a re-display on change
 - (void)setDataValues:(NSArray *)dataValues {
-    if (![m_dataValues isEqualToArray:dataValues]) {
+    //if (![m_dataValues isEqualToArray:dataValues]) {
         
         m_dataValues = dataValues;
         [self createDataStatistics];
         [self setNeedsDisplay];
-    }
+   // }
 }
 
 - (void)setLabelText:(NSString *)labelText {

@@ -1,52 +1,54 @@
 //
-//  ClimateSensorDetailsViewController.m
+//  GraphViewController.m
 //  Wimoto
 //
-//  Created by MC700 on 12/3/13.
+//  Created by Danny Kokarev on 10.12.13.
 //
 //
 
-#import "ClimateSensorDetailsViewController.h"
 #import "GraphViewController.h"
+#import "ASBSparkLineView.h"
 
-@interface ClimateSensorDetailsViewController () {
+@interface GraphViewController ()
+{
     NSMutableArray *m_temperatureData;
     NSMutableArray *m_humidityData;
     NSMutableArray *m_lightData;
-    NSMutableArray *m_bluetoothData;
+    NSMutableArray *temperatureValues;
+    NSMutableArray *humidityValues;
+    NSMutableArray *lightValues;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, weak) IBOutlet UILabel *tempLabel;
-@property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
-@property (nonatomic, weak) IBOutlet UILabel *lightLabel;
-@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *sparkLineView1;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *sparkLineView2;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *sparkLineView3;
 
-- (IBAction)graphAction:(id)sender;
 - (void)setup;
 - (void)updateSensorValues;
 
 @end
 
-@implementation ClimateSensorDetailsViewController
-@synthesize sparklineTemperature;
-
-
-const float tempMinLimit = 36.9f;
-const float tempMaxLimit = 37.4f;
+@implementation GraphViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.navigationController.navigationBarHidden = YES;
+    self.sparkLineView1.labelText = @"Temp";
+    self.sparkLineView1.currentValueColor = [UIColor redColor];
+    
+    self.sparkLineView2.labelText = @"Humidity";
+    self.sparkLineView2.currentValueColor = [UIColor greenColor];
+    self.sparkLineView2.penColor = [UIColor blueColor];
+    self.sparkLineView2.penWidth = 3.0f;
+    
+    self.sparkLineView3.labelText = @"Light";
+    self.sparkLineView3.currentValueColor = [UIColor orangeColor];
+    self.sparkLineView3.currentValueFormat = @"%.0f";
+    self.sparkLineView3.penColor = [UIColor redColor];
+    self.sparkLineView3.penWidth = 6.0f;
     [self setup];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -55,15 +57,24 @@ const float tempMaxLimit = 37.4f;
     [_timer invalidate];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)setup {
     
     m_temperatureData = [[NSMutableArray alloc] init];
     m_humidityData = [[NSMutableArray alloc] init];
     m_lightData = [[NSMutableArray alloc] init];
-    m_bluetoothData = [[NSMutableArray alloc] init];
     
-    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, m_humidityData, m_lightData, m_bluetoothData, nil];
-    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", @"humidity_data.txt", @"light_data.txt", @"bluetooth_data.txt", nil];
+    temperatureValues = [[NSMutableArray alloc] init];
+    humidityValues = [[NSMutableArray alloc] init];
+    lightValues = [[NSMutableArray alloc] init];
+    
+    NSArray *dataArray = [NSArray arrayWithObjects: m_temperatureData, m_humidityData, m_lightData, nil];
+    NSArray *fileNames = [NSArray arrayWithObjects: @"temperature_data.txt", @"humidity_data.txt", @"light_data.txt", nil];
     
     [fileNames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
@@ -97,22 +108,19 @@ const float tempMaxLimit = 37.4f;
     
 }
 
-- (IBAction)graphAction:(id)sender
-{
-    GraphViewController *graphController = [[GraphViewController alloc] init];
-    [self.navigationController pushViewController:graphController animated:YES];
-}
-
 - (void)updateSensorValues
 {
+    NSLog(@"WORK!!!!");
     int tempIndex = arc4random()%[m_temperatureData count];
-    _tempLabel.text = [NSString stringWithFormat:@"%@", [m_temperatureData objectAtIndex:tempIndex]];
+    [temperatureValues addObject:[m_temperatureData objectAtIndex:tempIndex]];
+    self.sparkLineView1.dataValues = temperatureValues;
     int humidityIndex = arc4random()%[m_humidityData count];
-    _humidityLabel.text = [NSString stringWithFormat:@"%@", [m_humidityData objectAtIndex:humidityIndex]];
+    [humidityValues addObject:[m_humidityData objectAtIndex:humidityIndex]];
+    self.sparkLineView2.dataValues = humidityValues;
     int lightIndex = arc4random()%[m_lightData count];
-    _lightLabel.text = [NSString stringWithFormat:@"%@", [m_lightData objectAtIndex:lightIndex]];
-    int bluetoothIndex = arc4random()%[m_bluetoothData count];
-    _bluetoothLabel.text = [NSString stringWithFormat:@"-%@db", [m_bluetoothData objectAtIndex:bluetoothIndex]];
+    [lightValues addObject:[m_lightData objectAtIndex:lightIndex]];
+    self.sparkLineView3.dataValues = lightValues;
+
 }
 
 @end

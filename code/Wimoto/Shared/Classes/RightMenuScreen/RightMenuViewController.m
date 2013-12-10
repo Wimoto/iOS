@@ -97,7 +97,8 @@
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     if (sensor.type==kSensorTypeClimate) {
         ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
-        self.viewDeckController.centerController = climateController;
+        UINavigationController *climateNavController = [[UINavigationController alloc] initWithRootViewController:climateController];
+        self.viewDeckController.centerController = climateNavController;
     } else if (sensor.type==kSensorTypeGrow) {
         GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = growController;
