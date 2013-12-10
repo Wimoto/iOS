@@ -100,6 +100,8 @@ static BLEManager *bleManager = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     
+    NSLog(@"discovered peripheral is %@", peripheral);
+    
     if ((![_pendingConnections containsObject:peripheral])&&(![peripheral isConnected])) {
         [_pendingConnections addObject:peripheral];
         [_centralBluetoothManager connectPeripheral:peripheral options:nil];

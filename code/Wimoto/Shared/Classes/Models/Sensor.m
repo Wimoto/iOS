@@ -112,7 +112,9 @@
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
             
-            self.value = [NSNumber numberWithFloat:bpm];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.value = [NSNumber numberWithFloat:bpm];
+            });
         }
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
         if (characteristic.value) {
