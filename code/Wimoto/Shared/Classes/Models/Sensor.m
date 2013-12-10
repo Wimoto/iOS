@@ -65,7 +65,8 @@
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
 {
     for (CBService *aService in aPeripheral.services) {
-         //NSLog(@"service is %@", aService);
+        NSLog(@"didDiscoverServices %@ in peripheral %@", aService.UUID, aPeripheral);
+        
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
         }
@@ -77,6 +78,10 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
+    for (CBCharacteristic *aChar in service.characteristics) {
+        NSLog(@"didDiscoverCharacteristicsForService %@ chrs %@", service.UUID, aChar.UUID);
+    }
+    
     if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
