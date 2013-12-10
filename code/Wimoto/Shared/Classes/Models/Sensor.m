@@ -10,6 +10,7 @@
 
 #define DICT_KEY_SENSOR_TYPE      @"type"
 #define DICT_KEY_SENSOR_NAME      @"name"
+#define DICT_KEY_SENSOR_UUID      @"uuid"
 
 @interface Sensor ()
 
@@ -31,11 +32,15 @@
         self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop]addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
         
-        CFStringRef uuidString = CFUUIDCreateString(NULL, peripheral.UUID);
-        if (uuidString) {
-            _uuid = [NSString stringWithFormat:@"%@", uuidString];
-            CFRelease(uuidString);
-        }
+        _uuid = [[peripheral identifier] UUIDString];
+        
+        /*
+         CFStringRef uuidString = CFUUIDCreateString(NULL, peripheral.UUID);
+         if (uuidString) {
+         _uuid = [NSString stringWithFormat:@"%@", uuidString];
+         CFRelease(uuidString);
+         }
+         */
     }
     return self;
 }
@@ -45,6 +50,7 @@
     if (self) {
         _type = [[dictionary objectForKey:DICT_KEY_SENSOR_TYPE] intValue];
         _name = [dictionary objectForKey:DICT_KEY_SENSOR_NAME];
+        _uuid = [dictionary objectForKey:DICT_KEY_SENSOR_UUID];
     }
     return self;
 }
@@ -54,11 +60,23 @@
     _peripheral.delegate = nil;
 }
 
+- (void)updateWithPeripheral:(CBPeripheral*)peripheral
+{
+    _peripheral = peripheral;
+    _peripheral.delegate = self;
+    [_peripheral discoverServices:nil];
+    self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop]addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
+}
+
 - (NSDictionary*)dictionaryRepresentation {
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:1];
     [mutableDictionary setObject:[NSNumber numberWithInt:_type] forKey:DICT_KEY_SENSOR_TYPE];
     if (_name) {
         [mutableDictionary setObject:_name forKey:DICT_KEY_SENSOR_NAME];
+    }
+    if ((_uuid)) {
+        [mutableDictionary setObject:_uuid forKey:DICT_KEY_SENSOR_UUID];
     }
     return mutableDictionary;
 }

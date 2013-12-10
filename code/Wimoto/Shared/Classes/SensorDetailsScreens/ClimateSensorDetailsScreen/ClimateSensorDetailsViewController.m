@@ -8,6 +8,7 @@
 
 #import "ClimateSensorDetailsViewController.h"
 #import "GraphViewController.h"
+#import "Sensor.h"
 
 @interface ClimateSensorDetailsViewController () {
     NSMutableArray *m_temperatureData;
@@ -21,6 +22,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+@property (nonatomic, strong) Sensor *sensor;
 
 - (IBAction)graphAction:(id)sender;
 - (void)setup;
@@ -35,11 +37,25 @@
 const float tempMinLimit = 36.9f;
 const float tempMaxLimit = 37.4f;
 
+- (id)initWithSensor:(Sensor *)sensor
+{
+    self = [super init];
+    if (self) {
+        self.sensor = sensor;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.navigationController.navigationBarHidden = YES;
+    if (_sensor) {
+        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
+        [BLEManager sharedManager].delegate = self;
+        NSLog(@"--------------------------- %@", [_sensor uuid]);
+        [[BLEManager sharedManager] startScanForHRBeltsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:[_sensor uuid]]]];
+    }
     [self setup];
 }
 
@@ -113,6 +129,27 @@ const float tempMaxLimit = 37.4f;
     _lightLabel.text = [NSString stringWithFormat:@"%@", [m_lightData objectAtIndex:lightIndex]];
     int bluetoothIndex = arc4random()%[m_bluetoothData count];
     _bluetoothLabel.text = [NSString stringWithFormat:@"-%@db", [m_bluetoothData objectAtIndex:bluetoothIndex]];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
+        NSLog(@"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %@", [NSString stringWithFormat:@"%@", [change objectForKey:NSKeyValueChangeNewKey]]);
+    }
+}
+
+
+#pragma mark - BLEManagerDelegate
+
+- (void)didConnectPeripheral:(CBPeripheral*)peripheral {
+    NSLog(@"WORK!!!!!!!!!!!!!!!!!!");
+    [_sensor updateWithPeripheral:peripheral];
+}
+
+- (void)didDisconnectPeripheral:(CBPeripheral*)peripheral {
+    
 }
 
 @end

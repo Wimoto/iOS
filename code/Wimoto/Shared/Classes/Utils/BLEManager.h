@@ -18,7 +18,7 @@
 
 - (void)startScanForHRBelts;
 - (void)stopScanForHRBelts;
-
+- (void)startScanForHRBeltsWithServices:(NSArray *)services;
 - (void)connectPeripheral:(CBPeripheral*)peripheral;
 - (void)disconnectPeripheral:(CBPeripheral*)peripheral;
 

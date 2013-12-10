@@ -8,11 +8,14 @@
 
 #import "AppViewController.h"
 #import "ASBSparkLineView.h"
+#import "BLEManager.h"
+#import "Sensor.h"
 
 @class ASBSparkLineView;
 
-
-@interface ClimateSensorDetailsViewController : AppViewController
+@interface ClimateSensorDetailsViewController : AppViewController <BLEManagerDelegate>
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *sparklineTemperature;
+
+- (id)initWithSensor:(Sensor *)sensor;
 
 @end

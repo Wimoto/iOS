@@ -31,6 +31,8 @@ typedef enum {
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 - (id)initWithPeripheral:(CBPeripheral*)peripheral;
 
+- (void)updateWithPeripheral:(CBPeripheral*)peripheral;
+
 - (NSDictionary*)dictionaryRepresentation;
 
 @end

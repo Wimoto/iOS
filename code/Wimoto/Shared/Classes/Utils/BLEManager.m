@@ -51,6 +51,12 @@ static BLEManager *bleManager = nil;
     [_centralBluetoothManager scanForPeripheralsWithServices:nil options:scanOptions];
 }
 
+- (void)startScanForHRBeltsWithServices:(NSArray *)services
+{
+    NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    [_centralBluetoothManager scanForPeripheralsWithServices:services options:scanOptions];
+}
+
 - (void)stopScanForHRBelts {
     [_centralBluetoothManager stopScan];
 }

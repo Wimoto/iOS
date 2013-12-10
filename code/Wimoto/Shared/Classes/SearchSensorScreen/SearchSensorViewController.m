@@ -7,6 +7,7 @@
 //
 
 #import "SearchSensorViewController.h"
+#import "ClimateSensorDetailsViewController.h"
 #import "SensorCell.h"
 #import "SensorManager.h"
 
@@ -67,8 +68,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
     
-//    SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
-//    [self.navigationController pushViewController:sensorDetailsViewController animated:YES];
+    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] init];
+    self.viewDeckController.centerController = climateSensorController;
+    
+    //SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
+    //[self.navigationController pushViewController:sensorDetailsViewController animated:YES];
 }
 
 #pragma mark - BLEManagerDelegate

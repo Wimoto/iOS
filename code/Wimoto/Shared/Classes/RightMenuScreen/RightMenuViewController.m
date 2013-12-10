@@ -95,6 +95,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    
+    ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+    UINavigationController *climateNavController = [[UINavigationController alloc] initWithRootViewController:climateController];
+    self.viewDeckController.centerController = climateNavController;
+    /*
     if (sensor.type==kSensorTypeClimate) {
         ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
         UINavigationController *climateNavController = [[UINavigationController alloc] initWithRootViewController:climateController];
@@ -112,6 +117,7 @@
         WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
         self.viewDeckController.centerController = waterController;
     }
+     */
     [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
 
