@@ -110,15 +110,23 @@
 
 - (void)updateSensorValues
 {
-    NSLog(@"WORK!!!!");
     int tempIndex = arc4random()%[m_temperatureData count];
     [temperatureValues addObject:[m_temperatureData objectAtIndex:tempIndex]];
+    if ([temperatureValues count] == 16) {
+        [temperatureValues removeObjectAtIndex:0];
+    }
     self.sparkLineView1.dataValues = temperatureValues;
     int humidityIndex = arc4random()%[m_humidityData count];
     [humidityValues addObject:[m_humidityData objectAtIndex:humidityIndex]];
+    if ([humidityValues count] == 16) {
+        [humidityValues removeObjectAtIndex:0];
+    }
     self.sparkLineView2.dataValues = humidityValues;
     int lightIndex = arc4random()%[m_lightData count];
     [lightValues addObject:[m_lightData objectAtIndex:lightIndex]];
+    if ([lightValues count] == 16) {
+        [lightValues removeObjectAtIndex:0];
+    }
     self.sparkLineView3.dataValues = lightValues;
 
 }
