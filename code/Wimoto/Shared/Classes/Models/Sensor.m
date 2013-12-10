@@ -13,6 +13,9 @@
 @interface Sensor ()
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) NSTimer *rssiTimer;
+
+- (void)updateRSSI;
 
 @end
 
@@ -24,8 +27,10 @@
         _peripheral = peripheral;
         _peripheral.delegate = self;
         [_peripheral discoverServices:nil];
-            
+        
         _name = _peripheral.name;
+        self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop]addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
         
         CFStringRef uuidString = CFUUIDCreateString(NULL, peripheral.UUID);
         if (uuidString) {
@@ -45,6 +50,7 @@
 }
 
 - (void)dealloc {
+    [_rssiTimer invalidate];
     _peripheral.delegate = nil;
 }
 
@@ -60,6 +66,7 @@
 {
     for (CBService *aService in aPeripheral.services)
     {
+         //NSLog(@"service is %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
@@ -68,7 +75,7 @@
     }
 }
 
-- (void) peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
     {
@@ -94,7 +101,7 @@
     }
 }
 
-- (void) peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
     {
@@ -123,6 +130,13 @@
             //_uuid = [NSString stringWithFormat:@"%llu", mk];
         }
     }
+}
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.rssi = [peripheral RSSI];
+    });
 }
 
 @end
