@@ -14,7 +14,6 @@
 @class ASBSparkLineView;
 
 @interface ClimateSensorDetailsViewController : AppViewController <BLEManagerDelegate>
-@property (nonatomic, weak) IBOutlet ASBSparkLineView *sparklineTemperature;
 
 - (id)initWithSensor:(Sensor *)sensor;
 

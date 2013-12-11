@@ -40,7 +40,7 @@
     Sensor *firstSensor = [[SensorManager getSensors] objectAtIndex:0];
     if (firstSensor.type==kSensorTypeClimate) {
         ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
-        deckController.centerController = climateController;
+        deckController.centerController = [[UINavigationController alloc] initWithRootViewController:climateController];
     } else if (firstSensor.type==kSensorTypeGrow) {
         GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
         deckController.centerController = growController;
