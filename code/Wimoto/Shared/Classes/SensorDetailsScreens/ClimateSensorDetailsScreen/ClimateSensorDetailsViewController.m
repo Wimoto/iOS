@@ -78,6 +78,14 @@ const float tempMaxLimit = 37.4f;
     _lightSparkLine.penColor = [UIColor redColor];
     _lightSparkLine.penWidth = 6.0f;
     
+    _temperatureSparkLine.rangeOverlayLowerLimit = @(tempMinLimit);
+    _temperatureSparkLine.rangeOverlayUpperLimit = @(tempMaxLimit);
+    _temperatureSparkLine.showRangeOverlay = true;
+    _temperatureSparkLine.rangeOverlayColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.3];
+    _temperatureSparkLine.showCurrentValue = true;
+    _temperatureSparkLine.currentValueColor= [UIColor redColor];
+    _temperatureSparkLine.currentValueFormat = @"";
+    
     [self setup];
 }
 
