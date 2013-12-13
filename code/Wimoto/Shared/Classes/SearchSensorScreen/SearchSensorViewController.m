@@ -38,7 +38,10 @@
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
     
     for (CBPeripheral *peripheral in array) {
-        [_sensorsArray addObject:[Sensor sensorWithPeripheral:peripheral]];
+        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        if (sensor) {
+            [_sensorsArray addObject:sensor];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
@@ -62,7 +65,10 @@
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
     
     if ([filteredArray count]==0) {
-        [_sensorsArray addObject:[Sensor sensorWithPeripheral:peripheral]];
+        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        if (sensor) {
+            [_sensorsArray addObject:sensor];
+        }
         
         [_sensorTableView reloadData];
     }
