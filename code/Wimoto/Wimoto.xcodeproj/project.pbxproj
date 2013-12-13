@@ -620,6 +620,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 3VG2LSZQ89;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Wimoto" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -745,8 +750,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -759,7 +764,7 @@
 					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "6AB02766-F052-4509-BDA9-B551B9F79FFB";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
@@ -769,6 +774,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
@@ -779,6 +786,7 @@
 					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
 				PRODUCT_NAME = Wimoto;
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7";
 			};
