@@ -93,6 +93,7 @@
 		90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079A185B409300FDF31D /* ClimateSensor.m */; };
 		90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079D185B49D100FDF31D /* SensorViewController.m */; };
 		90D807A2185B52D800FDF31D /* ASBSparkLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A1185B52D800FDF31D /* ASBSparkLineView.m */; };
+		90D807A5185B54E900FDF31D /* TestSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A4185B54E900FDF31D /* TestSensor.m */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,8 @@
 		90D8079D185B49D100FDF31D /* SensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorViewController.m; sourceTree = "<group>"; };
 		90D807A0185B52D800FDF31D /* ASBSparkLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBSparkLineView.h; sourceTree = "<group>"; };
 		90D807A1185B52D800FDF31D /* ASBSparkLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBSparkLineView.m; sourceTree = "<group>"; };
+		90D807A3185B54E900FDF31D /* TestSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSensor.h; sourceTree = "<group>"; };
+		90D807A4185B54E900FDF31D /* TestSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSensor.m; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -446,6 +449,8 @@
 			children = (
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
+				90D807A3185B54E900FDF31D /* TestSensor.h */,
+				90D807A4185B54E900FDF31D /* TestSensor.m */,
 				90D80799185B409300FDF31D /* ClimateSensor.h */,
 				90D8079A185B409300FDF31D /* ClimateSensor.m */,
 			);
@@ -710,6 +715,7 @@
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				90232E3A185A521900F83210 /* BLEManager.m in Sources */,
+				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,

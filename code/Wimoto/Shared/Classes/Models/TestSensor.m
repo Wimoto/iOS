@@ -1,0 +1,70 @@
+//
+//  TestSensor.m
+//  Wimoto
+//
+//  Created by MC700 on 12/13/13.
+//
+//
+
+#import "TestSensor.h"
+
+@implementation TestSensor
+
+#pragma mark - CBPeriferalDelegate
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
+{
+    for (CBService *aService in aPeripheral.services)
+    {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
+{
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
+    {
+        for (CBCharacteristic *aChar in service.characteristics)
+        {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
+            {
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+                
+                uint8_t val = 1;
+                NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
+                [aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
+            }
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
+    {
+        if( (characteristic.value)  || !error )
+        {
+            const uint8_t *reportData = [characteristic.value bytes];
+            uint16_t bpm = 0;
+            
+            if ((reportData[0] & 0x01) == 0)
+            {
+                bpm = reportData[1];
+            }
+            else
+            {
+                bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.temperature = bpm;
+                self.humidity = bpm;
+                self.light = bpm;
+            });
+        }
+    }
+}
+
+@end

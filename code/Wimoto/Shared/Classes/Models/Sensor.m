@@ -9,6 +9,7 @@
 #import "Sensor.h"
 
 #import "ClimateSensor.h"
+#import "TestSensor.h"
 
 #define DICT_KEY_SENSOR_TYPE      @"type"
 #define DICT_KEY_SENSOR_NAME      @"name"
@@ -24,6 +25,9 @@
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral {
     PeripheralType type = [peripheral peripheralType];
     switch (type) {
+        case kPeripheralTypeTest:
+            return [[TestSensor alloc] initWithPeripheral:peripheral];
+            break;
         case kPeripheralTypeClimate:
             return [[ClimateSensor alloc] initWithPeripheral:peripheral];
             break;

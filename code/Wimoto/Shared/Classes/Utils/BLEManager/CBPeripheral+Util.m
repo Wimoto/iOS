@@ -34,7 +34,12 @@
 - (PeripheralType)peripheralType {
     for (CBService *aService in self.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
-            // TODO
+            return kPeripheralTypeTest;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
+            return kPeripheralTypeClimate;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT]]) {
+            return kPeripheralTypeClimate;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY]]) {
             return kPeripheralTypeClimate;
         }
     }
