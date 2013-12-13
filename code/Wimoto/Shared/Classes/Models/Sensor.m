@@ -24,6 +24,8 @@
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral {
     PeripheralType type = [peripheral peripheralType];
+    
+    NSLog(@"sensorWithPeripheral type %d", type);
     switch (type) {
         case kPeripheralTypeTest:
             return [[TestSensor alloc] initWithPeripheral:peripheral];
