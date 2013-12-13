@@ -17,7 +17,6 @@ typedef enum {
     kSensorTypeWater
 } SensorType;
 
-#define OBSERVER_KEY_PATH_SENSOR_VALUE          @"value"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
 @interface Sensor : NSObject<CBPeripheralDelegate>
@@ -29,7 +28,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *systemId;
-@property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *rssi;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
