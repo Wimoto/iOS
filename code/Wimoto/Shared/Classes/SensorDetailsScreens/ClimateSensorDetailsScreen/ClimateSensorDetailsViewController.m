@@ -58,10 +58,10 @@ const float tempMaxLimit = 37.4f;
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     if (_sensor) {
-        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
-        [BLEManager sharedManager].delegate = self;
-        NSLog(@"--------------------------- %@", [_sensor uuid]);
-        [[BLEManager sharedManager] startScanForHRBeltsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:[_sensor uuid]]]];
+//        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
+//        [BLEManager sharedManager].delegate = self;
+//        NSLog(@"--------------------------- %@", [_sensor uuid]);
+//        [[BLEManager sharedManager] startScanForHRBeltsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:[_sensor uuid]]]];
     }
     
     _temperatureSparkLine.labelText = @"";

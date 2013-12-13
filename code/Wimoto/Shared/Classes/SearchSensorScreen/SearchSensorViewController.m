@@ -14,7 +14,7 @@
 @interface SearchSensorViewController ()
 
 @property (nonatomic, weak) IBOutlet UITableView *sensorTableView;
-@property (nonatomic, strong) NSMutableArray *sensorArray;
+@property (nonatomic, strong) NSMutableArray *sensorsArray;
 @property (nonatomic, weak) IBOutlet SensorCell *tmpCell;
 
 @end
@@ -26,10 +26,13 @@
     [super viewDidLoad];
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
-    _sensorArray = [NSMutableArray array];
     
-    [BLEManager sharedManager].delegate = self;
-    [[BLEManager sharedManager] startScanForHRBelts];
+    NSArray *array = [BLEManager identifiedPeripherals];
+    _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    for (CBPeripheral *peripheral in array) {
+        [_sensorsArray addObject:[Sensor sensorWithPeripheral:peripheral]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,16 +40,11 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)dealloc {
-    [BLEManager sharedManager].delegate = nil;
-    [[BLEManager sharedManager] stopScanForHRBelts];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_sensorArray count];
+    return [_sensorsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -57,7 +55,8 @@
         cell = _tmpCell;
         _tmpCell = nil;
     }
-    cell.sensor = [_sensorArray objectAtIndex:indexPath.row];
+    cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -66,25 +65,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
+    //[SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
     
-    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] init];
-    self.viewDeckController.centerController = climateSensorController;
+    //ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] init];
+    //self.viewDeckController.centerController = climateSensorController;
     
     //SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
     //[self.navigationController pushViewController:sensorDetailsViewController animated:YES];
-}
-
-#pragma mark - BLEManagerDelegate
-
-- (void)didConnectPeripheral:(CBPeripheral*)peripheral {
-    Sensor *sensor = [[Sensor alloc] initWithPeripheral:peripheral];
-    [_sensorArray addObject:sensor];
-    [_sensorTableView reloadData];
-}
-
-- (void)didDisconnectPeripheral:(CBPeripheral*)peripheral {
-    
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "AppDelegate_iPhone.h"
 #import "LeftMenuViewController.h"
-#import "IIViewDeckController.h"
+#import "WimotoDeckController.h"
 #import "RightMenuViewController.h"
 #import "ClimateSensorDetailsViewController.h"
 #import "GrowSensorDetailsViewController.h"
@@ -16,44 +16,44 @@
 #import "SentrySensorDetailsViewController.h"
 #import "WaterSensorDetailsViewController.h"
 #import "SensorManager.h"
+#import "NoSensorViewController.h"
 
 @implementation AppDelegate_iPhone
 
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
-    NSMutableArray *sensorsArray = [SensorManager getSensors];
-    if ([sensorsArray count] == 0) {
-        Sensor *sensor = [[Sensor alloc] init];
-        sensor.type = 0;
-        [SensorManager addSensor:sensor];
-    }
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [BLEManager initialize];
     
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
-    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
+    WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     
-    Sensor *firstSensor = [[SensorManager getSensors] objectAtIndex:0];
-    if (firstSensor.type==kSensorTypeClimate) {
-        ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
-        deckController.centerController = [[UINavigationController alloc] initWithRootViewController:climateController];
-    } else if (firstSensor.type==kSensorTypeGrow) {
-        GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
-        deckController.centerController = growController;
-    } else if (firstSensor.type==kSensorTypeSentry) {
-        SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
-        deckController.centerController = sentryController;
-    } else if (firstSensor.type==kSensorTypeThermo) {
-        ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
-        deckController.centerController = thermoController;
-    } else if (firstSensor.type==kSensorTypeWater) {
-        WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
-        deckController.centerController = waterController;
+    UIViewController *centerController = nil;
+    
+    NSArray *sensors = [SensorManager getSensors];
+    if ([sensors count]>0) {
+        Sensor *sensor = [[SensorManager getSensors] objectAtIndex:0];
+        
+        if (sensor.type==kSensorTypeClimate) {
+            centerController = [[ClimateSensorDetailsViewController alloc] init];
+        } else if (sensor.type==kSensorTypeGrow) {
+            centerController = [[GrowSensorDetailsViewController alloc] init];
+        } else if (sensor.type==kSensorTypeSentry) {
+            centerController = [[SentrySensorDetailsViewController alloc] init];
+        } else if (sensor.type==kSensorTypeThermo) {
+            centerController = [[ThermoSensorDetailsViewController alloc] init];
+        } else if (sensor.type==kSensorTypeWater) {
+            centerController = [[WaterSensorDetailsViewController alloc] init];
+        }
+    } else {
+        centerController = [[NoSensorViewController alloc] init];
     }
+    
+    deckController.centerController = centerController;
     
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];

@@ -6,10 +6,11 @@
 //
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "CBPeripheral+Util.h"
 
 typedef enum {
-    kSensorTypeClimate = 0,
+    kSensorTypeUndefined = 0,
+    kSensorTypeClimate,
     kSensorTypeGrow,
     kSensorTypeThermo,
     kSensorTypeSentry,
@@ -25,8 +26,11 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString *systemId;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *rssi;
+
++ (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 - (id)initWithPeripheral:(CBPeripheral*)peripheral;

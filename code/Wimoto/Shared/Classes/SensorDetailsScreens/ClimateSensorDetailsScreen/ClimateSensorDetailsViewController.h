@@ -13,7 +13,7 @@
 
 @class ASBSparkLineView;
 
-@interface ClimateSensorDetailsViewController : AppViewController <BLEManagerDelegate>
+@interface ClimateSensorDetailsViewController : AppViewController
 
 - (id)initWithSensor:(Sensor *)sensor;
 

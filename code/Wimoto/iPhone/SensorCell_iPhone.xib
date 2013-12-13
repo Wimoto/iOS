@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A3017" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchSensorViewController">
@@ -49,8 +49,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="rssiLabel" destination="8o8-nF-9Sy" id="vza-ro-UF5"/>
+                <outlet property="systemIdLabel" destination="dYJ-e3-a5N" id="LiH-Oo-QhM"/>
                 <outlet property="titleLabel" destination="eRf-Y4-URH" id="Z5s-g1-AWG"/>
-                <outlet property="uuidLabel" destination="dYJ-e3-a5N" id="xzV-mU-VwV"/>
             </connections>
         </tableViewCell>
     </objects>

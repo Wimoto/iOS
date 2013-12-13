@@ -7,9 +7,8 @@
 //
 
 #import "AppViewController.h"
-#import "BLEManager.h"
 #import "IIViewDeckController.h"
 
-@interface SearchSensorViewController : AppViewController<BLEManagerDelegate>
+@interface SearchSensorViewController : AppViewController
 
 @end

@@ -11,7 +11,7 @@
 @interface SensorCell ()
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *uuidLabel;
+@property (nonatomic, weak) IBOutlet UILabel *systemIdLabel;
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
 
 @end
@@ -24,7 +24,7 @@
     _sensor = sensor;
     
     _titleLabel.text = _sensor.name;
-    _uuidLabel.text = _sensor.uuid;
+    _systemIdLabel.text = _sensor.systemId;
     
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
 }
