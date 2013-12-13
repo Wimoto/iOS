@@ -16,7 +16,6 @@
 
 @interface Sensor ()
 
-@property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) NSTimer *rssiTimer;
 
 @end
@@ -40,6 +39,7 @@
     if (self) {
         _peripheral = peripheral;
         _peripheral.delegate = self;
+        [_peripheral discoverServices:nil];
         
         _name = _peripheral.name;
         _systemId = [peripheral systemId];
@@ -69,7 +69,8 @@
 {
     _peripheral = peripheral;
     _peripheral.delegate = self;
-
+    [_peripheral discoverServices:nil];
+    
     self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
 }

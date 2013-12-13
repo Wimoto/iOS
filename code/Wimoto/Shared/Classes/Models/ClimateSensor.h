@@ -8,6 +8,14 @@
 
 #import "Sensor.h"
 
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE            @"temperature"
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY               @"humidity"
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT                  @"light"
+
 @interface ClimateSensor : Sensor
+
+@property (nonatomic) float temperature;
+@property (nonatomic) float humidity;
+@property (nonatomic) float light;
 
 @end

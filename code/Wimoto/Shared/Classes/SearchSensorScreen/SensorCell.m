@@ -38,7 +38,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
-        _rssiLabel.text = [NSString stringWithFormat:@"%@", [change objectForKey:NSKeyValueChangeNewKey]];
+        _rssiLabel.text = [NSString stringWithFormat:@"%@dB", [change objectForKey:NSKeyValueChangeNewKey]];
     }
 }
 

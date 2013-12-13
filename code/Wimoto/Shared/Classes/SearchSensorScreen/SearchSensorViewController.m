@@ -7,15 +7,22 @@
 //
 
 #import "SearchSensorViewController.h"
+
+#import "AppConstants.h"
+
 #import "ClimateSensorDetailsViewController.h"
 #import "SensorCell.h"
 #import "SensorManager.h"
 
 @interface SearchSensorViewController ()
 
-@property (nonatomic, weak) IBOutlet UITableView *sensorTableView;
 @property (nonatomic, strong) NSMutableArray *sensorsArray;
+
+@property (nonatomic, weak) IBOutlet UITableView *sensorTableView;
 @property (nonatomic, weak) IBOutlet SensorCell *tmpCell;
+
+- (void)didConnectPeripheral:(NSNotification*)notification;
+- (void)didDisconnectPeripheral:(NSNotification*)notification;
 
 @end
 
@@ -33,11 +40,45 @@
     for (CBPeripheral *peripheral in array) {
         [_sensorsArray addObject:[Sensor sensorWithPeripheral:peripheral]];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didConnectPeripheral:(NSNotification*)notification {
+    CBPeripheral *peripheral = [notification object];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
+    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
+    
+    if ([filteredArray count]==0) {
+        [_sensorsArray addObject:[Sensor sensorWithPeripheral:peripheral]];
+        
+        [_sensorTableView reloadData];
+    }
+}
+
+- (void)didDisconnectPeripheral:(NSNotification*)notification {
+    CBPeripheral *peripheral = [notification object];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
+    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
+
+    if ([filteredArray count]>0) {
+        [_sensorsArray removeObject:[filteredArray objectAtIndex:0]];
+        
+        [_sensorTableView reloadData];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -67,8 +108,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //[SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
     
-    //ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] init];
-    //self.viewDeckController.centerController = climateSensorController;
+    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] initWithSensor:[_sensorsArray objectAtIndex:indexPath.row]];
+    self.viewDeckController.centerController = climateSensorController;
     
     //SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
     //[self.navigationController pushViewController:sensorDetailsViewController animated:YES];

@@ -24,7 +24,6 @@
 		305A119A184FAD01001B8C14 /* thermoIR_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1191184FAD01001B8C14 /* thermoIR_data.txt */; };
 		305A119B184FAD01001B8C14 /* thermoProbe_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1192184FAD01001B8C14 /* thermoProbe_data.txt */; };
 		305A119C184FAD01001B8C14 /* waterLevel_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 305A1193184FAD01001B8C14 /* waterLevel_data.txt */; };
-		30B25B0E18575FEF0027F2E7 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B25B0C18575FEF0027F2E7 /* GraphViewController.m */; };
 		30B25B131857636E0027F2E7 /* GraphViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
@@ -93,6 +92,7 @@
 		90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4ABCD184E56A4004DDB1F /* WaterSensorDetailsViewController.m */; };
 		90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */; };
 		90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079A185B409300FDF31D /* ClimateSensor.m */; };
+		90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079D185B49D100FDF31D /* SensorViewController.m */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -117,8 +117,6 @@
 		305A1191184FAD01001B8C14 /* thermoIR_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thermoIR_data.txt; sourceTree = "<group>"; };
 		305A1192184FAD01001B8C14 /* thermoProbe_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thermoProbe_data.txt; sourceTree = "<group>"; };
 		305A1193184FAD01001B8C14 /* waterLevel_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waterLevel_data.txt; sourceTree = "<group>"; };
-		30B25B0B18575FEF0027F2E7 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
-		30B25B0C18575FEF0027F2E7 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -215,6 +213,8 @@
 		90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
 		90D80799185B409300FDF31D /* ClimateSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClimateSensor.h; sourceTree = "<group>"; };
 		90D8079A185B409300FDF31D /* ClimateSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClimateSensor.m; sourceTree = "<group>"; };
+		90D8079C185B49D100FDF31D /* SensorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorViewController.h; sourceTree = "<group>"; };
+		90D8079D185B49D100FDF31D /* SensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorViewController.m; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -328,15 +328,6 @@
 				305A1193184FAD01001B8C14 /* waterLevel_data.txt */,
 			);
 			path = data;
-			sourceTree = "<group>";
-		};
-		30B25B0A18575FD80027F2E7 /* GraphScreen */ = {
-			isa = PBXGroup;
-			children = (
-				30B25B0B18575FEF0027F2E7 /* GraphViewController.h */,
-				30B25B0C18575FEF0027F2E7 /* GraphViewController.m */,
-			);
-			path = GraphScreen;
 			sourceTree = "<group>";
 		};
 		30B487C0184DF328002B0CD8 /* Utils */ = {
@@ -524,12 +515,13 @@
 		90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
-				30B25B0A18575FD80027F2E7 /* GraphScreen */,
 				90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */,
 				90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */,
 				90D4AB89184E5270004DDB1F /* SentrySensorDetailsScreen */,
 				90D4AB8A184E5270004DDB1F /* ThermoSensorDetailsScreen */,
 				90D4AB8B184E5270004DDB1F /* WaterSensorDetailsScreen */,
+				90D8079C185B49D100FDF31D /* SensorViewController.h */,
+				90D8079D185B49D100FDF31D /* SensorViewController.m */,
 				90232E22185A43B300F83210 /* NoSensorViewController.h */,
 				90232E23185A43B300F83210 /* NoSensorViewController.m */,
 			);
@@ -720,9 +712,9 @@
 				90232E3A185A521900F83210 /* BLEManager.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
+				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
-				30B25B0E18575FEF0027F2E7 /* GraphViewController.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
@@ -747,6 +739,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -759,6 +753,7 @@
 					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
 				PRODUCT_NAME = Wimoto;
+				PROVISIONING_PROFILE = "6AB02766-F052-4509-BDA9-B551B9F79FFB";
 				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;

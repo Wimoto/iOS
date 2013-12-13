@@ -24,6 +24,8 @@ typedef enum {
 
 @property (nonatomic) SensorType type;
 
+@property (nonatomic, strong) CBPeripheral *peripheral;
+
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *systemId;

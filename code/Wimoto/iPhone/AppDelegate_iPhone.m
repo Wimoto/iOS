@@ -7,15 +7,12 @@
 //
 
 #import "AppDelegate_iPhone.h"
+
+#import "BLEManager.h"
+
 #import "LeftMenuViewController.h"
-#import "WimotoDeckController.h"
 #import "RightMenuViewController.h"
-#import "ClimateSensorDetailsViewController.h"
-#import "GrowSensorDetailsViewController.h"
-#import "ThermoSensorDetailsViewController.h"
-#import "SentrySensorDetailsViewController.h"
-#import "WaterSensorDetailsViewController.h"
-#import "SensorManager.h"
+#import "WimotoDeckController.h"
 #import "NoSensorViewController.h"
 
 @implementation AppDelegate_iPhone
@@ -34,24 +31,24 @@
     
     UIViewController *centerController = nil;
     
-    NSArray *sensors = [SensorManager getSensors];
-    if ([sensors count]>0) {
-        Sensor *sensor = [[SensorManager getSensors] objectAtIndex:0];
-        
-        if (sensor.type==kSensorTypeClimate) {
-            centerController = [[ClimateSensorDetailsViewController alloc] init];
-        } else if (sensor.type==kSensorTypeGrow) {
-            centerController = [[GrowSensorDetailsViewController alloc] init];
-        } else if (sensor.type==kSensorTypeSentry) {
-            centerController = [[SentrySensorDetailsViewController alloc] init];
-        } else if (sensor.type==kSensorTypeThermo) {
-            centerController = [[ThermoSensorDetailsViewController alloc] init];
-        } else if (sensor.type==kSensorTypeWater) {
-            centerController = [[WaterSensorDetailsViewController alloc] init];
-        }
-    } else {
+//    NSArray *sensors = [SensorManager getSensors];
+//    if ([sensors count]>0) {
+//        Sensor *sensor = [[SensorManager getSensors] objectAtIndex:0];
+//        
+//        if (sensor.type==kSensorTypeClimate) {
+//            centerController = [[ClimateSensorDetailsViewController alloc] init];
+//        } else if (sensor.type==kSensorTypeGrow) {
+//            centerController = [[GrowSensorDetailsViewController alloc] init];
+//        } else if (sensor.type==kSensorTypeSentry) {
+//            centerController = [[SentrySensorDetailsViewController alloc] init];
+//        } else if (sensor.type==kSensorTypeThermo) {
+//            centerController = [[ThermoSensorDetailsViewController alloc] init];
+//        } else if (sensor.type==kSensorTypeWater) {
+//            centerController = [[WaterSensorDetailsViewController alloc] init];
+//        }
+//    } else {
         centerController = [[NoSensorViewController alloc] init];
-    }
+//    }
     
     deckController.centerController = centerController;
     

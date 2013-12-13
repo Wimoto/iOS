@@ -129,7 +129,9 @@ static BLEManager *bleManager = nil;
 {
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
         if (characteristic.value) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
+            });
         }
     }
 }

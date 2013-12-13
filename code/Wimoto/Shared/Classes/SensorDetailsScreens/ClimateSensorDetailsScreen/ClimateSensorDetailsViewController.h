@@ -6,15 +6,9 @@
 //
 //
 
-#import "AppViewController.h"
-#import "ASBSparkLineView.h"
-#import "BLEManager.h"
-#import "Sensor.h"
+#import "SensorViewController.h"
+#import "ClimateSensor.h"
 
-@class ASBSparkLineView;
-
-@interface ClimateSensorDetailsViewController : AppViewController
-
-- (id)initWithSensor:(Sensor *)sensor;
+@interface ClimateSensorDetailsViewController : SensorViewController
 
 @end
