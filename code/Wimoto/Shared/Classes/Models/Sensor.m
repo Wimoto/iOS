@@ -52,7 +52,6 @@
 - (id)initWithDictionary:(NSDictionary*)dictionary {
     self = [super init];
     if (self) {
-        _type = [[dictionary objectForKey:DICT_KEY_SENSOR_TYPE] intValue];
         _name = [dictionary objectForKey:DICT_KEY_SENSOR_NAME];
     }
     return self;
@@ -65,7 +64,6 @@
 
 - (NSDictionary*)dictionaryRepresentation {
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:1];
-    [mutableDictionary setObject:[NSNumber numberWithInt:_type] forKey:DICT_KEY_SENSOR_TYPE];
     if (_name) {
         [mutableDictionary setObject:_name forKey:DICT_KEY_SENSOR_NAME];
     }

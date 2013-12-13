@@ -8,20 +8,9 @@
 
 #import "CBPeripheral+Util.h"
 
-typedef enum {
-    kSensorTypeUndefined = 0,
-    kSensorTypeClimate,
-    kSensorTypeGrow,
-    kSensorTypeThermo,
-    kSensorTypeSentry,
-    kSensorTypeWater
-} SensorType;
-
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
 @interface Sensor : NSObject<CBPeripheralDelegate>
-
-@property (nonatomic) SensorType type;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 
