@@ -26,7 +26,6 @@ typedef enum {
 @property (nonatomic, strong) CBPeripheral *peripheral;
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *systemId;
 @property (nonatomic, strong) NSNumber *rssi;
 
@@ -34,8 +33,6 @@ typedef enum {
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 - (id)initWithPeripheral:(CBPeripheral*)peripheral;
-
-- (void)updateWithPeripheral:(CBPeripheral*)peripheral;
 
 - (NSDictionary*)dictionaryRepresentation;
 
