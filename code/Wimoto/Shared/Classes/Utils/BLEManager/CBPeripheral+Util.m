@@ -17,9 +17,9 @@
 
 - (NSString*)systemId {
     for (CBService *aService in self.services) {
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {
-                if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A23"]]) {
+                if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
                     const uint64_t *byteArray = [aChar.value bytes];
                     uint64_t value = byteArray[0];
                     
@@ -36,7 +36,7 @@
     
     for (CBService *aService in self.services) {
         NSLog(@"aService %@", aService.UUID);
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_TEST_SERVICE_UUID_HEARTRATE]]) {
             return kPeripheralTypeTest;
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
             return kPeripheralTypeClimate;
