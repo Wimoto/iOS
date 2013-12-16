@@ -94,6 +94,12 @@
 		90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079D185B49D100FDF31D /* SensorViewController.m */; };
 		90D807A2185B52D800FDF31D /* ASBSparkLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A1185B52D800FDF31D /* ASBSparkLineView.m */; };
 		90D807A5185B54E900FDF31D /* TestSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A4185B54E900FDF31D /* TestSensor.m */; };
+		90EAB4A2185F79D300609A9C /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A1185F79D300609A9C /* CouchbaseLite.framework */; };
+		90EAB4A4185F7A3500609A9C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A3185F7A3500609A9C /* CFNetwork.framework */; };
+		90EAB4A6185F7A3C00609A9C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A5185F7A3C00609A9C /* Security.framework */; };
+		90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */; };
+		90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */; };
+		90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4AB185F7A6E00609A9C /* libz.dylib */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +224,12 @@
 		90D807A1185B52D800FDF31D /* ASBSparkLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBSparkLineView.m; sourceTree = "<group>"; };
 		90D807A3185B54E900FDF31D /* TestSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSensor.h; sourceTree = "<group>"; };
 		90D807A4185B54E900FDF31D /* TestSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSensor.m; sourceTree = "<group>"; };
+		90EAB4A1185F79D300609A9C /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
+		90EAB4A3185F7A3500609A9C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		90EAB4A5185F7A3C00609A9C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		90EAB4AB185F7A6E00609A9C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -226,6 +238,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */,
+				90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */,
+				90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */,
+				90EAB4A6185F7A3C00609A9C /* Security.framework in Frameworks */,
+				90EAB4A4185F7A3500609A9C /* CFNetwork.framework in Frameworks */,
+				90EAB4A2185F79D300609A9C /* CouchbaseLite.framework in Frameworks */,
 				90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */,
 				30B29E92184E13AA000C651A /* libiconv.dylib in Frameworks */,
 				30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */,
@@ -304,6 +322,12 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90EAB4AB185F7A6E00609A9C /* libz.dylib */,
+				90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */,
+				90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */,
+				90EAB4A5185F7A3C00609A9C /* Security.framework */,
+				90EAB4A3185F7A3500609A9C /* CFNetwork.framework */,
+				90EAB4A1185F79D300609A9C /* CouchbaseLite.framework */,
 				90CD9B1718561B2300970B7D /* CoreBluetooth.framework */,
 				30B29E91184E13AA000C651A /* libiconv.dylib */,
 				30B29E8F184E139F000C651A /* CoreVideo.framework */,
@@ -753,6 +777,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Frameworks,
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -763,6 +791,7 @@
 					"$(inherited)",
 					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "6AB02766-F052-4509-BDA9-B551B9F79FFB";
 				VALID_ARCHS = "arm64 armv7";
@@ -777,6 +806,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Frameworks,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
@@ -785,6 +818,7 @@
 					"$(inherited)",
 					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
