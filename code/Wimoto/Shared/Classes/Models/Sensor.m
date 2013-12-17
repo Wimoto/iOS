@@ -22,58 +22,60 @@
 
 @implementation Sensor
 
-+ (id)sensorWithPeripheral:(CBPeripheral*)peripheral {
+@dynamic name, systemId;
+
++ (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral {
+    Sensor *sensor = [[[Sensor classForPeripheral:peripheral] alloc] initWithNewDocumentInDatabase:database];
+    sensor.peripheral = peripheral;
+    return sensor;
+}
+
++ (id)sensorForDocument:(CBLDocument*)document {
+    Sensor *sensor = [TestSensor modelForDocument:document];
+    return sensor;
+}
+
++ (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral {
+    Sensor *sensor = [[Sensor classForPeripheral:peripheral] modelForDocument:document];
+    sensor.peripheral = peripheral;
+    return sensor;
+}
+
++ (Class)classForPeripheral:(CBPeripheral*)peripheral {
     PeripheralType type = [peripheral peripheralType];
     
-    NSLog(@"sensorWithPeripheral type %d", type);
+    NSString *className = nil;
     switch (type) {
         case kPeripheralTypeTest:
-            return [[TestSensor alloc] initWithPeripheral:peripheral];
+            className = @"TestSensor";
             break;
         case kPeripheralTypeClimate:
-            return [[ClimateSensor alloc] initWithPeripheral:peripheral];
+            className = @"ClimateSensor";
             break;
         default:
+            className = @"Sensor";
             break;
     }
-    return nil;
+    return NSClassFromString(className);
 }
 
-- (id)initWithPeripheral:(CBPeripheral*)peripheral {
-    self = [super init];
-    if (self) {
-        _peripheral = peripheral;
-        _peripheral.delegate = self;
-        [_peripheral discoverServices:nil];
-        
-        _name = _peripheral.name;
-        _systemId = [peripheral systemId];
-        
-        self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
-    }
-    return self;
-}
-
-- (id)initWithDictionary:(NSDictionary*)dictionary {
-    self = [super init];
-    if (self) {
-        _name = [dictionary objectForKey:DICT_KEY_SENSOR_NAME];
-    }
-    return self;
+- (void)setPeripheral:(CBPeripheral *)peripheral {
+    _peripheral.delegate = nil;
+    _peripheral = peripheral;
+    
+    _peripheral.delegate = self;
+    [_peripheral discoverServices:nil];
+    
+    self.name = _peripheral.name;
+    self.systemId = [peripheral systemId];
+    
+    self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
 }
 
 - (void)dealloc {
     [_rssiTimer invalidate];
     _peripheral.delegate = nil;
-}
-
-- (NSDictionary*)dictionaryRepresentation {
-    NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:1];
-    if (_name) {
-        [mutableDictionary setObject:_name forKey:DICT_KEY_SENSOR_NAME];
-    }
-    return mutableDictionary;
 }
 
 #pragma mark - CBPeriferalDelegate

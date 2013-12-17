@@ -11,7 +11,6 @@
 #import "SettingsViewController.h"
 
 #import "Sensor.h"
-#import "SensorManager.h"
 
 #import "SearchSensorViewController.h"
 

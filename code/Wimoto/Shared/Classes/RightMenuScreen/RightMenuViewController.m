@@ -9,13 +9,15 @@
 #import "RightMenuViewController.h"
 #import "RightMenuCell.h"
 
+#import "IIViewDeckController.h"
+
+#import "DatabaseManager.h"
+
 #import "ClimateSensorDetailsViewController.h"
 #import "GrowSensorDetailsViewController.h"
 #import "SentrySensorDetailsViewController.h"
 #import "ThermoSensorDetailsViewController.h"
 #import "WaterSensorDetailsViewController.h"
-
-#import "SensorManager.h"
 
 @interface RightMenuViewController ()
 
@@ -35,7 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    _sensorsArray = [SensorManager getSensors];
+    _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
     [self.tableView reloadData];
 }
 
@@ -87,7 +89,7 @@
 {
     [_sensorsArray removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    [SensorManager setSensores:_sensorsArray];
+    //[SensorManager setSensores:_sensorsArray];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -69,7 +69,6 @@
 		90232E32185A467100F83210 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2F185A467100F83210 /* IIWrapController.m */; };
 		90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E34185A46A300F83210 /* WimotoDeckController.m */; };
 		90232E3A185A521900F83210 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E39185A521900F83210 /* BLEManager.m */; };
-		90C64237184E6037008F40D2 /* SensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C64236184E6037008F40D2 /* SensorManager.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
 		90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CD9B1718561B2300970B7D /* CoreBluetooth.framework */; };
 		90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */; };
@@ -100,6 +99,9 @@
 		90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */; };
 		90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */; };
 		90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4AB185F7A6E00609A9C /* libz.dylib */; };
+		90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EAB4AF185F9A7700609A9C /* DatabaseManager.m */; };
+		90EAB4B4185FA0F600609A9C /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EAB4B3185FA0F600609A9C /* SensorEntity.m */; };
+		90EAB4B7185FA11600609A9C /* ValueEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EAB4B6185FA11600609A9C /* ValueEntity.m */; };
 		90F56DDF184DD54000ADC38E /* Wimoto-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -185,8 +187,6 @@
 		90232E34185A46A300F83210 /* WimotoDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoDeckController.m; sourceTree = "<group>"; };
 		90232E38185A521900F83210 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
 		90232E39185A521900F83210 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
-		90C64235184E6037008F40D2 /* SensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorManager.h; sourceTree = "<group>"; };
-		90C64236184E6037008F40D2 /* SensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorManager.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
 		90C6423A184E606D008F40D2 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		90CD9B1718561B2300970B7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -230,6 +230,12 @@
 		90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		90EAB4AB185F7A6E00609A9C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		90EAB4AE185F9A7700609A9C /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
+		90EAB4AF185F9A7700609A9C /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
+		90EAB4B2185FA0F600609A9C /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
+		90EAB4B3185FA0F600609A9C /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
+		90EAB4B5185FA11600609A9C /* ValueEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueEntity.h; sourceTree = "<group>"; };
+		90EAB4B6185FA11600609A9C /* ValueEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValueEntity.m; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -363,8 +369,7 @@
 				90D8079F185B52D800FDF31D /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				90232E37185A521900F83210 /* BLEManager */,
-				90C64235184E6037008F40D2 /* SensorManager.h */,
-				90C64236184E6037008F40D2 /* SensorManager.m */,
+				90EAB4AD185F9A5E00609A9C /* DatabaseManager */,
 				901399C3185A5EF20003D964 /* NSString+Util.h */,
 				901399C4185A5EF20003D964 /* NSString+Util.m */,
 			);
@@ -471,6 +476,7 @@
 		90C64238184E6061008F40D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				90EAB4B1185FA0D700609A9C /* Entities */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
 				90D807A3185B54E900FDF31D /* TestSensor.h */,
@@ -617,6 +623,26 @@
 			path = Sparklines;
 			sourceTree = "<group>";
 		};
+		90EAB4AD185F9A5E00609A9C /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				90EAB4AE185F9A7700609A9C /* DatabaseManager.h */,
+				90EAB4AF185F9A7700609A9C /* DatabaseManager.m */,
+			);
+			path = DatabaseManager;
+			sourceTree = "<group>";
+		};
+		90EAB4B1185FA0D700609A9C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				90EAB4B2185FA0F600609A9C /* SensorEntity.h */,
+				90EAB4B3185FA0F600609A9C /* SensorEntity.m */,
+				90EAB4B5185FA11600609A9C /* ValueEntity.h */,
+				90EAB4B6185FA11600609A9C /* ValueEntity.m */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -738,7 +764,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
-				90C64237184E6037008F40D2 /* SensorManager.m in Sources */,
 				90232E31185A467100F83210 /* IIViewDeckController.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
@@ -748,7 +773,9 @@
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
+				90EAB4B7185FA11600609A9C /* ValueEntity.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
+				90EAB4B4185FA0F600609A9C /* SensorEntity.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
@@ -760,6 +787,7 @@
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,
 				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
+				90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,

@@ -23,6 +23,8 @@
     
     _sensor = sensor;
     
+    NSLog(@"sensor %@", _sensor);
+    
     _titleLabel.text = _sensor.name;
     _systemIdLabel.text = _sensor.systemId;
     

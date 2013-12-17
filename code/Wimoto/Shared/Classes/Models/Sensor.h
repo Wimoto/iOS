@@ -7,22 +7,22 @@
 //
 
 #import "CBPeripheral+Util.h"
+#import <Couchbaselite/Couchbaselite.h>
 
+#define DB_SENSOR_TYPE                          @"Sensor"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
-@interface Sensor : NSObject<CBPeripheralDelegate>
+@interface Sensor : CBLModel<CBPeripheralDelegate>
+
+@property (copy) NSString *name;
+@property (copy) NSString *systemId;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
-
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *systemId;
 @property (nonatomic, strong) NSNumber *rssi;
 
-+ (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
++ (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral;
 
-- (id)initWithDictionary:(NSDictionary*)dictionary;
-- (id)initWithPeripheral:(CBPeripheral*)peripheral;
-
-- (NSDictionary*)dictionaryRepresentation;
++ (id)sensorForDocument:(CBLDocument*)document;
++ (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "AppViewController.h"
-#import "IIViewDeckController.h"
 
 @interface SearchSensorViewController : AppViewController
 

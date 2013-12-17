@@ -12,7 +12,9 @@
 
 #import "ClimateSensorDetailsViewController.h"
 #import "SensorCell.h"
-#import "SensorManager.h"
+
+#import "IIViewDeckController.h"
+#import "DatabaseManager.h"
 
 @interface SearchSensorViewController ()
 
@@ -38,9 +40,11 @@
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
     
     for (CBPeripheral *peripheral in array) {
-        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        Sensor *sensor = [DatabaseManager sensorWithPeripheral:peripheral];
         if (sensor) {
-            [_sensorsArray addObject:sensor];
+            if ([sensor isNew]) {
+                [_sensorsArray addObject:sensor];
+            }
         }
     }
     
@@ -65,9 +69,11 @@
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
     
     if ([filteredArray count]==0) {
-        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        Sensor *sensor = [DatabaseManager sensorWithPeripheral:peripheral];
         if (sensor) {
-            [_sensorsArray addObject:sensor];
+            if ([sensor isNew]) {
+                [_sensorsArray addObject:sensor];
+            }
         }
         
         [_sensorTableView reloadData];
@@ -112,13 +118,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //[SensorManager addSensor:[_sensorArray objectAtIndex:indexPath.row]];
     
-    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] initWithSensor:[_sensorsArray objectAtIndex:indexPath.row]];
+    Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    [sensor save:nil];
+    
+    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
     self.viewDeckController.centerController = climateSensorController;
-    
-    //SensorDetailsViewController *sensorDetailsViewController = [[SensorDetailsViewController alloc] initWithSensor:[_sensorArray objectAtIndex:indexPath.row]];
-    //[self.navigationController pushViewController:sensorDetailsViewController animated:YES];
 }
 
 @end
