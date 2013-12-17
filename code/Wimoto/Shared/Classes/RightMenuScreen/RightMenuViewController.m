@@ -19,6 +19,9 @@
 #import "ThermoSensorDetailsViewController.h"
 #import "WaterSensorDetailsViewController.h"
 
+#import "TestSensor.h"
+#import "ClimateSensor.h"
+
 @interface RightMenuViewController ()
 
 @property (nonatomic, strong) NSMutableArray *sensorsArray;
@@ -38,6 +41,7 @@
     [super viewWillAppear:animated];
     
     _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
+
     [self.tableView reloadData];
 }
 
@@ -74,9 +78,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        return NO;
-    }
     return YES;
 }
 
@@ -87,9 +88,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_sensorsArray removeObjectAtIndex:indexPath.row];
+    Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    [sensor deleteDocument:nil];
+    
+    [_sensorsArray removeObject:sensor];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    //[SensorManager setSensores:_sensorsArray];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,28 +101,24 @@
     
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     
-    ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
-    UINavigationController *climateNavController = [[UINavigationController alloc] initWithRootViewController:climateController];
-    self.viewDeckController.centerController = climateNavController;
-    /*
-    if (sensor.type==kSensorTypeClimate) {
+    if (([sensor isKindOfClass:[ClimateSensor class]])||([sensor isKindOfClass:[TestSensor class]])) {
         ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
-        UINavigationController *climateNavController = [[UINavigationController alloc] initWithRootViewController:climateController];
-        self.viewDeckController.centerController = climateNavController;
-    } else if (sensor.type==kSensorTypeGrow) {
-        GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
-        self.viewDeckController.centerController = growController;
-    } else if (sensor.type==kSensorTypeSentry) {
-        SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
-        self.viewDeckController.centerController = sentryController;
-    } else if (sensor.type==kSensorTypeThermo) {
-        ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
-        self.viewDeckController.centerController = thermoController;
-    } else if (sensor.type==kSensorTypeWater) {
-        WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
-        self.viewDeckController.centerController = waterController;
+        self.viewDeckController.centerController = climateController;
     }
-     */
+//    else if ([sensor isKindOfClass:[ClimateSensor class]]) {
+//        GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
+//        self.viewDeckController.centerController = growController;
+//    } else if (sensor.type==kSensorTypeSentry) {
+//        SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
+//        self.viewDeckController.centerController = sentryController;
+//    } else if (sensor.type==kSensorTypeThermo) {
+//        ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
+//        self.viewDeckController.centerController = thermoController;
+//    } else if (sensor.type==kSensorTypeWater) {
+//        WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
+//        self.viewDeckController.centerController = waterController;
+//    }
+
     [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
 
