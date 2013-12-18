@@ -787,7 +787,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Frameworks,
+					"\"$(SRCROOT)/Shared/Frameworks",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -816,7 +816,7 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Frameworks,
+					"\"$(SRCROOT)/Shared/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
