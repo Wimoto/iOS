@@ -39,6 +39,8 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    _tempLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor temperature]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -22,6 +22,9 @@
 #import "TestSensor.h"
 #import "ClimateSensor.h"
 
+#import "AppConstants.h"
+#import "CBPeripheral+Util.h"
+
 @interface RightMenuViewController ()
 
 @property (nonatomic, strong) NSMutableArray *sensorsArray;
@@ -35,13 +38,19 @@
 {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
-
+    
+    
+    
     [self.tableView reloadData];
 }
 
@@ -49,6 +58,34 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didConnectPeripheral:(NSNotification*)notification {
+    CBPeripheral *peripheral = [notification object];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"systemId LIKE %@", [peripheral systemId]];
+    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
+    
+    if ([filteredArray count]>0) {
+        Sensor *sensor = [filteredArray objectAtIndex:0];
+        sensor.peripheral = peripheral;
+    }
+}
+
+- (void)didDisconnectPeripheral:(NSNotification*)notification {
+    CBPeripheral *peripheral = [notification object];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"systemId LIKE %@", [peripheral systemId]];
+    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
+    
+    if ([filteredArray count]>0) {
+        Sensor *sensor = [filteredArray objectAtIndex:0];
+        sensor.peripheral = nil;
+    }
 }
 
 #pragma mark - Table view data source
@@ -102,22 +139,9 @@
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     
     if (([sensor isKindOfClass:[ClimateSensor class]])||([sensor isKindOfClass:[TestSensor class]])) {
-        ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] init];
+        ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
         self.viewDeckController.centerController = climateController;
     }
-//    else if ([sensor isKindOfClass:[ClimateSensor class]]) {
-//        GrowSensorDetailsViewController *growController = [[GrowSensorDetailsViewController alloc] init];
-//        self.viewDeckController.centerController = growController;
-//    } else if (sensor.type==kSensorTypeSentry) {
-//        SentrySensorDetailsViewController *sentryController = [[SentrySensorDetailsViewController alloc] init];
-//        self.viewDeckController.centerController = sentryController;
-//    } else if (sensor.type==kSensorTypeThermo) {
-//        ThermoSensorDetailsViewController *thermoController = [[ThermoSensorDetailsViewController alloc] init];
-//        self.viewDeckController.centerController = thermoController;
-//    } else if (sensor.type==kSensorTypeWater) {
-//        WaterSensorDetailsViewController *waterController = [[WaterSensorDetailsViewController alloc] init];
-//        self.viewDeckController.centerController = waterController;
-//    }
 
     [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }

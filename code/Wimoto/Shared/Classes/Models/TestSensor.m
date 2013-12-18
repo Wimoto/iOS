@@ -30,6 +30,8 @@
         {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
             {
+                [aPeripheral readValueForCharacteristic:aChar];
+                
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
                 
                 uint8_t val = 1;
