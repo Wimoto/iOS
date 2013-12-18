@@ -36,6 +36,10 @@ static DatabaseManager *databaseManager = nil;
     if (self) {
         _cblDatabase = [[CBLManager sharedInstance] createDatabaseNamed:@"wimoto"
                                                                   error:nil];
+        
+        CBLModelFactory *modelFactory = [CBLModelFactory sharedInstance];
+        [modelFactory registerClass:[TestSensor class] forDocumentType:NSStringFromClass([TestSensor class])];
+        [modelFactory registerClass:[ClimateSensor class] forDocumentType:NSStringFromClass([ClimateSensor class])];
     }
     return self;
 }
@@ -55,8 +59,6 @@ static DatabaseManager *databaseManager = nil;
     query.limit = 1;
     
     NSArray *rows = [query.rows allObjects];
-    
-    NSLog(@"array %@", rows);
     
     if ([rows count]==0) {
         return [Sensor newSensorInDatabase:manager.cblDatabase withPeripheral:peripheral];

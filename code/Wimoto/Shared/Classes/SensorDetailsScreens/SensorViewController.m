@@ -30,7 +30,9 @@
 {
     [super viewDidLoad];
 
-    _rssiLabel.text = [NSString stringWithFormat:@"%@dB", _sensor.rssi];
+    if (_sensor.rssi) {
+        _rssiLabel.text = [NSString stringWithFormat:@"%@dB", _sensor.rssi];
+    }
 }
 
 - (void)didReceiveMemoryWarning

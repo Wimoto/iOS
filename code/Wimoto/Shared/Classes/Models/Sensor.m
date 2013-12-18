@@ -26,17 +26,18 @@
 
 + (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral {
     Sensor *sensor = [[[Sensor classForPeripheral:peripheral] alloc] initWithNewDocumentInDatabase:database];
+    [sensor setValue:NSStringFromClass([sensor class]) ofProperty:@"type"];
     sensor.peripheral = peripheral;
     return sensor;
 }
 
 + (id)sensorForDocument:(CBLDocument*)document {
-    Sensor *sensor = [TestSensor modelForDocument:document];
+    Sensor *sensor = (Sensor*)[CBLModel modelForDocument:document];
     return sensor;
 }
 
 + (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral {
-    Sensor *sensor = [[Sensor classForPeripheral:peripheral] modelForDocument:document];
+    Sensor *sensor = (Sensor*)[CBLModel modelForDocument:document];
     sensor.peripheral = peripheral;
     return sensor;
 }

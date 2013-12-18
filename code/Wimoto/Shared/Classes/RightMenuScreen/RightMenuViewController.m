@@ -49,8 +49,6 @@
     
     _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
     
-    
-    
     [self.tableView reloadData];
 }
 
