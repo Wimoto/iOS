@@ -52,6 +52,8 @@
             {
                 NSLog(@"ClimateSensor didDiscoverTempChar");
                 
+                [aPeripheral readValueForCharacteristic:aChar];
+                
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
                 
                 uint8_t val = 1;
@@ -69,21 +71,21 @@
         if( (characteristic.value)  || !error )
         {
             const uint8_t *reportData = [characteristic.value bytes];
-            uint16_t bpm = 0;
+            uint16_t temperature = 0;
             
             if ((reportData[0] & 0x01) == 0)
             {
-                bpm = reportData[1];
+                temperature = reportData[1];
             }
             else
             {
-                bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+                temperature = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
             
             NSLog(@"ClimateSensor didUpdateValueForCharacteristic");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.temperature = bpm;
+                self.temperature = temperature;
             });
         }
     }
