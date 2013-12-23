@@ -11,6 +11,8 @@
 
 @interface ClimateSensorDetailsViewController ()
 
+@property (nonatomic, strong) NSMutableArray *mutableArray;
+
 @property (nonatomic, weak) IBOutlet UILabel *tempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
@@ -30,6 +32,8 @@
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionNew context:NULL];
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionNew context:NULL];
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionNew context:NULL];
+        
+        _mutableArray = [NSMutableArray array];
     }
     return self;
 }
@@ -43,6 +47,15 @@
     _tempLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor temperature]];
     _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor humidity]];
     _lightLabel.text = [NSString stringWithFormat:@"%.f", [(ClimateSensor*)self.sensor light]];
+    
+    _temperatureSparkLine.labelText = @"";
+    _temperatureSparkLine.showCurrentValue = NO;
+    
+    _humiditySparkLine.labelText = @"";
+    _humiditySparkLine.showCurrentValue = NO;
+    
+    _lightSparkLine.labelText = @"";
+    _lightSparkLine.showCurrentValue = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,11 +80,19 @@
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE]) {
-        _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        NSNumber *temperature = [change objectForKey:NSKeyValueChangeNewKey];
+        
+        _tempLabel.text = [NSString stringWithFormat:@"%.1f", [temperature floatValue]];
+        [_mutableArray addObject:[change objectForKey:NSKeyValueChangeNewKey]];
+        _temperatureSparkLine.dataValues = _mutableArray;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
         _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        
+        _humiditySparkLine.dataValues = _mutableArray;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
         _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        
+        _lightSparkLine.dataValues = _mutableArray;
     }
 }
 
