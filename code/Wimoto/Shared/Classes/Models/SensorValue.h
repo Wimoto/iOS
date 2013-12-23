@@ -13,7 +13,9 @@
 typedef enum {
     kValueTypeTemperature = 0,
     kValueTypeHumidity,
-    kValueTypeLight
+    kValueTypeLight,
+    kValueTypePresence,
+    kValueTypeLevel
 } SensorValueType;
 
 @interface SensorValue : CBLModel

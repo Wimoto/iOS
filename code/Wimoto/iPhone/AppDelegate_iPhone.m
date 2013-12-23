@@ -19,8 +19,11 @@
 
 #import "Sensor.h"
 #import "TestSensor.h"
+#import "ClimateSensor.h"
+#import "WaterSensor.h"
 
 #import "ClimateSensorDetailsViewController.h"
+#import "WaterSensorDetailsViewController.h"
 
 @implementation AppDelegate_iPhone
 
@@ -44,6 +47,8 @@
         
         if ([sensor isKindOfClass:[ClimateSensor class]]) {
             centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+        } else if ([sensor isKindOfClass:[WaterSensor class]]) {
+            centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
         } else if ([sensor isKindOfClass:[TestSensor class]]) {
             centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
         }

@@ -53,6 +53,9 @@
         case kPeripheralTypeClimate:
             className = @"ClimateSensor";
             break;
+        case kPeripheralTypeWater:
+            className = @"WaterSensor";
+            break;
         default:
             className = @"Sensor";
             break;

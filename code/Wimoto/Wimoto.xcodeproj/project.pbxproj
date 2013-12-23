@@ -61,6 +61,7 @@
 		90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E34185A46A300F83210 /* WimotoDeckController.m */; };
 		90232E3A185A521900F83210 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E39185A521900F83210 /* BLEManager.m */; };
 		90815A421868736E00A9EC0A /* SensorValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A411868736E00A9EC0A /* SensorValue.m */; };
+		90815A451868951600A9EC0A /* WaterSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A441868951600A9EC0A /* WaterSensor.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
 		90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CD9B1718561B2300970B7D /* CoreBluetooth.framework */; };
 		90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */; };
@@ -170,6 +171,8 @@
 		90232E39185A521900F83210 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
 		90815A401868736E00A9EC0A /* SensorValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorValue.h; sourceTree = "<group>"; };
 		90815A411868736E00A9EC0A /* SensorValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorValue.m; sourceTree = "<group>"; };
+		90815A431868951600A9EC0A /* WaterSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterSensor.h; sourceTree = "<group>"; };
+		90815A441868951600A9EC0A /* WaterSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterSensor.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
 		90C6423A184E606D008F40D2 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		90CD9B1718561B2300970B7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -447,6 +450,8 @@
 				90D807A4185B54E900FDF31D /* TestSensor.m */,
 				90D80799185B409300FDF31D /* ClimateSensor.h */,
 				90D8079A185B409300FDF31D /* ClimateSensor.m */,
+				90815A431868951600A9EC0A /* WaterSensor.h */,
+				90815A441868951600A9EC0A /* WaterSensor.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -717,6 +722,7 @@
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
+				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,

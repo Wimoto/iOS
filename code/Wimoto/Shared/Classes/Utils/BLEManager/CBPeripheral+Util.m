@@ -32,8 +32,6 @@
 }
 
 - (PeripheralType)peripheralType {
-    NSLog(@"peripheralType");
-    
     for (CBService *aService in self.services) {
         NSLog(@"aService %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_TEST_SERVICE_UUID_HEARTRATE]]) {
@@ -44,6 +42,10 @@
             return kPeripheralTypeClimate;
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY]]) {
             return kPeripheralTypeClimate;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE]]) {
+            return kPeripheralTypeWater;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL]]) {
+            return kPeripheralTypeWater;
         }
     }
     return kPeripheralTypeUndefined;

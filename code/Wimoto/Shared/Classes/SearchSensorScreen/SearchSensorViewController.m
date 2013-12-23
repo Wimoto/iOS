@@ -11,10 +11,15 @@
 #import "AppConstants.h"
 
 #import "ClimateSensorDetailsViewController.h"
+#import "WaterSensorDetailsViewController.h"
 #import "SensorCell.h"
 
 #import "IIViewDeckController.h"
+
 #import "DatabaseManager.h"
+#import "ClimateSensor.h"
+#import "WaterSensor.h"
+#import "TestSensor.h"
 
 @interface SearchSensorViewController ()
 
@@ -122,8 +127,15 @@
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     [sensor save:nil];
     
-    ClimateSensorDetailsViewController *climateSensorController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
-    self.viewDeckController.centerController = climateSensorController;
+    UIViewController *centerController = nil;
+    if ([sensor isKindOfClass:[ClimateSensor class]]) {
+        centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+    } else if ([sensor isKindOfClass:[WaterSensor class]]) {
+        centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
+    } else if ([sensor isKindOfClass:[TestSensor class]]) {
+        centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+    }
+    self.viewDeckController.centerController = centerController;
 }
 
 @end

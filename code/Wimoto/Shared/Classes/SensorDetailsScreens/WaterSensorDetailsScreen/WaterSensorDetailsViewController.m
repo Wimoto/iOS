@@ -7,33 +7,45 @@
 //
 
 #import "WaterSensorDetailsViewController.h"
+#import "ASBSparkLineView.h"
+
+#import "WaterSensor.h"
+
+#import "DatabaseManager.h"
 
 @interface WaterSensorDetailsViewController ()
-{
-    NSMutableArray *m_waterLevel;
-    NSMutableArray *m_contacSensor;
-    NSMutableArray *m_bluetoothData;
-}
 
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, weak) IBOutlet UILabel *contactSensorLabel;
 @property (nonatomic, weak) IBOutlet UILabel *waterLevelLabel;
-@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+@property (nonatomic, weak) IBOutlet UILabel *contactSensorLabel;
 
-- (void)setup;
-- (void)updateSensorValues;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *levelSparkLine;
 
 @end
 
 @implementation WaterSensorDetailsViewController
 
+- (id)initWithSensor:(Sensor*)sensor
+{
+    self = [super initWithSensor:sensor];
+    if (self) {
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL options:NSKeyValueObservingOptionNew context:NULL];
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE options:NSKeyValueObservingOptionNew context:NULL];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (self) {
-        [self setup];
-    }
-    // Do any additional setup after loading the view from its nib.
+    
+    self.navigationController.navigationBarHidden = YES;
+    
+    _waterLevelLabel.text = [NSString stringWithFormat:@"%.1f", [(WaterSensor*)self.sensor level]];
+    _contactSensorLabel.text = ([(WaterSensor*)self.sensor presense])?@"YES":@"NO";
+    
+    _levelSparkLine.labelText = @"";
+    _levelSparkLine.showCurrentValue = NO;
+    _levelSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,71 +54,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [_timer invalidate];
+- (void)dealloc {
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL];
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE];
 }
 
-- (void)setup {
-    
-    m_waterLevel = [[NSMutableArray alloc] init];
-    m_contacSensor = [[NSMutableArray alloc] init];
-    m_bluetoothData = [[NSMutableArray alloc] init];
-    
-    NSArray *dataArray = [NSArray arrayWithObjects: m_contacSensor, m_waterLevel, m_bluetoothData, nil];
-    NSArray *fileNames = [NSArray arrayWithObjects: @"contact_data.txt", @"waterLevel_data.txt", @"bluetooth_data.txt", nil];
-    
-    [fileNames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        // read in the dummy data and allocate to the appropriate view
-        NSError *err;
-        NSString *dataFile = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:obj];
-        NSString *contents = [[NSString alloc] initWithContentsOfFile:dataFile encoding:NSUTF8StringEncoding error:&err];
-        
-        if (contents) {
-            
-            NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
-            
-            NSMutableArray *data = [dataArray objectAtIndex:idx];
-            while ([scanner isAtEnd] == NO) {
-                float scannedValue = 0;
-                NSCharacterSet *newLineCharacterSet = [NSCharacterSet newlineCharacterSet];
-                NSString *scanString = nil;
-                if ([scanner scanFloat:&scannedValue]) {
-                    NSNumber *num = [[NSNumber alloc] initWithFloat:scannedValue];
-                    [data addObject:num];
-                }
-                else if ([scanner scanUpToCharactersFromSet:newLineCharacterSet intoString:&scanString]) {
-                    [data addObject:scanString];
-                }
-            }
-            if ([fileNames count]-1 == idx) {
-                [self updateSensorValues];
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateSensorValues) userInfo:nil repeats:YES];
-            }
-            
-        } else {
-            NSLog(@"failed to read in data file %@: %@", [fileNames objectAtIndex:idx], [err localizedDescription]);
-        }
-        
-    }];
-    
-}
+#pragma mark - Value Observer
 
-- (void)updateSensorValues
-{
-    int contactIndex = arc4random()%[m_contacSensor count];
-    _contactSensorLabel.text = [NSString stringWithFormat:@"%@", [m_contacSensor objectAtIndex:contactIndex]];
-    if ([_contactSensorLabel.text isEqualToString:@"YES"]) {
-        int waterLevelIndex = arc4random()%[m_waterLevel count];
-        _waterLevelLabel.text = [NSString stringWithFormat:@"%@", [m_waterLevel objectAtIndex:waterLevelIndex]];
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
+        NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
+        
+        _waterLevelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
+        _levelSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
+        _contactSensorLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
     }
-    else {
-        _waterLevelLabel.text = @"--";
-    }
-    int bluetoothIndex = arc4random()%[m_bluetoothData count];
-    _bluetoothLabel.text = [NSString stringWithFormat:@"-%@db", [m_bluetoothData objectAtIndex:bluetoothIndex]];
 }
 
 @end

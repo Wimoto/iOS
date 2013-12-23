@@ -9,7 +9,6 @@
 #import "CBPeripheral+Util.h"
 #import <Couchbaselite/Couchbaselite.h>
 
-#define DB_SENSOR_TYPE                          @"Sensor"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
 @interface Sensor : CBLModel<CBPeripheralDelegate>
