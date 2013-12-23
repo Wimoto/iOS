@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@class Sensor, CBPeripheral;
+#import "SensorValue.h"
+
+@class Sensor, SensorValue, CBPeripheral;
 
 @interface DatabaseManager : NSObject
 
-+ (Sensor*)sensorWithPeripheral:(CBPeripheral*)peripheral;
++ (Sensor*)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral;
 + (NSArray*)storedSensors;
+
++ (SensorValue*)sensorValueInstance;
++ (NSArray*)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type;
 
 @end

@@ -439,11 +439,16 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
             NSLog(@"non-NSNumber object (%@) found in data (index %d), zero value used", [[obj class] description], idx);
             ypos = yPlotValue(fullHeight, yInc, 0.0f, graphMin, self.penWidth);
         }
-
-        if (idx > 0)
+        
+        if (isnan(ypos)) {
+            ypos = fullHeight;
+        }
+        
+        if (idx > 0) {
             CGContextAddLineToPoint(context, xpos, ypos);
-        else
+        } else {
             CGContextMoveToPoint(context, xpos, ypos);
+        }
     }];
 
     // draw the graph line (path)

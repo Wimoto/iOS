@@ -40,7 +40,7 @@
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
     
     for (CBPeripheral *peripheral in array) {
-        Sensor *sensor = [DatabaseManager sensorWithPeripheral:peripheral];
+        Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
         if (sensor) {
             if ([sensor isNew]) {
                 [_sensorsArray addObject:sensor];
@@ -69,7 +69,7 @@
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
     
     if ([filteredArray count]==0) {
-        Sensor *sensor = [DatabaseManager sensorWithPeripheral:peripheral];
+        Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
         if (sensor) {
             if ([sensor isNew]) {
                 [_sensorsArray addObject:sensor];

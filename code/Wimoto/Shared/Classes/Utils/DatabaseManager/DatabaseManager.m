@@ -14,6 +14,8 @@
 #import "TestSensor.h"
 #import "ClimateSensor.h"
 
+#import "SensorValue.h"
+
 @interface DatabaseManager ()
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
@@ -40,11 +42,12 @@ static DatabaseManager *databaseManager = nil;
         CBLModelFactory *modelFactory = [CBLModelFactory sharedInstance];
         [modelFactory registerClass:[TestSensor class] forDocumentType:NSStringFromClass([TestSensor class])];
         [modelFactory registerClass:[ClimateSensor class] forDocumentType:NSStringFromClass([ClimateSensor class])];
+        [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
     }
     return self;
 }
 
-+ (Sensor*)sensorWithPeripheral:(CBPeripheral*)peripheral {
++ (Sensor*)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral {
     DatabaseManager *manager = [DatabaseManager sharedManager];
     
     CBLView *view = [manager.cblDatabase viewNamed:@"sensorsBySystemId"];
@@ -73,15 +76,60 @@ static DatabaseManager *databaseManager = nil;
     
     CBLView *view = [manager.cblDatabase viewNamed:@"storedSensors"];
     
+    NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
     [view setMapBlock:MAPBLOCK({
-        emit(doc[@"systemId"], doc);
-    }) version:@"1.0"];
+        if (![doc[@"type"] isEqualToString:kSensorValueType]) {
+            emit(doc[@"systemId"], doc);
+        }
+    }) version:@"1.3"];
     
     CBLQuery *query = [view query];
     
     NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[query.rows count]];
     for (CBLQueryRow *row in query.rows) {
         [mutableArray addObject:[Sensor sensorForDocument:row.document]];
+    }
+    
+    return mutableArray;
+}
+
++ (SensorValue*)sensorValueInstance {
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+
+    SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
+    [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
+    sensorValue.date = [NSDate date];
+    return sensorValue;
+
+}
+
++ (NSArray*)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type {
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    
+    CBLView* view = [manager.cblDatabase viewNamed: @"sensorValuesByDate"];
+    if (!view.mapBlock) {
+        NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
+        [view setMapBlock: MAPBLOCK({
+            if ([doc[@"type"] isEqualToString:kSensorValueType]) {
+                id date = doc[@"date"];
+                NSString *sensor = doc[@"sensor"];
+                NSNumber *typeNumber = doc[@"valueType"];
+                emit(@[sensor, typeNumber, date], doc);
+            }
+        }) version: @"1.1"];
+    }
+    
+    CBLQuery *query = [view query];
+    query.limit = 16;
+    query.descending = YES;
+    NSString* myListId = sensor.document.documentID;
+    NSNumber *typeNumber = [NSNumber numberWithInt:type];
+    query.startKey = @[myListId, typeNumber, @{}];
+    query.endKey = @[myListId, typeNumber];
+
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[query.rows count]];
+    for (CBLQueryRow *row in query.rows) {
+        [mutableArray addObject:row.document[@"value"]];
     }
     
     return mutableArray;

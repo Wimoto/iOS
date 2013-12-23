@@ -8,6 +8,9 @@
 
 #import "TestSensor.h"
 
+#import "DatabaseManager.h"
+#import "SensorValue.h"
+
 @implementation TestSensor
 
 #pragma mark - CBPeriferalDelegate
@@ -60,10 +63,34 @@
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
             
+            float temperatureValue = bpm;
+            
+            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeTemperature;
+            sensorValue.value = temperatureValue;
+            [sensorValue save:nil];
+            
+            float humidityValue = bpm+5;
+            
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeHumidity;
+            sensorValue.value = humidityValue;
+            [sensorValue save:nil];
+            
+            float lightValue = bpm-3;
+            
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeLight;
+            sensorValue.value = lightValue;
+            [sensorValue save:nil];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.temperature = bpm;
-                self.humidity = bpm;
-                self.light = bpm;
+                self.temperature = temperatureValue;
+                self.humidity = humidityValue;
+                self.light = lightValue;
             });
         }
     }

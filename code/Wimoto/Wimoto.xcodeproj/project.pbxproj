@@ -69,6 +69,7 @@
 		90232E32185A467100F83210 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2F185A467100F83210 /* IIWrapController.m */; };
 		90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E34185A46A300F83210 /* WimotoDeckController.m */; };
 		90232E3A185A521900F83210 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E39185A521900F83210 /* BLEManager.m */; };
+		90815A421868736E00A9EC0A /* SensorValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A411868736E00A9EC0A /* SensorValue.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
 		90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CD9B1718561B2300970B7D /* CoreBluetooth.framework */; };
 		90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD9B2218561CFE00970B7D /* SearchSensorViewController.m */; };
@@ -185,6 +186,8 @@
 		90232E34185A46A300F83210 /* WimotoDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoDeckController.m; sourceTree = "<group>"; };
 		90232E38185A521900F83210 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
 		90232E39185A521900F83210 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
+		90815A401868736E00A9EC0A /* SensorValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorValue.h; sourceTree = "<group>"; };
+		90815A411868736E00A9EC0A /* SensorValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorValue.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
 		90C6423A184E606D008F40D2 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		90CD9B1718561B2300970B7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -470,6 +473,8 @@
 		90C64238184E6061008F40D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				90815A401868736E00A9EC0A /* SensorValue.h */,
+				90815A411868736E00A9EC0A /* SensorValue.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
 				90D807A3185B54E900FDF31D /* TestSensor.h */,
@@ -771,6 +776,7 @@
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
+				90815A421868736E00A9EC0A /* SensorValue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,8 +788,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (UCKP4KG4BG)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -801,7 +807,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6AB02766-F052-4509-BDA9-B551B9F79FFB";
 				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
