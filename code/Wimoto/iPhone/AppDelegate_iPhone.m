@@ -15,6 +15,13 @@
 #import "WimotoDeckController.h"
 #import "NoSensorViewController.h"
 
+#import "DatabaseManager.h"
+
+#import "Sensor.h"
+#import "TestSensor.h"
+
+#import "ClimateSensorDetailsViewController.h"
+
 @implementation AppDelegate_iPhone
 
 #pragma mark -
@@ -31,24 +38,18 @@
     
     UIViewController *centerController = nil;
     
-//    NSArray *sensors = [SensorManager getSensors];
-//    if ([sensors count]>0) {
-//        Sensor *sensor = [[SensorManager getSensors] objectAtIndex:0];
-//        
-//        if (sensor.type==kSensorTypeClimate) {
-//            centerController = [[ClimateSensorDetailsViewController alloc] init];
-//        } else if (sensor.type==kSensorTypeGrow) {
-//            centerController = [[GrowSensorDetailsViewController alloc] init];
-//        } else if (sensor.type==kSensorTypeSentry) {
-//            centerController = [[SentrySensorDetailsViewController alloc] init];
-//        } else if (sensor.type==kSensorTypeThermo) {
-//            centerController = [[ThermoSensorDetailsViewController alloc] init];
-//        } else if (sensor.type==kSensorTypeWater) {
-//            centerController = [[WaterSensorDetailsViewController alloc] init];
-//        }
-//    } else {
+    NSArray *sensors = [DatabaseManager storedSensors];
+    if ([sensors count]>0) {
+        Sensor *sensor = [sensors objectAtIndex:0];
+        
+        if ([sensor isKindOfClass:[ClimateSensor class]]) {
+            centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+        } else if ([sensor isKindOfClass:[TestSensor class]]) {
+            centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+        }
+    } else {
         centerController = [[NoSensorViewController alloc] init];
-//    }
+    }
     
     deckController.centerController = centerController;
     

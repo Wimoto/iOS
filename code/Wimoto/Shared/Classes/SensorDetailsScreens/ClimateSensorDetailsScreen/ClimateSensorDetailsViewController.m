@@ -41,6 +41,8 @@
     self.navigationController.navigationBarHidden = YES;
     
     _tempLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor temperature]];
+    _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor humidity]];
+    _lightLabel.text = [NSString stringWithFormat:@"%.f", [(ClimateSensor*)self.sensor light]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +68,10 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE]) {
         _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
+        _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
+        _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
     }
 }
 

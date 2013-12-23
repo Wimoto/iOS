@@ -48,7 +48,9 @@
         {
             NSLog(@"ClimateSensor didDiscoverCharacteristicsForService %@    %@", service, aChar);
             
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]])
+            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]])||
+                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]])||
+                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]))
             {
                 NSLog(@"ClimateSensor didDiscoverTempChar");
                 
@@ -66,28 +68,24 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]])
-    {
-        if( (characteristic.value)  || !error )
-        {
-            const uint8_t *reportData = [characteristic.value bytes];
-            uint16_t temperature = 0;
-            
-            if ((reportData[0] & 0x01) == 0)
-            {
-                temperature = reportData[1];
-            }
-            else
-            {
-                temperature = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
-            }
-            
-            NSLog(@"ClimateSensor didUpdateValueForCharacteristic");
-            
+    if ((characteristic.value)||(!error)) {
+        const uint8_t *data = [characteristic.value bytes];
+        uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
+        
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.temperature = temperature;
+                self.temperature = value16_t;
+            });
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.humidity = value16_t;
+            });
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.light = value16_t;
             });
         }
+        
     }
 }
 
