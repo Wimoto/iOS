@@ -10,10 +10,9 @@
 #import "ASBSparkLineView.h"
 
 #import "DatabaseManager.h"
+#import "ClimateSensor.h"
 
 @interface ClimateSensorDetailsViewController ()
-
-@property (nonatomic, strong) NSMutableArray *mutableArray;
 
 @property (nonatomic, weak) IBOutlet UILabel *tempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
@@ -33,9 +32,7 @@
     if (self) {
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionNew context:NULL];
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionNew context:NULL];
-        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionNew context:NULL];
-        
-        _mutableArray = [NSMutableArray array];
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionNew context:NULL];        
     }
     return self;
 }

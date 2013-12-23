@@ -6,8 +6,8 @@
 //
 //
 
-#import "AppViewController.h"
+#import "SensorViewController.h"
 
-@interface WaterSensorDetailsViewController : AppViewController
+@interface WaterSensorDetailsViewController : SensorViewController
 
 @end
