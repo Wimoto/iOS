@@ -6,8 +6,8 @@
 //
 //
 
-#import "AppViewController.h"
+#import "SensorViewController.h"
 
-@interface ThermoSensorDetailsViewController : AppViewController
+@interface ThermoSensorDetailsViewController : SensorViewController
 
 @end

@@ -7,33 +7,48 @@
 //
 
 #import "ThermoSensorDetailsViewController.h"
+#import "ASBSparkLineView.h"
+#import "DatabaseManager.h"
+#import "ThermoSensor.h"
 
 @interface ThermoSensorDetailsViewController ()
-{
-    NSMutableArray *m_tempProbeData;
-    NSMutableArray *m_tempIRData;
-    NSMutableArray *m_bluetoothData;
-}
 
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, weak) IBOutlet UILabel *tempProbeLabel;
-@property (nonatomic, weak) IBOutlet UILabel *tempIRLabel;
-@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+@property (nonatomic, weak) IBOutlet UILabel *irTempLabel;
+@property (nonatomic, weak) IBOutlet UILabel *probeTempLabel;
 
-- (void)setup;
-- (void)updateSensorValues;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *irTempSparkLine;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *probeTempSparkLine;
 
 @end
 
 @implementation ThermoSensorDetailsViewController
 
+- (id)initWithSensor:(Sensor*)sensor
+{
+    self = [super initWithSensor:sensor];
+    if (self) {
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionNew context:NULL];
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionNew context:NULL];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (self) {
-        [self setup];
-    }
-    // Do any additional setup after loading the view from its nib.
+    
+    self.navigationController.navigationBarHidden = YES;
+    
+    _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor irTemp]];
+    _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor probeTemp]];
+    
+    _irTempSparkLine.labelText = @"";
+    _irTempSparkLine.showCurrentValue = NO;
+    _irTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature];
+    
+    _probeTempSparkLine.labelText = @"";
+    _probeTempSparkLine.showCurrentValue = NO;
+    _probeTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,61 +57,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [_timer invalidate];
+- (void)dealloc {
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP];
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
 }
 
-- (void)setup {
-    
-    m_tempProbeData = [[NSMutableArray alloc] init];
-    m_tempIRData = [[NSMutableArray alloc] init];
-    m_bluetoothData = [[NSMutableArray alloc] init];
-    
-    NSArray *dataArray = [NSArray arrayWithObjects: m_tempProbeData, m_tempIRData, m_bluetoothData, nil];
-    NSArray *fileNames = [NSArray arrayWithObjects: @"thermoProbe_data.txt", @"thermoIR_data.txt", @"bluetooth_data.txt", nil];
-    
-    [fileNames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        // read in the dummy data and allocate to the appropriate view
-        NSError *err;
-        NSString *dataFile = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:obj];
-        NSString *contents = [[NSString alloc] initWithContentsOfFile:dataFile encoding:NSUTF8StringEncoding error:&err];
-        
-        if (contents) {
-            
-            NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
-            
-            NSMutableArray *data = [dataArray objectAtIndex:idx];
-            while ([scanner isAtEnd] == NO) {
-                float scannedValue = 0;
-                if ([scanner scanFloat:&scannedValue]) {
-                    NSNumber *num = [[NSNumber alloc] initWithFloat:scannedValue];
-                    [data addObject:num];
-                }
-            }
-            if ([fileNames count]-1 == idx) {
-                [self updateSensorValues];
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateSensorValues) userInfo:nil repeats:YES];
-            }
-            
-        } else {
-            NSLog(@"failed to read in data file %@: %@", [fileNames objectAtIndex:idx], [err localizedDescription]);
-        }
-        
-    }];
-    
-}
+#pragma mark - Value Observer
 
-- (void)updateSensorValues
-{
-    int tempProbeIndex = arc4random()%[m_tempProbeData count];
-    _tempProbeLabel.text = [NSString stringWithFormat:@"%@", [m_tempProbeData objectAtIndex:tempProbeIndex]];
-    int tempIRIndex = arc4random()%[m_tempIRData count];
-    _tempIRLabel.text = [NSString stringWithFormat:@"%@", [m_tempIRData objectAtIndex:tempIRIndex]];
-    int bluetoothIndex = arc4random()%[m_bluetoothData count];
-    _bluetoothLabel.text = [NSString stringWithFormat:@"-%@db", [m_bluetoothData objectAtIndex:bluetoothIndex]];
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
+        _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _irTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
+        _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _probeTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature];
+    }
 }
 
 @end

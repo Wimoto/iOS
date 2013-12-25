@@ -50,6 +50,12 @@ typedef enum {
 #define BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT          @""
 #define BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT       @""
 
+#define BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE              @""
+#define BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE           @""
+
+#define BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT         @""
+#define BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT      @""
+
 #define BLE_TEST_SERVICE_UUID_HEARTRATE                     @"180D"
 
 @interface CBPeripheral (CBPeripheral_Util)
