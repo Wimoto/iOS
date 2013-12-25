@@ -13,8 +13,10 @@
 #import "Sensor.h"
 #import "TestSensor.h"
 #import "ClimateSensor.h"
-#import "WaterSensor.h"
 #import "GrowSensor.h"
+#import "ThermoSensor.h"
+#import "SentrySensor.h"
+#import "WaterSensor.h"
 
 #import "SensorValue.h"
 
@@ -45,8 +47,10 @@ static DatabaseManager *databaseManager = nil;
         [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
         [modelFactory registerClass:[TestSensor class] forDocumentType:NSStringFromClass([TestSensor class])];
         [modelFactory registerClass:[ClimateSensor class] forDocumentType:NSStringFromClass([ClimateSensor class])];
-        [modelFactory registerClass:[WaterSensor class] forDocumentType:NSStringFromClass([WaterSensor class])];
         [modelFactory registerClass:[GrowSensor class] forDocumentType:NSStringFromClass([GrowSensor class])];
+        [modelFactory registerClass:[ThermoSensor class] forDocumentType:NSStringFromClass([ThermoSensor class])];
+        [modelFactory registerClass:[SentrySensor class] forDocumentType:NSStringFromClass([SentrySensor class])];
+        [modelFactory registerClass:[WaterSensor class] forDocumentType:NSStringFromClass([WaterSensor class])];
     }
     return self;
 }
