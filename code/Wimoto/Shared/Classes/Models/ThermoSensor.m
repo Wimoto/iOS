@@ -17,7 +17,7 @@
 {
     for (CBService *aService in aPeripheral.services)
     {
-        NSLog(@"SentrySensor didDiscoverServices %@", aService);
+        NSLog(@"ThermoSensor didDiscoverServices %@", aService);
         
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
             

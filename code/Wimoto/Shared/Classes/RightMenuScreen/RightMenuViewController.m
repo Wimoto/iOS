@@ -95,8 +95,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return [_sensorsArray count];
-    return 5;
+    return [_sensorsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -108,7 +107,7 @@
         cell = _tmpCell;
         self.tmpCell = nil;
     }
-    //cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -124,14 +123,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"WORK!!!");
-    /*
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     [sensor deleteDocument:nil];
     
     [_sensorsArray removeObject:sensor];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
-     */
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

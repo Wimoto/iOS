@@ -23,4 +23,7 @@
 @property (nonatomic) float accelerometer;
 @property (nonatomic) float pasInfrared;
 
+@property (nonatomic) float irTemp;
+@property (nonatomic) float probeTemp;
+
 @end

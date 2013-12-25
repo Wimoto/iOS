@@ -14,6 +14,8 @@
 #import "WaterSensorDetailsViewController.h"
 #import "GrowSensorDetailsViewController.h"
 #import "SentrySensorDetailsViewController.h"
+#import "ThermoSensorDetailsViewController.h"
+
 #import "SensorCell.h"
 
 #import "IIViewDeckController.h"
@@ -135,7 +137,7 @@
     } else if ([sensor isKindOfClass:[WaterSensor class]]) {
         centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
     } else if ([sensor isKindOfClass:[TestSensor class]]) {
-        centerController = [[SentrySensorDetailsViewController alloc] initWithSensor:sensor];
+        centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
     }
     self.viewDeckController.centerController = centerController;
 }
