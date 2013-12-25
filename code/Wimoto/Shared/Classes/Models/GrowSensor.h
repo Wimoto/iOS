@@ -8,8 +8,8 @@
 
 #import "Sensor.h"
 
-#define OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE            @"soil_temperature"
-#define OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE               @"soil_moisture"
+#define OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE            @"soilTemperature"
+#define OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE               @"soilMoisture"
 #define OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT                       @"light"
 
 @interface GrowSensor : Sensor

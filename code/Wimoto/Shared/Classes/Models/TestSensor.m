@@ -130,7 +130,7 @@
                 self.level = level;
                 
                 self.soilMoisture = humidityValue;
-                self.soilTemperature = temperatureValue;
+                self.soilTemperature = temperatureValue;                
             });
         }
     }
