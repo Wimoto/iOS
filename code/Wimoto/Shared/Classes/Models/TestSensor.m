@@ -103,6 +103,24 @@
             sensorValue.value = level;
             [sensorValue save:nil];
             
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeGrowLight;
+            sensorValue.value = lightValue;
+            [sensorValue save:nil];
+
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeSoilHumidity;
+            sensorValue.value = humidityValue;
+            [sensorValue save:nil];
+
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeSoilTemperature;
+            sensorValue.value = temperatureValue;
+            [sensorValue save:nil];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = temperatureValue;
                 self.humidity = humidityValue;
@@ -110,6 +128,9 @@
                 
                 self.presense = presence;
                 self.level = level;
+                
+                self.soilMoisture = humidityValue;
+                self.soilTemperature = temperatureValue;
             });
         }
     }

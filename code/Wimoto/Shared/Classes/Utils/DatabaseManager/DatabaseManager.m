@@ -13,6 +13,8 @@
 #import "Sensor.h"
 #import "TestSensor.h"
 #import "ClimateSensor.h"
+#import "WaterSensor.h"
+#import "GrowSensor.h"
 
 #import "SensorValue.h"
 
@@ -40,9 +42,11 @@ static DatabaseManager *databaseManager = nil;
                                                                   error:nil];
         
         CBLModelFactory *modelFactory = [CBLModelFactory sharedInstance];
+        [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
         [modelFactory registerClass:[TestSensor class] forDocumentType:NSStringFromClass([TestSensor class])];
         [modelFactory registerClass:[ClimateSensor class] forDocumentType:NSStringFromClass([ClimateSensor class])];
-        [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
+        [modelFactory registerClass:[WaterSensor class] forDocumentType:NSStringFromClass([WaterSensor class])];
+        [modelFactory registerClass:[GrowSensor class] forDocumentType:NSStringFromClass([GrowSensor class])];
     }
     return self;
 }

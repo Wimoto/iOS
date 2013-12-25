@@ -80,7 +80,7 @@
             
             SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeTemperature;
+            sensorValue.valueType = kValueTypeSoilTemperature;
             sensorValue.value = _soilTemperature;
             [sensorValue save:nil];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
@@ -90,7 +90,7 @@
             
             SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeHumidity;
+            sensorValue.valueType = kValueTypeGrowLight;
             sensorValue.value = _light;
             [sensorValue save:nil];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
@@ -100,7 +100,7 @@
             
             SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeLight;
+            sensorValue.valueType = kValueTypeSoilHumidity;
             sensorValue.value = _soilMoisture;
             [sensorValue save:nil];
         }

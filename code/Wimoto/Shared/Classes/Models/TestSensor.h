@@ -17,4 +17,7 @@
 @property (nonatomic) BOOL presense;
 @property (nonatomic) float level;
 
+@property (nonatomic) float soilTemperature;
+@property (nonatomic) float soilMoisture;
+
 @end
