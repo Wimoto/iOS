@@ -32,6 +32,7 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -130,6 +131,8 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
+		30C1180F186B26270068633C /* GrowSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensor.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 				90D8079A185B409300FDF31D /* ClimateSensor.m */,
 				90815A431868951600A9EC0A /* WaterSensor.h */,
 				90815A441868951600A9EC0A /* WaterSensor.m */,
+				30C1180E186B26270068633C /* GrowSensor.h */,
+				30C1180F186B26270068633C /* GrowSensor.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
+				30C11810186B26270068633C /* GrowSensor.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,

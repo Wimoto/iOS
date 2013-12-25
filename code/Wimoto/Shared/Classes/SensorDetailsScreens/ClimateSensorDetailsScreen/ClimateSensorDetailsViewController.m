@@ -8,7 +8,6 @@
 
 #import "ClimateSensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
-
 #import "DatabaseManager.h"
 #import "ClimateSensor.h"
 

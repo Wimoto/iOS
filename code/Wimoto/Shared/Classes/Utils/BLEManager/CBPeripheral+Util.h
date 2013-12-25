@@ -36,6 +36,14 @@ typedef enum {
 #define BLE_WATER_CHAR_UUID_PRESENCE_CURRENT                @"2024"
 #define BLE_WATER_CHAR_UUID_LEVEL_CURRENT                   @"2124"
 
+#define BLE_GROW_SERVICE_UUID_LIGHT                         @""
+#define BLE_GROW_SERVICE_UUID_SOIL_MOISTURE                 @""
+#define BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE              @""
+
+#define BLE_GROW_CHAR_UUID_LIGHT_CURRENT                    @""
+#define BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT            @""
+#define BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT         @""
+
 #define BLE_TEST_SERVICE_UUID_HEARTRATE                     @"180D"
 
 @interface CBPeripheral (CBPeripheral_Util)
