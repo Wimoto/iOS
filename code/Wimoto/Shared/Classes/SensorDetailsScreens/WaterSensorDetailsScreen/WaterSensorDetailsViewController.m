@@ -15,10 +15,11 @@
 
 @interface WaterSensorDetailsViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *waterLevelLabel;
-@property (nonatomic, weak) IBOutlet UILabel *contactSensorLabel;
-
+@property (nonatomic, weak) IBOutlet UILabel *levelLabel;
+@property (nonatomic, weak) IBOutlet UILabel *contactLabel;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *levelSparkLine;
+@property (nonatomic, weak) IBOutlet UISwitch *contactSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *levelSwitch;
 
 @end
 
@@ -40,8 +41,8 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    _waterLevelLabel.text = [NSString stringWithFormat:@"%.1f", [(WaterSensor*)self.sensor level]];
-    _contactSensorLabel.text = ([(WaterSensor*)self.sensor presense])?@"YES":@"NO";
+    _levelLabel.text = [NSString stringWithFormat:@"%.1f", [(WaterSensor*)self.sensor level]];
+    _contactLabel.text = ([(WaterSensor*)self.sensor presense])?@"YES":@"NO";
     
     _levelSparkLine.labelText = @"";
     _levelSparkLine.showCurrentValue = NO;
@@ -71,10 +72,10 @@
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
         NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
         
-        _waterLevelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
+        _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
         _levelSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
-        _contactSensorLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
+        _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
     }
 }
 
