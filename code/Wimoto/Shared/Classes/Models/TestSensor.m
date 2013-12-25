@@ -87,10 +87,29 @@
             sensorValue.value = lightValue;
             [sensorValue save:nil];
             
+            float presence = bpm;
+            
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypePresence;
+            sensorValue.value = ((int)presence%2==0)?1:0;
+            [sensorValue save:nil];
+            
+            float level = bpm-3;
+            
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeLevel;
+            sensorValue.value = level;
+            [sensorValue save:nil];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = temperatureValue;
                 self.humidity = humidityValue;
                 self.light = lightValue;
+                
+                self.presense = presence;
+                self.level = level;
             });
         }
     }

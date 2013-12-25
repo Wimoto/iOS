@@ -50,7 +50,7 @@
         } else if ([sensor isKindOfClass:[WaterSensor class]]) {
             centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
         } else if ([sensor isKindOfClass:[TestSensor class]]) {
-            centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
+            centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
         }
     } else {
         centerController = [[NoSensorViewController alloc] init];

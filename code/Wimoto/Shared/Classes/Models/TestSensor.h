@@ -14,4 +14,7 @@
 @property (nonatomic) float humidity;
 @property (nonatomic) float light;
 
+@property (nonatomic) BOOL presense;
+@property (nonatomic) float level;
+
 @end

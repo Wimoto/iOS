@@ -6,8 +6,8 @@
 //
 //
 
-#import "AppViewController.h"
+#import "SensorViewController.h"
 
-@interface GrowSensorDetailsViewController : AppViewController
+@interface GrowSensorDetailsViewController : SensorViewController
 
 @end
