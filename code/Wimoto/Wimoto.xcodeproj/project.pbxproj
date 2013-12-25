@@ -15,7 +15,6 @@
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		30B25B131857636E0027F2E7 /* GraphViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
 		30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8F184E139F000C651A /* CoreVideo.framework */; };
@@ -108,7 +107,6 @@
 		2860E32D111B888700E27156 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Shared/main.m; sourceTree = "<group>"; };
-		30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		30B29E8F184E139F000C651A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -572,7 +570,6 @@
 			children = (
 				493A492B184EB4250000A2F6 /* Images */,
 				90232E27185A440700F83210 /* NoSensorViewController_iPhone.xib */,
-				30B25B121857636E0027F2E7 /* GraphViewController_iPhone.xib */,
 				90D4AB92184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib */,
 				90D4AB99184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib */,
 				90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */,
@@ -672,7 +669,6 @@
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
-				30B25B131857636E0027F2E7 /* GraphViewController_iPhone.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
