@@ -17,7 +17,7 @@
 {
     for (CBService *aService in aPeripheral.services)
     {
-        NSLog(@"GrowSensor didDiscoverServices %@", aService);
+        NSLog(@"SentrySensor didDiscoverServices %@", aService);
         
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER]]) {
             

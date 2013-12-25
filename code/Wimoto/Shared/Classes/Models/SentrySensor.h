@@ -9,7 +9,7 @@
 #import "Sensor.h"
 
 #define OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER                       @"accelerometer"
-#define OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED                    @"passiveInfrared"
+#define OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED                    @"pasInfrared"
 
 @interface SentrySensor : Sensor
 

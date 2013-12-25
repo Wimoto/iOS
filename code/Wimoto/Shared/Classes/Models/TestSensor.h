@@ -20,4 +20,7 @@
 @property (nonatomic) float soilTemperature;
 @property (nonatomic) float soilMoisture;
 
+@property (nonatomic) float accelerometer;
+@property (nonatomic) float pasInfrared;
+
 @end

@@ -121,6 +121,18 @@
             sensorValue.value = temperatureValue;
             [sensorValue save:nil];
             
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypeAccelerometer;
+            sensorValue.value = humidityValue;
+            [sensorValue save:nil];
+            
+            sensorValue = [DatabaseManager sensorValueInstance];
+            sensorValue.sensor = self;
+            sensorValue.valueType = kValueTypePassiveInfrared;
+            sensorValue.value = temperatureValue;
+            [sensorValue save:nil];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = temperatureValue;
                 self.humidity = humidityValue;
@@ -130,7 +142,10 @@
                 self.level = level;
                 
                 self.soilMoisture = humidityValue;
-                self.soilTemperature = temperatureValue;                
+                self.soilTemperature = temperatureValue;
+                
+                self.accelerometer = humidityValue;
+                self.pasInfrared = temperatureValue;
             });
         }
     }
