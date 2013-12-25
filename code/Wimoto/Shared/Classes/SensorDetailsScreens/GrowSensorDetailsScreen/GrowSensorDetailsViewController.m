@@ -7,13 +7,19 @@
 //
 
 #import "GrowSensorDetailsViewController.h"
+#import "ASBSparkLineView.h"
 #import "GrowSensor.h"
+#import "DatabaseManager.h"
 
 @interface GrowSensorDetailsViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *soilTempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *soilMoistureLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
+
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *soilTempSparkLine;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *soilMoistureSparkLine;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *lightSparkLine;
 
 @end
 
@@ -37,6 +43,18 @@
     _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [(GrowSensor*)self.sensor soilTemperature]];
     _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [(GrowSensor*)self.sensor soilMoisture]];
     _lightLabel.text = [NSString stringWithFormat:@"%.f", [(GrowSensor*)self.sensor light]];
+    
+    _soilTempSparkLine.labelText = @"";
+    _soilTempSparkLine.showCurrentValue = NO;
+    _soilTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilTemp];
+    
+    _soilMoistureSparkLine.labelText = @"";
+    _soilMoistureSparkLine.showCurrentValue = NO;
+    _soilMoistureSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilMoisure];
+    
+    _lightSparkLine.labelText = @"";
+    _lightSparkLine.showCurrentValue = NO;
+    _lightSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,10 +80,13 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
         _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _soilTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilTemp];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
         _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _soilMoistureSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilMoisure];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
         _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _lightSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight];
     }
 }
 
