@@ -18,7 +18,9 @@ typedef enum {
     kValueTypeLevel,
     kValueTypeSoilTemperature,
     kValueTypeSoilHumidity,
-    kValueTypeGrowLight
+    kValueTypeGrowLight,
+    kValueTypeAccelerometer,
+    kValueTypePassiveInfrared
 } SensorValueType;
 
 @interface SensorValue : CBLModel

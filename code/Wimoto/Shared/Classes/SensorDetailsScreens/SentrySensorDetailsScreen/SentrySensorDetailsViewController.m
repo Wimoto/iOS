@@ -7,18 +7,28 @@
 //
 
 #import "SentrySensorDetailsViewController.h"
+#import "ASBSparkLineView.h"
+#import "DatabaseManager.h"
+#import "SentrySensor.h"
 
 @interface SentrySensorDetailsViewController ()
+
+@property (nonatomic, weak) IBOutlet UILabel *accelerometerLabel;
+@property (nonatomic, weak) IBOutlet UILabel *pasInfraredLabel;
+
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *accelerometerSparkLine;
+@property (nonatomic, weak) IBOutlet ASBSparkLineView *pasInfraredSparkLine;
 
 @end
 
 @implementation SentrySensorDetailsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithSensor:(Sensor*)sensor
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithSensor:sensor];
     if (self) {
-        // Custom initialization
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER options:NSKeyValueObservingOptionNew context:NULL];
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -26,13 +36,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.navigationController.navigationBarHidden = YES;
+    
+    _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [(SentrySensor*)self.sensor accelerometer]];
+    _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [(SentrySensor*)self.sensor pasInfrared]];
+    
+    _accelerometerSparkLine.labelText = @"";
+    _accelerometerSparkLine.showCurrentValue = NO;
+    _accelerometerSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer];
+    
+    _pasInfraredSparkLine.labelText = @"";
+    _pasInfraredSparkLine.showCurrentValue = NO;
+    _pasInfraredSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER];
+    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED];
+}
+
+#pragma mark - Value Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER]) {
+        _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _accelerometerSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
+        _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _pasInfraredSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared];
+    }
 }
 
 @end

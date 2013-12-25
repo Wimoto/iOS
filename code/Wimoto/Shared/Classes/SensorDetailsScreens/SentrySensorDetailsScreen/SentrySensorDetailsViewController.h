@@ -6,8 +6,8 @@
 //
 //
 
-#import "AppViewController.h"
+#import "SensorViewController.h"
 
-@interface SentrySensorDetailsViewController : AppViewController
+@interface SentrySensorDetailsViewController : SensorViewController
 
 @end

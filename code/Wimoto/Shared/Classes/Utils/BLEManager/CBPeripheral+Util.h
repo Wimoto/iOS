@@ -44,6 +44,12 @@ typedef enum {
 #define BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT            @""
 #define BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT         @""
 
+#define BLE_SENTRY_SERVICE_UUID_ACCELEROMETER               @""
+#define BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED            @""
+
+#define BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT          @""
+#define BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT       @""
+
 #define BLE_TEST_SERVICE_UUID_HEARTRATE                     @"180D"
 
 @interface CBPeripheral (CBPeripheral_Util)
