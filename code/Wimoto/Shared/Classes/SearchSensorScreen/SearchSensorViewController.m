@@ -10,20 +10,11 @@
 
 #import "AppConstants.h"
 
-#import "ClimateSensorDetailsViewController.h"
-#import "WaterSensorDetailsViewController.h"
-#import "GrowSensorDetailsViewController.h"
-#import "SentrySensorDetailsViewController.h"
-#import "ThermoSensorDetailsViewController.h"
-
 #import "SensorCell.h"
 
-#import "IIViewDeckController.h"
+#import "WimotoDeckController.h"
 
 #import "DatabaseManager.h"
-#import "ClimateSensor.h"
-#import "WaterSensor.h"
-#import "TestSensor.h"
 
 @interface SearchSensorViewController ()
 
@@ -131,15 +122,7 @@
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     [sensor save:nil];
     
-    UIViewController *centerController = nil;
-    if ([sensor isKindOfClass:[ClimateSensor class]]) {
-        centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
-    } else if ([sensor isKindOfClass:[WaterSensor class]]) {
-        centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
-    } else if ([sensor isKindOfClass:[TestSensor class]]) {
-        centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
-    }
-    self.viewDeckController.centerController = centerController;
+    [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
 }
 
 @end

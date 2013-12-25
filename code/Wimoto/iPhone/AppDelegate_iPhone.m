@@ -13,20 +13,8 @@
 #import "LeftMenuViewController.h"
 #import "RightMenuViewController.h"
 #import "WimotoDeckController.h"
-#import "NoSensorViewController.h"
 
 #import "DatabaseManager.h"
-
-#import "Sensor.h"
-#import "TestSensor.h"
-#import "ClimateSensor.h"
-#import "WaterSensor.h"
-
-#import "ClimateSensorDetailsViewController.h"
-#import "WaterSensorDetailsViewController.h"
-#import "GrowSensorDetailsViewController.h"
-#import "SentrySensorDetailsViewController.h"
-#import "ThermoSensorDetailsViewController.h"
 
 @implementation AppDelegate_iPhone
 
@@ -42,24 +30,13 @@
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     
-    UIViewController *centerController = nil;
+    Sensor *sensor = nil;
     
     NSArray *sensors = [DatabaseManager storedSensors];
     if ([sensors count]>0) {
-        Sensor *sensor = [sensors objectAtIndex:0];
-        
-        if ([sensor isKindOfClass:[ClimateSensor class]]) {
-            centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
-        } else if ([sensor isKindOfClass:[WaterSensor class]]) {
-            centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
-        } else if ([sensor isKindOfClass:[TestSensor class]]) {
-            centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
-        }
-    } else {
-        centerController = [[NoSensorViewController alloc] init];
+        sensor = [sensors objectAtIndex:0];
     }
-    
-    deckController.centerController = centerController;
+    [deckController showSensorDetailsScreen:sensor];
     
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];

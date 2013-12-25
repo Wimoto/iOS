@@ -9,18 +9,9 @@
 #import "RightMenuViewController.h"
 #import "RightMenuCell.h"
 
-#import "IIViewDeckController.h"
+#import "WimotoDeckController.h"
 
 #import "DatabaseManager.h"
-
-#import "ClimateSensorDetailsViewController.h"
-#import "GrowSensorDetailsViewController.h"
-#import "SentrySensorDetailsViewController.h"
-#import "ThermoSensorDetailsViewController.h"
-#import "WaterSensorDetailsViewController.h"
-
-#import "TestSensor.h"
-#import "ClimateSensor.h"
 
 #import "AppConstants.h"
 #import "CBPeripheral+Util.h"
@@ -135,11 +126,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
-    
-    if (([sensor isKindOfClass:[ClimateSensor class]])||([sensor isKindOfClass:[TestSensor class]])) {
-        ClimateSensorDetailsViewController *climateController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
-        self.viewDeckController.centerController = climateController;
-    }
+
+    [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
 
     [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
