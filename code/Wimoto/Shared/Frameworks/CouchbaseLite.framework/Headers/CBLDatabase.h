@@ -3,26 +3,28 @@
 //  CouchbaseLite
 //
 //  Created by Jens Alfke on 6/17/12.
-//  Copyright (c) 2012 Couchbase, Inc. All rights reserved.
+//  Copyright (c) 2012-2013 Couchbase, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "CBLView.h"
-@class CBLManager, CBLDocument, CBLRevision, CBLView, CBLQuery, CBLReplication;
+@class CBLManager, CBLDocument, CBLRevision, CBLSavedRevision, CBLView, CBLQuery, CBLReplication;
 @protocol CBLValidationContext;
 
 
-/** Validation block, used to approve revisions being added to the database. */
-typedef BOOL (^CBLValidationBlock) (CBLRevision* newRevision,
+/** Validation block, used to approve revisions being added to the database.
+    The block should call `[context reject]` or `[context rejectWithMessage:]` if the proposed
+    new revision is invalid. */
+typedef void (^CBLValidationBlock) (CBLRevision* newRevision,
                                    id<CBLValidationContext> context);
 
-#define VALIDATIONBLOCK(BLOCK) ^BOOL(CBLRevision* newRevision, id<CBLValidationContext> context)\
+#define VALIDATIONBLOCK(BLOCK) ^void(CBLRevision* newRevision, id<CBLValidationContext> context)\
                                     {BLOCK}
 
 /** Filter block, used in changes feeds and replication. */
-typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
+typedef BOOL (^CBLFilterBlock) (CBLSavedRevision* revision, NSDictionary* params);
 
-#define FILTERBLOCK(BLOCK) ^BOOL(CBLRevision* revision, NSDictionary* params) {BLOCK}
+#define FILTERBLOCK(BLOCK) ^BOOL(CBLSavedRevision* revision, NSDictionary* params) {BLOCK}
 
 
 /** An external object that knows how to convert source code into an executable filter. */
@@ -58,12 +60,24 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 
 #pragma mark - HOUSEKEEPING:
 
-/** Compacts the database file by purging non-current revisions, deleting unused attachment files,
-    and running a SQLite "VACUUM" command. */
+/** Compacts the database file by purging non-current JSON bodies, pruning revisions older than
+    the maxRevTreeDepth, deleting unused attachment files, and vacuuming the SQLite database. */
 - (BOOL) compact: (NSError**)outError;
+
+/** The maximum depth of a document's revision tree (or, max length of its revision history.)
+    Revisions older than this limit will be deleted during a -compact: operation. 
+    Smaller values save space, at the expense of making document conflicts somewhat more likely. */
+@property NSUInteger maxRevTreeDepth;
 
 /** Deletes the database. */
 - (BOOL) deleteDatabase: (NSError**)outError;
+
+/** Changes the database's unique IDs to new random values.
+    Ordinarily you should never need to call this method; it's only made public to fix databases
+    that are already affected by bug github.com/couchbase/couchbase-lite-ios/issues/145 .
+    Make sure you only call this once, to fix that problem, because every call has the side effect
+    of resetting all replications, making them run slow the next time. */
+- (BOOL) replaceUUIDs: (NSError**)outError;
 
 
 #pragma mark - DOCUMENT ACCESS:
@@ -74,26 +88,26 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
     at a time with the same documentID. */
 - (CBLDocument*) documentWithID: (NSString*)docID                       __attribute__((nonnull));
 
+/** Instantiates a CBLDocument object with the given ID.
+    Unlike -documentWithID: this method loads the document from the database, and returns nil if
+    no such document exists.
+    CBLDocuments are cached, so there will never be more than one instance (in this database)
+    at a time with the same documentID. */
+- (CBLDocument*) existingDocumentWithID: (NSString*)docID               __attribute__((nonnull));
+
 /** Same as -documentWithID:. Enables "[]" access in Xcode 4.4+ */
 - (CBLDocument*)objectForKeyedSubscript: (NSString*)key                 __attribute__((nonnull));
 
-/** Creates a CBLDocument object with no current ID.
-    The first time you PUT to that document, it will be created on the server (via a POST). */
-- (CBLDocument*) untitledDocument;
-
-/** Returns the already-instantiated cached CBLDocument with the given ID, or nil if none is yet cached. */
-- (CBLDocument*) cachedDocumentWithID: (NSString*)docID                  __attribute__((nonnull));
-
-/** Empties the cache of recently used CBLDocument objects.
-    API calls will now instantiate and return new instances. */
-- (void) clearDocumentCache;
+/** Creates a new CBLDocument object with no properties and a new (random) UUID.
+    The document will be saved to the database when you call -putProperties: on it. */
+- (CBLDocument*) createDocument;
 
 
 #pragma mark - LOCAL DOCUMENTS:
 
 
 /** Returns the contents of the local document with the given ID, or nil if none exists. */
-- (NSDictionary*) getLocalDocumentWithID: (NSString*)localDocID         __attribute__((nonnull));
+- (NSDictionary*) existingLocalDocumentWithID: (NSString*)localDocID         __attribute__((nonnull));
 
 /** Sets the contents of the local document with the given ID. Unlike CouchDB, no revision-ID
     checking is done; the put always succeeds. If the properties dictionary is nil, the document
@@ -107,12 +121,11 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
                              error: (NSError**)outError             __attribute__((nonnull(1)));
 
 
-
 #pragma mark - VIEWS AND OTHER CALLBACKS:
 
 /** Returns a query that matches all documents in the database.
     This is like querying an imaginary view that emits every document's ID as a key. */
-- (CBLQuery*) queryAllDocuments;
+- (CBLQuery*) createAllDocumentsQuery;
 
 /** Creates a one-shot query with the given map function. This is equivalent to creating an
     anonymous CBLView and then deleting it immediately after querying it. It may be useful during
@@ -130,7 +143,7 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 /** Defines or clears a named document validation function.
     Before any change to the database, all registered validation functions are called and given a
     chance to reject it. (This includes incoming changes from a pull replication.) */
-- (void) defineValidation: (NSString*)validationName asBlock: (CBLValidationBlock)validationBlock
+- (void) setValidationNamed: (NSString*)validationName asBlock: (CBLValidationBlock)validationBlock
                                                                      __attribute__((nonnull(1)));
 
 /** Returns the existing document validation function (block) registered with the given name.
@@ -139,7 +152,7 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 
 /** Defines or clears a named filter function.
     Filters are used by push replications to choose which documents to send. */
-- (void) defineFilter: (NSString*)filterName asBlock: (CBLFilterBlock)filterBlock
+- (void) setFilterNamed: (NSString*)filterName asBlock: (CBLFilterBlock)filterBlock
                                                                      __attribute__((nonnull(1)));
 
 /** Returns the existing filter function (block) registered with the given name.
@@ -153,9 +166,23 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 + (id<CBLFilterCompiler>) filterCompiler;
 
 
+#pragma mark - TRANSACTIONS / THREADING:
+
 /** Runs the block within a transaction. If the block returns NO, the transaction is rolled back.
-    Use this when performing bulk write operations like multiple inserts/updates; it saves the overhead of multiple SQLite commits, greatly improving performance. */
-- (BOOL) inTransaction: (BOOL(^)(void))bloc                         __attribute__((nonnull(1)));
+    Use this when performing bulk write operations like multiple inserts/updates; it saves the 
+    overhead of multiple SQLite commits, greatly improving performance. */
+- (BOOL) inTransaction: (BOOL(^)(void))block                        __attribute__((nonnull(1)));
+
+/** Runs the block asynchronously on the database's dispatch queue or thread.
+    Unlike the rest of the API, this can be called from any thread, and provides a limited form
+    of multithreaded access to Couchbase Lite. */
+- (void) doAsync: (void (^)())block                                 __attribute__((nonnull(1)));
+
+/** Runs the block _synchronously_ on the database's dispatch queue or thread: this method does
+    not return until after the block has completed.
+    Unlike the rest of the API, this can _only_ be called from other threads/queues:  If you call it
+    from the same thread or dispatch queue that the database runs on, **it will deadlock!** */
+- (void) doSync: (void (^)())block                                 __attribute__((nonnull(1)));
 
 
 #pragma mark - REPLICATION:
@@ -166,20 +193,36 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 /** Creates a replication that will 'push' to a database at the given URL, or returns an existing
     such replication if there already is one.
     It will initially be non-persistent; set its .persistent property to YES to make it persist. */
-- (CBLReplication*) pushToURL: (NSURL*)url                              __attribute__((nonnull));
+- (CBLReplication*) replicationToURL: (NSURL*)url;
 
 /** Creates a replication that will 'pull' from a database at the given URL, or returns an existing
     such replication if there already is one.
     It will initially be non-persistent; set its .persistent property to YES to make it persist. */
-- (CBLReplication*) pullFromURL: (NSURL*)url                            __attribute__((nonnull));
+- (CBLReplication*) replicationFromURL: (NSURL*)url;
 
 /** Creates a pair of replications to both pull and push to database at the given URL, or returns existing replications if there are any.
     @param otherDbURL  The URL of the remote database, or nil for none.
     @param exclusively  If YES, any previously existing replications to or from otherDbURL will be deleted.
     @return  An array whose first element is the "pull" replication and second is the "push".
     It will initially be non-persistent; set its .persistent property to YES to make it persist. */
-- (NSArray*) replicateWithURL: (NSURL*)otherDbURL exclusively: (bool)exclusively;
+- (NSArray*) replicationsWithURL: (NSURL*)otherDbURL exclusively: (bool)exclusively;
 
+
+#ifdef CBL_DEPRECATED
+- (CBLDocument*) untitledDocument __attribute__((deprecated("renamed -createDocument")));
+- (CBLDocument*) cachedDocumentWithID: (NSString*)docID __attribute__((deprecated("you shouldn't need to use this")));
+- (void) clearDocumentCache __attribute__((deprecated("you shouldn't need to use this")));
+- (NSDictionary*) getLocalDocumentWithID: (NSString*)localDocID __attribute__((deprecated("renamed -existingLocalDocumentWithID:")));
+- (CBLQuery*) queryAllDocuments __attribute__((deprecated("renamed -createAllDocumentsQuery")));
+- (void) defineFilter: (NSString*)filterName asBlock: (CBLFilterBlock)filterBlock __attribute__((deprecated("renamed -setFilterNamed:asBlock:")));
+- (void) defineValidation: (NSString*)validationName asBlock: (CBLValidationBlock)validationBlock __attribute__((deprecated("renamed -setValidationNamed:asBlock:")));
+- (CBLReplication*) pushToURL: (NSURL*)url
+        __attribute__((deprecated("use replicationToURL, then call -start")));
+- (CBLReplication*) pullFromURL: (NSURL*)url
+        __attribute__((deprecated("use replicationFromURL, then call -start")));
+- (NSArray*) replicateWithURL: (NSURL*)otherDbURL exclusively: (bool)exclusively
+        __attribute__((deprecated("use replicationsWithURL:, then call -start")));
+#endif
 
 @end
 
@@ -187,10 +230,8 @@ typedef BOOL (^CBLFilterBlock) (CBLRevision* revision, NSDictionary* params);
 
 
 /** This notification is posted by a CBLDatabase in response to document changes.
-    Only one notification is posted per runloop cycle, no matter how many documents changed.
-    If a change was not made by a CBLDocument belonging to this CBLDatabase (i.e. it came
-    from another process or from a "pull" replication), the notification's userInfo dictionary will
-    contain an "external" key with a value of YES. */
+    The notification's userInfo dictionary's "changes" key contains an NSArray of
+    CBLDatabaseChange objects that describe the revisions that were added. */
 extern NSString* const kCBLDatabaseChangeNotification;
 
 
@@ -205,15 +246,15 @@ typedef BOOL (^CBLChangeEnumeratorBlock) (NSString* key, id oldValue, id newValu
 @protocol CBLValidationContext <NSObject>
 
 /** The contents of the current revision of the document, or nil if this is a new document. */
-@property (readonly) CBLRevision* currentRevision;
+@property (readonly) CBLSavedRevision* currentRevision;
 
-/** The type of HTTP status to report, if the validate block returns NO.
-    The default value is 403 ("Forbidden"). */
-@property int errorType;
+/** Rejects the proposed new revision. */
+- (void) reject;
 
-/** The error message to return in the HTTP response, if the validate block returns NO.
-    The default value is "invalid document". */
-@property (copy) NSString* errorMessage;
+/** Rejects the proposed new revision. Any resulting error will contain the provided message;
+    for example, if the change came from an external HTTP request, the message will be in the
+    response status line. The default message is "invalid document". */
+- (void) rejectWithMessage: (NSString*)message;
 
 
 #pragma mark - CONVENIENCE METHODS:
@@ -221,14 +262,14 @@ typedef BOOL (^CBLChangeEnumeratorBlock) (NSString* key, id oldValue, id newValu
 /** Returns an array of all the keys whose values are different between the current and new revisions. */
 @property (readonly) NSArray* changedKeys;
 
-/** Returns YES if only the keys given in the 'allowedKeys' array have changed; else returns NO and sets a default error message naming the offending key. */
-- (BOOL) allowChangesOnlyTo: (NSArray*)allowedKeys;
-
-/** Returns YES if none of the keys given in the 'disallowedKeys' array have changed; else returns NO and sets a default error message naming the offending key. */
-- (BOOL) disallowChangesTo: (NSArray*)disallowedKeys;
-
 /** Calls the 'enumerator' block for each key that's changed, passing both the old and new values.
-    If the block returns NO, the enumeration stops and sets a default error message, and the method returns NO; else the method returns YES. */
-- (BOOL) enumerateChanges: (CBLChangeEnumeratorBlock)enumerator;
+    If the block returns NO, the enumeration stops and rejects the revision, and the method returns
+    NO; else the method returns YES. */
+- (BOOL) validateChanges: (CBLChangeEnumeratorBlock)enumerator;
 
+#ifdef CBL_DEPRECATED
+- (BOOL) allowChangesOnlyTo: (NSArray*)allowedKeys __attribute__((deprecated()));
+- (BOOL) disallowChangesTo: (NSArray*)disallowedKeys __attribute__((deprecated()));
+- (BOOL) enumerateChanges: (CBLChangeEnumeratorBlock)enumerator __attribute__((deprecated("renamed validateChanges:")));
+#endif
 @end

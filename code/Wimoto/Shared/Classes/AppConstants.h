@@ -10,3 +10,4 @@
 
 #define NC_BLE_MANAGER_PERIPHERAL_CONNECTED                 @"peripheralConnected"
 #define NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED              @"peripheralDisconnected"
+#define NC_BLE_DID_ADD_NEW_SENSOR                           @"didAddNewSensor"

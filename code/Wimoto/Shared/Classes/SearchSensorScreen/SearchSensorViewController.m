@@ -38,7 +38,7 @@
     
     NSArray *array = [BLEManager identifiedPeripherals];
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
-    
+        
     for (CBPeripheral *peripheral in array) {
         Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
         if (sensor) {
@@ -51,6 +51,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
+     
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,11 +64,12 @@
 }
 
 - (void)didConnectPeripheral:(NSNotification*)notification {
+
     CBPeripheral *peripheral = [notification object];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-    
+        
     if ([filteredArray count]==0) {
         Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
         if (sensor) {
@@ -121,6 +123,8 @@
     
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     [sensor save:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_DID_ADD_NEW_SENSOR object:nil];
     
     [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
 }

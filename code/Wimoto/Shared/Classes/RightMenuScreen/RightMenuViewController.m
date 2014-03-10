@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *sensorsArray;
 @property (nonatomic, strong) IBOutlet RightMenuCell *tmpCell;
 
+- (void)refreshSensors;
+
 @end
 
 @implementation RightMenuViewController
@@ -33,14 +35,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     
-    _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSensors) name:NC_BLE_DID_ADD_NEW_SENSOR object:nil];
     
-    [self.tableView reloadData];
+    [self refreshSensors];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,6 +49,12 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)refreshSensors
+{
+    _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
+    [self.tableView reloadData];
 }
 
 - (void)didConnectPeripheral:(NSNotification*)notification {

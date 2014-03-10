@@ -86,8 +86,7 @@ static BLEManager *bleManager = nil;
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    
-    if ((![_managedPeripherals containsObject:peripheral])&&(![peripheral isConnected])) {
+    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)) {
         [_managedPeripherals addObject:peripheral];
         [_centralBluetoothManager connectPeripheral:peripheral options:nil];
     }

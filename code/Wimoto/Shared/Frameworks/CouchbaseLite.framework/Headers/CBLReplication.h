@@ -3,7 +3,7 @@
 //  CouchbaseLite
 //
 //  Created by Jens Alfke on 6/22/12.
-//  Copyright (c) 2012 Couchbase, Inc. All rights reserved.
+//  Copyright (c) 2012-2013 Couchbase, Inc. All rights reserved.
 //
 
 #import "CBLModel.h"
@@ -16,7 +16,7 @@ typedef enum {
     kCBLReplicationOffline, /**< The remote host is currently unreachable. */
     kCBLReplicationIdle,    /**< Continuous replication is caught up and waiting for more changes.*/
     kCBLReplicationActive   /**< The replication is actively transferring data. */
-} CBLReplicationMode;
+} CBLReplicationStatus;
 
 
 /** A 'push' or 'pull' replication between a local and a remote database.
@@ -28,7 +28,8 @@ typedef enum {
     .persistent property.
     It's more common to call -[CBLDatabase pullFromURL:] instead, as that will return an existing
     replication if possible. But if you intentionally want to create multiple replications
-    from the same source database (e.g. with different filters), use this. */
+    from the same source database (e.g. with different filters), use this.
+    Note: The replication won't start until you call -start. */
 - (instancetype) initPullFromSourceURL: (NSURL*)source toDatabase: (CBLDatabase*)database
                                                                         __attribute__((nonnull));
 
@@ -36,7 +37,8 @@ typedef enum {
     .persistent property.
     It's more common to call -[CBLDatabase pushToURL:] instead, as that will return an existing
     replication if possible. But if you intentionally want to create multiple replications
-    to the same source database (e.g. with different filters), use this. */
+     to the same source database (e.g. with different filters), use this.
+     Note: The replication won't start until you call -start. */
 - (instancetype) initPushFromDatabase: (CBLDatabase*)database toTargetURL: (NSURL*)target
                                                                         __attribute__((nonnull));
 
@@ -47,7 +49,7 @@ typedef enum {
 @property (nonatomic, readonly) NSURL* remoteURL;
 
 /** Does the replication pull from (as opposed to push to) the target? */
-@property (nonatomic, readonly) bool pull;
+@property (nonatomic, readonly) BOOL pull;
 
 
 #pragma mark - OPTIONS:
@@ -55,10 +57,10 @@ typedef enum {
 /** Is this replication remembered persistently in the _replicator database?
     Persistent continuous replications will automatically restart on the next launch
     or (on iOS) when the app returns to the foreground. */
-@property bool persistent;
+@property BOOL persistent;
 
 /** Should the target database be created if it doesn't already exist? (Defaults to NO). */
-@property (nonatomic) bool create_target;
+@property (nonatomic) BOOL createTarget;
 
 /** Should the replication operate continuously, copying changes as soon as the source database is modified? (Defaults to NO). */
 @property (nonatomic) bool continuous;
@@ -71,7 +73,7 @@ typedef enum {
 
 /** Parameters to pass to the filter function.
     Should map strings to strings. */
-@property (nonatomic, copy) NSDictionary* query_params;
+@property (nonatomic, copy) NSDictionary* filterParams;
 
 /** List of Sync Gateway channel names to filter by; a nil value means no filtering, i.e. all
     available channels will be synced.
@@ -80,11 +82,17 @@ typedef enum {
 @property (nonatomic, copy) NSArray* channels;
 
 /** Sets the documents to specify as part of the replication. */
-@property (copy) NSArray *doc_ids;
+@property (copy) NSArray *documentIDs;
 
 /** Extra HTTP headers to send in all requests to the remote server.
     Should map strings (header names) to strings. */
 @property (nonatomic, copy) NSDictionary* headers;
+
+/** Specifies which class of network the replication will operate over.
+    Default value is nil, which means replicate over all networks.
+    Set to "WiFi" (or "!Cell") to replicate only over WiFi,
+    or to "Cell" (or "!WiFi") to replicate only over cellular. */
+@property (nonatomic, copy) NSString* network;
 
 
 #pragma mark - AUTHENTICATION:
@@ -101,12 +109,17 @@ typedef enum {
 
 /** Email address for login with Facebook credentials. This is stored persistently in
     the replication document, but it's not sufficient for login (you also need to get a
-    token from Facebook's servers, which you then pass to -registerPersonaAssertion:.)*/
+    token from Facebook's servers, which you then pass to -registerFacebookToken:forEmailAddress.)*/
 @property (nonatomic, copy) NSString* facebookEmailAddress;
 
 /** Registers a Facebook login token that will be used on the next login to the remote server.
-    This also sets facebookEmailAddress. */
-- (bool) registerFacebookToken: (NSString*)token
+    This also sets facebookEmailAddress. 
+    For security reasons the token is not stored in the replication document, but instead kept
+    in an in-memory registry private to the Facebook authorizer. On login the token is sent to
+    the server, and the server will respond with a session cookie. After that the token isn't
+    needed again until the session expires. At that point you'll need to recover or regenerate
+    the token and register it again. */
+- (BOOL) registerFacebookToken: (NSString*)token
                forEmailAddress: (NSString*)email                        __attribute__((nonnull));
 
 /** The base URL of the remote server, for use as the "origin" parameter when requesting Persona or
@@ -126,7 +139,7 @@ typedef enum {
     immediately after registering the assertion, so that the replicator engine can use it to
     authenticate before it expires. After that, the replicator will have a login session cookie
     that should last significantly longer before needing to be renewed. */
-- (bool) registerPersonaAssertion: (NSString*)assertion               __attribute__((nonnull));
+- (BOOL) registerPersonaAssertion: (NSString*)assertion               __attribute__((nonnull));
 
 /** Adds additional SSL root certificates to be trusted by the replicator, or entirely overrides the
     OS's default list of trusted root certs.
@@ -138,7 +151,9 @@ typedef enum {
 
 #pragma mark - STATUS:
 
-/** Starts the replication, asynchronously. */
+/** Starts the replication, asynchronously.
+    You can monitor its progress by observing the kCBLReplicationChangeNotification it sends,
+    or by using KVO to observe its .running, .status, .error, .total and .completed properties. */
 - (void) start;
 
 /** Stops replication, asynchronously. */
@@ -148,27 +163,41 @@ typedef enum {
 - (void) restart;
 
 /** The replication's current state, one of {stopped, offline, idle, active}. */
-@property (nonatomic, readonly) CBLReplicationMode mode;
+@property (nonatomic, readonly) CBLReplicationStatus status;
 
 /** YES while the replication is running, NO if it's stopped.
     Note that a continuous replication never actually stops; it only goes idle waiting for new
     data to appear. */
-@property (nonatomic, readonly) bool running;
+@property (nonatomic, readonly) BOOL running;
 
 /** The error status of the replication, or nil if there have not been any errors since it started. */
-@property (nonatomic, readonly, retain) NSError* error;
+@property (nonatomic, readonly, retain) NSError* lastError;
 
 /** The number of completed changes processed, if the task is active, else 0 (observable). */
-@property (nonatomic, readonly) unsigned completed;
+@property (nonatomic, readonly) unsigned completedChangesCount;
 
 /** The total number of changes to be processed, if the task is active, else 0 (observable). */
-@property (nonatomic, readonly) unsigned total;
+@property (nonatomic, readonly) unsigned changesCount;
 
 
+#ifdef CBL_DEPRECATED
+@property (nonatomic) bool create_target __attribute__((deprecated("renamed createTarget")));
+@property (nonatomic, copy) NSDictionary* query_params __attribute__((deprecated("renamed filterParams")));
+@property (copy) NSArray *doc_ids __attribute__((deprecated("renamed documentIDs")));
+@property (nonatomic, readonly) CBLReplicationStatus mode __attribute__((deprecated("renamed status")));
+@property (nonatomic, readonly, retain) NSError* error;
+@property (nonatomic, readonly) unsigned completed __attribute__((deprecated("renamed completedChangesCount")));
+@property (nonatomic, readonly) unsigned total __attribute__((deprecated("renamed changesCount")));
+#endif
 @end
 
 
 /** This notification is posted by a CBLReplication when any of these properties change:
-    {mode, running, error, completed, total}. It's often more convenient to observe this
+    {status, running, error, completed, total}. It's often more convenient to observe this
     notification rather than observing each property individually. */
 extern NSString* const kCBLReplicationChangeNotification;
+
+
+#ifdef CBL_DEPRECATED
+typedef CBLReplicationStatus CBLReplicationMode __attribute__((deprecated("renamed CBLReplicationStatus")));
+#endif

@@ -64,6 +64,10 @@
             }
             
             float temperatureValue = bpm;
+            float humidityValue = bpm+5;
+            float lightValue = bpm-3;
+            float presence = bpm;
+            float level = bpm-3;
             
             SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
@@ -71,15 +75,11 @@
             sensorValue.value = temperatureValue;
             [sensorValue save:nil];
             
-            float humidityValue = bpm+5;
-            
             sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
             sensorValue.valueType = kValueTypeHumidity;
             sensorValue.value = humidityValue;
             [sensorValue save:nil];
-            
-            float lightValue = bpm-3;
             
             sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
@@ -87,15 +87,11 @@
             sensorValue.value = lightValue;
             [sensorValue save:nil];
             
-            float presence = bpm;
-            
             sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
             sensorValue.valueType = kValueTypePresence;
             sensorValue.value = ((int)presence%2==0)?1:0;
             [sensorValue save:nil];
-            
-            float level = bpm-3;
             
             sensorValue = [DatabaseManager sensorValueInstance];
             sensorValue.sensor = self;
@@ -144,7 +140,7 @@
             sensorValue.valueType = kValueTypeProbeTemperature;
             sensorValue.value = temperatureValue;
             [sensorValue save:nil];
-            
+                        
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = temperatureValue;
                 self.humidity = humidityValue;
