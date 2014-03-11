@@ -69,22 +69,12 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.irTemp = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeIRTemperature;
-            sensorValue.value = _irTemp;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.probeTemp = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeProbeTemperature;
-            sensorValue.value = _probeTemp;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:value16_t];
         }
     }
 }

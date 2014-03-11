@@ -23,6 +23,7 @@
 @interface DatabaseManager ()
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
+@property (nonatomic, strong) dispatch_queue_t sensorQueue;
 
 @end
 
@@ -40,6 +41,7 @@ static DatabaseManager *databaseManager = nil;
 - (id)init {
     self = [super init];
     if (self) {
+        self.sensorQueue = dispatch_queue_create("com.wimoto.sensor", DISPATCH_QUEUE_SERIAL);
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         CBLModelFactory *modelFactory = [CBLModelFactory sharedInstance];
         [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
@@ -53,95 +55,114 @@ static DatabaseManager *databaseManager = nil;
     return self;
 }
 
-+ (Sensor*)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral {
-    DatabaseManager *manager = [DatabaseManager sharedManager];
-        
-    CBLView *view = [manager.cblDatabase viewNamed:@"sensorsBySystemId"];
-    
-    [view setMapBlock:MAPBLOCK({
-        if ([doc[@"systemId"] isEqualToString:[peripheral systemId]]) {
-            emit(doc[@"systemId"], doc);
-        }
-    }) version:@"1.0"];
-    
-    CBLQuery *query = [view createQuery];
-    query.limit = 1;
-    
-    NSArray *rows = [[query run:nil] allObjects];
-    
-    if ([rows count]==0) {
-        return [Sensor newSensorInDatabase:manager.cblDatabase withPeripheral:peripheral];
-    } else {
-        CBLQueryRow *row = [rows objectAtIndex:0];
-        return [Sensor sensorForDocument:row.document withPeripheral:peripheral];
-    }
++ (dispatch_queue_t)getSensorQueue
+{
+    return [[DatabaseManager sharedManager] sensorQueue];
 }
 
-+ (NSArray*)storedSensors {
++ (void)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral completionHandler:(void(^)(Sensor *item))completionHandler
+{
     DatabaseManager *manager = [DatabaseManager sharedManager];
-    
-    CBLView *view = [manager.cblDatabase viewNamed:@"storedSensors"];
-    
-    NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
-    [view setMapBlock:MAPBLOCK({
-        if (![doc[@"type"] isEqualToString:kSensorValueType]) {
-            emit(doc[@"systemId"], doc);
-        }
-    }) version:@"1.3"];
-    
-    CBLQuery *query = [view createQuery];
-    
-    CBLQueryEnumerator *queryEnumerator = [query run:nil];
-    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
-    for (CBLQueryRow *row in queryEnumerator) {
-        [mutableArray addObject:[Sensor sensorForDocument:row.document]];
-    }
-    
-    return mutableArray;
-}
-
-+ (SensorValue*)sensorValueInstance {
-    DatabaseManager *manager = [DatabaseManager sharedManager];
-
-    SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
-    [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
-    sensorValue.date = [NSDate date];
-    return sensorValue;
-}
-
-+ (NSArray*)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type {
-    DatabaseManager *manager = [DatabaseManager sharedManager];
-    CBLView* view = [manager.cblDatabase viewNamed: @"sensorValuesByDate"];
-    if (!view.mapBlock) {
-        NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
-        [view setMapBlock: MAPBLOCK({
-            if ([doc[@"type"] isEqualToString:kSensorValueType]) {
-                id date = doc[@"date"];
-                NSString *sensor = doc[@"sensor"];
-                NSNumber *typeNumber = doc[@"valueType"];
-                emit(@[sensor, typeNumber, date], doc);
+    dispatch_async([manager sensorQueue], ^{
+        CBLView *view = [manager.cblDatabase viewNamed:@"sensorsBySystemId"];
+        [view setMapBlock:MAPBLOCK({
+            if ([doc[@"systemId"] isEqualToString:[peripheral systemId]]) {
+                emit(doc[@"systemId"], doc);
             }
-        }) version: @"1.1"];
-    }
-    
-    CBLQuery *query = [view createQuery];
-    query.limit = 16;
-    query.descending = YES;
-    NSString* myListId = sensor.document.documentID;
-    NSNumber *typeNumber = [NSNumber numberWithInt:type];
-    query.startKey = @[myListId, typeNumber, @{}];
-    query.endKey = @[myListId, typeNumber];
-
-    CBLQueryEnumerator *queryEnumerator = [query run:nil];
-    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
-    for (CBLQueryRow *row in queryEnumerator) {
-        NSObject *value = row.document[@"value"];
-        if (value) {
-            [mutableArray addObject:value];
+        }) version:@"1.0"];
+        CBLQuery *query = [view createQuery];
+        query.limit = 1;
+        NSArray *rows = [[query run:nil] allObjects];
+        if ([rows count]==0) {
+            Sensor *sensor = [Sensor newSensorInDatabase:manager.cblDatabase withPeripheral:peripheral];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(sensor);
+            });
         }
-    }
+        else {
+            CBLQueryRow *row = [rows objectAtIndex:0];
+            Sensor *sensor = [Sensor sensorForDocument:row.document withPeripheral:peripheral];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(sensor);
+            });
+        }
+    });
+}
+
++ (void)storedSensorsWithCompletionHandler:(void(^)(NSMutableArray *item))completionHandler
+{
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    dispatch_async([manager sensorQueue], ^{
+        CBLView *view = [manager.cblDatabase viewNamed:@"storedSensors"];
+        NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
+        [view setMapBlock:MAPBLOCK({
+            if (![doc[@"type"] isEqualToString:kSensorValueType]) {
+                emit(doc[@"systemId"], doc);
+            }
+        }) version:@"1.3"];
+        CBLQuery *query = [view createQuery];
+        CBLQueryEnumerator *queryEnumerator = [query run:nil];
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
+        for (CBLQueryRow *row in queryEnumerator) {
+            [mutableArray addObject:[Sensor sensorForDocument:row.document]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(mutableArray);
+        });
+    });
+}
+
++ (void)saveNewSensorValueWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType value:(double)value
+{
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    dispatch_async([manager sensorQueue], ^{
+        SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
+        [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
+        sensorValue.date = [NSDate date];
+        sensorValue.sensor = sensor;
+        sensorValue.valueType = valueType;
+        sensorValue.value = value;
+        [sensorValue save:nil];
+    });
+}
+
++ (void)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type completionHandler:(void(^)(NSMutableArray *item))completionHandler
+{
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    dispatch_async([manager sensorQueue], ^{
+        CBLView *view = [manager.cblDatabase viewNamed: @"sensorValuesByDate"];
+        if (!view.mapBlock) {
+            NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
+            [view setMapBlock: MAPBLOCK({
+                if ([doc[@"type"] isEqualToString:kSensorValueType]) {
+                    id date = doc[@"date"];
+                    NSString *sensor = doc[@"sensor"];
+                    NSNumber *typeNumber = doc[@"valueType"];
+                    emit(@[sensor, typeNumber, date], doc);
+                }
+            }) version: @"1.1"];
+        }
     
-    return mutableArray;
+        CBLQuery *query = [view createQuery];
+        query.limit = 16;
+        query.descending = YES;
+        NSString *myListId = sensor.document.documentID;
+        NSNumber *typeNumber = [NSNumber numberWithInt:type];
+        query.startKey = @[myListId, typeNumber, @{}];
+        query.endKey = @[myListId, typeNumber];
+
+        CBLQueryEnumerator *queryEnumerator = [query run:nil];
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
+        for (CBLQueryRow *row in queryEnumerator) {
+            NSObject *value = row.document[@"value"];
+            if (value) {
+                [mutableArray addObject:value];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(mutableArray);
+        });
+    });
 }
 
 @end

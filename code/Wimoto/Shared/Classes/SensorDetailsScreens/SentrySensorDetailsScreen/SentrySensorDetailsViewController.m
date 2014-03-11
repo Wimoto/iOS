@@ -44,11 +44,15 @@
     
     _accelerometerSparkLine.labelText = @"";
     _accelerometerSparkLine.showCurrentValue = NO;
-    _accelerometerSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
+        _accelerometerSparkLine.dataValues = item;
+    }];
     
     _pasInfraredSparkLine.labelText = @"";
     _pasInfraredSparkLine.showCurrentValue = NO;
-    _pasInfraredSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
+        _pasInfraredSparkLine.dataValues = item;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,10 +77,14 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER]) {
         _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        _accelerometerSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
+            _accelerometerSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
         _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        _pasInfraredSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
+            _pasInfraredSparkLine.dataValues = item;
+        }];
     }
 }
 

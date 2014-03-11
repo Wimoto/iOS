@@ -69,22 +69,12 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.accelerometer = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeAccelerometer;
-            sensorValue.value = _accelerometer;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeAccelerometer value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.pasInfrared = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypePassiveInfrared;
-            sensorValue.value = _pasInfrared;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePassiveInfrared value:value16_t];
         }
     }
 }

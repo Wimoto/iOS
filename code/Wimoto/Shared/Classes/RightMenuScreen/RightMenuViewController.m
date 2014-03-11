@@ -35,10 +35,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSensors) name:NC_BLE_DID_ADD_NEW_SENSOR object:nil];
-    
-    [self refreshSensors];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,14 +43,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshSensors];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)refreshSensors
 {
-    _sensorsArray = [[DatabaseManager storedSensors] mutableCopy];
-    [self.tableView reloadData];
+    [DatabaseManager storedSensorsWithCompletionHandler:^(NSMutableArray *item) {
+        _sensorsArray = [item mutableCopy];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didConnectPeripheral:(NSNotification*)notification {
@@ -119,8 +123,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
-    [sensor deleteDocument:nil];
-    
+    dispatch_async([DatabaseManager getSensorQueue], ^{
+        [sensor deleteDocument:nil];
+    });
     [_sensorsArray removeObject:sensor];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
 }
@@ -128,11 +133,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
-
     [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
-
     [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
 

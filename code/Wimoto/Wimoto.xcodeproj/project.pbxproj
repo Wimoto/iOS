@@ -341,14 +341,14 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				49F3F91218A510E600CDA950 /* SensorHelper.m */,
-				49F3F91118A5108800CDA950 /* SensorHelper.h */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				90232E37185A521900F83210 /* BLEManager */,
 				90EAB4AD185F9A5E00609A9C /* DatabaseManager */,
 				901399C3185A5EF20003D964 /* NSString+Util.h */,
 				901399C4185A5EF20003D964 /* NSString+Util.m */,
+				49F3F91218A510E600CDA950 /* SensorHelper.m */,
+				49F3F91118A5108800CDA950 /* SensorHelper.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

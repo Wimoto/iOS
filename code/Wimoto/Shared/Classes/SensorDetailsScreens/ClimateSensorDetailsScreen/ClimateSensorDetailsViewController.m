@@ -49,15 +49,21 @@
     
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
-    _temperatureSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
+        _temperatureSparkLine.dataValues = item;
+    }];
     
     _humiditySparkLine.labelText = @"";
     _humiditySparkLine.showCurrentValue = NO;
-    _humiditySparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
+        _humiditySparkLine.dataValues = item;
+    }];
     
     _lightSparkLine.labelText = @"";
     _lightSparkLine.showCurrentValue = NO;
-    _lightSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+        _lightSparkLine.dataValues = item;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,13 +89,19 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE]) {
         _tempLabel.text = [NSString stringWithFormat:@"%.1f", [SensorHelper getTemperatureValue:[change objectForKey:NSKeyValueChangeNewKey]]];
-        _temperatureSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
+            _temperatureSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
         _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [SensorHelper getHumidityValue:[change objectForKey:NSKeyValueChangeNewKey]]];
-        _humiditySparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
+            _humiditySparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
         _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        _lightSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+            _lightSparkLine.dataValues = item;
+        }];
     }
 }
 

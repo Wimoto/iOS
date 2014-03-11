@@ -30,13 +30,14 @@
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     
-    Sensor *sensor = nil;
-    
-    NSArray *sensors = [DatabaseManager storedSensors];
-    if ([sensors count]>0) {
-        sensor = [sensors objectAtIndex:0];
-    }
-    [deckController showSensorDetailsScreen:sensor];
+    [DatabaseManager storedSensorsWithCompletionHandler:^(NSMutableArray *item) {
+        Sensor *sensor = nil;
+        NSArray *sensors = item;
+        if ([sensors count]>0) {
+            sensor = [sensors objectAtIndex:0];
+        }
+        [deckController showSensorDetailsScreen:sensor];
+    }];
     
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];

@@ -44,11 +44,15 @@
     
     _irTempSparkLine.labelText = @"";
     _irTempSparkLine.showCurrentValue = NO;
-    _irTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
+        _irTempSparkLine.dataValues = item;
+    }];
     
     _probeTempSparkLine.labelText = @"";
     _probeTempSparkLine.showCurrentValue = NO;
-    _probeTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
+        _probeTempSparkLine.dataValues = item;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,10 +77,14 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
         _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        _irTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
+            _irTempSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        _probeTempSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
+            _probeTempSparkLine.dataValues = item;
+        }];
     }
 }
 

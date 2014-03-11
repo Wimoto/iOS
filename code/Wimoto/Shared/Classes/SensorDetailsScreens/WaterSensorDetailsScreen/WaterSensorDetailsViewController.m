@@ -46,7 +46,9 @@
     
     _levelSparkLine.labelText = @"";
     _levelSparkLine.showCurrentValue = NO;
-    _levelSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel];
+    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
+        _levelSparkLine.dataValues = item;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +75,9 @@
         NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
         
         _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
-        _levelSparkLine.dataValues = [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel];
+        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
+            _levelSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
         _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
     }

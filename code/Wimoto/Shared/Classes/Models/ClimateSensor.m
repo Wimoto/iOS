@@ -78,32 +78,17 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeTemperature;
-            sensorValue.value = _temperature;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.humidity = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeHumidity;
-            sensorValue.value = _humidity;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.light = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeLight;
-            sensorValue.value = _light;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:value16_t];
         }
     }
 }

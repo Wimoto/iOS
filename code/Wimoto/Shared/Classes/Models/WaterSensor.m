@@ -71,22 +71,12 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.level = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeLevel;
-            sensorValue.value = _level;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLevel value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.presense = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypePresence;
-            sensorValue.value = _presense;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePresence value:value16_t];
         }
     }
 }

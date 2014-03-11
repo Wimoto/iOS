@@ -40,18 +40,17 @@
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
         
     for (CBPeripheral *peripheral in array) {
-        Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
-        if (sensor) {
-            if ([sensor isNew]) {
-                [_sensorsArray addObject:sensor];
+        [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
+            Sensor *sensor = item;
+            if (sensor) {
+                if ([sensor isNew]) {
+                    [_sensorsArray addObject:sensor];
+                }
             }
-        }
+        }];
     }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
-     
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,21 +63,21 @@
 }
 
 - (void)didConnectPeripheral:(NSNotification*)notification {
-
     CBPeripheral *peripheral = [notification object];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
         
     if ([filteredArray count]==0) {
-        Sensor *sensor = [DatabaseManager sensorInstanceWithPeripheral:peripheral];
-        if (sensor) {
-            if ([sensor isNew]) {
-                [_sensorsArray addObject:sensor];
+        [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
+            Sensor *sensor = item;
+            if (sensor) {
+                if ([sensor isNew]) {
+                    [_sensorsArray addObject:sensor];
+                }
             }
-        }
-        
-        [_sensorTableView reloadData];
+            [_sensorTableView reloadData];
+        }];
     }
 }
 
@@ -90,7 +89,6 @@
 
     if ([filteredArray count]>0) {
         [_sensorsArray removeObject:[filteredArray objectAtIndex:0]];
-        
         [_sensorTableView reloadData];
     }
 }
@@ -120,12 +118,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
-    [sensor save:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_DID_ADD_NEW_SENSOR object:nil];
-    
+    dispatch_async([DatabaseManager getSensorQueue], ^{
+        [sensor save:nil];
+    });
     [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
 }
 

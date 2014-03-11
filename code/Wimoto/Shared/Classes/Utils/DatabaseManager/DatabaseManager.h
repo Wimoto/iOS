@@ -15,10 +15,10 @@
 
 @interface DatabaseManager : NSObject
 
-+ (Sensor*)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral;
-+ (NSArray*)storedSensors;
-
-+ (SensorValue*)sensorValueInstance;
-+ (NSArray*)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type;
++ (void)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral completionHandler:(void(^)(Sensor *item))completionHandler;
++ (void)storedSensorsWithCompletionHandler:(void(^)(NSMutableArray *item))completionHandler;
++ (void)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type completionHandler:(void(^)(NSMutableArray *item))completionHandler;
++ (void)saveNewSensorValueWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType value:(double)value;
++ (dispatch_queue_t)getSensorQueue;
 
 @end

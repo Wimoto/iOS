@@ -77,32 +77,17 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.soilTemperature = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeSoilTemperature;
-            sensorValue.value = _soilTemperature;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilTemperature value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.light = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeGrowLight;
-            sensorValue.value = _light;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeGrowLight value:value16_t];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.soilMoisture = value16_t;
             });
-            
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeSoilHumidity;
-            sensorValue.value = _soilMoisture;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilHumidity value:value16_t];
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 
 #import "TestSensor.h"
-
 #import "DatabaseManager.h"
 #import "SensorValue.h"
 
@@ -69,92 +68,29 @@
             float presence = bpm;
             float level = bpm-3;
             
-            SensorValue *sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeTemperature;
-            sensorValue.value = temperatureValue;
-            [sensorValue save:nil];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:temperatureValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:humidityValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:lightValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePresence value:((int)presence%2==0)?1:0];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLevel value:level];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeGrowLight value:lightValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilHumidity value:humidityValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilTemperature value:temperatureValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeAccelerometer value:humidityValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePassiveInfrared value:temperatureValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:humidityValue];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:temperatureValue];
             
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeHumidity;
-            sensorValue.value = humidityValue;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeLight;
-            sensorValue.value = lightValue;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypePresence;
-            sensorValue.value = ((int)presence%2==0)?1:0;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeLevel;
-            sensorValue.value = level;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeGrowLight;
-            sensorValue.value = lightValue;
-            [sensorValue save:nil];
-
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeSoilHumidity;
-            sensorValue.value = humidityValue;
-            [sensorValue save:nil];
-
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeSoilTemperature;
-            sensorValue.value = temperatureValue;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeAccelerometer;
-            sensorValue.value = humidityValue;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypePassiveInfrared;
-            sensorValue.value = temperatureValue;
-            [sensorValue save:nil];
-
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeIRTemperature;
-            sensorValue.value = humidityValue;
-            [sensorValue save:nil];
-            
-            sensorValue = [DatabaseManager sensorValueInstance];
-            sensorValue.sensor = self;
-            sensorValue.valueType = kValueTypeProbeTemperature;
-            sensorValue.value = temperatureValue;
-            [sensorValue save:nil];
-                        
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperature = temperatureValue;
                 self.humidity = humidityValue;
                 self.light = lightValue;
-                
                 self.presense = presence;
                 self.level = level;
-                
                 self.soilMoisture = humidityValue;
                 self.soilTemperature = temperatureValue;
-                
                 self.accelerometer = humidityValue;
                 self.pasInfrared = temperatureValue;
-                
                 self.irTemp = humidityValue;
                 self.probeTemp = temperatureValue;
             });
