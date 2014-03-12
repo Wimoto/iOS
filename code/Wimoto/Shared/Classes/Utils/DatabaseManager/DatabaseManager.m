@@ -17,8 +17,8 @@
 #import "ThermoSensor.h"
 #import "SentrySensor.h"
 #import "WaterSensor.h"
-
 #import "SensorValue.h"
+#import "AlarmValue.h"
 
 @interface DatabaseManager ()
 
@@ -45,6 +45,7 @@ static DatabaseManager *databaseManager = nil;
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         CBLModelFactory *modelFactory = [CBLModelFactory sharedInstance];
         [modelFactory registerClass:[SensorValue class] forDocumentType:NSStringFromClass([SensorValue class])];
+        [modelFactory registerClass:[AlarmValue class] forDocumentType:NSStringFromClass([AlarmValue class])];
         [modelFactory registerClass:[TestSensor class] forDocumentType:NSStringFromClass([TestSensor class])];
         [modelFactory registerClass:[ClimateSensor class] forDocumentType:NSStringFromClass([ClimateSensor class])];
         [modelFactory registerClass:[GrowSensor class] forDocumentType:NSStringFromClass([GrowSensor class])];
@@ -94,9 +95,10 @@ static DatabaseManager *databaseManager = nil;
     DatabaseManager *manager = [DatabaseManager sharedManager];
     dispatch_async([manager sensorQueue], ^{
         CBLView *view = [manager.cblDatabase viewNamed:@"storedSensors"];
-        NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
+        NSString *const kSensorValueType = NSStringFromClass([SensorValue class]);
+        NSString *const kAlarmValueType = NSStringFromClass([AlarmValue class]);
         [view setMapBlock:MAPBLOCK({
-            if (![doc[@"type"] isEqualToString:kSensorValueType]) {
+            if (![doc[@"type"] isEqualToString:kSensorValueType]&&![doc[@"type"] isEqualToString:kAlarmValueType]) {
                 emit(doc[@"systemId"], doc);
             }
         }) version:@"1.3"];
@@ -130,7 +132,7 @@ static DatabaseManager *databaseManager = nil;
 {
     DatabaseManager *manager = [DatabaseManager sharedManager];
     dispatch_async([manager sensorQueue], ^{
-        CBLView *view = [manager.cblDatabase viewNamed: @"sensorValuesByDate"];
+        CBLView *view = [manager.cblDatabase viewNamed:@"sensorValuesByDate"];
         if (!view.mapBlock) {
             NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
             [view setMapBlock: MAPBLOCK({
@@ -162,6 +164,56 @@ static DatabaseManager *databaseManager = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             completionHandler(mutableArray);
         });
+    });
+}
+
++ (void)alarmInstanceWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType completionHandler:(void(^)(AlarmValue *item))completionHandler
+{
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    dispatch_async([manager sensorQueue], ^{
+        CBLView *view = [manager.cblDatabase viewNamed:@"sensorAlarmBySensor"];
+        NSString *const kAlarmValueType = NSStringFromClass([AlarmValue class]);
+        
+        [view setMapBlock: MAPBLOCK({
+            if ([doc[@"type"] isEqualToString:kAlarmValueType]) {
+                NSString *sensor = doc[@"sensor"];
+                NSNumber *typeNumber = doc[@"valueType"];
+                NSNumber *activeNumber = doc[@"isActive"];
+                emit(@[sensor, typeNumber, activeNumber], doc);
+            }
+        }) version: @"1.2"];
+        
+        CBLQuery *query = [view createQuery];
+        query.limit = 1;
+        
+        NSString *myListId = sensor.document.documentID;
+        NSNumber *typeNumber = [NSNumber numberWithInt:valueType];
+        query.startKey = @[myListId, typeNumber];
+        query.endKey = @[myListId, typeNumber, @{}];
+        
+        NSArray *rows = [[query run:nil] allObjects];
+        if ([rows count]==0) {
+            AlarmValue *alarmValue = [AlarmValue newAlarmValueInDatabase:manager.cblDatabase sensor:sensor valueType:valueType];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(alarmValue);
+            });
+        }
+        else {
+            CBLQueryRow *row = [rows objectAtIndex:0];
+            AlarmValue *alarmValue = [AlarmValue alarmValueForDocument:row.document];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(alarmValue);
+            });
+        }
+    });
+}
+
++ (void)saveAlarm:(AlarmValue *)alarm
+{
+    DatabaseManager *manager = [DatabaseManager sharedManager];
+    dispatch_async([manager sensorQueue], ^{
+        [alarm setValue:NSStringFromClass([AlarmValue class]) ofProperty:@"type"];
+        [alarm save:nil];
     });
 }
 

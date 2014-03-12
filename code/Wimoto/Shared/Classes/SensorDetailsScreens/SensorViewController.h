@@ -9,10 +9,15 @@
 #import "AppViewController.h"
 #import "Sensor.h"
 
-@interface SensorViewController : AppViewController
+@interface SensorViewController : AppViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) Sensor *sensor;
+@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) UIView *pickerContainer;
+@property (nonatomic, strong) UISwitch *currentSwitch;
 
-- (id)initWithSensor:(Sensor*)sensor;
+- (id)initWithSensor:(Sensor *)sensor;
+- (void)showPicker;
+- (void)hidePicker:(id)sender;
 
 @end

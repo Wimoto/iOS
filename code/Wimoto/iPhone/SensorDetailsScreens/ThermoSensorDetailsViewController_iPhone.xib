@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
                 <outlet property="irTempLabel" destination="8t6-mc-eiS" id="XZs-86-EKl"/>
                 <outlet property="irTempSparkLine" destination="JHS-k0-eef" id="Gv0-HZ-fU9"/>
+                <outlet property="irTempSwitch" destination="nAK-r8-FWW" id="eT8-Ne-89I"/>
                 <outlet property="probeTempLabel" destination="g3j-J0-PvV" id="QqK-8d-qoK"/>
                 <outlet property="probeTempSparkLine" destination="pIp-0X-2YB" id="XZv-Xw-wGz"/>
+                <outlet property="probeTempSwitch" destination="YaN-Ez-a8g" id="04z-Tg-keW"/>
                 <outlet property="rssiLabel" destination="3CF-Eq-6Uj" id="AJd-0d-7Ox"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -64,10 +66,13 @@
                     <rect key="frame" x="192" y="211" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="nAK-r8-FWW" userLabel="alarmSwitchIrTemperature">
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="nAK-r8-FWW" userLabel="alarmSwitchIrTemperature">
                     <rect key="frame" x="235" y="211" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="switchAction:" destination="-1" eventType="valueChanged" id="s0Q-u7-nxD"/>
+                    </connections>
                 </switch>
                 <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infrared_thermometer-512.png" id="5hs-d0-ZBj">
                     <rect key="frame" x="5" y="299" width="50" height="50"/>
@@ -99,6 +104,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="switchAction:" destination="-1" eventType="valueChanged" id="iK8-E1-jKG"/>
+                    </connections>
                 </switch>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wOD-lU-Kcj">
                     <rect key="frame" x="20" y="514" width="45" height="45"/>

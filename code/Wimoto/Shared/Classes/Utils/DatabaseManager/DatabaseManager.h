@@ -11,7 +11,7 @@
 
 #import "SensorValue.h"
 
-@class Sensor, SensorValue, CBPeripheral;
+@class Sensor, SensorValue, CBPeripheral, AlarmValue;
 
 @interface DatabaseManager : NSObject
 
@@ -19,6 +19,9 @@
 + (void)storedSensorsWithCompletionHandler:(void(^)(NSMutableArray *item))completionHandler;
 + (void)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type completionHandler:(void(^)(NSMutableArray *item))completionHandler;
 + (void)saveNewSensorValueWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType value:(double)value;
++ (void)alarmInstanceWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType completionHandler:(void(^)(AlarmValue *item))completionHandler;
++ (void)saveAlarm:(AlarmValue *)alarm;
+
 + (dispatch_queue_t)getSensorQueue;
 
 @end
