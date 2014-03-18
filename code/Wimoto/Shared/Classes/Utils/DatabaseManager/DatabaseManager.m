@@ -179,7 +179,8 @@ static DatabaseManager *databaseManager = nil;
                 NSString *sensor = doc[@"sensor"];
                 NSNumber *typeNumber = doc[@"valueType"];
                 NSNumber *activeNumber = doc[@"isActive"];
-                emit(@[sensor, typeNumber, activeNumber], doc);
+                NSNumber *valueNumber = doc[@"value"];
+                emit(@[sensor, typeNumber, activeNumber, valueNumber], doc);
             }
         }) version: @"1.2"];
         
@@ -213,6 +214,7 @@ static DatabaseManager *databaseManager = nil;
     DatabaseManager *manager = [DatabaseManager sharedManager];
     dispatch_async([manager sensorQueue], ^{
         [alarm setValue:NSStringFromClass([AlarmValue class]) ofProperty:@"type"];
+        NSLog(@"alarmValue active - %i", [alarm isActive]);
         [alarm save:nil];
     });
 }

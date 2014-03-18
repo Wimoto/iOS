@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 @property (nonatomic, strong) NSArray *pickerData;
+@property (nonatomic, assign) BOOL isAlertShowing;
 
 @property (nonatomic, strong) AlarmValue *irTempAlarm;
 @property (nonatomic, strong) AlarmValue *probeTempAlarm;
@@ -64,7 +65,7 @@
     
     [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeIRTemperature completionHandler:^(AlarmValue *item) {
         self.irTempAlarm = item;
-        NSLog(@"-------------- irTempAlarm is active --- %i", [_irTempAlarm isActive]);
+        NSLog(@"---------OUT------------- %i", [item value]);
         _irTempSwitch.on = [_irTempAlarm isActive];
     }];
     [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeProbeTemperature completionHandler:^(AlarmValue *item) {
@@ -87,7 +88,7 @@
 - (IBAction)switchAction:(id)sender
 {
     if ([(UISwitch *)sender isOn]) {
-        NSString *pickerDataString = @"1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30";
+        NSString *pickerDataString = @"1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-63-64-65-66-67-68-69-70-71-72-73-74-75-76";
         self.pickerData = [pickerDataString componentsSeparatedByString:@"-"];
         [self.pickerView reloadAllComponents];
         [self showPicker];
@@ -110,13 +111,18 @@
 - (void)hidePicker:(id)sender
 {
     [super hidePicker:sender];
+    
     if (sender) {
+        NSString *valueString = [_pickerData objectAtIndex:[self.pickerView selectedRowInComponent:0]];
         if ([self.currentSwitch isEqual:_irTempSwitch]) {
+            NSLog(@"-------IN--------------- %i", [valueString integerValue]);
             _irTempAlarm.isActive = YES;
+            _irTempAlarm.value = [valueString integerValue];
             [DatabaseManager saveAlarm:_irTempAlarm];
         }
         else {
             _probeTempAlarm.isActive = YES;
+            _probeTempAlarm.value = [valueString integerValue];
             [DatabaseManager saveAlarm:_probeTempAlarm];
         }
     }
@@ -131,13 +137,28 @@
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     
+    float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
-        _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        if ([_irTempAlarm isActive]) {
+            if (_irTempAlarm.value < value && !_isAlertShowing) {
+                self.isAlertShowing = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:@"Temp alarm" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
             _irTempSparkLine.dataValues = item;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+        _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        if ([_probeTempAlarm isActive]) {
+            if (_probeTempAlarm.value < value && !_isAlertShowing) {
+                self.isAlertShowing = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:@"Probe temp alarm" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
             _probeTempSparkLine.dataValues = item;
         }];
@@ -161,6 +182,13 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return [_pickerData objectAtIndex:row];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    self.isAlertShowing = NO;
 }
 
 @end
