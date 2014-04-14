@@ -15,7 +15,7 @@
     float humidityRH;              /* variable for result  */
 	u16sRH &= ~0x0003;             /* clear bits [1..0] (status bits) */
 	/*-- calculate relative humidity [%RH] -- */
-	humidityRH = -6.0 + (125.0/65536 * (float)u16sRH); /* RH= -6 + 125 * SRH/2^16 */
+	humidityRH = -6.0 + (125.0/65536) * (float)u16sRH; /* RH= -6 + 125 * SRH/2^16 */
 	return humidityRH;
 }
 
