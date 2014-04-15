@@ -75,6 +75,7 @@ static DatabaseManager *databaseManager = nil;
         query.limit = 1;
         NSArray *rows = [[query run:nil] allObjects];
         if ([rows count]==0) {
+            NSLog(@"New sensor for document with peripheral");
             Sensor *sensor = [Sensor newSensorInDatabase:manager.cblDatabase withPeripheral:peripheral];
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(sensor);
@@ -82,6 +83,7 @@ static DatabaseManager *databaseManager = nil;
         }
         else {
             CBLQueryRow *row = [rows objectAtIndex:0];
+            NSLog(@"Get sensor for document with peripheral");
             Sensor *sensor = [Sensor sensorForDocument:row.document withPeripheral:peripheral];
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(sensor);
@@ -105,6 +107,7 @@ static DatabaseManager *databaseManager = nil;
         CBLQuery *query = [view createQuery];
         CBLQueryEnumerator *queryEnumerator = [query run:nil];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
+        NSLog(@"Get stored sensors");
         for (CBLQueryRow *row in queryEnumerator) {
             [mutableArray addObject:[Sensor sensorForDocument:row.document]];
         }
@@ -117,6 +120,7 @@ static DatabaseManager *databaseManager = nil;
 + (void)saveNewSensorValueWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType value:(double)value
 {
     DatabaseManager *manager = [DatabaseManager sharedManager];
+    NSLog(@"Save new value for sensor");
     dispatch_async([manager sensorQueue], ^{
         SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
         [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
@@ -152,6 +156,8 @@ static DatabaseManager *databaseManager = nil;
         NSNumber *typeNumber = [NSNumber numberWithInt:type];
         query.startKey = @[myListId, typeNumber, @{}];
         query.endKey = @[myListId, typeNumber];
+        
+        NSLog(@"Get last sensor values");
 
         CBLQueryEnumerator *queryEnumerator = [query run:nil];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];

@@ -11,6 +11,7 @@
 #import "DatabaseManager.h"
 #import "ThermoSensor.h"
 #import "AlarmValue.h"
+#import "AppConstants.h"
 
 @interface ThermoSensorDetailsViewController ()
 
@@ -25,6 +26,8 @@
 
 @property (nonatomic, strong) AlarmValue *irTempAlarm;
 @property (nonatomic, strong) AlarmValue *probeTempAlarm;
+
+- (void)didConnectPeripheral:(NSNotification*)notification;
 
 - (IBAction)switchAction:(id)sender;
 
@@ -48,6 +51,8 @@
     
     self.navigationController.navigationBarHidden = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
+    
     _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor irTemp]];
     _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor probeTemp]];
     
@@ -65,7 +70,6 @@
     
     [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeIRTemperature completionHandler:^(AlarmValue *item) {
         self.irTempAlarm = item;
-        NSLog(@"---------OUT------------- %i", [item value]);
         _irTempSwitch.on = [_irTempAlarm isActive];
     }];
     [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeProbeTemperature completionHandler:^(AlarmValue *item) {
@@ -85,11 +89,24 @@
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
 }
 
+- (void)didConnectPeripheral:(NSNotification*)notification
+{
+    CBPeripheral *peripheral = [notification object];
+    self.sensor.peripheral = peripheral;
+}
+
 - (IBAction)switchAction:(id)sender
 {
     if ([(UISwitch *)sender isOn]) {
-        NSString *pickerDataString = @"1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-63-64-65-66-67-68-69-70-71-72-73-74-75-76";
-        self.pickerData = [pickerDataString componentsSeparatedByString:@"-"];
+        
+        NSMutableArray *valuesArray = [NSMutableArray array];
+        @autoreleasepool {
+            for (int i = 1; i < 300; i++) {
+                NSString *stringValue = [NSString stringWithFormat:@"%i", i];
+                [valuesArray addObject:stringValue];
+            }
+        }
+        self.pickerData = [NSArray arrayWithArray:valuesArray];
         [self.pickerView reloadAllComponents];
         [self showPicker];
         self.currentSwitch = (UISwitch *)sender;
@@ -115,7 +132,6 @@
     if (sender) {
         NSString *valueString = [_pickerData objectAtIndex:[self.pickerView selectedRowInComponent:0]];
         if ([self.currentSwitch isEqual:_irTempSwitch]) {
-            NSLog(@"-------IN--------------- %i", [valueString integerValue]);
             _irTempAlarm.isActive = YES;
             _irTempAlarm.value = [valueString integerValue];
             [DatabaseManager saveAlarm:_irTempAlarm];

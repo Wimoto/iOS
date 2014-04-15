@@ -53,12 +53,13 @@
             const uint8_t *reportData = [characteristic.value bytes];
             uint16_t bpm = 0;
             
-            if ((reportData[0] & 0x01) == 0)
-            {
+            
+            NSLog(@"--------- %@", [[NSString alloc] initWithData:[characteristic value] encoding:NSUTF8StringEncoding]);
+            
+            if ((reportData[0] & 0x01) == 0) {
                 bpm = reportData[1];
             }
-            else
-            {
+            else {
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
             
