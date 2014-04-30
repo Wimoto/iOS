@@ -655,7 +655,7 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 98T7Z7XL3B;
+						DevelopmentTeam = 3VG2LSZQ89;
 					};
 				};
 			};
@@ -793,10 +793,7 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
@@ -821,10 +818,7 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Workspace/Wimoto/Repo/code/Wimoto/Shared/Classes/Utils/ZBarSDK,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
