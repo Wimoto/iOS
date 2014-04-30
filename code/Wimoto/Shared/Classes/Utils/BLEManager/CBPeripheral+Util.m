@@ -7,22 +7,24 @@
 //
 
 #import "CBPeripheral+Util.h"
+#import "CBUUID+StringExtraction.h"
 
 @implementation CBPeripheral (CBPeripheral_Util)
 
-- (void)identifyWithDelegate:(id<CBPeripheralDelegate>)delegate {
-    self.delegate = delegate;
-    [self discoverServices:nil];
-}
-
-- (NSString*)systemId {
+- (NSString*)systemId
+{
+    return [self.identifier UUIDString];
+    
+    /*
     for (CBService *aService in self.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {
                 if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
                     const uint64_t *byteArray = [aChar.value bytes];
+                    NSLog(@"-=--=-==-=-=-==- %@", aChar);
                     if (byteArray) { //////////////////////////////
                         uint64_t value = byteArray[0];
+                        NSLog(@"-------------------- %@", [NSString stringWithFormat:@"%llu", value]);
                         return [NSString stringWithFormat:@"%llu", value];
                     }
                 }
@@ -30,9 +32,22 @@
         }
     }
     return @"";
+     */
 }
 
-- (PeripheralType)peripheralType {
+- (PeripheralType)peripheralType
+{
+    for (CBService *aService in self.services) {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_BASE_SERVICE_UUID]]) {
+            return kPeripheralTypeClimate;
+        }
+        else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_BASE_SERVICE_UUID]]) {
+            return kPeripheralTypeWater;
+        }
+    }
+    return kPeripheralTypeTest;
+    
+    /*
     for (CBService *aService in self.services) {
         NSLog(@"aService - %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_TEST_SERVICE_UUID_HEARTRATE]]) {
@@ -64,6 +79,7 @@
         }
     }
     return kPeripheralTypeUndefined;
+     */
 }
 
 @end

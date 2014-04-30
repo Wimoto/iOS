@@ -15,6 +15,7 @@
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 304B888019100110000F487B /* CBUUID+StringExtraction.m */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
 		30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8F184E139F000C651A /* CoreVideo.framework */; };
@@ -111,6 +112,8 @@
 		2860E32D111B888700E27156 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Shared/main.m; sourceTree = "<group>"; };
+		304B887F19100110000F487B /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
+		304B888019100110000F487B /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		30B29E8F184E139F000C651A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -449,6 +452,8 @@
 				90232E39185A521900F83210 /* BLEManager.m */,
 				901399CA185B16CB0003D964 /* CBPeripheral+Util.h */,
 				901399CB185B16CB0003D964 /* CBPeripheral+Util.m */,
+				304B887F19100110000F487B /* CBUUID+StringExtraction.h */,
+				304B888019100110000F487B /* CBUUID+StringExtraction.m */,
 			);
 			path = BLEManager;
 			sourceTree = "<group>";
@@ -749,6 +754,7 @@
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
+				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,

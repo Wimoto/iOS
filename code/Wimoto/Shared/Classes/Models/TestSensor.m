@@ -16,8 +16,8 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
 {
-    for (CBService *aService in aPeripheral.services)
-    {
+    for (CBService *aService in aPeripheral.services) {
+        NSLog(@"------ %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
         }
@@ -26,12 +26,9 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
-    {
-        for (CBCharacteristic *aChar in service.characteristics)
-        {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
-            {
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
                 
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
@@ -46,15 +43,10 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
-    {
-        if( (characteristic.value)  || !error )
-        {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
+        if( (characteristic.value)  || !error ) {
             const uint8_t *reportData = [characteristic.value bytes];
             uint16_t bpm = 0;
-            
-            
-            NSLog(@"--------- %@", [[NSString alloc] initWithData:[characteristic value] encoding:NSUTF8StringEncoding]);
             
             if ((reportData[0] & 0x01) == 0) {
                 bpm = reportData[1];
@@ -64,6 +56,7 @@
             }
             
             float temperatureValue = bpm;
+            
             float humidityValue = bpm+5;
             float lightValue = bpm-3;
             float presence = bpm;

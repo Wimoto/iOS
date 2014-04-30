@@ -18,6 +18,23 @@ typedef enum {
     kPeripheralTypeWater
 } PeripheralType;
 
+
+#define BLE_CLIMATE_BASE_SERVICE_UUID                       @"1523"
+#define BLE_WATER_BASE_SERVICE_UUID                         @"CE6E65C5-DEF4-4110-91F1-ACC0C82928BC"
+
+#define BLE_CLIMATE_LIGHT_CHARACTERISTIC_UUID               @"1624"
+#define BLE_CLIMATE_TEMPERATURE_CHARACTERISTIC_UUID         @"1524"
+#define BLE_CLIMATE_HUMIDITY_CHARACTERISTIC_UUID            @"1724"
+
+#define BLE_WATER_PRESENCE_CHARACTERISTIC_UUID              @"2024"
+#define BLE_WATER_LEVEL_CHARACTERISTIC_UUID                 @"2124"
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#define BLE_HEART_RATE_SERVICE_UUID                         @"180D"
+
 #define BLE_GENERIC_SERVICE_UUID_DEVICE                     @"180A"
 
 #define BLE_GENERIC_CHAR_UUID_SYSTEM_ID                     @"2A23"
@@ -56,11 +73,7 @@ typedef enum {
 #define BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT         @"D1FD8C1B-69E8-7D1D-0040-F1595D0824E1" //
 #define BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT      @"D1FD8C1B-69E8-7D1D-0040-F1595D0824E1" //
 
-#define BLE_TEST_SERVICE_UUID_HEARTRATE                     @"180D"
-
 @interface CBPeripheral (CBPeripheral_Util)
-
-- (void)identifyWithDelegate:(id<CBPeripheralDelegate>)delegate;
 
 - (NSString*)systemId;
 - (PeripheralType)peripheralType;

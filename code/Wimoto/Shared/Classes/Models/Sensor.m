@@ -56,25 +56,41 @@
         case kPeripheralTypeWater:
             className = @"WaterSensor";
             break;
+        case kPeripheralTypeGrow:
+            className = @"GrowSensor";
+            break;
+        case kPeripheralTypeSentry:
+            className = @"SentrySensor";
+            break;
+        case kPeripheralTypeThermo:
+            className = @"ThermoSensor";
+            break;
         default:
-            className = @"Sensor";
+            className = @"TestSensor";
             break;
     }
     return NSClassFromString(className);
 }
 
-- (void)setPeripheral:(CBPeripheral *)peripheral {
-    _peripheral.delegate = nil;
-    _peripheral = peripheral;
+- (void)setPeripheral:(CBPeripheral *)peripheral
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _peripheral.delegate = nil;
+        if ([_rssiTimer isValid]) {
+            [_rssiTimer invalidate];
+            self.rssiTimer = nil;
+        }
+        _peripheral = peripheral;
     
-    _peripheral.delegate = self;
-    [_peripheral discoverServices:nil];
+        _peripheral.delegate = self;
+        [_peripheral discoverServices:nil];
+        [_peripheral readRSSI];
     
-    self.name = _peripheral.name;
-    self.systemId = [peripheral systemId];
-    
-    self.rssiTimer = [NSTimer timerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
+        self.name = _peripheral.name;
+        self.systemId = [peripheral systemId];
+        self.rssiTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
+    });
 }
 
 - (void)dealloc {

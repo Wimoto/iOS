@@ -36,9 +36,11 @@
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
     
-    NSArray *array = [BLEManager identifiedPeripherals];
+    //NSArray *array = [BLEManager identifiedPeripherals];
+    NSArray *array = [[BLEManager sharedManager] managedPeripherals];
+    
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
-        
+    
     for (CBPeripheral *peripheral in array) {
         [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
             Sensor *sensor = item;
@@ -46,6 +48,7 @@
                 if ([sensor isNew]) {
                     [_sensorsArray addObject:sensor];
                 }
+                [_sensorTableView reloadData];
             }
         }];
     }

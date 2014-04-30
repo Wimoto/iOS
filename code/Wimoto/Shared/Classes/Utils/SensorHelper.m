@@ -26,7 +26,6 @@
 	/*-- calculate temperature [∞C] -- */
 	temperatureC= -46.85 + (175.72/65536 ) *(float)u16sT; /* T= -46.85 + 175.72 * ST/2^16 */
 	return temperatureC;
-
 }
 
 @end

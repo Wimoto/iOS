@@ -30,7 +30,6 @@
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
                                                   [CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]
                                       forService:aService];
-            
         }
     }
 }

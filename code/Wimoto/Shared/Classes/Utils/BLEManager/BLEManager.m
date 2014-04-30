@@ -25,7 +25,8 @@ static BLEManager *bleManager = nil;
     [BLEManager sharedManager];
 }
 
-+ (BLEManager*)sharedManager {
++ (BLEManager*)sharedManager
+{
 	if (!bleManager) {
 		bleManager = [[BLEManager alloc] init];
 	}
@@ -47,9 +48,9 @@ static BLEManager *bleManager = nil;
     return self;
 }
 
-+ (NSArray*)identifiedPeripherals {
++ (NSArray*)identifiedPeripherals
+{
     NSArray *managedPeripherals = [[BLEManager sharedManager] managedPeripherals];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"systemId != %@", @""];
     return [managedPeripherals filteredArrayUsingPredicate:predicate];
 }
@@ -93,7 +94,8 @@ static BLEManager *bleManager = nil;
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    [peripheral identifyWithDelegate:self];
+    peripheral.delegate = self;
+    [peripheral discoverServices:nil];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {

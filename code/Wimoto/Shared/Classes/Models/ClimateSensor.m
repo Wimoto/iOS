@@ -16,8 +16,7 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
 {
-    for (CBService *aService in aPeripheral.services)
-    {
+    for (CBService *aService in aPeripheral.services) {
         NSLog(@"ClimateSensor didDiscoverServices %@", aService);
         
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
@@ -44,10 +43,8 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]])
-    {
-        for (CBCharacteristic *aChar in service.characteristics)
-        {
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
             NSLog(@"ClimateSensor didDiscoverCharacteristicsForService %@    %@", service, aChar);
             
             if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]])||
