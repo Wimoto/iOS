@@ -55,6 +55,7 @@
 		493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4946184ECECE0000A2F6 /* cloud-download.png */; };
 		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
 		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
+		495FB1B019114C0A00FF18CA /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FB1AF19114C0A00FF18CA /* info.png */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -164,6 +165,7 @@
 		493A4946184ECECE0000A2F6 /* cloud-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-download.png"; sourceTree = "<group>"; };
 		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
 		493A494A184ED3C00000A2F6 /* cassette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cassette.png; sourceTree = "<group>"; };
+		495FB1AF19114C0A00FF18CA /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				495FB1AF19114C0A00FF18CA /* info.png */,
 				2860E32A111B888700E27156 /* iPad */,
 				2860E324111B887F00E27156 /* iPhone */,
 				90CFFEA617A7CF2F00353F80 /* Shared */,
@@ -714,6 +717,7 @@
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
+				495FB1B019114C0A00FF18CA /* info.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
 				493A4945184ECC390000A2F6 /* mail.png in Resources */,
 				493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */,
