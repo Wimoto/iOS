@@ -34,6 +34,7 @@
 - (PeripheralType)peripheralType
 {
     for (CBService *aService in self.services) {
+        NSLog(@"CBService UUID -------- %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_BASE_SERVICE_UUID]]) {
             return kPeripheralTypeClimate;
         }
