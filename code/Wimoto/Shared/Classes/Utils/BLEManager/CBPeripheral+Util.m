@@ -13,18 +13,15 @@
 
 - (NSString*)systemId
 {
-    return [self.identifier UUIDString];
-    
-    /*
     for (CBService *aService in self.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {
                 if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
+                    NSLog(@"aChar value ------- %@", [aChar value]);
                     const uint64_t *byteArray = [aChar.value bytes];
-                    NSLog(@"-=--=-==-=-=-==- %@", aChar);
-                    if (byteArray) { //////////////////////////////
+                    if (byteArray) {
                         uint64_t value = byteArray[0];
-                        NSLog(@"-------------------- %@", [NSString stringWithFormat:@"%llu", value]);
+                        NSLog(@"SystemID string ------- %@", [NSString stringWithFormat:@"%llu", value]);
                         return [NSString stringWithFormat:@"%llu", value];
                     }
                 }
@@ -32,7 +29,6 @@
         }
     }
     return @"";
-     */
 }
 
 - (PeripheralType)peripheralType
