@@ -69,6 +69,9 @@
             className = @"TestSensor";
             break;
     }
+    
+    NSLog(@"CLASS FOR PERIRHERAL = %@", className);
+    
     return NSClassFromString(className);
 }
 
@@ -103,6 +106,7 @@
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Did Update RSSI PERIPHERAL = %@", peripheral);
         self.rssi = [peripheral RSSI];
     });
 }

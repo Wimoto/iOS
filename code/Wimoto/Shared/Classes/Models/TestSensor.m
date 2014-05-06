@@ -17,7 +17,7 @@
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
 {
     for (CBService *aService in aPeripheral.services) {
-        NSLog(@"------ %@", aService.UUID);
+        NSLog(@"TEST SENSOR SERVICE UUID ------ %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"2A37"]] forService:aService];
         }
