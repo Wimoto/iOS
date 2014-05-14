@@ -32,17 +32,49 @@
 
 - (PeripheralType)peripheralType
 {
-    NSLog(@"SERVICES COUNT === %i", [self.services count]);
+    NSLog(@"peripheralType: SERVICES COUNT === %i", [self.services count]);
     for (CBService *aService in self.services) {
-        NSLog(@"CBService UUID -------- %@", aService.UUID);
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_BASE_SERVICE_UUID]]) {
-            return kPeripheralTypeClimate;
-        }
-        else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_BASE_SERVICE_UUID]]) {
-            return kPeripheralTypeWater;
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
+            for (CBCharacteristic *aChar in aService.characteristics) {
+                if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]]) {
+                    const uint64_t *byteArray = [aChar.value bytes];
+                    if (byteArray) {
+                        uint64_t value = byteArray[0];
+                        
+                        NSString *model = [NSString stringWithFormat:@"%llu", value];
+
+                        NSLog(@"peripheralType: MODEL string ------- %@", model);
+                        
+                        if ([model isEqual:BLE_CLIMATE_MODEL]) {
+                            return kPeripheralTypeClimate;
+                        } else if ([model isEqual:BLE_WATER_MODEL]) {
+                            return kPeripheralTypeWater;
+                        } else if ([model isEqual:BLE_GROW_MODEL]) {
+                            return kPeripheralTypeGrow;
+                        } else if ([model isEqual:BLE_SENTRY_MODEL]) {
+                            return kPeripheralTypeSentry;
+                        } else if ([model isEqual:BLE_THERMO_MODEL]) {
+                            return kPeripheralTypeThermo;
+                        }
+                    }
+                }
+            }
         }
     }
-    return kPeripheralTypeTest;
+    
+    return kPeripheralTypeUndefined;
+    
+//    NSLog(@"SERVICES COUNT === %i", [self.services count]);
+//    for (CBService *aService in self.services) {
+//        NSLog(@"CBService UUID -------- %@", aService.UUID);
+//        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_BASE_SERVICE_UUID]]) {
+//            return kPeripheralTypeClimate;
+//        }
+//        else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_BASE_SERVICE_UUID]]) {
+//            return kPeripheralTypeWater;
+//        }
+//    }
+//    return kPeripheralTypeTest;
     
     /*
     for (CBService *aService in self.services) {
