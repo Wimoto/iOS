@@ -110,7 +110,7 @@ static BLEManager *bleManager = nil;
 {
     for (CBService *aService in aPeripheral.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
-            [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]] forService:aService];
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
             break;
         }
     }
@@ -120,9 +120,9 @@ static BLEManager *bleManager = nil;
 {
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
+            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) ||
+                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]])) {
                 [aPeripheral readValueForCharacteristic:aChar];
-                break;
             }
         }
     }
@@ -130,12 +130,23 @@ static BLEManager *bleManager = nil;
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    NSLog(@"didUpdateValueForCharacteristic start");
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
-        //if (characteristic.value) {
+        NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_SYSTEM_ID");
+        if ([aPeripheral peripheralType] != kPeripheralTypeUndefined) {
+            NSLog(@"didUpdateValueForCharacteristic != kPeripheralTypeUndefined");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
             });
-        //}
+        }
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]]) {
+        NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_MODEL_NUMBER");
+        if ([aPeripheral systemId].length > 0) {
+            NSLog(@"didUpdateValueForCharacteristic systemId defined");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
+            });
+        }
     }
 }
 
