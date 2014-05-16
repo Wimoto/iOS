@@ -56,6 +56,7 @@
 		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
 		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
 		495FB1B019114C0A00FF18CA /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FB1AF19114C0A00FF18CA /* info.png */; };
+		49893A3119266C80001621C2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 49893A3019266C80001621C2 /* UIImage+ImageEffects.m */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -166,6 +167,8 @@
 		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
 		493A494A184ED3C00000A2F6 /* cassette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cassette.png; sourceTree = "<group>"; };
 		495FB1AF19114C0A00FF18CA /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		49893A2F19266C80001621C2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		49893A3019266C80001621C2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 		90CFFEB017A7CF8000353F80 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				49893A2F19266C80001621C2 /* UIImage+ImageEffects.h */,
+				49893A3019266C80001621C2 /* UIImage+ImageEffects.m */,
 				90C64238184E6061008F40D2 /* Models */,
 				90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */,
 				90CD9B2018561CDB00970B7D /* SearchSensorScreen */,
@@ -750,6 +755,7 @@
 				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
+				49893A3119266C80001621C2 /* UIImage+ImageEffects.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
