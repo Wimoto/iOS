@@ -60,16 +60,20 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    NSLog(@"ThermoSensor didUpdateValueForCharacteristic start");
     if ((characteristic.value)||(!error)) {
-        const uint8_t *data = [characteristic.value bytes];
-        uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
         
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
+            NSString *irTemp = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
+            NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %@", irTemp);
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.irTemp = value16_t;
+                self.irTemp = irTemp;
             });
-            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:value16_t];
+            [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:[irTemp doubleValue]];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
+            const uint8_t *data = [characteristic.value bytes];
+            uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.probeTemp = value16_t;
             });

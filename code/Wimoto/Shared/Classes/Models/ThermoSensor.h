@@ -13,7 +13,7 @@
 
 @interface ThermoSensor : Sensor
 
-@property (nonatomic) float irTemp;
+@property (nonatomic, strong) NSString *irTemp;
 @property (nonatomic) float probeTemp;
 
 @end

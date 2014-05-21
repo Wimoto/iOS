@@ -37,7 +37,7 @@
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {
                 if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]]) {
-                    NSString *model = [[NSString alloc] initWithData:aChar.value encoding:NSUTF8StringEncoding];
+                    NSString *model = [[NSString alloc] initWithData:aChar.value encoding:NSASCIIStringEncoding];
 
                     NSLog(@"peripheralType: MODEL string ------- %@", model);
                     
