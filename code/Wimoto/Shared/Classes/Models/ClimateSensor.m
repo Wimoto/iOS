@@ -133,4 +133,9 @@
     [alert show];
 }
 
+- (void)alarmServiceDidStopAlarm:(id)service
+{
+    NSLog(@"Alarm stopped");
+}
+
 @end

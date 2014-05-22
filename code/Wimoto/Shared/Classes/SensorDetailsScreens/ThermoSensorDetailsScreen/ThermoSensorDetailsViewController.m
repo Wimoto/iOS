@@ -85,10 +85,10 @@
 - (IBAction)switchAction:(id)sender
 {
     if ([(UISwitch *)sender isOn]) {
-        [self showPicker];
+        [self showSlider];
     }
     else {
-        [self hidePicker:nil];
+        [self hideSlider:nil];
     }
     /*
     if ([(UISwitch *)sender isOn]) {
@@ -122,7 +122,7 @@
 
 - (void)hidePicker:(id)sender
 {
-    [super hidePicker:sender];
+    [super hideSlider:sender];
     /*
     if (sender) {
         NSString *valueString = [_pickerData objectAtIndex:[self.pickerView selectedRowInComponent:0]];

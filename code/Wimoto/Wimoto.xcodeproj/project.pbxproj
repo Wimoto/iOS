@@ -64,6 +64,8 @@
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
 		30CD5819192E181C00FFF102 /* AlarmService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD5818192E181C00FFF102 /* AlarmService.m */; };
+		30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD581F192E618600FFF102 /* AlarmSlider.m */; };
+		30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD5821192E619700FFF102 /* AlarmSlider.xib */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -201,6 +203,9 @@
 		30C11815186B4EB00068633C /* ThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoSensor.m; sourceTree = "<group>"; };
 		30CD5817192E181C00FFF102 /* AlarmService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmService.h; sourceTree = "<group>"; };
 		30CD5818192E181C00FFF102 /* AlarmService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmService.m; sourceTree = "<group>"; };
+		30CD581E192E618600FFF102 /* AlarmSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmSlider.h; sourceTree = "<group>"; };
+		30CD581F192E618600FFF102 /* AlarmSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmSlider.m; sourceTree = "<group>"; };
+		30CD5821192E619700FFF102 /* AlarmSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmSlider.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
@@ -525,6 +530,16 @@
 			path = SettingsScreen;
 			sourceTree = "<group>";
 		};
+		30CD581A192E615C00FFF102 /* AlarmSlider */ = {
+			isa = PBXGroup;
+			children = (
+				30CD581E192E618600FFF102 /* AlarmSlider.h */,
+				30CD581F192E618600FFF102 /* AlarmSlider.m */,
+				30CD5821192E619700FFF102 /* AlarmSlider.xib */,
+			);
+			path = AlarmSlider;
+			sourceTree = "<group>";
+		};
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +669,7 @@
 		90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				30CD581A192E615C00FFF102 /* AlarmSlider */,
 				90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */,
 				90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */,
 				90D4AB89184E5270004DDB1F /* SentrySensorDetailsScreen */,
@@ -812,6 +828,7 @@
 				302A7164192D284B006E0A6C /* slider-metal-handle@2x.png in Resources */,
 				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
+				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
 				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
 				493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */,
@@ -903,6 +920,7 @@
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
+				30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */,
 				901399C5185A5EF20003D964 /* NSString+Util.m in Sources */,
 				90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */,
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,

@@ -89,14 +89,14 @@
     [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
 }
 
-- (void)showPicker
+- (void)showSlider
 {
     [UIView animateWithDuration:0.3 animations:^{
         _rangeContainer.frame = CGRectMake(_rangeContainer.frame.origin.x, self.view.frame.size.height - _rangeContainer.frame.size.height, _rangeContainer.frame.size.width, _rangeContainer.frame.size.height);
     }];
 }
 
-- (void)hidePicker:(id)sender
+- (void)hideSlider:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
         _rangeContainer.frame = CGRectMake(_rangeContainer.frame.origin.x, self.view.frame.size.height, _rangeContainer.frame.size.width, _rangeContainer.frame.size.height);

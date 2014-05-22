@@ -16,9 +16,11 @@
 @property (nonatomic, strong) UISwitch *currentSwitch;
 @property (nonatomic, strong) NMRangeSlider *rangeSlider;
 @property (nonatomic, strong) UIView *rangeContainer;
+@property (nonatomic, strong) UILabel *alarmMinValueLabel;
+@property (nonatomic, strong) UILabel *alarmMaxValueLabel;
 
 - (id)initWithSensor:(Sensor *)sensor;
-- (void)showPicker;
-- (void)hidePicker:(id)sender;
+- (void)showSlider;
+- (void)hideSlider:(id)sender;
 
 @end

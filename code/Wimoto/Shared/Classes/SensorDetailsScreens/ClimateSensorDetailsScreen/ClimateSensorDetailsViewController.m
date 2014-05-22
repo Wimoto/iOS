@@ -110,14 +110,14 @@
     }
     [climateSensor save:nil];
     if ([switchControl isOn]) {
-        [self showPicker];
+        [self showSlider];
     }
     else {
-        [self hidePicker:nil];
+        [self hideSlider:nil];
     }
 }
 
-- (void)showPicker {
+- (void)showSlider {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([self.currentAlarmService isEqual:[climateSensor tempAlarm]]) {
         self.rangeSlider.minimumRange = 2;
@@ -140,11 +140,11 @@
         self.rangeSlider.lowerValue = [climateSensor.humidityAlarm minimumAlarmValue];
         self.rangeSlider.upperValue = [climateSensor.humidityAlarm maximumAlarmValue];
     }
-    [super showPicker];
+    [super showSlider];
 }
 
-- (void)hidePicker:(id)sender {
-    [super hidePicker:sender];
+- (void)hideSlider:(id)sender {
+    [super hideSlider:sender];
     if (sender) {
         [_currentAlarmService writeHighAlarmValue:self.rangeSlider.minimumValue];
         [_currentAlarmService writeHighAlarmValue:self.rangeSlider.maximumValue];
