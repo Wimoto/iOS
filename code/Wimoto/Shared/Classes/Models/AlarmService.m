@@ -123,42 +123,6 @@
 	}
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
-	NSArray	*services = nil;
-    NSMutableArray *uuids = [NSMutableArray array];
-    if (alarmMinimumUUID) {
-        [uuids addObject:alarmMinimumUUID];
-    }
-    if (alarmMaximumUUID) {
-        [uuids addObject:alarmMaximumUUID];
-    }
-    if (alarmUUID) {
-        [uuids addObject:alarmUUID];
-    }
-    if (peripheral != servicePeripheral) {
-		NSLog(@"Wrong Peripheral.\n");
-		return ;
-	}
-    if (error != nil) {
-        NSLog(@"Error %@\n", error);
-		return ;
-	}
-	services = [peripheral services];
-	if (!services || ![services count]) {
-		return ;
-	}
-	alarmService = nil;
-	for (CBService *service in services) {
-		if ([[service UUID] isEqual:[CBUUID UUIDWithString:serviceUUIDString]]) {
-			alarmService = service;
-			break;
-		}
-	}
-	if (alarmService) {
-		[peripheral discoverCharacteristics:uuids forService:alarmService];
-	}
-}
-
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
 	NSArray *characteristics = [service characteristics];
 	CBCharacteristic *characteristic;
@@ -223,19 +187,10 @@
         }
         return;
     }
-    /* Upper or lower bounds changed */
-    if ([characteristic.UUID isEqual:alarmMinimumUUID] || [characteristic.UUID isEqual:alarmMaximumUUID]) {
-        [peripheralDelegate alarmServiceDidChangeTemperatureBounds:self];
-    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */
-    [peripheral readValueForCharacteristic:characteristic];
-    /* Upper or lower bounds changed */
-    if ([characteristic.UUID isEqual:alarmMinimumUUID] || [characteristic.UUID isEqual:alarmMaximumUUID]) {
-        [peripheralDelegate alarmServiceDidChangeTemperatureBounds:self];
-    }
 }
 
 - (void)writeLowAlarmValue:(int)low {

@@ -18,10 +18,6 @@ typedef enum {
 
 - (void)alarmService:(id)service didSoundAlarmOfType:(AlarmType)alarm;
 - (void)alarmServiceDidStopAlarm:(id)service;
-- (void)alarmServiceDidChangeTemperature:(id)service;
-- (void)alarmServiceDidChangeTemperatureBounds:(id)service;
-- (void)alarmServiceDidChangeStatus:(id)service;
-- (void)alarmServiceDidReset;
 
 @end
 
