@@ -113,42 +113,42 @@
         [self showSlider];
     }
     else {
-        [self hideSlider:nil];
+        [self hideSlider];
     }
 }
 
 - (void)showSlider {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([self.currentAlarmService isEqual:[climateSensor tempAlarm]]) {
-        self.rangeSlider.minimumRange = 2;
-        self.rangeSlider.minimumValue = 20;
-        self.rangeSlider.maximumValue = 50;
-        self.rangeSlider.lowerValue = [climateSensor.tempAlarm minimumAlarmValue];
-        self.rangeSlider.upperValue = [climateSensor.tempAlarm maximumAlarmValue];
+        [self.alarmSlider setSliderRange:0];
+        [self.alarmSlider setMinimumValue:-60];
+        [self.alarmSlider setMaximumValue:130];
+        [self.alarmSlider setUpperValue:[climateSensor.tempAlarm maximumAlarmValue]];
+        [self.alarmSlider setLowerValue:[climateSensor.tempAlarm minimumAlarmValue]];
     }
     else if ([self.currentAlarmService isEqual:[climateSensor lightAlarm]]) {
-        self.rangeSlider.minimumRange = 2;
-        self.rangeSlider.minimumValue = 20;
-        self.rangeSlider.maximumValue = 50;
-        self.rangeSlider.lowerValue = [climateSensor.lightAlarm minimumAlarmValue];
-        self.rangeSlider.upperValue = [climateSensor.lightAlarm maximumAlarmValue];
+        [self.alarmSlider setSliderRange:0];
+        [self.alarmSlider setMinimumValue:10];
+        [self.alarmSlider setMaximumValue:50];
+        [self.alarmSlider setUpperValue:[climateSensor.lightAlarm maximumAlarmValue]];
+        [self.alarmSlider setLowerValue:[climateSensor.lightAlarm minimumAlarmValue]];
     }
     else if ([self.currentAlarmService isEqual:[climateSensor humidityAlarm]]) {
-        self.rangeSlider.minimumRange = 2;
-        self.rangeSlider.minimumValue = 20;
-        self.rangeSlider.maximumValue = 50;
-        self.rangeSlider.lowerValue = [climateSensor.humidityAlarm minimumAlarmValue];
-        self.rangeSlider.upperValue = [climateSensor.humidityAlarm maximumAlarmValue];
+        [self.alarmSlider setSliderRange:0];
+        [self.alarmSlider setMinimumValue:10];
+        [self.alarmSlider setMaximumValue:50];
+        [self.alarmSlider setUpperValue:[climateSensor.humidityAlarm maximumAlarmValue]];
+        [self.alarmSlider setLowerValue:[climateSensor.humidityAlarm minimumAlarmValue]];
     }
     [super showSlider];
 }
 
-- (void)hideSlider:(id)sender {
-    [super hideSlider:sender];
-    if (sender) {
-        [_currentAlarmService writeHighAlarmValue:self.rangeSlider.minimumValue];
-        [_currentAlarmService writeHighAlarmValue:self.rangeSlider.maximumValue];
-    }
+#pragma mark - AlarmSliderDelegate
+
+- (void)alarmSliderSaveAction:(id)sender
+{
+    [_currentAlarmService writeHighAlarmValue:self.alarmSlider.lowerValue];
+    [_currentAlarmService writeHighAlarmValue:self.alarmSlider.upperValue];
 }
 
 #pragma mark - Value Observer

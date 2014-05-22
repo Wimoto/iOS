@@ -9,18 +9,16 @@
 #import "AppViewController.h"
 #import "Sensor.h"
 #import "NMRangeSlider.h"
+#import "AlarmSlider.h"
 
-@interface SensorViewController : AppViewController
+@interface SensorViewController : AppViewController <AlarmSliderDelegate>
 
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) UISwitch *currentSwitch;
-@property (nonatomic, strong) NMRangeSlider *rangeSlider;
-@property (nonatomic, strong) UIView *rangeContainer;
-@property (nonatomic, strong) UILabel *alarmMinValueLabel;
-@property (nonatomic, strong) UILabel *alarmMaxValueLabel;
+@property (nonatomic, strong) AlarmSlider *alarmSlider;
 
 - (id)initWithSensor:(Sensor *)sensor;
 - (void)showSlider;
-- (void)hideSlider:(id)sender;
+- (void)hideSlider;
 
 @end

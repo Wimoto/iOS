@@ -20,7 +20,6 @@
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *probeTempSparkLine;
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
-@property (nonatomic, strong) NSArray *pickerData;
 
 - (void)didConnectPeripheral:(NSNotification*)notification;
 
@@ -81,63 +80,30 @@
     self.sensor.peripheral = peripheral;
 }
 
-
 - (IBAction)switchAction:(id)sender
 {
     if ([(UISwitch *)sender isOn]) {
         [self showSlider];
     }
     else {
-        [self hideSlider:nil];
+        [self hideSlider];
     }
-    /*
-    if ([(UISwitch *)sender isOn]) {
-        
-        NSMutableArray *valuesArray = [NSMutableArray array];
-        @autoreleasepool {
-            for (int i = 1; i < 300; i++) {
-                NSString *stringValue = [NSString stringWithFormat:@"%i", i];
-                [valuesArray addObject:stringValue];
-            }
-        }
-        self.pickerData = [NSArray arrayWithArray:valuesArray];
-        [self.pickerView reloadAllComponents];
-        [self showPicker];
-        self.currentSwitch = (UISwitch *)sender;
-    }
-    else {
-        [self hidePicker:nil];
-        if ([(UISwitch *)sender isEqual:_irTempSwitch]) {
-            _irTempAlarm.isActive = NO;
-            [DatabaseManager saveAlarm:_irTempAlarm];
-        }
-        else {
-            _probeTempAlarm.isActive = NO;
-            [DatabaseManager saveAlarm:_probeTempAlarm];
-        }
-        self.currentSwitch = nil;
-    }
-     */
 }
 
-- (void)hidePicker:(id)sender
+- (void)showSlider {
+    [self.alarmSlider setSliderRange:0.0];
+    [self.alarmSlider setMinimumValue:-60.0];
+    [self.alarmSlider setMaximumValue:130.0];
+    [self.alarmSlider setUpperValue:20.0];
+    [self.alarmSlider setLowerValue:10.0];
+    [super showSlider];
+}
+
+#pragma mark - AlarmSliderDelegate
+
+- (void)alarmSliderSaveAction:(id)sender
 {
-    [super hideSlider:sender];
-    /*
-    if (sender) {
-        NSString *valueString = [_pickerData objectAtIndex:[self.pickerView selectedRowInComponent:0]];
-        if ([self.currentSwitch isEqual:_irTempSwitch]) {
-            _irTempAlarm.isActive = YES;
-            _irTempAlarm.value = [valueString integerValue];
-            [DatabaseManager saveAlarm:_irTempAlarm];
-        }
-        else {
-            _probeTempAlarm.isActive = YES;
-            _probeTempAlarm.value = [valueString integerValue];
-            [DatabaseManager saveAlarm:_probeTempAlarm];
-        }
-    }
-     */
+    
 }
 
 #pragma mark - Value Observer
@@ -161,25 +127,6 @@
             _probeTempSparkLine.dataValues = item;
         }];
     }
-}
-
-#pragma mark - UIPickerViewDataSource
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [_pickerData count];
-}
-
-#pragma mark - UIPickerViewDelegate
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [_pickerData objectAtIndex:row];
 }
 
 @end
