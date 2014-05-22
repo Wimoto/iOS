@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSNumber *rssi;
 
 + (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral;
-
 + (id)sensorForDocument:(CBLDocument*)document;
 + (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral;
 

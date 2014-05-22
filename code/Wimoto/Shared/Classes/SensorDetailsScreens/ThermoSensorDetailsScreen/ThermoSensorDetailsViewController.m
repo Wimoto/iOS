@@ -10,7 +10,6 @@
 #import "ASBSparkLineView.h"
 #import "DatabaseManager.h"
 #import "ThermoSensor.h"
-#import "AlarmValue.h"
 #import "AppConstants.h"
 
 @interface ThermoSensorDetailsViewController ()
@@ -22,10 +21,6 @@
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 @property (nonatomic, strong) NSArray *pickerData;
-@property (nonatomic, assign) BOOL isAlertShowing;
-
-@property (nonatomic, strong) AlarmValue *irTempAlarm;
-@property (nonatomic, strong) AlarmValue *probeTempAlarm;
 
 - (void)didConnectPeripheral:(NSNotification*)notification;
 
@@ -66,15 +61,6 @@
     _probeTempSparkLine.showCurrentValue = NO;
     [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
         _probeTempSparkLine.dataValues = item;
-    }];
-    
-    [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeIRTemperature completionHandler:^(AlarmValue *item) {
-        self.irTempAlarm = item;
-        _irTempSwitch.on = [_irTempAlarm isActive];
-    }];
-    [DatabaseManager alarmInstanceWithSensor:self.sensor valueType:kValueTypeProbeTemperature completionHandler:^(AlarmValue *item) {
-        self.probeTempAlarm = item;
-        _probeTempSwitch.on = [_probeTempAlarm isActive];
     }];
 }
 
@@ -166,25 +152,11 @@
     float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
         _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
-        if ([_irTempAlarm isActive]) {
-            if (_irTempAlarm.value < value && !_isAlertShowing) {
-                self.isAlertShowing = YES;
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:@"Temp alarm" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-            }
-        }
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
             _irTempSparkLine.dataValues = item;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
-        if ([_probeTempAlarm isActive]) {
-            if (_probeTempAlarm.value < value && !_isAlertShowing) {
-                self.isAlertShowing = YES;
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:@"Probe temp alarm" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-            }
-        }
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
             _probeTempSparkLine.dataValues = item;
         }];
@@ -208,13 +180,6 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return [_pickerData objectAtIndex:row];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    self.isAlertShowing = NO;
 }
 
 @end

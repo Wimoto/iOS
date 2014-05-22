@@ -18,4 +18,12 @@
 @property (nonatomic) float humidity;
 @property (nonatomic) float light;
 
+@property (nonatomic) BOOL isTempAlarmActive;
+@property (nonatomic) BOOL isHumidityAlarmActive;
+@property (nonatomic) BOOL isLightAlarmActive;
+
+@property (nonatomic, strong) AlarmService *tempAlarm;
+@property (nonatomic, strong) AlarmService *lightAlarm;
+@property (nonatomic, strong) AlarmService *humidityAlarm;
+
 @end

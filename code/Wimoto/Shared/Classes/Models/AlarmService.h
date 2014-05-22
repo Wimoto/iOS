@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "Sensor.h"
-
-@class AlarmService;
 
 typedef enum {
     kAlarmHigh  = 0,
@@ -18,12 +15,14 @@ typedef enum {
 } AlarmType;
 
 @protocol AlarmServiceDelegate<NSObject>
-- (void) alarmService:(AlarmService*)service didSoundAlarmOfType:(AlarmType)alarm;
-- (void) alarmServiceDidStopAlarm:(AlarmService*)service;
-- (void) alarmServiceDidChangeTemperature:(AlarmService*)service;
-- (void) alarmServiceDidChangeTemperatureBounds:(AlarmService*)service;
-- (void) alarmServiceDidChangeStatus:(AlarmService*)service;
-- (void) alarmServiceDidReset;
+
+- (void)alarmService:(id)service didSoundAlarmOfType:(AlarmType)alarm;
+- (void)alarmServiceDidStopAlarm:(id)service;
+- (void)alarmServiceDidChangeTemperature:(id)service;
+- (void)alarmServiceDidChangeTemperatureBounds:(id)service;
+- (void)alarmServiceDidChangeStatus:(id)service;
+- (void)alarmServiceDidReset;
+
 @end
 
 @interface AlarmService : NSObject
@@ -31,8 +30,9 @@ typedef enum {
 @property (readonly) CGFloat minimumAlarmValue;
 @property (readonly) CGFloat maximumAlarmValue;
 
-- (id)initWithSensor:(Sensor<AlarmServiceDelegate>*)sensor serviceUUIDString:(NSString *)serviceUUID;
+- (id)initWithSensor:(id<AlarmServiceDelegate>)sensor serviceUUIDString:(NSString *)serviceUUID;
 - (void)writeLowAlarmValue:(int)low;
 - (void)writeHighAlarmValue:(int)high;
+- (void)findAlarmCharacteristics;
 
 @end

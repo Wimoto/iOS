@@ -8,6 +8,7 @@
 
 #import "AlarmService.h"
 #import "CBPeripheral+Util.h"
+#import "Sensor.h"
 
 @interface AlarmService() <CBPeripheralDelegate> {
     CBPeripheral *servicePeripheral;
@@ -27,10 +28,10 @@
 
 @implementation AlarmService
 
-- (id)initWithSensor:(Sensor<AlarmServiceDelegate>*)sensor serviceUUIDString:(NSString *)serviceUUID {
+- (id)initWithSensor:(id<AlarmServiceDelegate>)sensor serviceUUIDString:(NSString *)serviceUUID {
     self = [super init];
     if (self) {
-        servicePeripheral = [[sensor peripheral] copy];
+        servicePeripheral = [[(Sensor *)sensor peripheral] copy];
         servicePeripheral.delegate = self;
         peripheralDelegate = sensor;
         serviceUUIDString = serviceUUID;
@@ -89,14 +90,37 @@
             alarmMaximumUUID = [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
             alarmUUID = [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM];
         }
+        [self findAlarmCharacteristics];
     }
     return self;
 }
 
-- (void)start {
-	CBUUID *serviceUUID	= [CBUUID UUIDWithString:serviceUUIDString];
-	NSArray	*serviceArray = [NSArray arrayWithObjects:serviceUUID, nil];
-    [servicePeripheral discoverServices:serviceArray];
+- (void)findAlarmCharacteristics {
+    NSArray	*services = nil;
+    NSMutableArray *uuids = [NSMutableArray array];
+    if (alarmMinimumUUID) {
+        [uuids addObject:alarmMinimumUUID];
+    }
+    if (alarmMaximumUUID) {
+        [uuids addObject:alarmMaximumUUID];
+    }
+    if (alarmUUID) {
+        [uuids addObject:alarmUUID];
+    }
+	services = [servicePeripheral services];
+	if (!services || ![services count]) {
+		return ;
+	}
+	alarmService = nil;
+	for (CBService *service in services) {
+		if ([[service UUID] isEqual:[CBUUID UUIDWithString:serviceUUIDString]]) {
+			alarmService = service;
+			break;
+		}
+	}
+	if (alarmService) {
+		[servicePeripheral discoverCharacteristics:uuids forService:alarmService];
+	}
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
@@ -170,7 +194,7 @@
 	}
 }
 
-- (void) peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     uint8_t alarmValue  = 0;
 	if (peripheral != servicePeripheral) {
 		NSLog(@"Wrong peripheral\n");
@@ -253,7 +277,6 @@
     }
     return result;
 }
-
 
 - (CGFloat)maximumAlarmValue {
     CGFloat result  = NAN;

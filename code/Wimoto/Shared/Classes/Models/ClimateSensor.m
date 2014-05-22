@@ -7,8 +7,11 @@
 //
 
 #import "ClimateSensor.h"
-
 #import "DatabaseManager.h"
+
+@interface ClimateSensor ()
+
+@end
 
 @implementation ClimateSensor
 
@@ -20,23 +23,22 @@
         NSLog(@"ClimateSensor didDiscoverServices %@", aService);
         
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
-            
+            self.tempAlarm = [[AlarmService alloc] initWithSensor:self serviceUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE];
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]
                                       forService:aService];
             
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT]]) {
-            
+            self.lightAlarm = [[AlarmService alloc] initWithSensor:self serviceUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT];
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]
                                       forService:aService];
             
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY]]) {
-            
+            self.humidityAlarm = [[AlarmService alloc] initWithSensor:self serviceUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY];
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]
                                       forService:aService];
-            
         }
     }
 }
@@ -88,6 +90,47 @@
             [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:value16_t];
         }
     }
+}
+
+#pragma mark - AlarmServiceDelegate
+
+- (void)alarmService:(id)service didSoundAlarmOfType:(AlarmType)alarm {
+    NSString *alertString;
+    if ([service isEqual:_tempAlarm]) {
+        if (!_isTempAlarmActive) {
+            return;
+        }
+        if (alarm == kAlarmHigh) {
+            alertString = @"Temperature high value";
+        }
+        else {
+            alertString = @"Temperature low value";
+        }
+    }
+    else if ([service isEqual:_lightAlarm]) {
+        if (!_isLightAlarmActive) {
+            return;
+        }
+        if (alarm == kAlarmHigh) {
+            alertString = @"Light high value";
+        }
+        else {
+            alertString = @"Light low value";
+        }
+    }
+    else if ([service isEqual:_humidityAlarm]) {
+        if (!_isHumidityAlarmActive) {
+            return;
+        }
+        if (alarm == kAlarmHigh) {
+            alertString = @"Humidity high value";
+        }
+        else {
+            alertString = @"Humidity low value";
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

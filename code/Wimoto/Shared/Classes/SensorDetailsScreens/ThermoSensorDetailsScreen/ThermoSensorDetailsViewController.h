@@ -8,6 +8,6 @@
 
 #import "SensorViewController.h"
 
-@interface ThermoSensorDetailsViewController : SensorViewController <UIAlertViewDelegate>
+@interface ThermoSensorDetailsViewController : SensorViewController
 
 @end

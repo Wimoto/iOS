@@ -22,6 +22,14 @@
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *humiditySparkLine;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *lightSparkLine;
 
+@property (nonatomic, weak) IBOutlet UISwitch *tempSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *humiditySwitch;
+
+@property (nonatomic, weak) AlarmService *currentAlarmService;
+
+- (IBAction)switchAction:(id)sender;
+
 @end
 
 @implementation ClimateSensorDetailsViewController
@@ -64,6 +72,12 @@
     [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
         _lightSparkLine.dataValues = item;
     }];
+    
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    
+    _tempSwitch.on = [climateSensor isTempAlarmActive];
+    _lightSwitch.on = [climateSensor isLightAlarmActive];
+    _humiditySwitch.on = [climateSensor isHumidityAlarmActive];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,6 +90,65 @@
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE];
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY];
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT];
+}
+
+- (IBAction)switchAction:(id)sender
+{
+    UISwitch *switchControl = (UISwitch *)sender;
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    if ([switchControl isEqual:_tempSwitch]) {
+        climateSensor.isTempAlarmActive = [switchControl isOn];
+        self.currentAlarmService = [climateSensor tempAlarm];
+    }
+    else if ([switchControl isEqual:_lightSwitch]) {
+        climateSensor.isLightAlarmActive = [switchControl isOn];
+        self.currentAlarmService = [climateSensor lightAlarm];
+    }
+    else if ([switchControl isEqual:_humiditySwitch]) {
+        climateSensor.isHumidityAlarmActive = [switchControl isOn];
+        self.currentAlarmService = [climateSensor humidityAlarm];
+    }
+    [climateSensor save:nil];
+    if ([switchControl isOn]) {
+        [self showPicker];
+    }
+    else {
+        [self hidePicker:nil];
+    }
+}
+
+- (void)showPicker {
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    if ([self.currentAlarmService isEqual:[climateSensor tempAlarm]]) {
+        self.rangeSlider.minimumRange = 2;
+        self.rangeSlider.minimumValue = 20;
+        self.rangeSlider.maximumValue = 50;
+        self.rangeSlider.lowerValue = [climateSensor.tempAlarm minimumAlarmValue];
+        self.rangeSlider.upperValue = [climateSensor.tempAlarm maximumAlarmValue];
+    }
+    else if ([self.currentAlarmService isEqual:[climateSensor lightAlarm]]) {
+        self.rangeSlider.minimumRange = 2;
+        self.rangeSlider.minimumValue = 20;
+        self.rangeSlider.maximumValue = 50;
+        self.rangeSlider.lowerValue = [climateSensor.lightAlarm minimumAlarmValue];
+        self.rangeSlider.upperValue = [climateSensor.lightAlarm maximumAlarmValue];
+    }
+    else if ([self.currentAlarmService isEqual:[climateSensor humidityAlarm]]) {
+        self.rangeSlider.minimumRange = 2;
+        self.rangeSlider.minimumValue = 20;
+        self.rangeSlider.maximumValue = 50;
+        self.rangeSlider.lowerValue = [climateSensor.humidityAlarm minimumAlarmValue];
+        self.rangeSlider.upperValue = [climateSensor.humidityAlarm maximumAlarmValue];
+    }
+    [super showPicker];
+}
+
+- (void)hidePicker:(id)sender {
+    [super hidePicker:sender];
+    if (sender) {
+        [_currentAlarmService writeHighAlarmValue:self.rangeSlider.minimumValue];
+        [_currentAlarmService writeHighAlarmValue:self.rangeSlider.maximumValue];
+    }
 }
 
 #pragma mark - Value Observer

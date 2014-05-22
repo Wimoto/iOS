@@ -63,7 +63,6 @@
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
-		30C27CB918CF982F00CA2D58 /* AlarmValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C27CB818CF982F00CA2D58 /* AlarmValue.m */; };
 		30CD5819192E181C00FFF102 /* AlarmService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD5818192E181C00FFF102 /* AlarmService.m */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
@@ -200,8 +199,6 @@
 		30C11812186B42A20068633C /* SentrySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentrySensor.m; sourceTree = "<group>"; };
 		30C11814186B4EB00068633C /* ThermoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThermoSensor.h; sourceTree = "<group>"; };
 		30C11815186B4EB00068633C /* ThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoSensor.m; sourceTree = "<group>"; };
-		30C27CB718CF982F00CA2D58 /* AlarmValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmValue.h; sourceTree = "<group>"; };
-		30C27CB818CF982F00CA2D58 /* AlarmValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmValue.m; sourceTree = "<group>"; };
 		30CD5817192E181C00FFF102 /* AlarmService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmService.h; sourceTree = "<group>"; };
 		30CD5818192E181C00FFF102 /* AlarmService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmService.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
@@ -582,8 +579,6 @@
 		90C64238184E6061008F40D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				30C27CB718CF982F00CA2D58 /* AlarmValue.h */,
-				30C27CB818CF982F00CA2D58 /* AlarmValue.m */,
 				90815A401868736E00A9EC0A /* SensorValue.h */,
 				90815A411868736E00A9EC0A /* SensorValue.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
@@ -887,7 +882,6 @@
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
 				90232E31185A467100F83210 /* IIViewDeckController.m in Sources */,
-				30C27CB918CF982F00CA2D58 /* AlarmValue.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
