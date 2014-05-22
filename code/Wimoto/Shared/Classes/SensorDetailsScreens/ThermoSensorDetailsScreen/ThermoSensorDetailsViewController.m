@@ -52,7 +52,7 @@
     self.navigationController.navigationBarHidden = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
-    
+        
     _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor irTemp]];
     _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor probeTemp]];
     
@@ -95,8 +95,16 @@
     self.sensor.peripheral = peripheral;
 }
 
+
 - (IBAction)switchAction:(id)sender
 {
+    if ([(UISwitch *)sender isOn]) {
+        [self showPicker];
+    }
+    else {
+        [self hidePicker:nil];
+    }
+    /*
     if ([(UISwitch *)sender isOn]) {
         
         NSMutableArray *valuesArray = [NSMutableArray array];
@@ -123,12 +131,13 @@
         }
         self.currentSwitch = nil;
     }
+     */
 }
 
 - (void)hidePicker:(id)sender
 {
     [super hidePicker:sender];
-    
+    /*
     if (sender) {
         NSString *valueString = [_pickerData objectAtIndex:[self.pickerView selectedRowInComponent:0]];
         if ([self.currentSwitch isEqual:_irTempSwitch]) {
@@ -142,6 +151,7 @@
             [DatabaseManager saveAlarm:_probeTempAlarm];
         }
     }
+     */
 }
 
 #pragma mark - Value Observer

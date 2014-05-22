@@ -37,6 +37,31 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (!_rangeSlider) {
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0)];
+        UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(hidePicker:)];
+        [toolbar setItems:[NSArray arrayWithObjects:flex, doneButton, nil]];
+        
+        self.rangeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, toolbar.frame.size.height + 60.0)];
+        _rangeContainer.backgroundColor = [UIColor whiteColor];
+        [_rangeContainer addSubview:toolbar];
+        
+        self.rangeSlider = [[NMRangeSlider alloc] init];
+        _rangeSlider.frame = CGRectMake(10.0, toolbar.frame.origin.x + toolbar.frame.size.height, self.view.frame.size.width - 20.0, 34.0);
+        _rangeSlider.minimumValue = 0;
+        _rangeSlider.maximumValue = 100;
+        
+        _rangeSlider.lowerValue = 0;
+        _rangeSlider.upperValue = 100;
+        
+        _rangeSlider.minimumRange = 10;
+        
+        [_rangeContainer addSubview:_rangeSlider];
+        [self.view addSubview:_rangeContainer];
+    }
+    
+    /*
     if (!_pickerView) {
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0)];
         UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -51,6 +76,7 @@
         [_pickerContainer addSubview:_pickerView];
         [self.view addSubview:_pickerContainer];
     }
+     */
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,14 +92,14 @@
 - (void)showPicker
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _pickerContainer.frame = CGRectMake(_pickerContainer.frame.origin.x, self.view.frame.size.height - _pickerContainer.frame.size.height, _pickerContainer.frame.size.width, _pickerContainer.frame.size.height);
+        _rangeContainer.frame = CGRectMake(_rangeContainer.frame.origin.x, self.view.frame.size.height - _rangeContainer.frame.size.height, _rangeContainer.frame.size.width, _rangeContainer.frame.size.height);
     }];
 }
 
 - (void)hidePicker:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _pickerContainer.frame = CGRectMake(_pickerContainer.frame.origin.x, self.view.frame.size.height, _pickerContainer.frame.size.width, _pickerContainer.frame.size.height);
+        _rangeContainer.frame = CGRectMake(_rangeContainer.frame.origin.x, self.view.frame.size.height, _rangeContainer.frame.size.width, _rangeContainer.frame.size.height);
     }];
 }
 

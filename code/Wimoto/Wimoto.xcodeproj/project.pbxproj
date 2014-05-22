@@ -15,6 +15,33 @@
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7131192D284B006E0A6C /* slider-default-handle-highlighted.png */; };
+		302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7132192D284B006E0A6C /* slider-default-handle-highlighted@2x.png */; };
+		302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7133192D284B006E0A6C /* slider-default-handle.png */; };
+		302A7152192D284B006E0A6C /* slider-default-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7134192D284B006E0A6C /* slider-default-handle@2x.png */; };
+		302A7153192D284B006E0A6C /* slider-default-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7135192D284B006E0A6C /* slider-default-track.png */; };
+		302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7136192D284B006E0A6C /* slider-default-track@2x.png */; };
+		302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7137192D284B006E0A6C /* slider-default-trackBackground.png */; };
+		302A7156192D284B006E0A6C /* slider-default-trackCrossedOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7138192D284B006E0A6C /* slider-default-trackCrossedOver.png */; };
+		302A7157192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7139192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png */; };
+		302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A713A192D284B006E0A6C /* slider-default_trackBackground@2x.png */; };
+		302A7159192D284B006E0A6C /* slider-default7-handle.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A713C192D284B006E0A6C /* slider-default7-handle.png */; };
+		302A715A192D284B006E0A6C /* slider-default7-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A713D192D284B006E0A6C /* slider-default7-handle@2x.png */; };
+		302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A713E192D284B006E0A6C /* slider-default7-track.png */; };
+		302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A713F192D284B006E0A6C /* slider-default7-track@2x.png */; };
+		302A715D192D284B006E0A6C /* slider-default7-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7140192D284B006E0A6C /* slider-default7-trackBackground.png */; };
+		302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7141192D284B006E0A6C /* slider-default7-trackBackground@2x.png */; };
+		302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7142192D284B006E0A6C /* slider-default7-trackCrossedOver.png */; };
+		302A7160192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7143192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png */; };
+		302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7145192D284B006E0A6C /* slider-metal-handle-highlighted.png */; };
+		302A7162192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7146192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png */; };
+		302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7147192D284B006E0A6C /* slider-metal-handle.png */; };
+		302A7164192D284B006E0A6C /* slider-metal-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7148192D284B006E0A6C /* slider-metal-handle@2x.png */; };
+		302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7149192D284B006E0A6C /* slider-metal-track.png */; };
+		302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714A192D284B006E0A6C /* slider-metal-track@2x.png */; };
+		302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714B192D284B006E0A6C /* slider-metal-trackBackground.png */; };
+		302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */; };
+		302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A714E192D284B006E0A6C /* NMRangeSlider.m */; };
 		304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 304B888019100110000F487B /* CBUUID+StringExtraction.m */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
@@ -37,6 +64,7 @@
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
 		30C27CB918CF982F00CA2D58 /* AlarmValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C27CB818CF982F00CA2D58 /* AlarmValue.m */; };
+		30CD5819192E181C00FFF102 /* AlarmService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD5818192E181C00FFF102 /* AlarmService.m */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -113,6 +141,34 @@
 		2860E32D111B888700E27156 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Shared/main.m; sourceTree = "<group>"; };
+		302A7131192D284B006E0A6C /* slider-default-handle-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-handle-highlighted.png"; sourceTree = "<group>"; };
+		302A7132192D284B006E0A6C /* slider-default-handle-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-handle-highlighted@2x.png"; sourceTree = "<group>"; };
+		302A7133192D284B006E0A6C /* slider-default-handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-handle.png"; sourceTree = "<group>"; };
+		302A7134192D284B006E0A6C /* slider-default-handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-handle@2x.png"; sourceTree = "<group>"; };
+		302A7135192D284B006E0A6C /* slider-default-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-track.png"; sourceTree = "<group>"; };
+		302A7136192D284B006E0A6C /* slider-default-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-track@2x.png"; sourceTree = "<group>"; };
+		302A7137192D284B006E0A6C /* slider-default-trackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-trackBackground.png"; sourceTree = "<group>"; };
+		302A7138192D284B006E0A6C /* slider-default-trackCrossedOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-trackCrossedOver.png"; sourceTree = "<group>"; };
+		302A7139192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-trackCrossedOver@2x.png"; sourceTree = "<group>"; };
+		302A713A192D284B006E0A6C /* slider-default_trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default_trackBackground@2x.png"; sourceTree = "<group>"; };
+		302A713C192D284B006E0A6C /* slider-default7-handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-handle.png"; sourceTree = "<group>"; };
+		302A713D192D284B006E0A6C /* slider-default7-handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-handle@2x.png"; sourceTree = "<group>"; };
+		302A713E192D284B006E0A6C /* slider-default7-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-track.png"; sourceTree = "<group>"; };
+		302A713F192D284B006E0A6C /* slider-default7-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-track@2x.png"; sourceTree = "<group>"; };
+		302A7140192D284B006E0A6C /* slider-default7-trackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-trackBackground.png"; sourceTree = "<group>"; };
+		302A7141192D284B006E0A6C /* slider-default7-trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-trackBackground@2x.png"; sourceTree = "<group>"; };
+		302A7142192D284B006E0A6C /* slider-default7-trackCrossedOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-trackCrossedOver.png"; sourceTree = "<group>"; };
+		302A7143192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default7-trackCrossedOver@2x.png"; sourceTree = "<group>"; };
+		302A7145192D284B006E0A6C /* slider-metal-handle-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-handle-highlighted.png"; sourceTree = "<group>"; };
+		302A7146192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-handle-highlighted@2x.png"; sourceTree = "<group>"; };
+		302A7147192D284B006E0A6C /* slider-metal-handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-handle.png"; sourceTree = "<group>"; };
+		302A7148192D284B006E0A6C /* slider-metal-handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-handle@2x.png"; sourceTree = "<group>"; };
+		302A7149192D284B006E0A6C /* slider-metal-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-track.png"; sourceTree = "<group>"; };
+		302A714A192D284B006E0A6C /* slider-metal-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-track@2x.png"; sourceTree = "<group>"; };
+		302A714B192D284B006E0A6C /* slider-metal-trackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-trackBackground.png"; sourceTree = "<group>"; };
+		302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-trackBackground@2x.png"; sourceTree = "<group>"; };
+		302A714D192D284B006E0A6C /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
+		302A714E192D284B006E0A6C /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
 		304B887F19100110000F487B /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		304B888019100110000F487B /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -146,6 +202,8 @@
 		30C11815186B4EB00068633C /* ThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoSensor.m; sourceTree = "<group>"; };
 		30C27CB718CF982F00CA2D58 /* AlarmValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmValue.h; sourceTree = "<group>"; };
 		30C27CB818CF982F00CA2D58 /* AlarmValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmValue.m; sourceTree = "<group>"; };
+		30CD5817192E181C00FFF102 /* AlarmService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmService.h; sourceTree = "<group>"; };
+		30CD5818192E181C00FFF102 /* AlarmService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmService.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
@@ -347,9 +405,69 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		302A712F192D284B006E0A6C /* NMRangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				302A7130192D284B006E0A6C /* DefaultTheme */,
+				302A713B192D284B006E0A6C /* DefaultTheme7 */,
+				302A7144192D284B006E0A6C /* MetalTheme */,
+				302A714D192D284B006E0A6C /* NMRangeSlider.h */,
+				302A714E192D284B006E0A6C /* NMRangeSlider.m */,
+			);
+			path = NMRangeSlider;
+			sourceTree = "<group>";
+		};
+		302A7130192D284B006E0A6C /* DefaultTheme */ = {
+			isa = PBXGroup;
+			children = (
+				302A7131192D284B006E0A6C /* slider-default-handle-highlighted.png */,
+				302A7132192D284B006E0A6C /* slider-default-handle-highlighted@2x.png */,
+				302A7133192D284B006E0A6C /* slider-default-handle.png */,
+				302A7134192D284B006E0A6C /* slider-default-handle@2x.png */,
+				302A7135192D284B006E0A6C /* slider-default-track.png */,
+				302A7136192D284B006E0A6C /* slider-default-track@2x.png */,
+				302A7137192D284B006E0A6C /* slider-default-trackBackground.png */,
+				302A7138192D284B006E0A6C /* slider-default-trackCrossedOver.png */,
+				302A7139192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png */,
+				302A713A192D284B006E0A6C /* slider-default_trackBackground@2x.png */,
+			);
+			path = DefaultTheme;
+			sourceTree = "<group>";
+		};
+		302A713B192D284B006E0A6C /* DefaultTheme7 */ = {
+			isa = PBXGroup;
+			children = (
+				302A713C192D284B006E0A6C /* slider-default7-handle.png */,
+				302A713D192D284B006E0A6C /* slider-default7-handle@2x.png */,
+				302A713E192D284B006E0A6C /* slider-default7-track.png */,
+				302A713F192D284B006E0A6C /* slider-default7-track@2x.png */,
+				302A7140192D284B006E0A6C /* slider-default7-trackBackground.png */,
+				302A7141192D284B006E0A6C /* slider-default7-trackBackground@2x.png */,
+				302A7142192D284B006E0A6C /* slider-default7-trackCrossedOver.png */,
+				302A7143192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png */,
+			);
+			path = DefaultTheme7;
+			sourceTree = "<group>";
+		};
+		302A7144192D284B006E0A6C /* MetalTheme */ = {
+			isa = PBXGroup;
+			children = (
+				302A7145192D284B006E0A6C /* slider-metal-handle-highlighted.png */,
+				302A7146192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png */,
+				302A7147192D284B006E0A6C /* slider-metal-handle.png */,
+				302A7148192D284B006E0A6C /* slider-metal-handle@2x.png */,
+				302A7149192D284B006E0A6C /* slider-metal-track.png */,
+				302A714A192D284B006E0A6C /* slider-metal-track@2x.png */,
+				302A714B192D284B006E0A6C /* slider-metal-trackBackground.png */,
+				302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */,
+			);
+			path = MetalTheme;
+			sourceTree = "<group>";
+		};
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				302A712F192D284B006E0A6C /* NMRangeSlider */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				90232E37185A521900F83210 /* BLEManager */,
@@ -482,6 +600,8 @@
 				30C11812186B42A20068633C /* SentrySensor.m */,
 				30C11814186B4EB00068633C /* ThermoSensor.h */,
 				30C11815186B4EB00068633C /* ThermoSensor.m */,
+				30CD5817192E181C00FFF102 /* AlarmService.h */,
+				30CD5818192E181C00FFF102 /* AlarmService.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -658,7 +778,7 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = 98T7Z7XL3B;
 					};
 				};
 			};
@@ -687,42 +807,68 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */,
+				302A715D192D284B006E0A6C /* slider-default7-trackBackground.png in Resources */,
+				302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */,
 				493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */,
 				493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */,
 				493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */,
+				302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */,
 				493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */,
+				302A7164192D284B006E0A6C /* slider-metal-handle@2x.png in Resources */,
 				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
+				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
+				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
+				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
 				493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */,
+				302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */,
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
+				302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
 				90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */,
+				302A7157192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
+				302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
+				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
+				302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
 				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
+				302A7162192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png in Resources */,
+				302A7159192D284B006E0A6C /* slider-default7-handle.png in Resources */,
 				493A4944184ECC390000A2F6 /* cloud.png in Resources */,
 				90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */,
+				302A7152192D284B006E0A6C /* slider-default-handle@2x.png in Resources */,
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */,
 				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
+				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
+				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
+				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
+				302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
 				495FB1B019114C0A00FF18CA /* info.png in Resources */,
+				302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
+				302A715A192D284B006E0A6C /* slider-default7-handle@2x.png in Resources */,
+				302A7160192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png in Resources */,
 				493A4945184ECC390000A2F6 /* mail.png in Resources */,
 				493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */,
 				493A492F184EB6C50000A2F6 /* sun-512.png in Resources */,
 				30B487E5184DFCB7002B0CD8 /* DashboardViewController_iPhone.xib in Resources */,
+				302A7156192D284B006E0A6C /* slider-default-trackCrossedOver.png in Resources */,
 				90232E28185A440700F83210 /* NoSensorViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -747,6 +893,7 @@
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				90232E3A185A521900F83210 /* BLEManager.m in Sources */,
 				30C11813186B42A20068633C /* SentrySensor.m in Sources */,
+				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
 				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
@@ -773,6 +920,7 @@
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
 				90815A421868736E00A9EC0A /* SensorValue.m in Sources */,
+				30CD5819192E181C00FFF102 /* AlarmService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

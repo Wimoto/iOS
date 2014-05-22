@@ -8,13 +8,14 @@
 
 #import "AppViewController.h"
 #import "Sensor.h"
+#import "NMRangeSlider.h"
 
-@interface SensorViewController : AppViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface SensorViewController : AppViewController
 
 @property (nonatomic, strong) Sensor *sensor;
-@property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic, strong) UIView *pickerContainer;
 @property (nonatomic, strong) UISwitch *currentSwitch;
+@property (nonatomic, strong) NMRangeSlider *rangeSlider;
+@property (nonatomic, strong) UIView *rangeContainer;
 
 - (id)initWithSensor:(Sensor *)sensor;
 - (void)showPicker;

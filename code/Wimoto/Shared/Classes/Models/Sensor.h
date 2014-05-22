@@ -8,10 +8,11 @@
 
 #import "CBPeripheral+Util.h"
 #import <Couchbaselite/Couchbaselite.h>
+#import "AlarmService.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
-@interface Sensor : CBLModel<CBPeripheralDelegate>
+@interface Sensor : CBLModel<CBPeripheralDelegate, AlarmServiceDelegate>
 
 @property (copy) NSString *name;
 @property (copy) NSString *systemId;

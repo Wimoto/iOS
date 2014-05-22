@@ -25,6 +25,8 @@
 #import "SentrySensor.h"
 #import "ThermoSensor.h"
 
+#import "NMRangeSlider.h"
+
 @interface WimotoDeckController ()
 
 @end
@@ -34,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self disablePanOverViewsOfClass:[NMRangeSlider class]];
 	// Do any additional setup after loading the view.
 }
 
