@@ -125,6 +125,7 @@
         return;
     }
     data = [NSData dataWithBytes:&value length:sizeof (value)];
+    NSLog(@"ALARM WRITE HIGH VALUE - %@", data);
     [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -148,6 +149,7 @@
         return;
     }
     data = [NSData dataWithBytes:&value length:sizeof(value)];
+    NSLog(@"ALARM WRITE LOW VALUE - %@", data);
     [self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -162,6 +164,7 @@
             }
         }
     }
+    NSLog(@"ENABLE ALARM, CHARACTERISTIC - %@", alarmSetCharacteristic);
     [self.peripheral writeValue:[NSData dataWithBytes:&dat length:sizeof(dat)] forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
