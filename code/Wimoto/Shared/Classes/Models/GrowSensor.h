@@ -18,4 +18,8 @@
 @property (nonatomic) float soilMoisture;
 @property (nonatomic) float light;
 
+@property (nonatomic) AlarmState soilTempAlarmState;
+@property (nonatomic) AlarmState soilMoistureAlarmState;
+@property (nonatomic) AlarmState lightAlarmState;
+
 @end

@@ -112,8 +112,10 @@
 		return ;
 	}
 	alarmService = nil;
+    NSLog(@"FIND SERVICE");
 	for (CBService *service in services) {
 		if ([[service UUID] isEqual:[CBUUID UUIDWithString:serviceUUIDString]]) {
+            NSLog(@"ALARM SERVICE %@", service);
 			alarmService = service;
 			break;
 		}
@@ -230,6 +232,7 @@
         [[minValueCharacteristic value] getBytes:&value length:sizeof (value)];
         result = (CGFloat)value / 10.0f;
     }
+    NSLog(@"MIN ALARM VALUE %f", result);
     return result;
 }
 
@@ -240,6 +243,7 @@
         [[maxValueCharacteristic value] getBytes:&value length:sizeof (value)];
         result = (CGFloat)value / 10.0f;
     }
+    NSLog(@"MAX ALARM VALUE %f", result);
     return result;
 }
 

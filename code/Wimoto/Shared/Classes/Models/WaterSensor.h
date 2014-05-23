@@ -16,4 +16,7 @@
 @property (nonatomic) BOOL presense;
 @property (nonatomic) float level;
 
+@property (nonatomic) AlarmState presenseAlarmState;
+@property (nonatomic) AlarmState levelAlarmState;
+
 @end

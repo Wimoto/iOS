@@ -16,4 +16,8 @@
 @property (nonatomic, strong) NSString *irTemp;
 @property (nonatomic) float probeTemp;
 
+@property (nonatomic) AlarmState irTempAlarmState;
+@property (nonatomic) AlarmState probeTempAlarmState;
+
+
 @end
