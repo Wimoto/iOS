@@ -104,22 +104,24 @@
                  [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]) {
             uint8_t alarmSetValue  = 0;
             [[characteristic value] getBytes:&alarmSetValue length:sizeof (alarmSetValue)];
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
-                if (_lightAlarmState == kAlarmStateUnknown) {
-                    self.lightAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                    [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
+                    if (_lightAlarmState == kAlarmStateUnknown) {
+                        self.lightAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET];
+                    }
+                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET]]) {
+                    if (_soilMoistureAlarmState == kAlarmStateUnknown) {
+                        self.soilMoistureAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET];
+                    }
+                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
+                    if (_soilTempAlarmState == kAlarmStateUnknown) {
+                        self.soilTempAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET];
+                    }
                 }
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET]]) {
-                if (_soilMoistureAlarmState == kAlarmStateUnknown) {
-                    self.soilMoistureAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                    [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET];
-                }
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
-                if (_soilTempAlarmState == kAlarmStateUnknown) {
-                    self.soilTempAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                    [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET];
-                }
-            }
+            });
         }
         else if ([characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]||
                  [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]||
@@ -127,17 +129,19 @@
             uint8_t alarmValue  = 0;
             [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
             NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (alarmValue & 0x01) {
+                    if (alarmValue & 0x02) {
+                        [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
+                    }
+                    else {
+                        [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
+                    }
                 }
                 else {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
+                    [self alarmServiceDidStopAlarm:characteristic];
                 }
-            }
-            else {
-                [self alarmServiceDidStopAlarm:characteristic];
-            }
+            });
         }
     }
 }
