@@ -26,7 +26,7 @@
 @property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *humiditySwitch;
 
-@property (nonatomic, weak) AlarmService *currentAlarmService;
+@property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (IBAction)switchAction:(id)sender;
 
@@ -40,7 +40,8 @@
     if (self) {
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionNew context:NULL];
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionNew context:NULL];
-        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionNew context:NULL];        
+        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionNew context:NULL];
+        self.sensor.delegate = self;
     }
     return self;
 }
@@ -74,10 +75,9 @@
     }];
     
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
-    
-    _tempSwitch.on = [climateSensor isTempAlarmActive];
-    _lightSwitch.on = [climateSensor isLightAlarmActive];
-    _humiditySwitch.on = [climateSensor isHumidityAlarmActive];
+    _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
+    _lightSwitch.on = (climateSensor.lightAlarmState == kAlarmStateEnabled)?YES:NO;
+    _humiditySwitch.on = (climateSensor.humidityAlarmState == kAlarmStateEnabled)?YES:NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,18 +97,17 @@
     UISwitch *switchControl = (UISwitch *)sender;
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([switchControl isEqual:_tempSwitch]) {
-        climateSensor.isTempAlarmActive = [switchControl isOn];
-        self.currentAlarmService = [climateSensor tempAlarm];
+        [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM];
+        self.currentAlarmUUIDString = BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM;
     }
     else if ([switchControl isEqual:_lightSwitch]) {
-        climateSensor.isLightAlarmActive = [switchControl isOn];
-        self.currentAlarmService = [climateSensor lightAlarm];
+        [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM];
+        self.currentAlarmUUIDString = BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM;
     }
     else if ([switchControl isEqual:_humiditySwitch]) {
-        climateSensor.isHumidityAlarmActive = [switchControl isOn];
-        self.currentAlarmService = [climateSensor humidityAlarm];
+        [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM];
+        self.currentAlarmUUIDString = BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM;
     }
-    [climateSensor save:nil];
     if ([switchControl isOn]) {
         [self showSlider];
     }
@@ -119,36 +118,51 @@
 
 - (void)showSlider {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
-    if ([self.currentAlarmService isEqual:[climateSensor tempAlarm]]) {
+    if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:-60];
         [self.alarmSlider setMaximumValue:130];
-        [self.alarmSlider setUpperValue:[climateSensor.tempAlarm maximumAlarmValue]];
-        [self.alarmSlider setLowerValue:[climateSensor.tempAlarm minimumAlarmValue]];
+        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]];
+        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]];
     }
-    else if ([self.currentAlarmService isEqual:[climateSensor lightAlarm]]) {
+    else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[climateSensor.lightAlarm maximumAlarmValue]];
-        [self.alarmSlider setLowerValue:[climateSensor.lightAlarm minimumAlarmValue]];
+        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]];
+        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]];
     }
-    else if ([self.currentAlarmService isEqual:[climateSensor humidityAlarm]]) {
+    else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[climateSensor.humidityAlarm maximumAlarmValue]];
-        [self.alarmSlider setLowerValue:[climateSensor.humidityAlarm minimumAlarmValue]];
+        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
+        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
     }
     [super showSlider];
 }
 
+#pragma mark - SensorDelegate
+
+- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
+        _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]) {
+        _lightSwitch.on = (climateSensor.lightAlarmState == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]) {
+        _humiditySwitch.on = (climateSensor.humidityAlarmState == kAlarmStateEnabled)?YES:NO;
+    }
+}
+
 #pragma mark - AlarmSliderDelegate
 
-- (void)alarmSliderSaveAction:(id)sender
-{
-    [_currentAlarmService writeHighAlarmValue:self.alarmSlider.lowerValue];
-    [_currentAlarmService writeHighAlarmValue:self.alarmSlider.upperValue];
+- (void)alarmSliderSaveAction:(id)sender {
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    [climateSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+    [climateSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
 }
 
 #pragma mark - Value Observer
