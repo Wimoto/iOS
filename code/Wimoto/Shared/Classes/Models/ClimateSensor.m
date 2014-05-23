@@ -75,6 +75,7 @@
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_SET]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]]))
             {
+                NSLog(@"FOUND ALARM LOW HIGH VALUE CHARACTERISTIC - %@", aChar);
                 [aPeripheral readValueForCharacteristic:aChar];
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
@@ -88,6 +89,7 @@
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_SET]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]]))
             {
+                NSLog(@"FOUND ALARM CHARACTERISTIC - %@", aChar);
                 [aPeripheral readValueForCharacteristic:aChar];
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
@@ -124,6 +126,7 @@
                  [characteristic.UUID.UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_SET]) {
             uint8_t alarmSetValue  = 0;
             [[characteristic value] getBytes:&alarmSetValue length:sizeof (alarmSetValue)];
+            NSLog(@"ALARM SET CHARACTERISTIC %@ WITH VALUE - %hhu", characteristic, alarmSetValue);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]]) {
                     if (_temperatureAlarmState == kAlarmStateUnknown) {
@@ -152,9 +155,11 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (alarmValue & 0x01) {
                     if (alarmValue & 0x02) {
+                        NSLog(@"ALARM LOW VALUE");
                         [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
                     }
                     else {
+                        NSLog(@"ALARM HIGH VALUE");
                         [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                     }
                 }
@@ -167,7 +172,7 @@
 }
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString;
+    NSString *alertString = nil;
     if ([characteristic.UUID.UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
         if (_temperatureAlarmState != kAlarmStateEnabled) {
             return;
@@ -201,6 +206,7 @@
             alertString = @"Climate Humidity low value";
         }
     }
+    NSLog(@"ALERT MESSAGE - %@", alertString);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 }

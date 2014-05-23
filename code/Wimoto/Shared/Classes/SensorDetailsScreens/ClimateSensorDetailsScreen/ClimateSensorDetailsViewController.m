@@ -78,6 +78,9 @@
     _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
     _lightSwitch.on = (climateSensor.lightAlarmState == kAlarmStateEnabled)?YES:NO;
     _humiditySwitch.on = (climateSensor.humidityAlarmState == kAlarmStateEnabled)?YES:NO;
+    NSLog(@"TEMPERATURE SWITCH IS ON - %i", [_tempSwitch isOn]);
+    NSLog(@"LIGHT SWITCH IS ON - %i", [_tempSwitch isOn]);
+    NSLog(@"HUMIDITY SWITCH IS ON - %i", [_tempSwitch isOn]);
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,12 +142,15 @@
         [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
         [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
     }
+    NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
+    NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
     [super showSlider];
 }
 
 #pragma mark - SensorDelegate
 
 - (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
+    NSLog(@"DID UPDATE ALARM STATE WITH UUID - %@", UUIDString);
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
         _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
