@@ -38,4 +38,10 @@ typedef enum {
 + (id)sensorForDocument:(CBLDocument*)document;
 + (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral;
 
+- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (CGFloat)minimumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (CGFloat)maximumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString;
+
 @end

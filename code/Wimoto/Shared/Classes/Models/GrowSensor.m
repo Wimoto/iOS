@@ -108,17 +108,17 @@
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
                     if (_lightAlarmState == kAlarmStateUnknown) {
                         self.lightAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET];
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM];
                     }
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET]]) {
                     if (_soilMoistureAlarmState == kAlarmStateUnknown) {
                         self.soilMoistureAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET];
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM];
                     }
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
                     if (_soilTempAlarmState == kAlarmStateUnknown) {
                         self.soilTempAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET];
+                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM];
                     }
                 }
             });
@@ -183,94 +183,6 @@
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
-}
-
-- (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    NSData *data = nil;
-    int16_t value = (int16_t)high;
-    if (!self.service) {
-        NSLog(@"Not connected to a peripheral");
-    }
-    CBCharacteristic *maxValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            maxValueCharacteristic = characteristic;
-            break;
-        }
-    }
-    if (!maxValueCharacteristic) {
-        NSLog(@"No valid max characteristic");
-        return;
-    }
-    data = [NSData dataWithBytes:&value length:sizeof (value)];
-    [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
-}
-
-- (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    NSData *data = nil;
-    int16_t value = (int16_t)low;
-    if (!self.service) {
-        NSLog(@"Not connected to a peripheral");
-    }
-    CBCharacteristic *minValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            minValueCharacteristic = characteristic;
-            break;
-        }
-    }
-    if (!minValueCharacteristic) {
-        NSLog(@"No valid max characteristic");
-        return;
-    }
-    data = [NSData dataWithBytes:&value length:sizeof(value)];
-    [self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
-}
-
-- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    unsigned char dat = (enable)?0x01:0x00;
-    CBCharacteristic *alarmSetCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            alarmSetCharacteristic = characteristic;
-            break;
-        }
-    }
-    [self.peripheral writeValue:[NSData dataWithBytes:&dat length:sizeof(dat)] forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
-}
-
-- (CGFloat)minimumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString {
-    CGFloat result  = NAN;
-    int16_t value	= 0;
-    CBCharacteristic *minValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            minValueCharacteristic = characteristic;
-            break;
-        }
-    }
-    if (minValueCharacteristic) {
-        [[minValueCharacteristic value] getBytes:&value length:sizeof (value)];
-        result = (CGFloat)value / 10.0f;
-    }
-    return result;
-}
-
-- (CGFloat)maximumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString {
-    CGFloat result  = NAN;
-    int16_t value	= 0;
-    CBCharacteristic *maxValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            maxValueCharacteristic = characteristic;
-            break;
-        }
-    }
-    if (maxValueCharacteristic) {
-        [[maxValueCharacteristic value] getBytes:&value length:sizeof (value)];
-        result = (CGFloat)value / 10.0f;
-    }
-    return result;
 }
 
 @end

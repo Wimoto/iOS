@@ -27,8 +27,6 @@
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-@property (nonatomic, weak) AlarmService *currentAlarmService;
-
 - (IBAction)switchAction:(id)sender;
 
 @end
