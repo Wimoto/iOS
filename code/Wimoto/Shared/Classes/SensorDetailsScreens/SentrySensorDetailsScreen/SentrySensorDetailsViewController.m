@@ -19,6 +19,13 @@
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *accelerometerSparkLine;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *pasInfraredSparkLine;
 
+@property (nonatomic, weak) IBOutlet UISwitch *accelerometerSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *pasInfraredSwitch;
+
+@property (nonatomic, strong) NSString *currentAlarmUUIDString;
+
+- (IBAction)switchAction:(id)sender;
+
 @end
 
 @implementation SentrySensorDetailsViewController
@@ -29,6 +36,7 @@
     if (self) {
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER options:NSKeyValueObservingOptionNew context:NULL];
         [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED options:NSKeyValueObservingOptionNew context:NULL];
+        self.sensor.delegate = self;
     }
     return self;
 }
@@ -36,9 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationController.navigationBarHidden = YES;
-    
     _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [(SentrySensor*)self.sensor accelerometer]];
     _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [(SentrySensor*)self.sensor pasInfrared]];
     
@@ -53,6 +59,10 @@
     [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
         _pasInfraredSparkLine.dataValues = item;
     }];
+    
+    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
+    _accelerometerSwitch.on = (sentrySensor.accelerometerAlarmState == kAlarmStateEnabled)?YES:NO;
+    _pasInfraredSwitch.on = (sentrySensor.pasInfraredAlarmState == kAlarmStateEnabled)?YES:NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +74,31 @@
 - (void)dealloc {
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER];
     [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED];
+}
+
+- (IBAction)switchAction:(id)sender {
+    UISwitch *switchControl = (UISwitch *)sender;
+    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
+    if ([switchControl isEqual:_accelerometerSwitch]) {
+        [sentrySensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM];
+        self.currentAlarmUUIDString = BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM;
+    }
+    else if ([switchControl isEqual:_pasInfraredSwitch]) {
+        [sentrySensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM];
+        self.currentAlarmUUIDString = BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM;
+    }
+}
+
+#pragma mark - SensorDelegate
+
+- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
+    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
+    if ([UUIDString isEqualToString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]) {
+        _accelerometerSwitch.on = (sentrySensor.accelerometerAlarmState == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([UUIDString isEqualToString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]) {
+        _pasInfraredSwitch.on = (sentrySensor.pasInfraredAlarmState == kAlarmStateEnabled)?YES:NO;
+    }
 }
 
 #pragma mark - Value Observer

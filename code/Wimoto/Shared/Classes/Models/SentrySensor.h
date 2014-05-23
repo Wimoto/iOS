@@ -16,4 +16,7 @@
 @property (nonatomic) float accelerometer;
 @property (nonatomic) float pasInfrared;
 
+@property (nonatomic) AlarmState accelerometerAlarmState;
+@property (nonatomic) AlarmState pasInfraredAlarmState;
+
 @end
