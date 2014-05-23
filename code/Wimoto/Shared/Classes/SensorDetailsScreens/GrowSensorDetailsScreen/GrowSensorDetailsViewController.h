@@ -8,6 +8,6 @@
 
 #import "SensorViewController.h"
 
-@interface GrowSensorDetailsViewController : SensorViewController
+@interface GrowSensorDetailsViewController : SensorViewController <SensorDelegate>
 
 @end
