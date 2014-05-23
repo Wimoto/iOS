@@ -108,7 +108,7 @@
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     int16_t value = (int16_t)high;
-    if (!self.service) {
+    if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
     CBCharacteristic *maxValueCharacteristic;
@@ -129,7 +129,7 @@
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     int16_t value = (int16_t)low;
-    if (!self.service) {
+    if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
     CBCharacteristic *minValueCharacteristic;

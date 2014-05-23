@@ -17,40 +17,52 @@
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"ThermoSensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
-            [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
-                                                  [CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
+                                                  [CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM],
+                                                  nil]
                                       forService:aService];
             
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE]]) {
-            [aPeripheral discoverCharacteristics:[NSArray arrayWithObject:
-                                                  [CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
+                                                  [CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_SET],
+                                                  [CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM],
+                                                  nil]
                                       forService:aService];
         }
     }
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
+    if ([service.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            NSLog(@"ThermoSensor didDiscoverCharacteristicsForService %@    %@", service, aChar);
             if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]])||
+                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]]))
+            {
+                [aPeripheral readValueForCharacteristic:aChar];
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+        }
+    }
+    else if ([service.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_SET]])||
                 ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]]))
             {
-                NSLog(@"ThermoSensor didDiscoverTempChar");
                 [aPeripheral readValueForCharacteristic:aChar];
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
-                
-                //uint8_t val = 1;
-                //NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
-                //[aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
             }
         }
     }
