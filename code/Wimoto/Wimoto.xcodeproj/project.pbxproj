@@ -66,6 +66,14 @@
 		30CD5819192E181C00FFF102 /* AlarmService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD5818192E181C00FFF102 /* AlarmService.m */; };
 		30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD581F192E618600FFF102 /* AlarmSlider.m */; };
 		30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD5821192E619700FFF102 /* AlarmSlider.xib */; };
+		4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E3192EAF9A005EB15C /* thermometer.png */; };
+		4901D3E6192EB1D7005EB15C /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E5192EB1D7005EB15C /* scale.png */; };
+		4901D3E8192EB294005EB15C /* droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E7192EB294005EB15C /* droplet.png */; };
+		4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E9192EB35F005EB15C /* cloud-refresh.png */; };
+		4901D3EF192F885D005EB15C /* battery-full.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EB192F885D005EB15C /* battery-full.png */; };
+		4901D3F0192F885D005EB15C /* battery-high.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EC192F885D005EB15C /* battery-high.png */; };
+		4901D3F1192F885D005EB15C /* battery-low.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3ED192F885D005EB15C /* battery-low.png */; };
+		4901D3F2192F885D005EB15C /* battery-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EE192F885D005EB15C /* battery-medium.png */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -76,7 +84,6 @@
 		493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */; };
 		493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4934184EB9C80000A2F6 /* plant_temperature-512.png */; };
 		493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4936184EBEBD0000A2F6 /* motion_detector-512.png */; };
-		493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4938184EBF810000A2F6 /* thermometer-512.png */; };
 		493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */; };
 		493A493D184EC3C00000A2F6 /* water-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A493C184EC3C00000A2F6 /* water-512.png */; };
 		493A4944184ECC390000A2F6 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4942184ECC390000A2F6 /* cloud.png */; };
@@ -84,7 +91,6 @@
 		493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4946184ECECE0000A2F6 /* cloud-download.png */; };
 		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
 		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
-		495FB1B019114C0A00FF18CA /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FB1AF19114C0A00FF18CA /* info.png */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -207,6 +213,14 @@
 		30CD581F192E618600FFF102 /* AlarmSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmSlider.m; sourceTree = "<group>"; };
 		30CD5821192E619700FFF102 /* AlarmSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmSlider.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
+		4901D3E3192EAF9A005EB15C /* thermometer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermometer.png; sourceTree = "<group>"; };
+		4901D3E5192EB1D7005EB15C /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
+		4901D3E7192EB294005EB15C /* droplet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = droplet.png; sourceTree = "<group>"; };
+		4901D3E9192EB35F005EB15C /* cloud-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-refresh.png"; sourceTree = "<group>"; };
+		4901D3EB192F885D005EB15C /* battery-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-full.png"; sourceTree = "<group>"; };
+		4901D3EC192F885D005EB15C /* battery-high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-high.png"; sourceTree = "<group>"; };
+		4901D3ED192F885D005EB15C /* battery-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-low.png"; sourceTree = "<group>"; };
+		4901D3EE192F885D005EB15C /* battery-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-medium.png"; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
 		493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_clock-512-white.png"; sourceTree = "<group>"; };
@@ -217,7 +231,6 @@
 		493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plant_under_sun-512.png"; sourceTree = "<group>"; };
 		493A4934184EB9C80000A2F6 /* plant_temperature-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plant_temperature-512.png"; sourceTree = "<group>"; };
 		493A4936184EBEBD0000A2F6 /* motion_detector-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "motion_detector-512.png"; sourceTree = "<group>"; };
-		493A4938184EBF810000A2F6 /* thermometer-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thermometer-512.png"; sourceTree = "<group>"; };
 		493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "infrared_thermometer-512.png"; sourceTree = "<group>"; };
 		493A493C184EC3C00000A2F6 /* water-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "water-512.png"; sourceTree = "<group>"; };
 		493A4942184ECC390000A2F6 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
@@ -225,7 +238,6 @@
 		493A4946184ECECE0000A2F6 /* cloud-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-download.png"; sourceTree = "<group>"; };
 		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
 		493A494A184ED3C00000A2F6 /* cassette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cassette.png; sourceTree = "<group>"; };
-		495FB1AF19114C0A00FF18CA /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -364,7 +376,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				495FB1AF19114C0A00FF18CA /* info.png */,
 				2860E32A111B888700E27156 /* iPad */,
 				2860E324111B887F00E27156 /* iPhone */,
 				90CFFEA617A7CF2F00353F80 /* Shared */,
@@ -546,18 +557,25 @@
 				493A494A184ED3C00000A2F6 /* cassette.png */,
 				493A4934184EB9C80000A2F6 /* plant_temperature-512.png */,
 				493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */,
+				4901D3E9192EB35F005EB15C /* cloud-refresh.png */,
 				493A4931184EB81A0000A2F6 /* plant_under_sun-512.png */,
 				493A4942184ECC390000A2F6 /* cloud.png */,
 				493A4946184ECECE0000A2F6 /* cloud-download.png */,
+				4901D3E7192EB294005EB15C /* droplet.png */,
 				493A4947184ECECE0000A2F6 /* cloud-upload.png */,
 				490F3A8E184EE251004B2BF1 /* wimoto.png */,
+				4901D3EB192F885D005EB15C /* battery-full.png */,
 				490F3A8C184EDF43004B2BF1 /* border.png */,
+				4901D3E5192EB1D7005EB15C /* scale.png */,
+				4901D3EC192F885D005EB15C /* battery-high.png */,
+				4901D3ED192F885D005EB15C /* battery-low.png */,
+				4901D3EE192F885D005EB15C /* battery-medium.png */,
 				493A4943184ECC390000A2F6 /* mail.png */,
 				493A493C184EC3C00000A2F6 /* water-512.png */,
-				493A4938184EBF810000A2F6 /* thermometer-512.png */,
 				493A493A184EC2F80000A2F6 /* infrared_thermometer-512.png */,
 				493A492E184EB6C50000A2F6 /* sun-512.png */,
 				493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */,
+				4901D3E3192EAF9A005EB15C /* thermometer.png */,
 				493A4936184EBEBD0000A2F6 /* motion_detector-512.png */,
 				493A4929184EB2CB0000A2F6 /* temperature-512.png */,
 				493A492C184EB44B0000A2F6 /* humidity-512.png */,
@@ -825,13 +843,15 @@
 				493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */,
 				302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */,
 				493A493B184EC2F80000A2F6 /* infrared_thermometer-512.png in Resources */,
+				4901D3F0192F885D005EB15C /* battery-high.png in Resources */,
 				302A7164192D284B006E0A6C /* slider-metal-handle@2x.png in Resources */,
 				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
+				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
 				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
 				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
-				493A4939184EBF810000A2F6 /* thermometer-512.png in Resources */,
+				4901D3E8192EB294005EB15C /* droplet.png in Resources */,
 				302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */,
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
 				302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */,
@@ -843,6 +863,7 @@
 				302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
+				4901D3F1192F885D005EB15C /* battery-low.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
@@ -860,18 +881,21 @@
 				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */,
 				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
+				4901D3E6192EB1D7005EB15C /* scale.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
 				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
+				4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */,
+				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
 				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
 				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
 				302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
-				495FB1B019114C0A00FF18CA /* info.png in Resources */,
 				302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
 				302A715A192D284B006E0A6C /* slider-default7-handle@2x.png in Resources */,
