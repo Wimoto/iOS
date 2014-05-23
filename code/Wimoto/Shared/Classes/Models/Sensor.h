@@ -30,7 +30,6 @@ typedef enum {
 @property (copy) NSString *systemId;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
-@property (nonatomic, strong) CBService *service;
 @property (nonatomic, strong) NSNumber *rssi;
 @property (nonatomic, weak) id<SensorDelegate>delegate;
 

@@ -112,10 +112,12 @@
         NSLog(@"Not connected to a peripheral");
     }
     CBCharacteristic *maxValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            maxValueCharacteristic = characteristic;
-            break;
+    for (CBService *service in [self.peripheral services]) {
+        for (CBCharacteristic *characteristic in [service characteristics]) {
+            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+                maxValueCharacteristic = characteristic;
+                break;
+            }
         }
     }
     if (!maxValueCharacteristic) {
@@ -133,10 +135,12 @@
         NSLog(@"Not connected to a peripheral");
     }
     CBCharacteristic *minValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            minValueCharacteristic = characteristic;
-            break;
+    for (CBService *service in [self.peripheral services]) {
+        for (CBCharacteristic *characteristic in [service characteristics]) {
+            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+                minValueCharacteristic = characteristic;
+                break;
+            }
         }
     }
     if (!minValueCharacteristic) {
@@ -150,10 +154,12 @@
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
     unsigned char dat = (enable)?0x01:0x00;
     CBCharacteristic *alarmSetCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            alarmSetCharacteristic = characteristic;
-            break;
+    for (CBService *service in [self.peripheral services]) {
+        for (CBCharacteristic *characteristic in [service characteristics]) {
+            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+                alarmSetCharacteristic = characteristic;
+                break;
+            }
         }
     }
     [self.peripheral writeValue:[NSData dataWithBytes:&dat length:sizeof(dat)] forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
@@ -163,12 +169,15 @@
     CGFloat result  = NAN;
     int16_t value	= 0;
     CBCharacteristic *minValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            minValueCharacteristic = characteristic;
-            break;
+    for (CBService *service in [self.peripheral services]) {
+        for (CBCharacteristic *characteristic in [service characteristics]) {
+            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+                minValueCharacteristic = characteristic;
+                break;
+            }
         }
     }
+    
     if (minValueCharacteristic) {
         [[minValueCharacteristic value] getBytes:&value length:sizeof (value)];
         result = (CGFloat)value / 10.0f;
@@ -180,10 +189,12 @@
     CGFloat result  = NAN;
     int16_t value	= 0;
     CBCharacteristic *maxValueCharacteristic;
-    for (CBCharacteristic *characteristic in [self.service characteristics]) {
-        if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
-            maxValueCharacteristic = characteristic;
-            break;
+    for (CBService *service in [self.peripheral services]) {
+        for (CBCharacteristic *characteristic in [service characteristics]) {
+            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+                maxValueCharacteristic = characteristic;
+                break;
+            }
         }
     }
     if (maxValueCharacteristic) {
