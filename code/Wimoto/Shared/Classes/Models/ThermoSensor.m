@@ -136,7 +136,7 @@
         if (_irTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"IR Temperature high value";
         }
         else {
@@ -147,7 +147,7 @@
         if (_probeTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Probe Temperature high value";
         }
         else {

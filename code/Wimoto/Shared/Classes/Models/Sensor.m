@@ -105,6 +105,10 @@
     //Implement in child
 }
 
+- (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic {
+    NSLog(@"ALARM DID STOPE, CHARACTERISTIC - %@", characteristic);
+}
+
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     int16_t value = (int16_t)high;

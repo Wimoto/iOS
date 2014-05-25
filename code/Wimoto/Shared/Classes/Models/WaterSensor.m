@@ -91,7 +91,7 @@
         if (_presenseAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Water Presense high value";
         }
         else {
@@ -102,7 +102,7 @@
         if (_levelAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Water Level high value";
         }
         else {

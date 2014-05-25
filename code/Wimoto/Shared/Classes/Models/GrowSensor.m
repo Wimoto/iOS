@@ -170,7 +170,7 @@
         if (_lightAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Light high value";
         }
         else {
@@ -181,7 +181,7 @@
         if (_soilMoistureAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Soil moisture high value";
         }
         else {
@@ -192,7 +192,7 @@
         if (_soilTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Soil temperature high value";
         }
         else {

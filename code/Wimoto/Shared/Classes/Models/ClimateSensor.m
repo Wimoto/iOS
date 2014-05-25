@@ -177,7 +177,7 @@
         if (_temperatureAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Climate Temperature high value";
         }
         else {
@@ -188,7 +188,7 @@
         if (_lightAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Climate Light high value";
         }
         else {
@@ -199,7 +199,7 @@
         if (_humidityAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Climate Humidity high value";
         }
         else {

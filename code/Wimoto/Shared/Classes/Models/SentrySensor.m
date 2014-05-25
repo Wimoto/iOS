@@ -126,7 +126,7 @@
         if (_accelerometerAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Sentry Accelerometer high value";
         }
         else {
@@ -137,7 +137,7 @@
         if (_pasInfraredAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarm == kAlarmHigh) {
+        if (alarmtype == kAlarmHigh) {
             alertString = @"Sentry Infrared high value";
         }
         else {

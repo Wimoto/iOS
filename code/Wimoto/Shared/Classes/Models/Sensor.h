@@ -8,7 +8,6 @@
 
 #import "CBPeripheral+Util.h"
 #import <Couchbaselite/Couchbaselite.h>
-#import "AlarmService.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 
@@ -18,13 +17,18 @@ typedef enum {
     kAlarmStateEnabled
 } AlarmState;
 
+typedef enum {
+    kAlarmLow = 0,
+    kAlarmHigh = 1,
+} AlarmType;
+
 @protocol SensorDelegate <NSObject>
 
 - (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString;
 
 @end
 
-@interface Sensor : CBLModel<CBPeripheralDelegate, AlarmServiceDelegate>
+@interface Sensor : CBLModel <CBPeripheralDelegate>
 
 @property (copy) NSString *name;
 @property (copy) NSString *systemId;
@@ -42,5 +46,7 @@ typedef enum {
 - (CGFloat)maximumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
+- (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
 @end
