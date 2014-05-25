@@ -63,9 +63,9 @@
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
-		30CD5819192E181C00FFF102 /* AlarmService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD5818192E181C00FFF102 /* AlarmService.m */; };
 		30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD581F192E618600FFF102 /* AlarmSlider.m */; };
 		30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD5821192E619700FFF102 /* AlarmSlider.xib */; };
+		30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF232F1932A868006D19DC /* ASValuePopUpView.m */; };
 		4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E3192EAF9A005EB15C /* thermometer.png */; };
 		4901D3E6192EB1D7005EB15C /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E5192EB1D7005EB15C /* scale.png */; };
 		4901D3E8192EB294005EB15C /* droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E7192EB294005EB15C /* droplet.png */; };
@@ -207,11 +207,11 @@
 		30C11812186B42A20068633C /* SentrySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentrySensor.m; sourceTree = "<group>"; };
 		30C11814186B4EB00068633C /* ThermoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThermoSensor.h; sourceTree = "<group>"; };
 		30C11815186B4EB00068633C /* ThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoSensor.m; sourceTree = "<group>"; };
-		30CD5817192E181C00FFF102 /* AlarmService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmService.h; sourceTree = "<group>"; };
-		30CD5818192E181C00FFF102 /* AlarmService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmService.m; sourceTree = "<group>"; };
 		30CD581E192E618600FFF102 /* AlarmSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmSlider.h; sourceTree = "<group>"; };
 		30CD581F192E618600FFF102 /* AlarmSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmSlider.m; sourceTree = "<group>"; };
 		30CD5821192E619700FFF102 /* AlarmSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmSlider.xib; sourceTree = "<group>"; };
+		30CF232F1932A868006D19DC /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
+		30CF23301932A868006D19DC /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		4901D3E3192EAF9A005EB15C /* thermometer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermometer.png; sourceTree = "<group>"; };
 		4901D3E5192EB1D7005EB15C /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
@@ -426,6 +426,8 @@
 				302A7144192D284B006E0A6C /* MetalTheme */,
 				302A714D192D284B006E0A6C /* NMRangeSlider.h */,
 				302A714E192D284B006E0A6C /* NMRangeSlider.m */,
+				30CF23301932A868006D19DC /* ASValuePopUpView.h */,
+				30CF232F1932A868006D19DC /* ASValuePopUpView.m */,
 			);
 			path = NMRangeSlider;
 			sourceTree = "<group>";
@@ -628,8 +630,6 @@
 				30C11812186B42A20068633C /* SentrySensor.m */,
 				30C11814186B4EB00068633C /* ThermoSensor.h */,
 				30C11815186B4EB00068633C /* ThermoSensor.m */,
-				30CD5817192E181C00FFF102 /* AlarmService.h */,
-				30CD5818192E181C00FFF102 /* AlarmService.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -948,6 +948,7 @@
 				901399C5185A5EF20003D964 /* NSString+Util.m in Sources */,
 				90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */,
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,
+				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
 				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
 				90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */,
@@ -956,7 +957,6 @@
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
 				90815A421868736E00A9EC0A /* SensorValue.m in Sources */,
-				30CD5819192E181C00FFF102 /* AlarmService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

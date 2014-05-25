@@ -8,6 +8,7 @@
 // Inspried by: https://github.com/buildmobile/iosrangeslider
 
 #import <UIKit/UIKit.h>
+#import "ASValuePopUpView.h"
 
 @interface NMRangeSlider : UIControl
 

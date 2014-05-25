@@ -29,12 +29,21 @@ NSUInteger DeviceSystemMajorVersion() {
     float _upperTouchOffset;
     float _stepValueInternal;
     BOOL _haveAddedSubviews;
+    NSNumberFormatter *_numberFormatter;
+    CGSize _popUpViewSize;
 }
 
 @property (retain, nonatomic) UIImageView* lowerHandle;
 @property (retain, nonatomic) UIImageView* upperHandle;
 @property (retain, nonatomic) UIImageView* track;
 @property (retain, nonatomic) UIImageView* trackBackground;
+@property (strong, nonatomic) ASValuePopUpView *popUpView;
+@property (nonatomic) BOOL popUpViewAlwaysOn;
+
+- (void)showPopUpView;
+- (void)_showPopUpView;
+- (void)adjustPopUpViewFrame;
+- (void)positionAndUpdatePopUpView;
 
 @end
 
@@ -75,11 +84,17 @@ NSUInteger DeviceSystemMajorVersion() {
     
     return self;
 }
-
-
 - (void) configureView
 {
     //Setup the default values
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
+    [formatter setMaximumFractionDigits:2];
+    [formatter setMinimumFractionDigits:2];
+    _numberFormatter = formatter;
+    
     _minimumValue = 0.0;
     _maximumValue = 1.0;
     _minimumRange = 0.0;
@@ -95,6 +110,15 @@ NSUInteger DeviceSystemMajorVersion() {
     _upperMinimumValue = NAN;
     _upperHandleHidden = NO;
     _lowerHandleHidden = NO;
+    
+    self.popUpView = [[ASValuePopUpView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    self.popUpView.alpha = 0.0;
+    [self.popUpView setColor:[UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7]];
+    [self.popUpView setTextColor:[UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1]];
+    [self.popUpView setCornerRadius:6.0];
+    [self.popUpView setFont:[UIFont fontWithName:@"GillSans-Bold" size:22]];
+    //self.popUpView.delegate = self;
+    [self addSubview:self.popUpView];
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -143,7 +167,7 @@ NSUInteger DeviceSystemMajorVersion() {
     {
         value = roundf(value / _stepValueInternal) * _stepValueInternal;
     }
-
+    
     value = MAX(value, _minimumValue);
     value = MIN(value, _maximumValue);
     
@@ -154,7 +178,7 @@ NSUInteger DeviceSystemMajorVersion() {
     value = MAX(value, _lowerValue+_minimumRange);
     
     _upperValue = value;
-
+    
     [self setNeedsLayout];
 }
 
@@ -197,7 +221,7 @@ NSUInteger DeviceSystemMajorVersion() {
     {
         setValuesBlock();
     }
-
+    
 }
 
 - (void)setLowerValue:(float)lowerValue animated:(BOOL) animated
@@ -304,7 +328,7 @@ NSUInteger DeviceSystemMajorVersion() {
             UIImage* image = [UIImage imageNamed:@"slider-default7-handle"];
             _lowerHandleImageNormal = image;
         }
-
+        
     }
     
     return _lowerHandleImageNormal;
@@ -421,7 +445,7 @@ NSUInteger DeviceSystemMajorVersion() {
     
     retValue.origin = CGPointMake(xLowerValue, (self.bounds.size.height/2.0f) - (retValue.size.height/2.0f));
     retValue.size.width = xUpperValue-xLowerValue;
-
+    
     return retValue;
 }
 
@@ -438,7 +462,7 @@ NSUInteger DeviceSystemMajorVersion() {
 }
 
 //returns the rect for the background image
- -(CGRect) trackBackgroundRect
+-(CGRect) trackBackgroundRect
 {
     CGRect trackBackgroundRect;
     
@@ -464,7 +488,7 @@ NSUInteger DeviceSystemMajorVersion() {
 {
     CGRect thumbRect;
     UIEdgeInsets insets = thumbImage.capInsets;
-
+    
     thumbRect.size = CGSizeMake(thumbImage.size.width, thumbImage.size.height);
     
     if(insets.top || insets.bottom)
@@ -476,7 +500,7 @@ NSUInteger DeviceSystemMajorVersion() {
     thumbRect.origin = CGPointMake(xValue, (self.bounds.size.height/2.0f) - (thumbRect.size.height/2.0f));
     
     return CGRectIntegral(thumbRect);
-
+    
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -531,11 +555,11 @@ NSUInteger DeviceSystemMajorVersion() {
     {
         _upperValue = _maximumValue;
     }
-
+    
     self.trackBackground.frame = [self trackBackgroundRect];
     self.track.frame = [self trackRect];
     self.track.image = [self trackImageForCurrentValues];
-
+    
     // Layout the lower handle
     self.lowerHandle.frame = [self thumbRectForValue:_lowerValue image:self.lowerHandleImageNormal];
     self.lowerHandle.image = self.lowerHandleImageNormal;
@@ -552,10 +576,68 @@ NSUInteger DeviceSystemMajorVersion() {
 
 - (CGSize)intrinsicContentSize
 {
-   return CGSizeMake(UIViewNoIntrinsicMetric, MAX(self.lowerHandleImageNormal.size.height, self.upperHandleImageNormal.size.height));
+    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(self.lowerHandleImageNormal.size.height, self.upperHandleImageNormal.size.height));
 }
 
 // ------------------------------------------------------------------------------------------------------
+
+#pragma mark -
+#pragma mark - Popup view calculations
+
+- (void)showPopUpView {
+    self.popUpViewAlwaysOn = YES;
+    [self _showPopUpView];
+}
+
+- (void)_showPopUpView {
+    [self positionAndUpdatePopUpView];
+    [self.popUpView show];
+}
+
+- (void)positionAndUpdatePopUpView {
+    NSString *valueString = nil;
+    CGFloat offset = 0.0;
+    if (_lowerHandle.highlighted) {
+        offset = _lowerTouchOffset;
+        valueString = [_numberFormatter stringFromNumber:@(self.lowerValue)];
+    }
+    else {
+        offset = _upperTouchOffset;
+        valueString = [_numberFormatter stringFromNumber:@(self.upperValue)];
+    }
+    _popUpViewSize = [self.popUpView popUpSizeForString:valueString];
+    [self.popUpView setString:valueString];
+    [self adjustPopUpViewFrame];
+    [self.popUpView setAnimationOffset:offset];
+}
+
+- (void)adjustPopUpViewFrame {
+    CGRect thumbRect;
+    
+    if (_lowerHandle.highlighted) {
+        thumbRect = [_lowerHandle frame];
+    }
+    else {
+        thumbRect = [_upperHandle frame];
+    }
+    
+    CGFloat thumbW = thumbRect.size.width;
+    CGFloat thumbH = thumbRect.size.height;
+    
+    CGRect popUpRect = CGRectInset(thumbRect, (thumbW - _popUpViewSize.width)/2, (thumbH - _popUpViewSize.height)/2);
+    popUpRect.origin.y = thumbRect.origin.y - _popUpViewSize.height;
+    
+    // determine if popUpRect extends beyond the frame of the UISlider
+    // if so adjust frame and set the center offset of the PopUpView's arrow
+    CGFloat minOffsetX = CGRectGetMinX(popUpRect);
+    CGFloat maxOffsetX = CGRectGetMaxX(popUpRect) - self.bounds.size.width;
+    
+    CGFloat offset = minOffsetX < 0.0 ? minOffsetX : (maxOffsetX > 0.0 ? maxOffsetX : 0.0);
+    popUpRect.origin.x -= offset;
+    
+    [self.popUpView setArrowCenterOffset:offset];
+    self.popUpView.frame = CGRectIntegral(popUpRect);
+}
 
 #pragma mark -
 #pragma mark - Touch handling
@@ -566,7 +648,7 @@ NSUInteger DeviceSystemMajorVersion() {
 {
     float xPadding = 5;
     float yPadding = 5; //(self.bounds.size.height-touchRect.size.height)/2.0f
-
+    
     // expands rect by xPadding in both x-directions, and by yPadding in both y-directions
     CGRect touchRect = CGRectInset(handleImageView.frame, -xPadding, -yPadding);;
     return touchRect;
@@ -580,20 +662,24 @@ NSUInteger DeviceSystemMajorVersion() {
     //Check both buttons upper and lower thumb handles because
     //they could be on top of each other.
     
+    
+    
     if(CGRectContainsPoint([self touchRectForHandle:_lowerHandle], touchPoint))
     {
         _lowerHandle.highlighted = YES;
         _lowerTouchOffset = touchPoint.x - _lowerHandle.center.x;
+        [self _showPopUpView];
     }
     
     if(CGRectContainsPoint([self touchRectForHandle:_upperHandle], touchPoint))
     {
         _upperHandle.highlighted = YES;
         _upperTouchOffset = touchPoint.x - _upperHandle.center.x;
+        [self _showPopUpView];
     }
     
-    _stepValueInternal= _stepValueContinuously ? _stepValue : 0.0f;
     
+    _stepValueInternal= _stepValueContinuously ? _stepValue : 0.0f;
     return YES;
 }
 
@@ -630,7 +716,7 @@ NSUInteger DeviceSystemMajorVersion() {
     if(_upperHandle.highlighted )
     {
         float newValue = [self upperValueForCenterX:(touchPoint.x - _upperTouchOffset)];
-
+        
         //if both upper and lower is selected, then the new value must be HIGHER
         //otherwise the touch event is ignored.
         if(!_lowerHandle.highlighted || newValue>_upperValue)
@@ -644,7 +730,6 @@ NSUInteger DeviceSystemMajorVersion() {
             _upperHandle.highlighted=NO;
         }
     }
-     
     
     //send the control event
     if(_continuous)
@@ -654,7 +739,9 @@ NSUInteger DeviceSystemMajorVersion() {
     
     //redraw
     [self setNeedsLayout];
-
+    
+    [self positionAndUpdatePopUpView];
+    
     return YES;
 }
 
@@ -662,11 +749,13 @@ NSUInteger DeviceSystemMajorVersion() {
 
 -(void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    [self positionAndUpdatePopUpView];
+    if (self.popUpViewAlwaysOn == NO) [self.popUpView hide];
+    
     _lowerHandle.highlighted = NO;
     _upperHandle.highlighted = NO;
     
-    if(_stepValue>0)
-    {
+    if(_stepValue>0) {
         _stepValueInternal=_stepValue;
         
         [self setLowerValue:_lowerValue animated:YES];
@@ -674,6 +763,10 @@ NSUInteger DeviceSystemMajorVersion() {
     }
     
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (void)popUpViewDidHide {
+    
 }
 
 @end
