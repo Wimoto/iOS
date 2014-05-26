@@ -7,6 +7,7 @@
 //
 
 #import "SensorViewController.h"
+#import "NSString+Util.h"
 
 @interface SensorViewController ()
 
@@ -29,7 +30,7 @@
 {
     [super viewDidLoad];
     NSString *sensorName = [self.sensor name];
-    if ([sensorName length] > 0) {
+    if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
     if (_sensor.rssi) {
@@ -94,7 +95,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if ([textField.text length] > 0) {
+    if ([textField.text isNotEmpty]) {
         self.sensor.name = [textField text];
         [self.sensor save:nil];
     }
