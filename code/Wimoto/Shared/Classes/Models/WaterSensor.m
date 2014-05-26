@@ -40,12 +40,15 @@
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
     if ([service.UUID.UUIDString isEqualToString:BLE_WATER_SERVICE_UUID_LEVEL]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_HIGH_VALUE]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]))
-            {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_HIGH_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET]]) {
+                [aPeripheral readValueForCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]) {
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
@@ -53,10 +56,13 @@
     }
     else if ([service.UUID.UUIDString isEqualToString:BLE_WATER_SERVICE_UUID_PRESENCE]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM_SET]])||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM]]))
-            {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM_SET]]) {
+                [aPeripheral readValueForCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM]]) {
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }

@@ -51,6 +51,8 @@
                         return kPeripheralTypeSentry;
                     } else if ([model isEqual:BLE_THERMO_MODEL]) {
                         return kPeripheralTypeThermo;
+                    } else {
+                        return kPeripheralTypeTest;
                     }
                 }
             }

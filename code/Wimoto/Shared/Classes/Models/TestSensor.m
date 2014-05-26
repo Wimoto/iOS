@@ -33,9 +33,9 @@
                 
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
                 
-                uint8_t val = 1;
-                NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
-                [aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
+                //uint8_t val = 1;
+                //NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
+                //[aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
             }
         }
     }
@@ -44,7 +44,10 @@
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
+        NSLog(@"WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!eeee!!!!!!!!!!!!!!!!!!!!!! %@", error);
         if( (characteristic.value)  || !error ) {
+            NSLog(@"WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            
             const uint8_t *reportData = [characteristic.value bytes];
             uint16_t bpm = 0;
             
