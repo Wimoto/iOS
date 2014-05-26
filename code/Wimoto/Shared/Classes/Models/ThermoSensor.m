@@ -90,6 +90,7 @@
                     const uint8_t *data = [characteristic.value bytes];
                     uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
                     self.probeTemp = value16_t;
+                    NSLog(@"ThermoSensor didUpdateValueForCharacteristic probeTemp %f", _probeTemp);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:value16_t];
                 }
             }
@@ -97,6 +98,7 @@
                     [characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_SET]) {
                 uint8_t alarmSetValue  = 0;
                 [[characteristic value] getBytes:&alarmSetValue length:sizeof (alarmSetValue)];
+                NSLog(@"ALARM SET CHARACTERISTIC %@ WITH VALUE - %hhu", characteristic, alarmSetValue);
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]) {
                     if (_irTempAlarmState == kAlarmStateUnknown) {
                         self.irTempAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;

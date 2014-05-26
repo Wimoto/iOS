@@ -67,8 +67,10 @@
     }];
     
     ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    //_probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    _irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    _probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    NSLog(@"IR TEMPERATURE SWITCH IS ON - %i", [_irTempSwitch isOn]);
+    NSLog(@"PROBE TEMPERATURE SWITCH IS ON - %i", [_probeTempSwitch isOn]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,6 +123,8 @@
         [self.alarmSlider setUpperValue:[_probeTempHighValueLabel.text floatValue]];
         [self.alarmSlider setLowerValue:[_probeTempLowValueLabel.text floatValue]];
     }
+    NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
+    NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
     [super showSlider];
 }
 
@@ -134,11 +138,16 @@
     else if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
         _probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
     }
+    NSLog(@"IR TEMPERATURE SWITCH IS ON - %i", [_irTempSwitch isOn]);
+    NSLog(@"PROBE TEMPERATURE SWITCH IS ON - %i", [_probeTempSwitch isOn]);
 }
 
 - (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
     ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
     NSString *highValueString = [NSString stringWithFormat:@"%.f", [thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    
+    NSLog(@"THERMO didReadMaxAlarmValueFromCharacteristic - %@", highValueString);
+    
     if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]) {
         _irTempHighValueLabel.text = highValueString;
     }
@@ -150,6 +159,9 @@
 - (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
     ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
     NSString *lowValueString = [NSString stringWithFormat:@"%.f", [thermoSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    
+    NSLog(@"THERMO didReadMinAlarmValueFromCharacteristic - %@", lowValueString);
+    
     if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]) {
         _irTempLowValueLabel.text = lowValueString;
     }

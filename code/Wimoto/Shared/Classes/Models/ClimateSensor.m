@@ -115,12 +115,15 @@
                 uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
                     self.temperature = value16_t;
+                    NSLog(@"ClimateSensor didUpdateValueForCharacteristic temperature %f", _temperature);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
                     self.humidity = value16_t;
+                    NSLog(@"ClimateSensor didUpdateValueForCharacteristic humidity %f", _humidity);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
                     self.light = value16_t;
+                    NSLog(@"ClimateSensor didUpdateValueForCharacteristic light %f", _light);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:value16_t];
                 }
             }

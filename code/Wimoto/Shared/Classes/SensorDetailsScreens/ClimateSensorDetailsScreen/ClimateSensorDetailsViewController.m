@@ -167,11 +167,17 @@
     else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]) {
         _humiditySwitch.on = (climateSensor.humidityAlarmState == kAlarmStateEnabled)?YES:NO;
     }
+    NSLog(@"TEMPERATURE SWITCH IS ON - %i", [_tempSwitch isOn]);
+    NSLog(@"LIGHT SWITCH IS ON - %i", [_tempSwitch isOn]);
+    NSLog(@"HUMIDITY SWITCH IS ON - %i", [_tempSwitch isOn]);
 }
 
 - (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     NSString *highValueString = [NSString stringWithFormat:@"%.f", [climateSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    
+    NSLog(@"CLIMATE didReadMaxAlarmValueFromCharacteristic - %@", highValueString);
+    
     if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_HIGH_VALUE]) {
         _tempHighValueLabel.text = highValueString;
     }
@@ -186,6 +192,9 @@
 - (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     NSString *lowValueString = [NSString stringWithFormat:@"%.f", [climateSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    
+    NSLog(@"CLIMATE didReadMinAlarmValueFromCharacteristic - %@", lowValueString);
+    
     if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]) {
         _tempLowValueLabel.text = lowValueString;
     }
