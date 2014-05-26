@@ -25,6 +25,13 @@
 @property (nonatomic, weak) IBOutlet UISwitch *soilMoistureSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
 
+@property (nonatomic, weak) IBOutlet UILabel *soilTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *soilTempLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *soilMoistureHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *soilMoistureLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (IBAction)switchAction:(id)sender;
@@ -110,27 +117,26 @@
 }
 
 - (void)showSlider {
-    GrowSensor *growSensor = (GrowSensor *)[self sensor];
     if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:-60];
         [self.alarmSlider setMaximumValue:130];
-        [self.alarmSlider setUpperValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]];
-        [self.alarmSlider setLowerValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]];
+        [self.alarmSlider setUpperValue:[_soilTempHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_soilTempLowValueLabel.text floatValue]];
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]];
-        [self.alarmSlider setLowerValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]];
+        [self.alarmSlider setUpperValue:[_soilMoistureHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_soilMoistureLowValueLabel.text floatValue]];
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]];
-        [self.alarmSlider setLowerValue:[growSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]];
+        [self.alarmSlider setUpperValue:[_lightHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_lightLowValueLabel.text floatValue]];
     }
     [super showSlider];
 }
@@ -150,6 +156,34 @@
     }
 }
 
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    GrowSensor *growSensor = (GrowSensor *)[self sensor];
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", [growSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]) {
+        _lightHighValueLabel.text = highValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]) {
+        _soilMoistureHighValueLabel.text = highValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]) {
+        _soilTempHighValueLabel.text = highValueString;
+    }
+}
+
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    GrowSensor *growSensor = (GrowSensor *)[self sensor];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [growSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]) {
+        _lightLowValueLabel.text = lowValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]) {
+        _soilMoistureLowValueLabel.text = lowValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]) {
+        _soilTempLowValueLabel.text = lowValueString;
+    }
+}
+
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
@@ -160,16 +194,16 @@
     NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
     NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
     if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]) {
-        self.highLabel1.text = highValueString;
-        self.lowLabel1.text = lowValueString;
+        self.lightHighValueLabel.text = highValueString;
+        self.lightLowValueLabel.text = lowValueString;
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]) {
-        self.highLabel2.text = highValueString;
-        self.lowLabel2.text = lowValueString;
+        self.soilMoistureHighValueLabel.text = highValueString;
+        self.soilMoistureLowValueLabel.text = lowValueString;
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]) {
-        self.highLabel3.text = highValueString;
-        self.lowLabel3.text = lowValueString;
+        self.soilTempHighValueLabel.text = highValueString;
+        self.soilTempLowValueLabel.text = lowValueString;
     }
 }
 

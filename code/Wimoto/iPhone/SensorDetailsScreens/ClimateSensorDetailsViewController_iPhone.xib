@@ -7,21 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
             <connections>
-                <outlet property="highLabel1" destination="Qf0-L1-lSS" id="ieL-Id-VrB"/>
-                <outlet property="highLabel2" destination="Yt3-jc-GKZ" id="zWj-Sc-Kfn"/>
-                <outlet property="highLabel3" destination="KdS-5t-AX1" id="qVk-xH-ns6"/>
+                <outlet property="humidityHighValueLabel" destination="Yt3-jc-GKZ" id="8aR-vy-9z6"/>
                 <outlet property="humidityLabel" destination="bou-t8-gdO" id="3KR-B0-QCI"/>
+                <outlet property="humidityLowValueLabel" destination="7kM-8z-c4a" id="wKE-iq-yba"/>
                 <outlet property="humiditySparkLine" destination="vTM-6t-ZAh" id="lhw-l8-Xqr"/>
                 <outlet property="humiditySwitch" destination="eb0-0Z-mEh" id="TZ6-Sv-Ec0"/>
+                <outlet property="lightHighValueLabel" destination="KdS-5t-AX1" id="iDJ-Vc-Y6p"/>
                 <outlet property="lightLabel" destination="8uL-Ie-P0I" id="AAc-vC-oOB"/>
+                <outlet property="lightLowValueLabel" destination="raK-Fm-L2I" id="MCU-Ik-mnb"/>
                 <outlet property="lightSparkLine" destination="GUy-t8-EfU" id="bH7-IT-Ses"/>
                 <outlet property="lightSwitch" destination="Vbq-QI-fv3" id="MPv-NW-ibw"/>
-                <outlet property="lowLabel1" destination="0On-zC-d98" id="Fay-8C-DVJ"/>
-                <outlet property="lowLabel2" destination="7kM-8z-c4a" id="fdh-wh-Tp4"/>
-                <outlet property="lowLabel3" destination="raK-Fm-L2I" id="xcF-jo-212"/>
                 <outlet property="rssiLabel" destination="KdY-vM-CDd" id="coH-Lz-dOF"/>
                 <outlet property="sensorNameField" destination="BTx-TC-b7C" id="FoO-7R-QW5"/>
+                <outlet property="tempHighValueLabel" destination="Qf0-L1-lSS" id="9yU-S4-niE"/>
                 <outlet property="tempLabel" destination="foX-aJ-AD6" id="Nrg-KW-Pxy"/>
+                <outlet property="tempLowValueLabel" destination="0On-zC-d98" id="5K4-5g-122"/>
                 <outlet property="tempSwitch" destination="psa-nU-Tq1" id="cwu-Io-2hq"/>
                 <outlet property="temperatureSparkLine" destination="8qC-Wx-gN1" id="ocf-HR-IEw"/>
                 <outlet property="view" destination="1" id="3"/>

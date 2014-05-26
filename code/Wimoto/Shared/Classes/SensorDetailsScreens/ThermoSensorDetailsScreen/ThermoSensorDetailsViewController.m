@@ -21,6 +21,11 @@
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 
+@property (nonatomic, weak) IBOutlet UILabel *irTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *irTempLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *probeTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *probeTempLowValueLabel;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (void)didConnectPeripheral:(NSNotification*)notification;
@@ -62,8 +67,8 @@
     }];
     
     ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    _irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    _probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    //_probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,20 +107,19 @@
 }
 
 - (void)showSlider {
-    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
     if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:-60];
         [self.alarmSlider setMaximumValue:130];
-        [self.alarmSlider setUpperValue:[thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]];
-        [self.alarmSlider setLowerValue:[thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]];
+        [self.alarmSlider setUpperValue:[_irTempHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_irTempLowValueLabel.text floatValue]];
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]];
-        [self.alarmSlider setLowerValue:[thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]];
+        [self.alarmSlider setUpperValue:[_probeTempHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_probeTempLowValueLabel.text floatValue]];
     }
     [super showSlider];
 }
@@ -132,6 +136,28 @@
     }
 }
 
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", [thermoSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]) {
+        _irTempHighValueLabel.text = highValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE]) {
+        _probeTempHighValueLabel.text = highValueString;
+    }
+}
+
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [thermoSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]) {
+        _irTempLowValueLabel.text = lowValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]) {
+        _probeTempLowValueLabel.text = lowValueString;
+    }
+}
+
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
@@ -142,12 +168,12 @@
     NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
     NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
     if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
-        self.highLabel1.text = highValueString;
-        self.lowLabel1.text = lowValueString;
+        self.irTempHighValueLabel.text = highValueString;
+        self.irTempLowValueLabel.text = lowValueString;
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
-        self.highLabel2.text = highValueString;
-        self.lowLabel2.text = lowValueString;
+        self.probeTempHighValueLabel.text = highValueString;
+        self.probeTempLowValueLabel.text = lowValueString;
     }
 }
 

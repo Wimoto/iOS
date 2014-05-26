@@ -26,6 +26,13 @@
 @property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *humiditySwitch;
 
+@property (nonatomic, weak) IBOutlet UILabel *tempHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *tempLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *humidityHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *humidityLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (IBAction)switchAction:(id)sender;
@@ -120,27 +127,26 @@
 }
 
 - (void)showSlider {
-    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:-60];
         [self.alarmSlider setMaximumValue:130];
-        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]];
-        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]];
+        [self.alarmSlider setUpperValue:[_tempHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_tempLowValueLabel.text floatValue]];
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]];
-        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]];
+        [self.alarmSlider setUpperValue:[_lightHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_lightLowValueLabel.text floatValue]];
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
-        [self.alarmSlider setLowerValue:[climateSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]];
+        [self.alarmSlider setUpperValue:[_humidityHighValueLabel.text floatValue]];
+        [self.alarmSlider setLowerValue:[_humidityLowValueLabel.text floatValue]];
     }
     NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
     NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
@@ -163,6 +169,34 @@
     }
 }
 
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", [climateSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_HIGH_VALUE]) {
+        _tempHighValueLabel.text = highValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]) {
+        _lightHighValueLabel.text = highValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_HIGH_VALUE]) {
+        _humidityHighValueLabel.text = highValueString;
+    }
+}
+
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+    ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [climateSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]) {
+        _tempLowValueLabel.text = lowValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]) {
+        _lightLowValueLabel.text = lowValueString;
+    }
+    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_LOW_VALUE]) {
+        _humidityLowValueLabel.text = lowValueString;
+    }
+}
+
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
@@ -173,16 +207,16 @@
     NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
     NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
     if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
-        self.highLabel1.text = highValueString;
-        self.lowLabel1.text = lowValueString;
+        self.tempHighValueLabel.text = highValueString;
+        self.tempLowValueLabel.text = lowValueString;
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]) {
-        self.highLabel3.text = highValueString;
-        self.lowLabel3.text = lowValueString;
+        self.lightHighValueLabel.text = highValueString;
+        self.lightLowValueLabel.text = lowValueString;
     }
     else if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]) {
-        self.highLabel2.text = highValueString;
-        self.lowLabel2.text = lowValueString;
+        self.humidityHighValueLabel.text = highValueString;
+        self.humidityLowValueLabel.text = lowValueString;
     }
 }
 

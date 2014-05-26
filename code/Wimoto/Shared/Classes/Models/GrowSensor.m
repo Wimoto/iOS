@@ -161,6 +161,16 @@
                 }
             });
         }
+        else if ([characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]) {
+            [self.delegate didReadMinAlarmValueFromCharacteristicUUID:characteristic.UUID.UUIDString];
+        }
+        else if ([characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]) {
+            [self.delegate didReadMaxAlarmValueFromCharacteristicUUID:characteristic.UUID.UUIDString];
+        }
     }
 }
 

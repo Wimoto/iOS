@@ -25,6 +25,8 @@ typedef enum {
 @protocol SensorDelegate <NSObject>
 
 - (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString;
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString;
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString;
 
 @end
 

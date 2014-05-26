@@ -7,14 +7,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
-                <outlet property="highLabel1" destination="bZ4-px-W5R" id="okZ-rd-Rwy"/>
-                <outlet property="highLabel2" destination="Vh5-Ep-HKY" id="Kzq-VM-gVy"/>
+                <outlet property="irTempHighValueLabel" destination="bZ4-px-W5R" id="vua-Gl-Bjw"/>
                 <outlet property="irTempLabel" destination="8t6-mc-eiS" id="XZs-86-EKl"/>
+                <outlet property="irTempLowValueLabel" destination="V3D-TB-Gby" id="m3e-Yp-qvV"/>
                 <outlet property="irTempSparkLine" destination="JHS-k0-eef" id="Gv0-HZ-fU9"/>
                 <outlet property="irTempSwitch" destination="nAK-r8-FWW" id="eT8-Ne-89I"/>
-                <outlet property="lowLabel1" destination="V3D-TB-Gby" id="Xcb-FO-mim"/>
-                <outlet property="lowLabel2" destination="XOW-ga-6ao" id="8yq-Qf-AXY"/>
+                <outlet property="probeTempHighValueLabel" destination="Vh5-Ep-HKY" id="J3g-47-mVp"/>
                 <outlet property="probeTempLabel" destination="g3j-J0-PvV" id="QqK-8d-qoK"/>
+                <outlet property="probeTempLowValueLabel" destination="XOW-ga-6ao" id="6oy-fZ-F7s"/>
                 <outlet property="probeTempSparkLine" destination="pIp-0X-2YB" id="XZv-Xw-wGz"/>
                 <outlet property="probeTempSwitch" destination="YaN-Ez-a8g" id="04z-Tg-keW"/>
                 <outlet property="rssiLabel" destination="3CF-Eq-6Uj" id="AJd-0d-7Ox"/>

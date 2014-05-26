@@ -7,21 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
-                <outlet property="highLabel1" destination="nEJ-XV-9K2" id="He6-2V-s4d"/>
-                <outlet property="highLabel2" destination="QIm-gN-4ZZ" id="3xu-wb-PgO"/>
-                <outlet property="highLabel3" destination="LRy-Qo-1pn" id="Fz8-Qc-FUu"/>
+                <outlet property="lightHighValueLabel" destination="nEJ-XV-9K2" id="ozt-0Z-a8j"/>
                 <outlet property="lightLabel" destination="LNT-Ni-2p1" id="UdF-bL-8m6"/>
+                <outlet property="lightLowValueLabel" destination="VRc-cR-dM4" id="jTe-9s-YQp"/>
                 <outlet property="lightSparkLine" destination="6hY-ns-rBL" id="Wzk-S1-J7K"/>
                 <outlet property="lightSwitch" destination="DbU-0T-VNX" id="yA5-VP-5x3"/>
-                <outlet property="lowLabel1" destination="VRc-cR-dM4" id="45P-IS-TtO"/>
-                <outlet property="lowLabel2" destination="wxW-3b-vmQ" id="Owp-F3-Zti"/>
-                <outlet property="lowLabel3" destination="w8o-ad-fXW" id="fzJ-4t-dIf"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
                 <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
+                <outlet property="soilMoistureHighValueLabel" destination="QIm-gN-4ZZ" id="aJY-lZ-JYP"/>
                 <outlet property="soilMoistureLabel" destination="VwV-nP-PwZ" id="4OE-3j-Ock"/>
+                <outlet property="soilMoistureLowValueLabel" destination="wxW-3b-vmQ" id="3Am-vP-NKP"/>
                 <outlet property="soilMoistureSparkLine" destination="Q0W-zR-mPo" id="jBL-kO-ZCY"/>
                 <outlet property="soilMoistureSwitch" destination="JNf-P3-NP1" id="KLf-o7-RID"/>
+                <outlet property="soilTempHighValueLabel" destination="LRy-Qo-1pn" id="PE5-BU-VLc"/>
                 <outlet property="soilTempLabel" destination="ngH-Qk-P3o" id="jWr-9c-anZ"/>
+                <outlet property="soilTempLowValueLabel" destination="w8o-ad-fXW" id="epG-pp-2K0"/>
                 <outlet property="soilTempSparkLine" destination="cK4-IV-Zyq" id="N0e-Yf-dGA"/>
                 <outlet property="soilTempSwitch" destination="ZIK-vh-gfE" id="g02-W2-pwC"/>
                 <outlet property="view" destination="1" id="3"/>

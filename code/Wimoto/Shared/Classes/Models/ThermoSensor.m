@@ -127,6 +127,14 @@
                 }
             });
         }
+        else if ([characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]) {
+            [self.delegate didReadMinAlarmValueFromCharacteristicUUID:characteristic.UUID.UUIDString];
+        }
+        else if ([characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]||
+                 [characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE]) {
+            [self.delegate didReadMaxAlarmValueFromCharacteristicUUID:characteristic.UUID.UUIDString];
+        }
     }
 }
 
