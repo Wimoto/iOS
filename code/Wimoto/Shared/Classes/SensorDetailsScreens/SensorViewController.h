@@ -17,6 +17,12 @@
 @property (nonatomic, strong) UISwitch *currentSwitch;
 @property (nonatomic, strong) AlarmSlider *alarmSlider;
 @property (nonatomic, weak) IBOutlet UITextField *sensorNameField;
+@property (nonatomic, weak) IBOutlet UILabel *lowLabel1;
+@property (nonatomic, weak) IBOutlet UILabel *highLabel1;
+@property (nonatomic, weak) IBOutlet UILabel *lowLabel2;
+@property (nonatomic, weak) IBOutlet UILabel *highLabel2;
+@property (nonatomic, weak) IBOutlet UILabel *lowLabel3;
+@property (nonatomic, weak) IBOutlet UILabel *highLabel3;
 
 - (id)initWithSensor:(Sensor *)sensor;
 - (void)showSlider;

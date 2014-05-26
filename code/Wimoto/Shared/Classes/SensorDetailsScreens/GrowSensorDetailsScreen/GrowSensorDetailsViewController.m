@@ -156,6 +156,21 @@
     GrowSensor *growSensor = (GrowSensor *)[self sensor];
     [growSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
     [growSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+    
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
+    if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]) {
+        self.highLabel1.text = highValueString;
+        self.lowLabel1.text = lowValueString;
+    }
+    else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]) {
+        self.highLabel2.text = highValueString;
+        self.lowLabel2.text = lowValueString;
+    }
+    else if ([_currentAlarmUUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]) {
+        self.highLabel3.text = highValueString;
+        self.lowLabel3.text = lowValueString;
+    }
 }
 
 #pragma mark - Value Observer

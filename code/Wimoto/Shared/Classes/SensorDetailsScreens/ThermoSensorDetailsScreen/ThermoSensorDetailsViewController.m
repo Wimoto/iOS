@@ -138,6 +138,17 @@
     ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
     [thermoSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
     [thermoSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+    
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
+    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
+        self.highLabel1.text = highValueString;
+        self.lowLabel1.text = lowValueString;
+    }
+    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
+        self.highLabel2.text = highValueString;
+        self.lowLabel2.text = lowValueString;
+    }
 }
 
 #pragma mark - Value Observer
