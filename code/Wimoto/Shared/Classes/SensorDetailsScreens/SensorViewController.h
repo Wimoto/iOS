@@ -11,11 +11,12 @@
 #import "NMRangeSlider.h"
 #import "AlarmSlider.h"
 
-@interface SensorViewController : AppViewController <AlarmSliderDelegate, SensorDelegate>
+@interface SensorViewController : AppViewController <AlarmSliderDelegate, SensorDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) UISwitch *currentSwitch;
 @property (nonatomic, strong) AlarmSlider *alarmSlider;
+@property (nonatomic, weak) IBOutlet UITextField *sensorNameField;
 
 - (id)initWithSensor:(Sensor *)sensor;
 - (void)showSlider;

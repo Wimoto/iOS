@@ -20,7 +20,6 @@
     self = [super init];
     if (self) {
         _sensor = sensor;
-        
         [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -29,6 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSString *sensorName = [self.sensor name];
+    if ([sensorName length] > 0) {
+        self.sensorNameField.text = sensorName;
+    }
     if (_sensor.rssi) {
         _rssiLabel.text = [NSString stringWithFormat:@"%@dB", _sensor.rssi];
     }
@@ -64,6 +67,18 @@
     [_alarmSlider hideAction:nil];
 }
 
+#pragma mark - SensorDelegate
+
+- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
+    //Implement in child
+}
+
+#pragma mark - AlarmSliderDelegate
+
+- (void)alarmSliderSaveAction:(id)sender {
+    //Implement in child
+}
+
 #pragma mark - Value Observer
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -75,5 +90,15 @@
     }
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    if ([textField.text length] > 0) {
+        self.sensor.name = [textField text];
+        [self.sensor save:nil];
+    }
+    return YES;
+}
 
 @end

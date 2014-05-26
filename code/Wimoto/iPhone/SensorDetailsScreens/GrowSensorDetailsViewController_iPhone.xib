@@ -11,6 +11,7 @@
                 <outlet property="lightSparkLine" destination="6hY-ns-rBL" id="Wzk-S1-J7K"/>
                 <outlet property="lightSwitch" destination="DbU-0T-VNX" id="yA5-VP-5x3"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
+                <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
                 <outlet property="soilMoistureLabel" destination="VwV-nP-PwZ" id="4OE-3j-Ock"/>
                 <outlet property="soilMoistureSparkLine" destination="Q0W-zR-mPo" id="jBL-kO-ZCY"/>
                 <outlet property="soilMoistureSwitch" destination="JNf-P3-NP1" id="KLf-o7-RID"/>
@@ -33,12 +34,6 @@
                     <rect key="frame" x="209" y="3" width="71" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" text="Tomatoes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="UnM-Xa-9mA" userLabel="growSensorNickname">
-                    <rect key="frame" x="-20" y="19" width="360" height="76"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="48"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="pWs-7t-A5o" userLabel="growLastUpdated">
@@ -188,6 +183,16 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tomatoes" textAlignment="center" minimumFontSize="17" id="kBc-bx-CTj">
+                    <rect key="frame" x="0.0" y="22" width="320" height="76"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="48"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="5zb-hQ-Rj7"/>
+                    </connections>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.60000002384185791" green="0.91372555494308472" blue="0.48627454042434692" alpha="1" colorSpace="deviceRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
