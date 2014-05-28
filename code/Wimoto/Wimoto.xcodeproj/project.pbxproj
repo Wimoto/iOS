@@ -74,6 +74,7 @@
 		4901D3F0192F885D005EB15C /* battery-high.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EC192F885D005EB15C /* battery-high.png */; };
 		4901D3F1192F885D005EB15C /* battery-low.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3ED192F885D005EB15C /* battery-low.png */; };
 		4901D3F2192F885D005EB15C /* battery-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EE192F885D005EB15C /* battery-medium.png */; };
+		490B04B719311F8B0044D8C5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 490B04B619311F8B0044D8C5 /* Media.xcassets */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
@@ -90,7 +91,6 @@
 		493A4945184ECC390000A2F6 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4943184ECC390000A2F6 /* mail.png */; };
 		493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4946184ECECE0000A2F6 /* cloud-download.png */; };
 		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
-		493A494B184ED3C00000A2F6 /* cassette.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A494A184ED3C00000A2F6 /* cassette.png */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -221,6 +221,7 @@
 		4901D3EC192F885D005EB15C /* battery-high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-high.png"; sourceTree = "<group>"; };
 		4901D3ED192F885D005EB15C /* battery-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-low.png"; sourceTree = "<group>"; };
 		4901D3EE192F885D005EB15C /* battery-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-medium.png"; sourceTree = "<group>"; };
+		490B04B619311F8B0044D8C5 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../../Media.xcassets; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
 		493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_clock-512-white.png"; sourceTree = "<group>"; };
@@ -237,7 +238,6 @@
 		493A4943184ECC390000A2F6 /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
 		493A4946184ECECE0000A2F6 /* cloud-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-download.png"; sourceTree = "<group>"; };
 		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
-		493A494A184ED3C00000A2F6 /* cassette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cassette.png; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -556,7 +556,6 @@
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				493A494A184ED3C00000A2F6 /* cassette.png */,
 				493A4934184EB9C80000A2F6 /* plant_temperature-512.png */,
 				493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */,
 				4901D3E9192EB35F005EB15C /* cloud-refresh.png */,
@@ -660,6 +659,7 @@
 		90CFFEAA17A7CF2F00353F80 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				490B04B619311F8B0044D8C5 /* Media.xcassets */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -804,10 +804,10 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 98T7Z7XL3B;
+						DevelopmentTeam = 3VG2LSZQ89;
 					};
 				};
 			};
@@ -869,6 +869,7 @@
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */,
+				490B04B719311F8B0044D8C5 /* Media.xcassets in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
 				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
 				302A7162192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png in Resources */,
@@ -880,7 +881,6 @@
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90D4ABCB184E5654004DDB1F /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */,
-				493A494B184ED3C00000A2F6 /* cassette.png in Resources */,
 				4901D3E6192EB1D7005EB15C /* scale.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
@@ -967,6 +967,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -980,7 +982,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
@@ -994,6 +996,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1005,7 +1009,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
@@ -1019,14 +1023,13 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1035,15 +1038,14 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Shared/Classes/SensorDetailsScreens/AlarmSlider/AlarmSlider.h"
@@ -15,8 +15,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "rangeSlider"
-            landmarkType = "19">
+            landmarkName = "-alarmSliderSaveAction:"
+            landmarkType = "4">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AlarmSlider delegate]"
+                  moduleName = "Wimoto"
+                  urlString = "file:///Users/marc/Code/iOS/code/Wimoto/Shared/Classes/SensorDetailsScreens/AlarmSlider/AlarmSlider.h"
+                  timestampString = "422647339.708878"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "10">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AlarmSlider setDelegate:]"
+                  moduleName = "Wimoto"
+                  urlString = "file:///Users/marc/Code/iOS/code/Wimoto/Shared/Classes/SensorDetailsScreens/AlarmSlider/AlarmSlider.h"
+                  timestampString = "422647339.709084"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

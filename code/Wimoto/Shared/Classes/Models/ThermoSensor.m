@@ -126,7 +126,7 @@
                     }
                 }
                 else {
-                    [self alarmServiceDidStopAlarm:characteristic];
+//                        [self alarmServiceDidStopAlarm:characteristic];
                 }
             }
             else if ([characteristic.UUID.UUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]||
