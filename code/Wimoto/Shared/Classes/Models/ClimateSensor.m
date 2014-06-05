@@ -8,6 +8,7 @@
 
 #import "ClimateSensor.h"
 #import "DatabaseManager.h"
+#import "SensorHelper.h"
 
 @interface ClimateSensor ()
 
@@ -114,11 +115,11 @@
                 const uint8_t *data = [characteristic.value bytes];
                 uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-                    self.temperature = value16_t;
+                    self.temperature = [SensorHelper getTemperatureValue:value16_t];
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic temperature %f", _temperature);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
-                    self.humidity = value16_t;
+                    self.humidity = [SensorHelper getHumidityValue:value16_t];
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic humidity %f", _humidity);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
