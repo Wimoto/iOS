@@ -60,6 +60,7 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
@@ -201,6 +202,8 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
+		30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
 		30C1180F186B26270068633C /* GrowSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensor.m; sourceTree = "<group>"; };
 		30C11811186B42A20068633C /* SentrySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentrySensor.h; sourceTree = "<group>"; };
@@ -489,8 +492,10 @@
 				90EAB4AD185F9A5E00609A9C /* DatabaseManager */,
 				901399C3185A5EF20003D964 /* NSString+Util.h */,
 				901399C4185A5EF20003D964 /* NSString+Util.m */,
-				49F3F91218A510E600CDA950 /* SensorHelper.m */,
 				49F3F91118A5108800CDA950 /* SensorHelper.h */,
+				49F3F91218A510E600CDA950 /* SensorHelper.m */,
+				30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */,
+				30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -807,7 +812,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = 98T7Z7XL3B;
 					};
 				};
 			};
@@ -940,6 +945,7 @@
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
+				30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,

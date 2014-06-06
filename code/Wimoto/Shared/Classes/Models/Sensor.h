@@ -8,6 +8,7 @@
 
 #import "CBPeripheral+Util.h"
 #import <Couchbaselite/Couchbaselite.h>
+#import "NSData+Conversion.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 

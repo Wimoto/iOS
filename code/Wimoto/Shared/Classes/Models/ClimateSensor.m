@@ -115,7 +115,13 @@
                 const uint8_t *data = [characteristic.value bytes];
                 uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-                    self.temperature = [SensorHelper getTemperatureValue:value16_t];
+                    NSString *hexString = [characteristic.value hexadecimalString];
+                    NSLog(@"CLIMATE TEMP HEX VALUE %@", hexString);
+                    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+                    unsigned int temp;
+                    [scanner scanHexInt:&temp];
+                    self.temperature = -46.85 + (175.72*temp/65536);
+                    //self.temperature = [SensorHelper getTemperatureValue:value16_t];
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic temperature %f", _temperature);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {

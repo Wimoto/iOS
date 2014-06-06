@@ -48,7 +48,17 @@
             
             const uint8_t *reportData = [characteristic.value bytes];
             
-            NSLog(@"=--==-=--= %@", [NSString stringWithUTF8String:(char *)reportData]);
+            
+            NSString *decString = [characteristic.value hexadecimalString];
+            NSLog(@"-=--=-===-=-=--==-=-=- %@", decString);
+            
+            NSScanner *scanner = [NSScanner scannerWithString:decString];
+            unsigned int temp;
+            BOOL isValid = [scanner scanHexInt:&temp];
+            NSLog(@"ISVALID ======== %i", isValid);
+            NSLog(@"========== %i", temp);
+            NSLog(@"=--==-=--= %@", [characteristic.value description]);
+            NSLog(@"++++++++++ %@", [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding]);
             NSLog(@"---------- %@", [[NSString alloc] initWithBytes:[characteristic.value bytes] length:[characteristic.value length] encoding:NSUTF8StringEncoding]);
             
             
