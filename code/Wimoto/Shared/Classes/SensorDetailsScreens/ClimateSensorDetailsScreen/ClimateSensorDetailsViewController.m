@@ -59,7 +59,7 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    _tempLabel.text = [NSString stringWithFormat:@"%.1f", [SensorHelper getTemperatureValue:[(ClimateSensor*)self.sensor temperature]]];
+    _tempLabel.text = [NSString stringWithFormat:@"%.1f", [(ClimateSensor*)self.sensor temperature]];
     _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [SensorHelper getHumidityValue:[(ClimateSensor*)self.sensor humidity]]];
     _lightLabel.text = [NSString stringWithFormat:@"%.f", [(ClimateSensor*)self.sensor light]];
     
