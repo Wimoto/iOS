@@ -118,7 +118,7 @@
     CBCharacteristic *maxValueCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:UUIDString]]) {
                 maxValueCharacteristic = characteristic;
                 break;
             }
@@ -142,7 +142,7 @@
     CBCharacteristic *minValueCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:UUIDString]]) {
                 minValueCharacteristic = characteristic;
                 break;
             }
@@ -162,7 +162,7 @@
     CBCharacteristic *alarmSetCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:UUIDString]]) {
                 alarmSetCharacteristic = characteristic;
                 break;
             }
@@ -172,19 +172,18 @@
     [self.peripheral writeValue:[NSData dataWithBytes:&dat length:sizeof(dat)] forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
-- (CGFloat)minimumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString {
+- (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {
     CGFloat result  = NAN;
     int16_t value	= 0;
     CBCharacteristic *minValueCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+            if ([characteristic.UUID isEqual:uuid]) {
                 minValueCharacteristic = characteristic;
                 break;
             }
         }
     }
-    
     if (minValueCharacteristic) {
         [[minValueCharacteristic value] getBytes:&value length:sizeof (value)];
         result = (CGFloat)value / 10.0f;
@@ -192,13 +191,13 @@
     return result;
 }
 
-- (CGFloat)maximumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString {
+- (CGFloat)maximumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {
     CGFloat result  = NAN;
     int16_t value	= 0;
     CBCharacteristic *maxValueCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID.UUIDString isEqualToString:UUIDString]) {
+            if ([characteristic.UUID isEqual:uuid]) {
                 maxValueCharacteristic = characteristic;
                 break;
             }

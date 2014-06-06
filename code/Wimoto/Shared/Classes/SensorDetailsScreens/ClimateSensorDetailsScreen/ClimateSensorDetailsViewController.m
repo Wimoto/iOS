@@ -172,36 +172,36 @@
     NSLog(@"HUMIDITY SWITCH IS ON - %i", [_tempSwitch isOn]);
 }
 
-- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
-    NSString *highValueString = [NSString stringWithFormat:@"%.f", [climateSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", [climateSensor maximumAlarmValueForCharacteristicWithUUID:uuid]];
     
     NSLog(@"CLIMATE didReadMaxAlarmValueFromCharacteristic - %@", highValueString);
     
-    if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_HIGH_VALUE]) {
+    if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
         _tempHighValueLabel.text = highValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
         _lightHighValueLabel.text = highValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_HIGH_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_HIGH_VALUE]]) {
         _humidityHighValueLabel.text = highValueString;
     }
 }
 
-- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
-    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [climateSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [climateSensor minimumAlarmValueForCharacteristicWithUUID:uuid]];
     
     NSLog(@"CLIMATE didReadMinAlarmValueFromCharacteristic - %@", lowValueString);
     
-    if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]) {
+    if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
         _tempLowValueLabel.text = lowValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]) {
         _lightLowValueLabel.text = lowValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_LOW_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
         _humidityLowValueLabel.text = lowValueString;
     }
 }

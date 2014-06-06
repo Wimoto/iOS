@@ -44,11 +44,14 @@
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
-        NSLog(@"WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!eeee!!!!!!!!!!!!!!!!!!!!!! %@", error);
         if( (characteristic.value)  || !error ) {
-            NSLog(@"WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             
             const uint8_t *reportData = [characteristic.value bytes];
+            
+            NSLog(@"=--==-=--= %@", [NSString stringWithUTF8String:(char *)reportData]);
+            NSLog(@"---------- %@", [[NSString alloc] initWithBytes:[characteristic.value bytes] length:[characteristic.value length] encoding:NSUTF8StringEncoding]);
+            
+            
             uint16_t bpm = 0;
             
             if ((reportData[0] & 0x01) == 0) {

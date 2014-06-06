@@ -156,30 +156,30 @@
     }
 }
 
-- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
     GrowSensor *growSensor = (GrowSensor *)[self sensor];
-    NSString *highValueString = [NSString stringWithFormat:@"%.f", [growSensor maximumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
-    if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]) {
+    NSString *highValueString = [NSString stringWithFormat:@"%.f", [growSensor maximumAlarmValueForCharacteristicWithUUID:uuid]];
+    if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
         _lightHighValueLabel.text = highValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]]) {
         _soilMoistureHighValueLabel.text = highValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]) {
         _soilTempHighValueLabel.text = highValueString;
     }
 }
 
-- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString {
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
     GrowSensor *growSensor = (GrowSensor *)[self sensor];
-    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [growSensor minimumAlarmValueForCharacteristicWithUUIDString:UUIDString]];
-    if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]) {
+    NSString *lowValueString = [NSString stringWithFormat:@"%.f", [growSensor minimumAlarmValueForCharacteristicWithUUID:uuid]];
+    if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]) {
         _lightLowValueLabel.text = lowValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]]) {
         _soilMoistureLowValueLabel.text = lowValueString;
     }
-    else if ([UUIDString isEqualToString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]) {
+    else if ([uuid isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]) {
         _soilTempLowValueLabel.text = lowValueString;
     }
 }

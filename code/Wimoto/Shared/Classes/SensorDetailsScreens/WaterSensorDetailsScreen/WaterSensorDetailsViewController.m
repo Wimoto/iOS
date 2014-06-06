@@ -95,8 +95,8 @@
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:10];
         [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]];
-        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]];
+        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
+        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
     }
 }
 

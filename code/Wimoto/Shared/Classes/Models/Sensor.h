@@ -25,8 +25,8 @@ typedef enum {
 @protocol SensorDelegate <NSObject>
 
 - (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString;
-- (void)didReadMinAlarmValueFromCharacteristicUUID:(NSString *)UUIDString;
-- (void)didReadMaxAlarmValueFromCharacteristicUUID:(NSString *)UUIDString;
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(CBUUID *)uuid;
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(CBUUID *)uuid;
 
 @end
 
@@ -44,8 +44,8 @@ typedef enum {
 + (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
-- (CGFloat)minimumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString;
-- (CGFloat)maximumAlarmValueForCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
+- (CGFloat)maximumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;

@@ -74,6 +74,14 @@
     //Implement in child
 }
 
+- (void)didReadMinAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
+    //Implement in child
+}
+
+- (void)didReadMaxAlarmValueFromCharacteristicUUID:(CBUUID *)uuid {
+    //Implement in child
+}
+
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
