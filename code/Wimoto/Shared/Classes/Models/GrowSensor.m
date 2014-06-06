@@ -108,17 +108,21 @@
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]||
                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]||
                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
-                const uint8_t *data = [characteristic.value bytes];
-            uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
+                
+                NSString *hexString = [characteristic.value hexadecimalString];
+                NSScanner *scanner = [NSScanner scannerWithString:hexString];
+                unsigned int decimalValue;
+                [scanner scanHexInt:&decimalValue];
+                
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
-                    self.soilTemperature = value16_t;
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilTemperature value:value16_t];
+                    self.soilTemperature = decimalValue;
+                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilTemperature value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
-                    self.light = value16_t;
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeGrowLight value:value16_t];
+                    self.light = decimalValue;
+                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeGrowLight value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
-                    self.soilMoisture = value16_t;
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilHumidity value:value16_t];
+                    self.soilMoisture = decimalValue;
+                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeSoilHumidity value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]||

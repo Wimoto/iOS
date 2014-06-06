@@ -66,9 +66,9 @@
         _probeTempSparkLine.dataValues = item;
     }];
     
-    //ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    //_probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
+    _irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    _probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
     NSLog(@"IR TEMPERATURE SWITCH IS ON - %i", [_irTempSwitch isOn]);
     NSLog(@"PROBE TEMPERATURE SWITCH IS ON - %i", [_probeTempSwitch isOn]);
 }
