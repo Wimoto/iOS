@@ -40,6 +40,7 @@ typedef enum {
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) NSNumber *rssi;
+@property (nonatomic, strong) NSDate *lastUpdateDate;
 @property (nonatomic, weak) id<SensorDelegate>delegate;
 
 + (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral;

@@ -10,6 +10,7 @@
                 <outlet property="batteryLevelImage" destination="PEB-Ku-7xD" id="wMK-vK-Wti"/>
                 <outlet property="contactLabel" destination="npa-2Y-cw2" id="RNl-Ud-tpx"/>
                 <outlet property="contactSwitch" destination="Tdu-91-O6A" id="5It-WJ-NyC"/>
+                <outlet property="lastUpdateLabel" destination="FpO-6P-Bgv" id="8dy-g4-7dc"/>
                 <outlet property="levelLabel" destination="mG5-if-nek" id="hv3-rC-zeo"/>
                 <outlet property="levelSparkLine" destination="bMg-Iw-YEy" id="ffb-2x-fmW"/>
                 <outlet property="levelSwitch" destination="16B-bS-VE1" id="z3p-mB-m7A"/>
@@ -30,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="FpO-6P-Bgv" userLabel="waterLastUpdated">
-                    <rect key="frame" x="209" y="68" width="71" height="57"/>
+                    <rect key="frame" x="96" y="68" width="184" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

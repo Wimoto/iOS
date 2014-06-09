@@ -13,6 +13,7 @@
                 <outlet property="humidityLowValueLabel" destination="7kM-8z-c4a" id="wKE-iq-yba"/>
                 <outlet property="humiditySparkLine" destination="vTM-6t-ZAh" id="lhw-l8-Xqr"/>
                 <outlet property="humiditySwitch" destination="eb0-0Z-mEh" id="TZ6-Sv-Ec0"/>
+                <outlet property="lastUpdateLabel" destination="FtF-p4-4EG" id="bEO-nJ-0b4"/>
                 <outlet property="lightHighValueLabel" destination="KdS-5t-AX1" id="iDJ-Vc-Y6p"/>
                 <outlet property="lightLabel" destination="8uL-Ie-P0I" id="AAc-vC-oOB"/>
                 <outlet property="lightLowValueLabel" destination="raK-Fm-L2I" id="MCU-Ik-mnb"/>
@@ -44,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="FtF-p4-4EG" userLabel="climateLastUpdated">
-                    <rect key="frame" x="209" y="69" width="71" height="57"/>
+                    <rect key="frame" x="96" y="69" width="184" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

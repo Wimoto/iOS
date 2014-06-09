@@ -8,6 +8,7 @@
 
 #import "SensorViewController.h"
 #import "NSString+Util.h"
+#import "RelativeDateDescriptor.h"
 
 @interface SensorViewController ()
 
@@ -32,6 +33,17 @@
 {
     [super viewDidLoad];
     NSString *sensorName = [self.sensor name];
+    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
+    
+    //NSString *dateString = @"1.05.2014";
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //[dateFormatter setDateFormat:@"dd.MM.yyyy"];
+    //NSDate *date = [dateFormatter dateFromString:dateString];
+    
+    if (lastUpdateDate) {
+        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
+        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
+    }
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }

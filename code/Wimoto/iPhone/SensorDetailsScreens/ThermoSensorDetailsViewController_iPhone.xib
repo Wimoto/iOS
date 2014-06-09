@@ -13,6 +13,7 @@
                 <outlet property="irTempLowValueLabel" destination="V3D-TB-Gby" id="m3e-Yp-qvV"/>
                 <outlet property="irTempSparkLine" destination="JHS-k0-eef" id="Gv0-HZ-fU9"/>
                 <outlet property="irTempSwitch" destination="nAK-r8-FWW" id="eT8-Ne-89I"/>
+                <outlet property="lastUpdateLabel" destination="65O-DQ-X4v" id="QxV-Gy-tma"/>
                 <outlet property="probeTempHighValueLabel" destination="Vh5-Ep-HKY" id="J3g-47-mVp"/>
                 <outlet property="probeTempLabel" destination="g3j-J0-PvV" id="QqK-8d-qoK"/>
                 <outlet property="probeTempLowValueLabel" destination="XOW-ga-6ao" id="6oy-fZ-F7s"/>
@@ -35,7 +36,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="65O-DQ-X4v" userLabel="thermoLastUpdated">
-                    <rect key="frame" x="244" y="68" width="71" height="57"/>
+                    <rect key="frame" x="131" y="68" width="184" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

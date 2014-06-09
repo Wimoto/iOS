@@ -129,6 +129,7 @@
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
+        self.lastUpdateLabel.text = @"Just now";
         NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
         _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {

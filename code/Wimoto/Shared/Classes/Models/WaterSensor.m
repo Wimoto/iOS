@@ -81,6 +81,8 @@
                 const uint8_t *data = [characteristic.value bytes];
                 uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
+                    self.lastUpdateDate = [NSDate date];
+                    [self save:nil];
                     self.level = value16_t;
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLevel value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {

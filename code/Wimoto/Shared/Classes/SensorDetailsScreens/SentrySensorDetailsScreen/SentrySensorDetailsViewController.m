@@ -111,6 +111,7 @@
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER]) {
+        self.lastUpdateLabel.text = @"Just now";
         _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
             _accelerometerSparkLine.dataValues = item;

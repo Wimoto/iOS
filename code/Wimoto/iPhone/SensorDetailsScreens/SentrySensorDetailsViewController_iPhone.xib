@@ -11,6 +11,7 @@
                 <outlet property="accelerometerSparkLine" destination="FWh-TQ-XjM" id="T2p-Z8-3e9"/>
                 <outlet property="accelerometerSwitch" destination="sZ3-h0-ZnL" id="hSQ-9Y-AwA"/>
                 <outlet property="batteryLevelImage" destination="yeF-42-rkC" id="Rsf-XR-N91"/>
+                <outlet property="lastUpdateLabel" destination="P0X-Pu-lBh" id="8zz-w8-wx8"/>
                 <outlet property="pasInfraredLabel" destination="uqs-Jg-baq" id="5QS-47-6O8"/>
                 <outlet property="pasInfraredSparkLine" destination="Lr7-k8-LYp" id="YiO-gn-Lqz"/>
                 <outlet property="pasInfraredSwitch" destination="UAj-tW-2hf" id="Qn4-W8-D9j"/>
@@ -35,7 +36,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="P0X-Pu-lBh" userLabel="sentryLastUpdated">
-                    <rect key="frame" x="219" y="78" width="71" height="57"/>
+                    <rect key="frame" x="106" y="78" width="184" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

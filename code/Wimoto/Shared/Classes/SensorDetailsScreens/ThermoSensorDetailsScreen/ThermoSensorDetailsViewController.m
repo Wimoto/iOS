@@ -199,6 +199,7 @@
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
+        self.lastUpdateLabel.text = @"Just now";
         _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
             _irTempSparkLine.dataValues = item;

@@ -43,6 +43,7 @@
 		302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */; };
 		302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A714E192D284B006E0A6C /* NMRangeSlider.m */; };
 		304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 304B888019100110000F487B /* CBUUID+StringExtraction.m */; };
+		309D2D6C1946279E007228B9 /* RelativeDateDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 309D2D6B1946279E007228B9 /* RelativeDateDescriptor.m */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
 		30B29E8E184E1396000C651A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8D184E1396000C651A /* CoreMedia.framework */; };
 		30B29E90184E139F000C651A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8F184E139F000C651A /* CoreVideo.framework */; };
@@ -179,6 +180,8 @@
 		302A714E192D284B006E0A6C /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
 		304B887F19100110000F487B /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		304B888019100110000F487B /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
+		309D2D6A1946279E007228B9 /* RelativeDateDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelativeDateDescriptor.h; sourceTree = "<group>"; };
+		309D2D6B1946279E007228B9 /* RelativeDateDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelativeDateDescriptor.m; sourceTree = "<group>"; };
 		30B29E8B184E138B000C651A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30B29E8D184E1396000C651A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		30B29E8F184E139F000C651A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -482,9 +485,19 @@
 			path = MetalTheme;
 			sourceTree = "<group>";
 		};
+		309D2D691946279E007228B9 /* RelativeDateDescriptor */ = {
+			isa = PBXGroup;
+			children = (
+				309D2D6A1946279E007228B9 /* RelativeDateDescriptor.h */,
+				309D2D6B1946279E007228B9 /* RelativeDateDescriptor.m */,
+			);
+			path = RelativeDateDescriptor;
+			sourceTree = "<group>";
+		};
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
@@ -812,7 +825,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = 98T7Z7XL3B;
 					};
 				};
 			};
@@ -940,6 +953,7 @@
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
+				309D2D6C1946279E007228B9 /* RelativeDateDescriptor.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
 				30C11810186B26270068633C /* GrowSensor.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,

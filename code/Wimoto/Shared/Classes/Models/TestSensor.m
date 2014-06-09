@@ -48,6 +48,8 @@
             
             const uint8_t *reportData = [characteristic.value bytes];
             
+            self.lastUpdateDate = [NSDate date];
+            [self save:nil];
             
             NSString *decString = @"0x63C0";
             NSLog(@"-=--=-===-=-=--==-=-=- %@", decString);

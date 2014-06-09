@@ -22,7 +22,7 @@
 
 @implementation Sensor
 
-@dynamic name, systemId;
+@dynamic name, systemId, lastUpdateDate;
 
 + (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral {
     Sensor *sensor = [[[Sensor classForPeripheral:peripheral] alloc] initWithNewDocumentInDatabase:database];

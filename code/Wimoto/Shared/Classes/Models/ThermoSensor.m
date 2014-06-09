@@ -92,6 +92,8 @@
                 
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
                     NSLog(@"THERMO IR TEMPERATURE CURRENT HEX VALUE = %@", hexString);
+                    self.lastUpdateDate = [NSDate date];
+                    [self save:nil];
                     self.irTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %f", _irTemp);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:decimalValue];

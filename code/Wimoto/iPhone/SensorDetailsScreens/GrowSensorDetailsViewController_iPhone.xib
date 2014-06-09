@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
+                <outlet property="lastUpdateLabel" destination="pWs-7t-A5o" id="ELg-OR-Ca5"/>
                 <outlet property="lightHighValueLabel" destination="nEJ-XV-9K2" id="ozt-0Z-a8j"/>
                 <outlet property="lightLabel" destination="LNT-Ni-2p1" id="UdF-bL-8m6"/>
                 <outlet property="lightLowValueLabel" destination="VRc-cR-dM4" id="jTe-9s-YQp"/>
@@ -44,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="pWs-7t-A5o" userLabel="growLastUpdated">
-                    <rect key="frame" x="209" y="68" width="71" height="57"/>
+                    <rect key="frame" x="96" y="68" width="184" height="57"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

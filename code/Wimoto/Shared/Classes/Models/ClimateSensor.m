@@ -120,6 +120,8 @@
                 unsigned int decimalValue;
                 [scanner scanHexInt:&decimalValue];
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
+                    self.lastUpdateDate = [NSDate date];
+                    [self save:nil];
                     NSLog(@"CLIMATE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
                     self.temperature = -46.85 + (175.72*decimalValue/65536);
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic temperature %f", _temperature);
