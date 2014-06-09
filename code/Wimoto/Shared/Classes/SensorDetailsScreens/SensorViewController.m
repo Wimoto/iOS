@@ -33,23 +33,13 @@
 {
     [super viewDidLoad];
     NSString *sensorName = [self.sensor name];
-    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
-    
-    //NSString *dateString = @"1.05.2014";
-    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //[dateFormatter setDateFormat:@"dd.MM.yyyy"];
-    //NSDate *date = [dateFormatter dateFromString:dateString];
-    
-    if (lastUpdateDate) {
-        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
-        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
-    }
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
     if (_sensor.rssi) {
         _rssiLabel.text = [NSString stringWithFormat:@"%@dB", _sensor.rssi];
     }
+    [self refreshLastUpdateLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,15 +61,25 @@
 - (void)dealloc {
     [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
     [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL];
+    if ([self.lastUpdateTimer isValid]) {
+        [self.lastUpdateTimer invalidate];
+    }
+    self.lastUpdateTimer = nil;
 }
 
-- (void)showSlider
-{
+- (void)refreshLastUpdateLabel {
+    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
+    if (lastUpdateDate) {
+        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
+        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
+    }
+}
+
+- (void)showSlider {
     [_alarmSlider showAction];
 }
 
-- (void)hideSlider
-{
+- (void)hideSlider {
     [_alarmSlider hideAction:nil];
 }
 

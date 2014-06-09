@@ -66,9 +66,9 @@
         _probeTempSparkLine.dataValues = item;
     }];
     
-    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    _irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    _probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    //ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
+    //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
+    //_probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
     NSLog(@"IR TEMPERATURE SWITCH IS ON - %i", [_irTempSwitch isOn]);
     NSLog(@"PROBE TEMPERATURE SWITCH IS ON - %i", [_probeTempSwitch isOn]);
 }
@@ -200,6 +200,10 @@
     float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
         self.lastUpdateLabel.text = @"Just now";
+        if ([self.lastUpdateTimer isValid]) {
+            [self.lastUpdateTimer invalidate];
+        }
+        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
             _irTempSparkLine.dataValues = item;

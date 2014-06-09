@@ -112,6 +112,10 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER]) {
         self.lastUpdateLabel.text = @"Just now";
+        if ([self.lastUpdateTimer isValid]) {
+            [self.lastUpdateTimer invalidate];
+        }
+        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
             _accelerometerSparkLine.dataValues = item;
