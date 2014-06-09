@@ -15,6 +15,7 @@
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"WaterSensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL]]) {
@@ -38,6 +39,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE]]||
@@ -71,6 +73,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ((characteristic.value)||(!error)) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]||

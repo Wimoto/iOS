@@ -52,7 +52,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
         
-    _irTempLabel.text = [NSString stringWithFormat:@"%@", [(ThermoSensor*)self.sensor irTemp]];
+    _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor irTemp]];
     _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor probeTemp]];
     
     _irTempSparkLine.labelText = @"";

@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
             <connections>
+                <outlet property="batteryLevelImage" destination="jtb-bI-I3k" id="hFe-EY-rg5"/>
                 <outlet property="humidityHighValueLabel" destination="Yt3-jc-GKZ" id="8aR-vy-9z6"/>
                 <outlet property="humidityLabel" destination="bou-t8-gdO" id="3KR-B0-QCI"/>
                 <outlet property="humidityLowValueLabel" destination="7kM-8z-c4a" id="wKE-iq-yba"/>

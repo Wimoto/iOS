@@ -12,6 +12,7 @@
 @interface SensorViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
 @end
 
@@ -22,6 +23,7 @@
     if (self) {
         _sensor = sensor;
         [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
+        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -56,6 +58,7 @@
 
 - (void)dealloc {
     [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
+    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL];
 }
 
 - (void)showSlider
@@ -96,6 +99,25 @@
                        context:(void *)context {
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
         _rssiLabel.text = [NSString stringWithFormat:@"%@dB", [change objectForKey:NSKeyValueChangeNewKey]];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL]) {
+        NSNumber *batteryValue = (NSNumber *)[change objectForKey:NSKeyValueChangeNewKey];
+        int value = [batteryValue intValue];
+        NSLog(@"BATTERY LEVEL INTEGER VALUE = %i", value);
+        NSString *batteryImagePath = nil;
+        if (value < 25) {
+            batteryImagePath = @"battery-low";
+        }
+        else if (value < 50) {
+            batteryImagePath = @"battery-medium";
+        }
+        else if (value < 75) {
+            batteryImagePath = @"battery-high";
+        }
+        else {
+            batteryImagePath = @"battery-full";
+        }
+        _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
     }
 }
 

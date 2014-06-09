@@ -14,8 +14,8 @@
 
 #pragma mark - CBPeriferalDelegate
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"TEST SENSOR SERVICE UUID ------ %@", aService.UUID);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
@@ -24,8 +24,8 @@
     }
 }
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
@@ -41,22 +41,25 @@
     }
 }
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
         if( (characteristic.value)  || !error ) {
             
             const uint8_t *reportData = [characteristic.value bytes];
             
             
-            NSString *decString = [characteristic.value hexadecimalString];
+            NSString *decString = @"0x63C0";
             NSLog(@"-=--=-===-=-=--==-=-=- %@", decString);
             
             NSScanner *scanner = [NSScanner scannerWithString:decString];
             unsigned int temp;
             BOOL isValid = [scanner scanHexInt:&temp];
+            
+            int temperature = -46.85 + (175.72*temp/65535);
+            
             NSLog(@"ISVALID ======== %i", isValid);
-            NSLog(@"========== %i", temp);
+            NSLog(@"========== %i", temperature);
             NSLog(@"=--==-=--= %@", [characteristic.value description]);
             NSLog(@"++++++++++ %@", [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding]);
             NSLog(@"---------- %@", [[NSString alloc] initWithBytes:[characteristic.value bytes] length:[characteristic.value length] encoding:NSUTF8StringEncoding]);

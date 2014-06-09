@@ -19,6 +19,7 @@
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"ClimateSensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
@@ -55,6 +56,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]]||
@@ -107,6 +109,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ((characteristic.value)||(!error)) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]||
@@ -117,14 +120,17 @@
                 unsigned int decimalValue;
                 [scanner scanHexInt:&decimalValue];
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
+                    NSLog(@"CLIMATE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
                     self.temperature = -46.85 + (175.72*decimalValue/65536);
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic temperature %f", _temperature);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:_temperature];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
+                    NSLog(@"CLIMATE HUMIDITY CURRENT HEX VALUE = %@", hexString);
                     self.humidity = -6.0 + (125.0*decimalValue/65536);
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic humidity %f", _humidity);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:_humidity];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
+                    NSLog(@"CLIMATE LIGHT CURRENT HEX VALUE = %@", hexString);
                     self.light = 0.96 * decimalValue;
                     NSLog(@"ClimateSensor didUpdateValueForCharacteristic light %f", _light);
                     [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:_light];

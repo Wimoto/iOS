@@ -14,6 +14,7 @@
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"ThermoSensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
@@ -40,6 +41,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]]||
@@ -76,22 +78,28 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     NSLog(@"ThermoSensor didUpdateValueForCharacteristic start");
     dispatch_async(dispatch_get_main_queue(), ^{
         if ((characteristic.value)||(!error)) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]||
                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
+                
+                NSString *hexString = [characteristic.value hexadecimalString];
+                NSScanner *scanner = [NSScanner scannerWithString:hexString];
+                unsigned int decimalValue;
+                [scanner scanHexInt:&decimalValue];
+                
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
-                    NSString *irTemp = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
-                    NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %@", irTemp);
-                    self.irTemp = irTemp;
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:[irTemp doubleValue]];
+                    NSLog(@"THERMO IR TEMPERATURE CURRENT HEX VALUE = %@", hexString);
+                    self.irTemp = decimalValue;
+                    NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %f", _irTemp);
+                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
-                    const uint8_t *data = [characteristic.value bytes];
-                    uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
-                    self.probeTemp = value16_t;
+                    NSLog(@"THERMO PROBE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
+                    self.probeTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic probeTemp %f", _probeTemp);
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:value16_t];
+                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]||

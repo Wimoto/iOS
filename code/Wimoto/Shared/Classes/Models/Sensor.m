@@ -212,12 +212,51 @@
 
 #pragma mark - CBPeriferalDelegate
 
-- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
-{
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"Did Update RSSI PERIPHERAL = %@", peripheral);
         self.rssi = [peripheral RSSI];
     });
 }
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    for (CBService *aService in aPeripheral.services) {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_SERVICE]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC], nil]
+                                      forService:aService];
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_SERVICE]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
+                [aPeripheral readValueForCharacteristic:aChar];
+            }
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
+            NSData *data = [characteristic value];
+            const uint8_t *reportData = [data bytes];
+            uint16_t level = 0;
+            if ((reportData[0] & 0x01) == 0) {
+                level = reportData[1];
+            }
+            else {
+                level = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+            }
+            if ((characteristic.value) || !error) {
+                self.batteryLevel = [NSNumber numberWithUnsignedLongLong:level];
+                NSLog(@"DID UPDATE BATERY CHARCTERISTIC VALUE = %@", _batteryLevel);
+            }
+        }
+    });
+}
+
 
 @end

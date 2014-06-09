@@ -32,6 +32,8 @@ typedef enum {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#define BLE_BATTERY_LEVEL_SERVICE                                   @"180F"
+#define BLE_BATTERY_LEVEL_CHARACTERISTIC                            @"2A19"
 
 #define BLE_HEART_RATE_SERVICE_UUID                                 @"180D"
 

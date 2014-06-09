@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
+                <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
                 <outlet property="lightHighValueLabel" destination="nEJ-XV-9K2" id="ozt-0Z-a8j"/>
                 <outlet property="lightLabel" destination="LNT-Ni-2p1" id="UdF-bL-8m6"/>
                 <outlet property="lightLowValueLabel" destination="VRc-cR-dM4" id="jTe-9s-YQp"/>

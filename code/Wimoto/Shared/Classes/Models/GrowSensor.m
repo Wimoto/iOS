@@ -13,8 +13,8 @@
 
 #pragma mark - CBPeriferalDelegate
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
         NSLog(@"GrowSensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT]]) {
@@ -50,8 +50,8 @@
     }
 }
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE]]) {
          for (CBCharacteristic *aChar in service.characteristics) {
              if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]||
@@ -104,6 +104,7 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if ((characteristic.value)||(!error)) {
+        [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]||
                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]||

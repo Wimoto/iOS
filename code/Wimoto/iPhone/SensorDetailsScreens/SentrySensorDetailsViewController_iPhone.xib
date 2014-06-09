@@ -10,6 +10,7 @@
                 <outlet property="accelerometerLabel" destination="qIb-An-7J8" id="vtg-of-d7J"/>
                 <outlet property="accelerometerSparkLine" destination="FWh-TQ-XjM" id="T2p-Z8-3e9"/>
                 <outlet property="accelerometerSwitch" destination="sZ3-h0-ZnL" id="hSQ-9Y-AwA"/>
+                <outlet property="batteryLevelImage" destination="yeF-42-rkC" id="Rsf-XR-N91"/>
                 <outlet property="pasInfraredLabel" destination="uqs-Jg-baq" id="5QS-47-6O8"/>
                 <outlet property="pasInfraredSparkLine" destination="Lr7-k8-LYp" id="YiO-gn-Lqz"/>
                 <outlet property="pasInfraredSwitch" destination="UAj-tW-2hf" id="Qn4-W8-D9j"/>

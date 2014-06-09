@@ -11,6 +11,7 @@
 #import "NSData+Conversion.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
+#define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
 
 typedef enum {
     kAlarmStateUnknown = 0,
@@ -35,6 +36,7 @@ typedef enum {
 
 @property (copy) NSString *name;
 @property (copy) NSString *systemId;
+@property (nonatomic, strong) NSNumber *batteryLevel;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) NSNumber *rssi;
