@@ -241,17 +241,17 @@
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
-            NSData *data = [characteristic value];
-            const uint8_t *reportData = [data bytes];
-            uint16_t level = 0;
-            if ((reportData[0] & 0x01) == 0) {
-                level = reportData[1];
-            }
-            else {
-                level = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
-            }
-            if ((characteristic.value) || !error) {
+        if ((characteristic.value) || !error) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
+                NSData *data = [characteristic value];
+                const uint8_t *reportData = [data bytes];
+                uint16_t level = 0;
+                if ((reportData[0] & 0x01) == 0) {
+                    level = reportData[1];
+                }
+                else {
+                    level = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+                }
                 self.batteryLevel = [NSNumber numberWithUnsignedLongLong:level];
                 NSLog(@"DID UPDATE BATERY CHARCTERISTIC VALUE = %@", _batteryLevel);
             }
