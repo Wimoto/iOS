@@ -61,6 +61,23 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
+		30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0EB194729AA001E10A5 /* DFUController.m */; };
+		30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */; };
+		30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */; };
+		30B9E0F519472CFD001E10A5 /* FirmwareViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */; };
+		30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F719472DFC001E10A5 /* FirmwareCell.m */; };
+		30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */; };
+		30B9E0FE19473352001E10A5 /* Firmware.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0FD19473352001E10A5 /* Firmware.m */; };
+		30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10319473866001E10A5 /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10519473866001E10A5 /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11819473866001E10A5 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10719473866001E10A5 /* SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10919473866001E10A5 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11A19473866001E10A5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10B19473866001E10A5 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10D19473866001E10A5 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		30B9E11C19473866001E10A5 /* WPNetworkDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E10F19473866001E10A5 /* WPNetworkDispatcher.m */; };
+		30B9E11D19473866001E10A5 /* WPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11119473866001E10A5 /* WPRequest.m */; };
+		30B9E11E19473866001E10A5 /* WPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11319473866001E10A5 /* WPResponse.m */; };
+		30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11519473866001E10A5 /* WPURLConnection.m */; };
 		30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
@@ -205,6 +222,39 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B9E0EA194729AA001E10A5 /* DFUController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFUController.h; sourceTree = "<group>"; };
+		30B9E0EB194729AA001E10A5 /* DFUController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUController.m; sourceTree = "<group>"; };
+		30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFUTargetAdapter.h; sourceTree = "<group>"; };
+		30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUTargetAdapter.m; sourceTree = "<group>"; };
+		30B9E0F119472CD9001E10A5 /* FirmwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareViewController.h; sourceTree = "<group>"; };
+		30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareViewController.m; sourceTree = "<group>"; };
+		30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareViewController_iPhone.xib; sourceTree = "<group>"; };
+		30B9E0F619472DFC001E10A5 /* FirmwareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareCell.h; sourceTree = "<group>"; };
+		30B9E0F719472DFC001E10A5 /* FirmwareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareCell.m; sourceTree = "<group>"; };
+		30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareCell_iPhone.xib; sourceTree = "<group>"; };
+		30B9E0FC19473352001E10A5 /* Firmware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firmware.h; sourceTree = "<group>"; };
+		30B9E0FD19473352001E10A5 /* Firmware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Firmware.m; sourceTree = "<group>"; };
+		30B9E10119473866001E10A5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		30B9E10219473866001E10A5 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		30B9E10319473866001E10A5 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		30B9E10419473866001E10A5 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		30B9E10519473866001E10A5 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		30B9E10619473866001E10A5 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		30B9E10719473866001E10A5 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		30B9E10819473866001E10A5 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		30B9E10919473866001E10A5 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		30B9E10A19473866001E10A5 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		30B9E10B19473866001E10A5 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		30B9E10C19473866001E10A5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		30B9E10D19473866001E10A5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		30B9E10E19473866001E10A5 /* WPNetworkDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPNetworkDispatcher.h; sourceTree = "<group>"; };
+		30B9E10F19473866001E10A5 /* WPNetworkDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPNetworkDispatcher.m; sourceTree = "<group>"; };
+		30B9E11019473866001E10A5 /* WPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPRequest.h; sourceTree = "<group>"; };
+		30B9E11119473866001E10A5 /* WPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPRequest.m; sourceTree = "<group>"; };
+		30B9E11219473866001E10A5 /* WPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPResponse.h; sourceTree = "<group>"; };
+		30B9E11319473866001E10A5 /* WPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPResponse.m; sourceTree = "<group>"; };
+		30B9E11419473866001E10A5 /* WPURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPURLConnection.h; sourceTree = "<group>"; };
+		30B9E11519473866001E10A5 /* WPURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPURLConnection.m; sourceTree = "<group>"; };
 		30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
@@ -365,6 +415,8 @@
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
+				30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */,
+				30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -497,6 +549,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				30B9E0E9194729AA001E10A5 /* DFUParts */,
 				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
@@ -559,6 +612,74 @@
 				30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */,
 			);
 			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		30B9E0E9194729AA001E10A5 /* DFUParts */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E0EA194729AA001E10A5 /* DFUController.h */,
+				30B9E0EB194729AA001E10A5 /* DFUController.m */,
+				30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */,
+				30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */,
+			);
+			path = DFUParts;
+			sourceTree = "<group>";
+		};
+		30B9E0F019472CB5001E10A5 /* FirmwareScreen */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E0FB1947333C001E10A5 /* Models */,
+				30B9E0F119472CD9001E10A5 /* FirmwareViewController.h */,
+				30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */,
+				30B9E0F619472DFC001E10A5 /* FirmwareCell.h */,
+				30B9E0F719472DFC001E10A5 /* FirmwareCell.m */,
+			);
+			path = FirmwareScreen;
+			sourceTree = "<group>";
+		};
+		30B9E0FB1947333C001E10A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E0FC19473352001E10A5 /* Firmware.h */,
+				30B9E0FD19473352001E10A5 /* Firmware.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		30B9E0FF19473866001E10A5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E10019473866001E10A5 /* JSON */,
+				30B9E10E19473866001E10A5 /* WPNetworkDispatcher.h */,
+				30B9E10F19473866001E10A5 /* WPNetworkDispatcher.m */,
+				30B9E11019473866001E10A5 /* WPRequest.h */,
+				30B9E11119473866001E10A5 /* WPRequest.m */,
+				30B9E11219473866001E10A5 /* WPResponse.h */,
+				30B9E11319473866001E10A5 /* WPResponse.m */,
+				30B9E11419473866001E10A5 /* WPURLConnection.h */,
+				30B9E11519473866001E10A5 /* WPURLConnection.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		30B9E10019473866001E10A5 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E10119473866001E10A5 /* JSON.h */,
+				30B9E10219473866001E10A5 /* NSObject+SBJSON.h */,
+				30B9E10319473866001E10A5 /* NSObject+SBJSON.m */,
+				30B9E10419473866001E10A5 /* NSString+SBJSON.h */,
+				30B9E10519473866001E10A5 /* NSString+SBJSON.m */,
+				30B9E10619473866001E10A5 /* SBJSON.h */,
+				30B9E10719473866001E10A5 /* SBJSON.m */,
+				30B9E10819473866001E10A5 /* SBJsonBase.h */,
+				30B9E10919473866001E10A5 /* SBJsonBase.m */,
+				30B9E10A19473866001E10A5 /* SBJsonParser.h */,
+				30B9E10B19473866001E10A5 /* SBJsonParser.m */,
+				30B9E10C19473866001E10A5 /* SBJsonWriter.h */,
+				30B9E10D19473866001E10A5 /* SBJsonWriter.m */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		30CD581A192E615C00FFF102 /* AlarmSlider */ = {
@@ -685,6 +806,7 @@
 		90CFFEB017A7CF8000353F80 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				30B9E0F019472CB5001E10A5 /* FirmwareScreen */,
 				90C64238184E6061008F40D2 /* Models */,
 				90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */,
 				90CD9B2018561CDB00970B7D /* SearchSensorScreen */,
@@ -693,6 +815,7 @@
 				30B487F1184E0A32002B0CD8 /* HelpScreen */,
 				30B487F3184E0A32002B0CD8 /* SettingsScreen */,
 				30B487C0184DF328002B0CD8 /* Utils */,
+				30B9E0FF19473866001E10A5 /* Network */,
 				901399CD185B22A80003D964 /* AppConstants.h */,
 				90CFFEC117A7D01700353F80 /* AppViewController.h */,
 				90CFFEC217A7D01700353F80 /* AppViewController.m */,
@@ -867,6 +990,7 @@
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
 				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
 				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
+				30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
 				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
 				4901D3E8192EB294005EB15C /* droplet.png in Resources */,
@@ -877,6 +1001,7 @@
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
 				90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */,
 				302A7157192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png in Resources */,
+				30B9E0F519472CFD001E10A5 /* FirmwareViewController_iPhone.xib in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
@@ -936,19 +1061,27 @@
 			files = (
 				90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */,
 				90D807A2185B52D800FDF31D /* ASBSparkLineView.m in Sources */,
+				30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */,
 				90CD9B2A18561DA400970B7D /* SensorCell.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
+				30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */,
 				90232E31185A467100F83210 /* IIViewDeckController.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				90232E3A185A521900F83210 /* BLEManager.m in Sources */,
+				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,
 				30C11813186B42A20068633C /* SentrySensor.m in Sources */,
 				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
+				30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */,
 				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
+				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
+				30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
+				30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */,
+				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
@@ -956,9 +1089,14 @@
 				309D2D6C1946279E007228B9 /* RelativeDateDescriptor.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
 				30C11810186B26270068633C /* GrowSensor.m in Sources */,
+				30B9E11C19473866001E10A5 /* WPNetworkDispatcher.m in Sources */,
+				30B9E11D19473866001E10A5 /* WPRequest.m in Sources */,
+				30B9E11E19473866001E10A5 /* WPResponse.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
+				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
+				30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */,
 				30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
@@ -971,8 +1109,10 @@
 				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
 				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
+				30B9E11A19473866001E10A5 /* SBJsonParser.m in Sources */,
 				90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
+				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,

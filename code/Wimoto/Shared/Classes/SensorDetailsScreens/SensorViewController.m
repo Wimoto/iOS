@@ -9,11 +9,14 @@
 #import "SensorViewController.h"
 #import "NSString+Util.h"
 #import "RelativeDateDescriptor.h"
+#import "FirmwareViewController.h"
 
 @interface SensorViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
+
+- (IBAction)firmwareUpdateAction:(id)sender;
 
 @end
 
@@ -56,6 +59,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)firmwareUpdateAction:(id)sender {
+    FirmwareViewController *firmwareController = [[FirmwareViewController alloc] init];
+    UINavigationController *firmwareNavController = [[UINavigationController alloc] initWithRootViewController:firmwareController];
+    [self presentViewController:firmwareNavController animated:YES completion:nil];
 }
 
 - (void)dealloc {
