@@ -78,6 +78,11 @@
 		30B9E11D19473866001E10A5 /* WPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11119473866001E10A5 /* WPRequest.m */; };
 		30B9E11E19473866001E10A5 /* WPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11319473866001E10A5 /* WPResponse.m */; };
 		30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11519473866001E10A5 /* WPURLConnection.m */; };
+		30B9E13C19477B45001E10A5 /* binary_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13919477B45001E10A5 /* binary_list.json */; };
+		30B9E13D19477B45001E10A5 /* ble_app_hrs_nrf6310.bin in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */; };
+		30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */; };
+		30B9E14119477E7B001E10A5 /* FirmwareUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */; };
+		30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */; };
 		30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
@@ -255,6 +260,12 @@
 		30B9E11319473866001E10A5 /* WPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPResponse.m; sourceTree = "<group>"; };
 		30B9E11419473866001E10A5 /* WPURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPURLConnection.h; sourceTree = "<group>"; };
 		30B9E11519473866001E10A5 /* WPURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPURLConnection.m; sourceTree = "<group>"; };
+		30B9E13919477B45001E10A5 /* binary_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = binary_list.json; sourceTree = "<group>"; };
+		30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_app_hrs_nrf6310.bin; sourceTree = "<group>"; };
+		30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_app_rscs_nrf6310.bin; sourceTree = "<group>"; };
+		30B9E13F19477E7B001E10A5 /* FirmwareUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareUploadViewController.h; sourceTree = "<group>"; };
+		30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareUploadViewController.m; sourceTree = "<group>"; };
+		30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareUploadViewController_iPhone.xib; sourceTree = "<group>"; };
 		30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
@@ -417,6 +428,7 @@
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
 				30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */,
 				30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */,
+				30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -617,6 +629,7 @@
 		30B9E0E9194729AA001E10A5 /* DFUParts */ = {
 			isa = PBXGroup;
 			children = (
+				30B9E13819477B45001E10A5 /* embedded_firmwares */,
 				30B9E0EA194729AA001E10A5 /* DFUController.h */,
 				30B9E0EB194729AA001E10A5 /* DFUController.m */,
 				30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */,
@@ -633,6 +646,8 @@
 				30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */,
 				30B9E0F619472DFC001E10A5 /* FirmwareCell.h */,
 				30B9E0F719472DFC001E10A5 /* FirmwareCell.m */,
+				30B9E13F19477E7B001E10A5 /* FirmwareUploadViewController.h */,
+				30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */,
 			);
 			path = FirmwareScreen;
 			sourceTree = "<group>";
@@ -680,6 +695,16 @@
 				30B9E10D19473866001E10A5 /* SBJsonWriter.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		30B9E13819477B45001E10A5 /* embedded_firmwares */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E13919477B45001E10A5 /* binary_list.json */,
+				30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */,
+				30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */,
+			);
+			path = embedded_firmwares;
 			sourceTree = "<group>";
 		};
 		30CD581A192E615C00FFF102 /* AlarmSlider */ = {
@@ -980,6 +1005,7 @@
 				302A715D192D284B006E0A6C /* slider-default7-trackBackground.png in Resources */,
 				302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */,
 				493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */,
+				30B9E13C19477B45001E10A5 /* binary_list.json in Resources */,
 				493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */,
 				493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */,
 				302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */,
@@ -1028,11 +1054,14 @@
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				30B9E13D19477B45001E10A5 /* ble_app_hrs_nrf6310.bin in Resources */,
 				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
+				30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */,
 				4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */,
 				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
 				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
 				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
@@ -1094,6 +1123,7 @@
 				30B9E11E19473866001E10A5 /* WPResponse.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
+				30B9E14119477E7B001E10A5 /* FirmwareUploadViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */,

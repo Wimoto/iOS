@@ -10,4 +10,6 @@
 
 @interface FirmwareCell : UITableViewCell
 
+- (void)bindData:(NSDictionary *)dictionary;
+
 @end

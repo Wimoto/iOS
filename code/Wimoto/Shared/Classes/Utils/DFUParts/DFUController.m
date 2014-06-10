@@ -27,15 +27,12 @@
 @synthesize state = _state;
 @synthesize delegate = _delegate;
 
-+ (CBUUID *) serviceUUID
-{
++ (CBUUID *)serviceUUID {
     return [[DFUTargetAdapter class] serviceUUID];
 }
 
-- (DFUController *) initWithDelegate:(id<DFUControllerDelegate>) delegate
-{
-    if (self = [super init])
-    {
+- (DFUController *)initWithDelegate:(id<DFUControllerDelegate>) delegate {
+    if (self = [super init]) {
         _state = INIT;
         _delegate = delegate;
         
@@ -47,21 +44,23 @@
         _targetName = @"-";
         
         _progress = 0;
-
     }
     return self;
 }
 
-- (void) setPeripheral:(CBPeripheral *)peripheral
+- (void)dealloc {
+    [_target.peripheral removeObserver:self forKeyPath:@"state"];
+}
+
+- (void)setPeripheral:(CBPeripheral *)peripheral
 {
     self.targetName = peripheral.name;
-
+    [peripheral addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     self.target = [[DFUTargetAdapter alloc] initWithDelegate:self];
     self.target.peripheral = peripheral;
 }
 
-- (void) setState:(DFUControllerState)newState
-{
+- (void)setState:(DFUControllerState)newState {
     @synchronized(self)
     {
         DFUControllerState oldState = _state;
@@ -78,13 +77,11 @@
     }
 }
 
-- (DFUControllerState) state
-{
+- (DFUControllerState)state {
     return _state;
 }
 
-- (NSString *) stringFromState:(DFUControllerState) state
-{
+- (NSString *)stringFromState:(DFUControllerState)state {
     switch (state)
     {
         case INIT:
@@ -116,8 +113,7 @@
     return nil;
 }
 
-- (void) setFirmwareURL:(NSURL *)firmwareURL
-{
+- (void)setFirmwareURL:(NSURL *)firmwareURL {
     self.firmwareData = [NSData dataWithContentsOfURL:firmwareURL];
     self.notificationPacketInterval = self.firmwareData.length / (DFUCONTROLLER_MAX_PACKET_SIZE * DFUCONTROLLER_DESIRED_NOTIFICATION_STEPS);
     
@@ -127,14 +123,12 @@
     NSLog(@"Set firmware with size %lu, notificationPacketInterval: %d", (unsigned long)self.firmwareData.length, self.notificationPacketInterval);
 }
 
-- (void) setProgress:(float)progress
-{
+- (void)setProgress:(float)progress {
     _progress = progress;
     [self.delegate didUpdateProgress:progress];
 }
 
-- (void) sendFirmwareChunk
-{
+- (void)sendFirmwareChunk {
     NSLog(@"sendFirmwareData");
     int currentDataSent = 0;
     
@@ -156,8 +150,7 @@
     NSLog(@"Sent %d bytes, total %d.", currentDataSent, self.firmwareDataBytesSent);
 }
 
-- (void) didConnect
-{
+- (void)didConnect {
     NSLog(@"didConnect");
     if (self.state == INIT)
     {
@@ -166,8 +159,7 @@
     }
 }
 
-- (void) didDisconnect:(NSError *) error
-{
+- (void)didDisconnect:(NSError *)error {
     NSLog(@"didDisconnect");
     
     if (self.state != FINISHED && self.state != CANCELED)
@@ -177,8 +169,7 @@
     self.state = INIT;
 }
 
-- (void) didFinishDiscovery
-{
+- (void)didFinishDiscovery {
     NSLog(@"didFinishDiscovery");
     if (self.state == DISCOVERING)
     {
@@ -186,8 +177,7 @@
     }
 }
 
-- (void) didReceiveResponse:(DFUTargetResponse) response forCommand:(DFUTargetOpcode) opcode
-{
+- (void)didReceiveResponse:(DFUTargetResponse)response forCommand:(DFUTargetOpcode)opcode {
     NSLog(@"didReceiveResponse, %d, in state %d", response, self.state);
     switch (self.state)
     {
@@ -222,10 +212,8 @@
     }
 }
 
-- (void) didReceiveReceipt
-{
+- (void)didReceiveReceipt {
     NSLog(@"didReceiveReceipt");
-    
     if (self.state == WAIT_RECEIPT)
     {
         self.progress = self.firmwareDataBytesSent / ((float) self.firmwareData.length);
@@ -235,10 +223,8 @@
     }
 }
 
-- (void) didWriteControlPoint
-{
+- (void)didWriteControlPoint {
     NSLog(@"didWriteControlPoint, state %d", self.state);
-    
     switch (self.state)
     {
         case SEND_NOTIFICATION_REQUEST:
@@ -265,8 +251,7 @@
     }
 }
 
-- (void) didWriteDataPacket
-{
+- (void)didWriteDataPacket {
     NSLog(@"didWriteDataPacket");
     
     if (self.state == SEND_FIRMWARE_DATA)
@@ -275,8 +260,7 @@
     }
 }
 
-- (void) startTransfer
-{
+- (void)startTransfer {
     NSLog(@"startTransfer");
     
     if (self.state == IDLE)
@@ -286,19 +270,29 @@
     }
 }
 
-- (void) pauseTransfer
-{
+- (void)pauseTransfer {
     NSLog(@"pauseTransfer");
 }
 
-- (void) cancelTransfer
-{
+- (void)cancelTransfer {
     NSLog(@"cancelTransfer");
     
     if (self.state != INIT && self.state != CANCELED && self.state != FINISHED)
     {
         self.state = CANCELED;
         [self.target sendResetAndActivate:NO];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"state"]) {
+        CBPeripheralState peripheralState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+        if (peripheralState == CBPeripheralStateConnected) {
+            [self didConnect];
+        }
+        else {
+            [self didDisconnect:nil];
+        }
     }
 }
 

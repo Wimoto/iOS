@@ -62,7 +62,7 @@
 }
 
 - (IBAction)firmwareUpdateAction:(id)sender {
-    FirmwareViewController *firmwareController = [[FirmwareViewController alloc] init];
+    FirmwareViewController *firmwareController = [[FirmwareViewController alloc] initWithSensor:_sensor];
     UINavigationController *firmwareNavController = [[UINavigationController alloc] initWithRootViewController:firmwareController];
     [self presentViewController:firmwareNavController animated:YES completion:nil];
 }

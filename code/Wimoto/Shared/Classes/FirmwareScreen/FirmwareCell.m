@@ -17,4 +17,9 @@
 
 @implementation FirmwareCell
 
+- (void)bindData:(NSDictionary *)dictionary {
+    _fileNameLabel.text = [dictionary objectForKey:@"title"];
+    _sizeLabel.text = [NSString stringWithFormat:@"%@ bytes", [dictionary objectForKey:@"size"]];
+}
+
 @end

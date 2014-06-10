@@ -8,7 +8,10 @@
 
 #import "AppViewController.h"
 #import "WPNetworkDispatcher.h"
+#import "Sensor.h"
 
 @interface FirmwareViewController : AppViewController <UITableViewDataSource, UITableViewDelegate, WPResponseReceiver>
+
+- (id)initWithSensor:(Sensor *)sensor;
 
 @end
