@@ -9,7 +9,7 @@
 #import "AppViewController.h"
 #import "DFUController.h"
 
-@interface FirmwareUploadViewController : AppViewController
+@interface FirmwareUploadViewController : AppViewController <DFUControllerDelegate>
 
 - (id)initWithDFUController:(DFUController *)dfuController;
 
