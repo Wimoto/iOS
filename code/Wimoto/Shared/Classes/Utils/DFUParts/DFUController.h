@@ -39,8 +39,8 @@ typedef enum
 
 @property NSString *appName;
 @property int appSize;
-
 @property NSString *targetName;
+@property (nonatomic) DFUControllerState state;
 
 + (CBUUID *) serviceUUID;
 

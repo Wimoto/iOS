@@ -35,16 +35,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Firmware upload";
+    self.navigationItem.title = @"Firmware upload";
     _fileNameLabel.text = [_dfuController appName];
     _sizeLabel.text = [NSString stringWithFormat:@"%d bytes", _dfuController.appSize];
     _targetNameLabel.text = [_dfuController targetName];
     _targetStatusLabel.text = @"-";
-    _uploadButton.enabled = NO;
+    _uploadButton.enabled = (_dfuController.state == IDLE)?YES:NO;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [_dfuController cancelTransfer];
 }
 
@@ -93,7 +93,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) didChangeState:(DFUControllerState)state {
+- (void)didChangeState:(DFUControllerState)state {
     if (state == IDLE) {
         _uploadButton.enabled = YES;
     }

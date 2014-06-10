@@ -12,9 +12,8 @@
 #define DFUCONTROLLER_DESIRED_NOTIFICATION_STEPS 20
 
 @interface DFUController ( )
-@property (nonatomic) DFUControllerState state;
-@property DFUTargetAdapter *target;
 
+@property DFUTargetAdapter *target;
 @property NSData *firmwareData;
 @property int firmwareDataBytesSent;
 @property int notificationPacketInterval;

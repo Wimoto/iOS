@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Firmware update";
+    self.navigationItem.title = @"Firmware update";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneAction)];
     _tableView.tableFooterView = [[UIView alloc] init];
     self.dfuController = [[DFUController alloc] init];
