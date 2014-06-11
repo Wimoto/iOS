@@ -141,8 +141,8 @@
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]]||
                      [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_SET]]||
                      [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_SET]]) {
-                uint8_t alarmSetValue  = 0;
-                [[characteristic value] getBytes:&alarmSetValue length:sizeof (alarmSetValue)];
+                uint8_t alarmSetValue = 0;
+                [[characteristic value] getBytes:&alarmSetValue length:sizeof(alarmSetValue)];
                 NSLog(@"ALARM SET CHARACTERISTIC %@ WITH VALUE - %hhu", characteristic, alarmSetValue);
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]]) {
                     if (_temperatureAlarmState == kAlarmStateUnknown) {

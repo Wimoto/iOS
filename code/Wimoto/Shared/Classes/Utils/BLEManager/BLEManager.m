@@ -81,7 +81,7 @@ static BLEManager *bleManager = nil;
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)&&(peripheral.peripheralType != kPeripheralTypeUndefined  )) {
+    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)) {
         [_managedPeripherals addObject:peripheral];
         [_centralBluetoothManager connectPeripheral:peripheral options:nil];
     }
@@ -94,16 +94,27 @@ static BLEManager *bleManager = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:peripheral];
-    [_managedPeripherals removeObject:peripheral];
+    if ([_managedPeripherals containsObject:peripheral]) {
+        peripheral.delegate = nil;
+        [_managedPeripherals removeObject:peripheral];
+    }
 }
 
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
-    for (CBService *aService in aPeripheral.services) {
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
-            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
-            break;
+    if (aPeripheral.peripheralType == kPeripheralTypeUndefined) {
+        if ([_managedPeripherals containsObject:aPeripheral]) {
+            aPeripheral.delegate = nil;
+            [_managedPeripherals removeObject:aPeripheral];
+        }
+    }
+    else {
+        for (CBService *aService in aPeripheral.services) {
+            if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
+                [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
+                break;
+            }
         }
     }
 }
