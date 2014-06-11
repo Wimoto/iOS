@@ -25,8 +25,7 @@ static BLEManager *bleManager = nil;
     [BLEManager sharedManager];
 }
 
-+ (BLEManager*)sharedManager
-{
++ (BLEManager*)sharedManager {
 	if (!bleManager) {
 		bleManager = [[BLEManager alloc] init];
 	}
@@ -48,8 +47,7 @@ static BLEManager *bleManager = nil;
     return self;
 }
 
-+ (NSArray*)identifiedPeripherals
-{
++ (NSArray*)identifiedPeripherals {
     NSArray *managedPeripherals = [[BLEManager sharedManager] managedPeripherals];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"systemId != %@", @""];
     return [managedPeripherals filteredArrayUsingPredicate:predicate];
@@ -61,11 +59,8 @@ static BLEManager *bleManager = nil;
     if (([central state]==CBCentralManagerStatePoweredOn)||([central state]==CBCentralManagerStatePoweredOff)) {
         return;
     }
-
     NSString * state = nil;
-    
-    switch ([central state])
-    {
+    switch ([central state]) {
         case CBCentralManagerStateUnsupported:
             state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
             break;
@@ -81,13 +76,12 @@ static BLEManager *bleManager = nil;
         default:
             break;
     }
-    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:state delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)) {
+    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)&&(peripheral.peripheralType != kPeripheralTypeUndefined  )) {
         [_managedPeripherals addObject:peripheral];
         [_centralBluetoothManager connectPeripheral:peripheral options:nil];
     }
@@ -100,14 +94,12 @@ static BLEManager *bleManager = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:peripheral];
-    
     [_managedPeripherals removeObject:peripheral];
 }
 
 #pragma mark - CBPeriferalDelegate
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     for (CBService *aService in aPeripheral.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
@@ -116,8 +108,7 @@ static BLEManager *bleManager = nil;
     }
 }
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) ||
@@ -128,17 +119,13 @@ static BLEManager *bleManager = nil;
     }
 }
 
-- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
+- (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didUpdateValueForCharacteristic start");
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
         NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_SYSTEM_ID");
-        if ([aPeripheral peripheralType] != kPeripheralTypeUndefined) {
-            NSLog(@"didUpdateValueForCharacteristic != kPeripheralTypeUndefined");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
-            });
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
+        });
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]]) {
         NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_MODEL_NUMBER");
         if ([aPeripheral systemId].length > 0) {

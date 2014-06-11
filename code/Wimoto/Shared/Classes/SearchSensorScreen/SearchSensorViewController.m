@@ -61,7 +61,7 @@
     CBPeripheral *peripheral = [notification object];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-    if ([filteredArray count]==0 && peripheral.peripheralType != kPeripheralTypeUndefined) {
+    if ([filteredArray count]==0) {
         [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
             Sensor *sensor = item;
             if (sensor) {
