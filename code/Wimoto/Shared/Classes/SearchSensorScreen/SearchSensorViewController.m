@@ -7,19 +7,14 @@
 //
 
 #import "SearchSensorViewController.h"
-
 #import "AppConstants.h"
-
 #import "SensorCell.h"
-
 #import "WimotoDeckController.h"
-
 #import "DatabaseManager.h"
 
 @interface SearchSensorViewController ()
 
 @property (nonatomic, strong) NSMutableArray *sensorsArray;
-
 @property (nonatomic, weak) IBOutlet UITableView *sensorTableView;
 @property (nonatomic, weak) IBOutlet SensorCell *tmpCell;
 
@@ -30,13 +25,11 @@
 
 @implementation SearchSensorViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
     
-    //NSArray *array = [BLEManager identifiedPeripherals];
     NSArray *array = [[BLEManager sharedManager] managedPeripherals];
     
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
@@ -56,8 +49,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
@@ -67,11 +59,9 @@
 
 - (void)didConnectPeripheral:(NSNotification*)notification {
     CBPeripheral *peripheral = [notification object];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-        
-    if ([filteredArray count]==0) {
+    if ([filteredArray count]==0 && peripheral.peripheralType != kPeripheralTypeUndefined) {
         [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
             Sensor *sensor = item;
             if (sensor) {
@@ -86,10 +76,8 @@
 
 - (void)didDisconnectPeripheral:(NSNotification*)notification {
     CBPeripheral *peripheral = [notification object];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
     NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-
     if ([filteredArray count]>0) {
         [_sensorsArray removeObject:[filteredArray objectAtIndex:0]];
         [_sensorTableView reloadData];
@@ -98,8 +86,7 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_sensorsArray count];
 }
 
@@ -112,14 +99,12 @@
         _tmpCell = nil;
     }
     cell.sensor = [_sensorsArray objectAtIndex:indexPath.row];
-    
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     dispatch_async([DatabaseManager getSensorQueue], ^{

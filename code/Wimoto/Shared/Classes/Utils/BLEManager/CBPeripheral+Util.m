@@ -58,7 +58,6 @@
             }
         }
     }
-    
     return kPeripheralTypeUndefined;
     
 //    NSLog(@"SERVICES COUNT === %i", [self.services count]);
