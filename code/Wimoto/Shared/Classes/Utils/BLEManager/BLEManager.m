@@ -42,7 +42,12 @@ static BLEManager *bleManager = nil;
         
         NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
         
-        [_centralBluetoothManager scanForPeripheralsWithServices:nil options:scanOptions];
+        NSArray *serviceUUIDStrings = [NSArray arrayWithObjects:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE, BLE_WATER_SERVICE_UUID_PRESENCE, BLE_GROW_SERVICE_UUID_LIGHT, BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE, nil];
+        NSMutableArray *serviceUUIDs = [NSMutableArray array];
+        for (NSString *uuid in serviceUUIDStrings) {
+            [serviceUUIDs addObject:[CBUUID UUIDWithString:uuid]];
+        }
+        [_centralBluetoothManager scanForPeripheralsWithServices:serviceUUIDs options:scanOptions];
     }
     return self;
 }
@@ -103,18 +108,10 @@ static BLEManager *bleManager = nil;
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
-    if (aPeripheral.peripheralType == kPeripheralTypeUndefined) {
-        if ([_managedPeripherals containsObject:aPeripheral]) {
-            aPeripheral.delegate = nil;
-            [_managedPeripherals removeObject:aPeripheral];
-        }
-    }
-    else {
-        for (CBService *aService in aPeripheral.services) {
-            if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
-                [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
-                break;
-            }
+    for (CBService *aService in aPeripheral.services) {
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
+            break;
         }
     }
 }
