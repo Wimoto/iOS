@@ -5,36 +5,41 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>6F96BC9E-561C-45B2-99CA-6C82E71F2CC3</string>
+	<string>751408F3-B8EA-45DE-A6DD-A5BCB76E92F2</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Wimoto</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E47C381C-F375-476E-A92B-0D060175224A</key>
-		<string>https://github.com/Wimoto/iOS.git</string>
+		<key>12AC4467-19D6-44C8-8D7D-AB2155C7D2F9</key>
+		<string>https://eivvanov.unfuddle.com/svn/eivvanov_wimotoios</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>code/Wimoto/Wimoto.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E47C381C-F375-476E-A92B-0D060175224A</key>
+		<key>12AC4467-19D6-44C8-8D7D-AB2155C7D2F9</key>
 		<string>../../../..</string>
 	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>12AC4467-19D6-44C8-8D7D-AB2155C7D2F9</key>
+		<string>https://eivvanov.unfuddle.com/svn/eivvanov_wimotoios</string>
+	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/Wimoto/iOS.git</string>
+	<string>https://eivvanov.unfuddle.com/svn/eivvanov_wimotoios/code/Wimoto/Wimoto.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E47C381C-F375-476E-A92B-0D060175224A</string>
+	<string>12AC4467-19D6-44C8-8D7D-AB2155C7D2F9</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
+			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E47C381C-F375-476E-A92B-0D060175224A</string>
+			<string>12AC4467-19D6-44C8-8D7D-AB2155C7D2F9</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Repo</string>
+			<string>eivvanov_wimotoios</string>
 		</dict>
 	</array>
 </dict>
