@@ -42,20 +42,26 @@ static BLEManager *bleManager = nil;
         
         NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
         
-        NSArray *serviceUUIDStrings = [NSArray arrayWithObjects:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE, BLE_WATER_SERVICE_UUID_PRESENCE, BLE_GROW_SERVICE_UUID_LIGHT, BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE, nil];
-        NSMutableArray *serviceUUIDs = [NSMutableArray array];
-        for (NSString *uuid in serviceUUIDStrings) {
-            [serviceUUIDs addObject:[CBUUID UUIDWithString:uuid]];
-        }
-        [_centralBluetoothManager scanForPeripheralsWithServices:serviceUUIDs options:scanOptions];
+//        NSArray *serviceUUIDStrings = [NSArray arrayWithObjects:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE, BLE_WATER_SERVICE_UUID_PRESENCE, BLE_GROW_SERVICE_UUID_LIGHT, BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE, nil];
+//        NSMutableArray *serviceUUIDs = [NSMutableArray array];
+//        for (NSString *uuid in serviceUUIDStrings) {
+//            [serviceUUIDs addObject:[CBUUID UUIDWithString:uuid]];
+//        }
+        [_centralBluetoothManager scanForPeripheralsWithServices:nil options:scanOptions];
     }
     return self;
 }
 
 + (NSArray*)identifiedPeripherals {
     NSArray *managedPeripherals = [[BLEManager sharedManager] managedPeripherals];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"systemId != %@", @""];
-    return [managedPeripherals filteredArrayUsingPredicate:predicate];
+    
+    NSMutableArray *filteredArray = [NSMutableArray arrayWithCapacity:[managedPeripherals count]];
+    for (CBPeripheral *peripheral in managedPeripherals) {
+        if ([peripheral isIdentified]) {
+            [filteredArray addObject:peripheral];
+        }
+    }
+    return filteredArray;
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -129,19 +135,11 @@ static BLEManager *bleManager = nil;
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didUpdateValueForCharacteristic start");
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID]]) {
-        NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_SYSTEM_ID");
+    if ([aPeripheral isIdentified]) {
+        NSLog(@"didUpdateValueForCharacteristic peripheralType %d  systemId %@", [aPeripheral peripheralType], [aPeripheral systemId]);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
         });
-    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER]]) {
-        NSLog(@"didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_MODEL_NUMBER");
-        if ([aPeripheral systemId].length > 0) {
-            NSLog(@"didUpdateValueForCharacteristic systemId defined");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
-            });
-        }
     }
 }
 

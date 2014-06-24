@@ -137,4 +137,6 @@ typedef enum {
 - (NSString*)systemId;
 - (PeripheralType)peripheralType;
 
+- (BOOL)isIdentified;
+
 @end

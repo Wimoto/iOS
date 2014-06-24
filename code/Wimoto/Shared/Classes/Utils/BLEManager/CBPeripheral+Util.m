@@ -8,6 +8,7 @@
 
 #import "CBPeripheral+Util.h"
 #import "CBUUID+StringExtraction.h"
+#import "NSString+Util.h"
 
 @implementation CBPeripheral (CBPeripheral_Util)
 
@@ -51,60 +52,19 @@
                         return kPeripheralTypeSentry;
                     } else if ([model isEqual:BLE_THERMO_MODEL]) {
                         return kPeripheralTypeThermo;
-                    }// else {
-                    //    return kPeripheralTypeTest;
-                    //}
+                    }
                 }
             }
         }
     }
-    return kPeripheralTypeUndefined;
-    
-//    NSLog(@"SERVICES COUNT === %i", [self.services count]);
-//    for (CBService *aService in self.services) {
-//        NSLog(@"CBService UUID -------- %@", aService.UUID);
-//        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_BASE_SERVICE_UUID]]) {
-//            return kPeripheralTypeClimate;
-//        }
-//        else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_BASE_SERVICE_UUID]]) {
-//            return kPeripheralTypeWater;
-//        }
-//    }
-//    return kPeripheralTypeTest;
-    
-    /*
-    for (CBService *aService in self.services) {
-        NSLog(@"aService - %@", aService.UUID);
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_TEST_SERVICE_UUID_HEARTRATE]]) {
-            return kPeripheralTypeTest;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE]]) {
-            return kPeripheralTypeClimate;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT]]) {
-            return kPeripheralTypeClimate;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY]]) {
-            return kPeripheralTypeClimate;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT]]) {
-            return kPeripheralTypeGrow;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE]]) {
-            return kPeripheralTypeGrow;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE]]) {
-            return kPeripheralTypeGrow;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE]]) {
-            return kPeripheralTypeThermo;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE]]) {
-            return kPeripheralTypeThermo;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER]]) {
-            return kPeripheralTypeSentry;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED]]) {
-            return kPeripheralTypeSentry;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE]]) {
-            return kPeripheralTypeWater;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL]]) {
-            return kPeripheralTypeWater;
-        }
+    return kPeripheralTypeUndefined;    
+}
+
+- (BOOL)isIdentified {
+    if (([self peripheralType] != kPeripheralTypeUndefined) && ([[self systemId] isNotEmpty])) {
+        return YES;
     }
-    return kPeripheralTypeUndefined;
-     */
+    return NO;
 }
 
 @end

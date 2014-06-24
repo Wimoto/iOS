@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -161,6 +162,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
+		04EFF2FD195972540067589E /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Wimoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wimoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -779,6 +782,8 @@
 			children = (
 				90815A401868736E00A9EC0A /* SensorValue.h */,
 				90815A411868736E00A9EC0A /* SensorValue.m */,
+				04EFF2FC195972540067589E /* SensorEntity.h */,
+				04EFF2FD195972540067589E /* SensorEntity.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
 				90D807A3185B54E900FDF31D /* TestSensor.h */,
@@ -1108,6 +1113,7 @@
 				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */,
+				04EFF2FE195972540067589E /* SensorEntity.m in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */,
 				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
@@ -1172,11 +1178,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EC8A8E13-C0B5-4418-80DE-ED24C72D9592";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -1199,7 +1205,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;

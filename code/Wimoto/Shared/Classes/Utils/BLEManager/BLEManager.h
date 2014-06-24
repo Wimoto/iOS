@@ -13,7 +13,6 @@
 @property (nonatomic, strong) NSMutableArray *managedPeripherals;
 
 + (void)initialize;
-+ (BLEManager*)sharedManager;
 + (NSArray*)identifiedPeripherals;
 
 @end

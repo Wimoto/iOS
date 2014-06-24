@@ -30,7 +30,7 @@
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
     
-    NSArray *array = [[BLEManager sharedManager] managedPeripherals];
+    NSArray *array = [BLEManager identifiedPeripherals];
     
     _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
     
