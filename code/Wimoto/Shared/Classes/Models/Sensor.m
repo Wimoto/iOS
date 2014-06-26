@@ -9,7 +9,10 @@
 #import "Sensor.h"
 
 #import "ClimateSensor.h"
-#import "TestSensor.h"
+#import "WaterSensor.h"
+#import "GrowSensor.h"
+#import "SentrySensor.h"
+#import "ThermoSensor.h"
 
 #define DICT_KEY_SENSOR_TYPE      @"type"
 #define DICT_KEY_SENSOR_NAME      @"name"
@@ -22,78 +25,95 @@
 
 @implementation Sensor
 
-@dynamic name, systemId, lastUpdateDate;
-
-+ (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral {
-    Sensor *sensor = [[[Sensor classForPeripheral:peripheral] alloc] initWithNewDocumentInDatabase:database];
-    [sensor setValue:NSStringFromClass([sensor class]) ofProperty:@"type"];
-    sensor.peripheral = peripheral;
-    return sensor;
++ (id)sensorWithPeripheral:(CBPeripheral*)peripheral {
+    return [[[Sensor classForType:[peripheral peripheralType]] alloc] initWithPeripheral:peripheral];
 }
 
-+ (id)sensorForDocument:(CBLDocument*)document {
-    Sensor *sensor = (Sensor*)[CBLModel modelForDocument:document];
-    return sensor;
++ (id)sensorWithEntity:(SensorEntity*)entity {
+    return [[[Sensor classForType:[entity.type intValue]] alloc] initWithEntity:entity];
 }
 
-+ (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral {
-    Sensor *sensor = (Sensor*)[CBLModel modelForDocument:document];
-    sensor.peripheral = peripheral;
-    return sensor;
-}
-
-+ (Class)classForPeripheral:(CBPeripheral*)peripheral {
-    PeripheralType type = [peripheral peripheralType];
-    
-    NSString *className = nil;
++ (Class)classForType:(PeripheralType)type {
     switch (type) {
-        case kPeripheralTypeTest:
-            className = @"TestSensor";
-            break;
         case kPeripheralTypeClimate:
-            className = @"ClimateSensor";
+            return NSClassFromString(@"ClimateSensor");
             break;
         case kPeripheralTypeWater:
-            className = @"WaterSensor";
+            return NSClassFromString(@"WaterSensor");
             break;
         case kPeripheralTypeGrow:
-            className = @"GrowSensor";
+            return NSClassFromString(@"GrowSensor");
             break;
         case kPeripheralTypeSentry:
-            className = @"SentrySensor";
+            return NSClassFromString(@"SentrySensor");
             break;
         case kPeripheralTypeThermo:
-            className = @"ThermoSensor";
+            return NSClassFromString(@"ThermoSensor");
             break;
         default:
-            className = @"TestSensor";
+            return nil;
             break;
     }
-    
-    NSLog(@"CLASS FOR PERIRHERAL = %@", className);
-    
-    return NSClassFromString(className);
+}
+
+- (id)initWithPeripheral:(CBPeripheral*)peripheral {
+    self = [super init];
+    if (self) {
+        self.peripheral     = peripheral;
+        
+        _name               = _peripheral.name;
+        _uniqueIdentifier   = [_peripheral uniqueIdentifier];
+    }
+    return self;
+}
+
+- (id)initWithEntity:(SensorEntity*)entity {
+    self = [super init];
+    if (self) {
+        _entity = entity;
+        
+        _registered         = YES;
+        _name               = _entity.name;
+        _uniqueIdentifier   = _entity.systemId;
+    }
+    return self;
 }
 
 - (void)setPeripheral:(CBPeripheral *)peripheral
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        _peripheral.delegate = nil;
-        if ([_rssiTimer isValid]) {
-            [_rssiTimer invalidate];
-            self.rssiTimer = nil;
-        }
-        _peripheral = peripheral;
+        [_rssiTimer invalidate];
+        _rssiTimer = nil;
+    });
     
-        _peripheral.delegate = self;
+    _peripheral.delegate = nil;
+    
+    _peripheral = peripheral;
+    _peripheral.delegate = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _rssiTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+    });
+    
+    if (peripheral) {
         [_peripheral discoverServices:nil];
         [_peripheral readRSSI];
+    } else {
+        _rssi = nil;
+        _batteryLevel = nil;
+    }
+}
+
+- (SensorEntity*)entity {
+    _entity.name        = _name;
+    _entity.systemId    = _uniqueIdentifier;
+    _entity.type        = [NSNumber numberWithInt:[self type]];
     
-        self.name = _peripheral.name;
-        self.systemId = [peripheral systemId];
-        self.rssiTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_rssiTimer forMode:NSRunLoopCommonModes];
-    });
+    return _entity;
+}
+
+- (PeripheralType)type {
+    return kPeripheralTypeUndefined;
 }
 
 - (void)dealloc {
@@ -210,11 +230,11 @@
     return result;
 }
 
-#pragma mark - CBPeriferalDelegate
+#pragma mark - CBPeripheralDelegate
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
+    NSLog(@"peripheralDidUpdateRSSI %@", [peripheral RSSI]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"Did Update RSSI PERIPHERAL = %@", peripheral);
         self.rssi = [peripheral RSSI];
     });
 }
@@ -243,17 +263,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ((characteristic.value) || !error) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
-                NSData *data = [characteristic value];
-                const uint8_t *reportData = [data bytes];
-                uint16_t level = 0;
-                if ((reportData[0] & 0x01) == 0) {
-                    level = reportData[1];
-                }
-                else {
-                    level = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
-                }
-                self.batteryLevel = [NSNumber numberWithUnsignedLongLong:level];
-                NSLog(@"DID UPDATE BATERY CHARCTERISTIC VALUE = %@", _batteryLevel);
+                const uint8_t *bytes = [characteristic.value bytes];
+                int value = bytes[0];
+                
+                self.batteryLevel = [NSNumber numberWithInt:value];                
             }
         }
     });

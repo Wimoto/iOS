@@ -8,7 +8,6 @@
 
 #import "ThermoSensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
-#import "DatabaseManager.h"
 #import "ThermoSensor.h"
 #import "AppConstants.h"
 
@@ -28,8 +27,6 @@
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-- (void)didConnectPeripheral:(NSNotification*)notification;
-
 - (IBAction)switchAction:(id)sender;
 
 @end
@@ -39,8 +36,6 @@
 - (id)initWithSensor:(Sensor*)sensor {
     self = [super initWithSensor:sensor];
     if (self) {
-        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionNew context:NULL];
-        [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionNew context:NULL];
         self.sensor.delegate = self;
     }
     return self;
@@ -48,23 +43,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationController.navigationBarHidden = YES;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
-        
-    _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor irTemp]];
-    _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [(ThermoSensor*)self.sensor probeTemp]];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
-    _irTempSparkLine.labelText = @"";
-    _irTempSparkLine.showCurrentValue = NO;
-    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
-        _irTempSparkLine.dataValues = item;
-    }];
-    _probeTempSparkLine.labelText = @"";
-    _probeTempSparkLine.showCurrentValue = NO;
-    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
-        _probeTempSparkLine.dataValues = item;
-    }];
+//    _irTempSparkLine.labelText = @"";
+//    _irTempSparkLine.showCurrentValue = NO;
+//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
+//        _irTempSparkLine.dataValues = item;
+//    }];
+//    _probeTempSparkLine.labelText = @"";
+//    _probeTempSparkLine.showCurrentValue = NO;
+//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
+//        _probeTempSparkLine.dataValues = item;
+//    }];
     
     //ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
     //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
@@ -79,14 +73,13 @@
 }
 
 - (void)dealloc {
-    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP];
-    [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didConnectPeripheral:(NSNotification*)notification {
-    CBPeripheral *peripheral = [notification object];
-    self.sensor.peripheral = peripheral;
+    @try {
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
+    }
+    @catch (NSException *exception) {
+        // No need to handle just prevent app crash
+    }
 }
 
 - (IBAction)switchAction:(id)sender {
@@ -197,22 +190,42 @@
                        context:(void *)context {
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
+    
+    
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            _irTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            _probeTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        } else {
+            ThermoSensor *sensor = (ThermoSensor*)self.sensor;
+            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+            self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
+        }
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        
         self.lastUpdateLabel.text = @"Just now";
         if ([self.lastUpdateTimer isValid]) {
             [self.lastUpdateTimer invalidate];
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
-        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
-            _irTempSparkLine.dataValues = item;
-        }];
+        
+        if (self.sensor.peripheral) {
+            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        }
+//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
+//            _irTempSparkLine.dataValues = item;
+//        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
-        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
-            _probeTempSparkLine.dataValues = item;
-        }];
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        
+        if (self.sensor.peripheral) {
+            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        }
+//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
+//            _probeTempSparkLine.dataValues = item;
+//        }];
     }
 }
 

@@ -7,11 +7,13 @@
 //
 
 #import <Couchbaselite/Couchbaselite.h>
+#import "CBPeripheral+Util.h"
 
 @interface SensorEntity : CBLModel
 
-@property (copy) NSString *name;
-@property (copy) NSString *systemId;
-@property (copy) NSDate *lastUpdateDate;
+@property (copy) NSString   *name;
+@property (copy) NSString   *systemId;
+@property (copy) NSDate     *lastActivityAt;
+@property (copy) NSNumber   *type;
 
 @end

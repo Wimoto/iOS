@@ -39,7 +39,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneAction)];
     _tableView.tableFooterView = [[UIView alloc] init];
     self.dfuController = [[DFUController alloc] init];
-    [_dfuController setPeripheral:[_sensor peripheral]];
+    //[_dfuController setPeripheral:[_sensor peripheral]];
     
     NSError *error;
     NSData *jsonData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"binary_list" withExtension:@"json"]];

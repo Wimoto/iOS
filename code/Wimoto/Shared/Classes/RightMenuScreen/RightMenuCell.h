@@ -6,10 +6,10 @@
 //
 //
 
-#import "Sensor.h"
+#import "SensorEntity.h"
 
 @interface RightMenuCell : UITableViewCell
 
-@property (nonatomic, strong) Sensor *sensor;
+@property (nonatomic, strong) SensorEntity *sensorEntity;
 
 @end

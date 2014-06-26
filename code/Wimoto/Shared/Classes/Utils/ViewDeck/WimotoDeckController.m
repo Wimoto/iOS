@@ -18,7 +18,6 @@
 #import "ThermoSensorDetailsViewController.h"
 
 #import "Sensor.h"
-#import "TestSensor.h"
 #import "ClimateSensor.h"
 #import "WaterSensor.h"
 #import "GrowSensor.h"
@@ -36,14 +35,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self disablePanOverViewsOfClass:[NMRangeSlider class]];
-	// Do any additional setup after loading the view.
+	
+    self.centerController = [[NoSensorViewController alloc] init];
+    
+    [SensorsManager addObserverForRegisteredSensors:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [SensorsManager removeObserverForRegisteredSensors:self];
 }
 
 - (void)showSearchSensorScreen {
@@ -61,10 +68,27 @@
         self.centerController = [[SentrySensorDetailsViewController alloc] initWithSensor:sensor];
     } else if ([sensor isKindOfClass:[ThermoSensor class]]) {
         self.centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
-    } else if ([sensor isKindOfClass:[TestSensor class]]) {
-        self.centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
     } else {
         self.centerController = [[NoSensorViewController alloc] init];
+    }
+}
+
+#pragma mark - SensorsObserver
+
+- (void)didUpdateSensors:(NSSet*)sensors {
+    if ([sensors count] == 0) {
+        if ([self.centerController isKindOfClass:[SensorViewController class]]) {
+            [self showSensorDetailsScreen:nil];
+        }
+    } else {
+        if ([self.centerController isKindOfClass:[NoSensorViewController class]]) {
+            [self showSensorDetailsScreen:[sensors anyObject]];
+        } else if ([self.centerController isKindOfClass:[SensorViewController class]]) {
+            SensorViewController *sensorViewController = (SensorViewController*)self.centerController;
+            if (![sensors containsObject:sensorViewController.sensor]) {
+                [self showSensorDetailsScreen:[sensors anyObject]];
+            }
+        }
     }
 }
 

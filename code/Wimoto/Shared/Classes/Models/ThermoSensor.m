@@ -7,9 +7,12 @@
 //
 
 #import "ThermoSensor.h"
-#import "DatabaseManager.h"
 
 @implementation ThermoSensor
+
+- (PeripheralType)type {
+    return kPeripheralTypeThermo;
+}
 
 #pragma mark - CBPeriferalDelegate
 
@@ -92,16 +95,16 @@
                 
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
                     NSLog(@"THERMO IR TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                    self.lastUpdateDate = [NSDate date];
-                    [self save:nil];
+                    //self.lastUpdateDate = [NSDate date];
+                    //[self save:nil];
                     self.irTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %f", _irTemp);
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:decimalValue];
+                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeIRTemperature value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
                     NSLog(@"THERMO PROBE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
                     self.probeTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic probeTemp %f", _probeTemp);
-                    [DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:decimalValue];
+                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeProbeTemperature value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]||

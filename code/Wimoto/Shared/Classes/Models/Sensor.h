@@ -7,9 +7,11 @@
 //
 
 #import "CBPeripheral+Util.h"
-#import <Couchbaselite/Couchbaselite.h>
 #import "NSData+Conversion.h"
 
+#import "SensorEntity.h"
+
+#define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 #define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
 
@@ -32,20 +34,26 @@ typedef enum {
 
 @end
 
-@interface Sensor : CBLModel <CBPeripheralDelegate>
+@interface Sensor : NSObject <CBPeripheralDelegate>
 
-@property (copy) NSString *name;
-@property (copy) NSString *systemId;
-@property (nonatomic, strong) NSNumber *batteryLevel;
+@property (nonatomic, getter = isRegistered) BOOL registered;
+
+@property (nonatomic, strong) SensorEntity *entity;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *uniqueIdentifier;
+
+@property (nonatomic, strong) NSNumber *batteryLevel;
+
 @property (nonatomic, strong) NSNumber *rssi;
-@property (nonatomic, strong) NSDate *lastUpdateDate;
 @property (nonatomic, weak) id<SensorDelegate>delegate;
 
-+ (id)newSensorInDatabase:(CBLDatabase*)database withPeripheral:(CBPeripheral*)peripheral;
-+ (id)sensorForDocument:(CBLDocument*)document;
-+ (id)sensorForDocument:(CBLDocument*)document withPeripheral:(CBPeripheral*)peripheral;
++ (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
++ (id)sensorWithEntity:(SensorEntity*)entity;
+
+- (PeripheralType)type;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;

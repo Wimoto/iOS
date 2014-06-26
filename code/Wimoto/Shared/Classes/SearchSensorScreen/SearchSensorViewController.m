@@ -10,16 +10,15 @@
 #import "AppConstants.h"
 #import "SensorCell.h"
 #import "WimotoDeckController.h"
+
 #import "DatabaseManager.h"
+#import "SensorsManager.h"
 
 @interface SearchSensorViewController ()
 
-@property (nonatomic, strong) NSMutableArray *sensorsArray;
+@property (nonatomic, strong) NSArray *sensorsArray;
 @property (nonatomic, weak) IBOutlet UITableView *sensorTableView;
 @property (nonatomic, weak) IBOutlet SensorCell *tmpCell;
-
-- (void)didConnectPeripheral:(NSNotification*)notification;
-- (void)didDisconnectPeripheral:(NSNotification*)notification;
 
 @end
 
@@ -30,23 +29,7 @@
     
     _sensorTableView.tableFooterView = [[UIView alloc] init];
     
-    NSArray *array = [BLEManager identifiedPeripherals];
-    
-    _sensorsArray = [NSMutableArray arrayWithCapacity:[array count]];
-    
-    for (CBPeripheral *peripheral in array) {
-        [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
-            Sensor *sensor = item;
-            if (sensor) {
-                if ([sensor isNew]) {
-                    [_sensorsArray addObject:sensor];
-                }
-                [_sensorTableView reloadData];
-            }
-        }];
-    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectPeripheral:) name:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:nil];
+    [SensorsManager addObserverForUnregisteredSensors:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,34 +37,7 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didConnectPeripheral:(NSNotification*)notification {
-    CBPeripheral *peripheral = [notification object];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
-    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-    if ([filteredArray count]==0) {
-        [DatabaseManager sensorInstanceWithPeripheral:peripheral completionHandler:^(Sensor *item) {
-            Sensor *sensor = item;
-            if (sensor) {
-                if ([sensor isNew]) {
-                    [_sensorsArray addObject:sensor];
-                }
-            }
-            [_sensorTableView reloadData];
-        }];
-    }
-}
-
-- (void)didDisconnectPeripheral:(NSNotification*)notification {
-    CBPeripheral *peripheral = [notification object];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheral=%@", peripheral];
-    NSArray *filteredArray = [_sensorsArray filteredArrayUsingPredicate:predicate];
-    if ([filteredArray count]>0) {
-        [_sensorsArray removeObject:[filteredArray objectAtIndex:0]];
-        [_sensorTableView reloadData];
-    }
+    [SensorsManager addObserverForUnregisteredSensors:self];
 }
 
 #pragma mark - UITableViewDataSource
@@ -106,11 +62,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
-    dispatch_async([DatabaseManager getSensorQueue], ^{
-        [sensor save:nil];
-    });
+    
+    [SensorsManager registerSensor:sensor];
     [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
+}
+
+#pragma mark - SensorsObserver
+
+- (void)didUpdateSensors:(NSSet*)sensors {
+    _sensorsArray = [sensors allObjects];
+    [_sensorTableView reloadData];
 }
 
 @end

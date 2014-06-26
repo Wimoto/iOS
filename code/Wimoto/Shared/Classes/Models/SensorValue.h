@@ -30,7 +30,6 @@ typedef enum {
 @property SensorValueType valueType;
 @property double value;
 @property (strong) NSDate *date;
-@property (copy) Sensor *sensor;
 
 + (id)sensorValueForDocument:(CBLDocument*)document;
 

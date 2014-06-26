@@ -6,8 +6,6 @@
 //
 //
 
-#import "BLEManager.h"
-
 @interface AppViewController : UIViewController
 
 @end

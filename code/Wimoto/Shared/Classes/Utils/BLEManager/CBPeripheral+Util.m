@@ -67,4 +67,12 @@
     return NO;
 }
 
+- (NSString*)uniqueIdentifier {
+    NSString *identifier = [self systemId];
+#ifdef DEBUG
+    identifier = [[self identifier] UUIDString];
+#endif
+    return identifier;
+}
+
 @end

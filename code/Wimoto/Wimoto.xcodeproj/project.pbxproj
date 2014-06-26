@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
+		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -125,7 +127,6 @@
 		90232E31185A467100F83210 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2D185A467100F83210 /* IIViewDeckController.m */; };
 		90232E32185A467100F83210 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2F185A467100F83210 /* IIWrapController.m */; };
 		90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E34185A46A300F83210 /* WimotoDeckController.m */; };
-		90232E3A185A521900F83210 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E39185A521900F83210 /* BLEManager.m */; };
 		90815A421868736E00A9EC0A /* SensorValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A411868736E00A9EC0A /* SensorValue.m */; };
 		90815A451868951600A9EC0A /* WaterSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A441868951600A9EC0A /* WaterSensor.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
@@ -151,7 +152,6 @@
 		90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079A185B409300FDF31D /* ClimateSensor.m */; };
 		90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D8079D185B49D100FDF31D /* SensorViewController.m */; };
 		90D807A2185B52D800FDF31D /* ASBSparkLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A1185B52D800FDF31D /* ASBSparkLineView.m */; };
-		90D807A5185B54E900FDF31D /* TestSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D807A4185B54E900FDF31D /* TestSensor.m */; };
 		90EAB4A2185F79D300609A9C /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A1185F79D300609A9C /* CouchbaseLite.framework */; };
 		90EAB4A4185F7A3500609A9C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A3185F7A3500609A9C /* CFNetwork.framework */; };
 		90EAB4A6185F7A3C00609A9C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A5185F7A3C00609A9C /* Security.framework */; };
@@ -162,8 +162,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
+		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
 		04EFF2FD195972540067589E /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
+		04EFF300195A08CD0067589E /* SensorsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsManager.h; sourceTree = "<group>"; };
+		04EFF301195A08CD0067589E /* SensorsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorsManager.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Wimoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wimoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -326,8 +330,6 @@
 		90232E2F185A467100F83210 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
 		90232E33185A46A300F83210 /* WimotoDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoDeckController.h; sourceTree = "<group>"; };
 		90232E34185A46A300F83210 /* WimotoDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoDeckController.m; sourceTree = "<group>"; };
-		90232E38185A521900F83210 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
-		90232E39185A521900F83210 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
 		90815A401868736E00A9EC0A /* SensorValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorValue.h; sourceTree = "<group>"; };
 		90815A411868736E00A9EC0A /* SensorValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorValue.m; sourceTree = "<group>"; };
 		90815A431868951600A9EC0A /* WaterSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterSensor.h; sourceTree = "<group>"; };
@@ -367,8 +369,6 @@
 		90D8079D185B49D100FDF31D /* SensorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorViewController.m; sourceTree = "<group>"; };
 		90D807A0185B52D800FDF31D /* ASBSparkLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBSparkLineView.h; sourceTree = "<group>"; };
 		90D807A1185B52D800FDF31D /* ASBSparkLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBSparkLineView.m; sourceTree = "<group>"; };
-		90D807A3185B54E900FDF31D /* TestSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSensor.h; sourceTree = "<group>"; };
-		90D807A4185B54E900FDF31D /* TestSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSensor.m; sourceTree = "<group>"; };
 		90EAB4A1185F79D300609A9C /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		90EAB4A3185F7A3500609A9C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		90EAB4A5185F7A3C00609A9C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -406,6 +406,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04EFF2FF195A08B20067589E /* SensorsManager */ = {
+			isa = PBXGroup;
+			children = (
+				04EFF300195A08CD0067589E /* SensorsManager.h */,
+				04EFF301195A08CD0067589E /* SensorsManager.m */,
+			);
+			name = SensorsManager;
+			path = Shared/Classes/Utils/SensorsManager;
+			sourceTree = SOURCE_ROOT;
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,6 +579,7 @@
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
+				04EFF2FF195A08B20067589E /* SensorsManager */,
 				90232E37185A521900F83210 /* BLEManager */,
 				90EAB4AD185F9A5E00609A9C /* DatabaseManager */,
 				901399C3185A5EF20003D964 /* NSString+Util.h */,
@@ -767,8 +778,8 @@
 		90232E37185A521900F83210 /* BLEManager */ = {
 			isa = PBXGroup;
 			children = (
-				90232E38185A521900F83210 /* BLEManager.h */,
-				90232E39185A521900F83210 /* BLEManager.m */,
+				04E60A75195ACA6800570833 /* WimotoCentralManager.h */,
+				04E60A76195ACA6800570833 /* WimotoCentralManager.m */,
 				901399CA185B16CB0003D964 /* CBPeripheral+Util.h */,
 				901399CB185B16CB0003D964 /* CBPeripheral+Util.m */,
 				304B887F19100110000F487B /* CBUUID+StringExtraction.h */,
@@ -786,8 +797,6 @@
 				04EFF2FD195972540067589E /* SensorEntity.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
-				90D807A3185B54E900FDF31D /* TestSensor.h */,
-				90D807A4185B54E900FDF31D /* TestSensor.m */,
 				90D80799185B409300FDF31D /* ClimateSensor.h */,
 				90D8079A185B409300FDF31D /* ClimateSensor.m */,
 				90815A431868951600A9EC0A /* WaterSensor.h */,
@@ -1096,6 +1105,7 @@
 				90D4ABC1184E55BE004DDB1F /* SentrySensorDetailsViewController.m in Sources */,
 				90D807A2185B52D800FDF31D /* ASBSparkLineView.m in Sources */,
 				30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */,
+				04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */,
 				90CD9B2A18561DA400970B7D /* SensorCell.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
@@ -1105,12 +1115,10 @@
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
-				90232E3A185A521900F83210 /* BLEManager.m in Sources */,
 				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,
 				30C11813186B42A20068633C /* SentrySensor.m in Sources */,
 				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
 				30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */,
-				90D807A5185B54E900FDF31D /* TestSensor.m in Sources */,
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */,
 				04EFF2FE195972540067589E /* SensorEntity.m in Sources */,
@@ -1149,6 +1157,7 @@
 				90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
+				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
@@ -1177,6 +1186,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Wimoto-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";

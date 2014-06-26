@@ -13,7 +13,6 @@
 @dynamic valueType;
 @dynamic value;
 @dynamic date;
-@dynamic sensor;
 
 + (id)sensorValueForDocument:(CBLDocument*)document {
     return [CBLModel modelForDocument:document];

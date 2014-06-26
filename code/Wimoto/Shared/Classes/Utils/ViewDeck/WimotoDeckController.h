@@ -9,7 +9,9 @@
 #import "IIViewDeckController.h"
 #import "Sensor.h"
 
-@interface WimotoDeckController : IIViewDeckController
+#import "SensorsManager.h"
+
+@interface WimotoDeckController : IIViewDeckController <SensorsObserver>
 
 - (void)showSearchSensorScreen;
 - (void)showSensorDetailsScreen:(Sensor*)sensor;

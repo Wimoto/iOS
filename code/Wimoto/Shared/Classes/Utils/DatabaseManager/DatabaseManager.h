@@ -10,12 +10,13 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "SensorValue.h"
 
-@class Sensor, SensorValue, CBPeripheral;
+@class SensorEntity, SensorValue;
 
 @interface DatabaseManager : NSObject
 
-+ (void)sensorInstanceWithPeripheral:(CBPeripheral*)peripheral completionHandler:(void(^)(Sensor *item))completionHandler;
-+ (void)storedSensorsWithCompletionHandler:(void(^)(NSMutableArray *item))completionHandler;
++ (void)sensorEntityWithSensor:(Sensor*)sensor completionHandler:(void(^)(SensorEntity *sensorEntity))completionHandler;
++ (void)getSensorEntities:(void(^)(NSArray *resultsArray))completionHandler;
+
 + (void)lastSensorValuesForSensor:(Sensor*)sensor andType:(SensorValueType)type completionHandler:(void(^)(NSMutableArray *item))completionHandler;
 + (void)saveNewSensorValueWithSensor:(Sensor *)sensor valueType:(SensorValueType)valueType value:(double)value;
 

@@ -7,7 +7,8 @@
 //
 
 #import "AppViewController.h"
+#import "SensorsManager.h"
 
-@interface SearchSensorViewController : AppViewController
+@interface SearchSensorViewController : AppViewController<SensorsObserver>
 
 @end

@@ -24,7 +24,7 @@
     _sensor = sensor;
     
     _titleLabel.text = _sensor.name;
-    _systemIdLabel.text = _sensor.systemId;
+    _systemIdLabel.text = _sensor.uniqueIdentifier;
     
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
 }

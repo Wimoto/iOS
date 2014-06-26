@@ -10,6 +10,6 @@
 
 @implementation SensorEntity
 
-@dynamic name, systemId, lastUpdateDate;
+@dynamic name, systemId, lastActivityAt, type;
 
 @end

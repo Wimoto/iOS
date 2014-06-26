@@ -8,8 +8,6 @@
 
 #import "AppDelegate_iPhone.h"
 
-#import "BLEManager.h"
-
 #import "LeftMenuViewController.h"
 #import "RightMenuViewController.h"
 #import "WimotoDeckController.h"
@@ -22,23 +20,12 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [BLEManager initialize];
-    
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
     WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
-    
-    [DatabaseManager storedSensorsWithCompletionHandler:^(NSMutableArray *item) {
-        Sensor *sensor = nil;
-        NSArray *sensors = item;
-        if ([sensors count]>0) {
-            sensor = [sensors objectAtIndex:0];
-        }
-        [deckController showSensorDetailsScreen:sensor];
-    }];
-    
+        
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -80,6 +67,7 @@
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+    NSLog(@"applicationWillTerminate");
 }
 
 

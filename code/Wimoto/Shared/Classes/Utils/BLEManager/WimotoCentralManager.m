@@ -1,67 +1,56 @@
 //
-//  BLEManager.m
+//  WimotoCentralManager.m
 //  Wimoto
 //
-//  Created by MC700 on 5/2/13.
+//  Created by MacBook on 25/06/2014.
 //
 //
 
-#import "BLEManager.h"
-#import "AppConstants.h"
+#import "WimotoCentralManager.h"
 
 #import "CBPeripheral+Util.h"
 
-@interface BLEManager ()
+@interface WimotoCentralManager ()
 
-@property (nonatomic, strong) CBCentralManager *centralBluetoothManager;
+@property (nonatomic, weak) id<WimotoCentralManagerDelegate> wcmDelegate;
+
+@property (nonatomic, strong) NSMutableSet *pendingPeripherals;
 
 @end
 
-@implementation BLEManager
+@implementation WimotoCentralManager
 
-static BLEManager *bleManager = nil;
-
-+ (void)initialize {
-    [BLEManager sharedManager];
-}
-
-+ (BLEManager*)sharedManager {
-	if (!bleManager) {
-		bleManager = [[BLEManager alloc] init];
-	}
-	return bleManager;
-}
-
-- (id)init {
-    self = [super init];
+- (id)initWithDelegate:(id<WimotoCentralManagerDelegate>)wcmDelegate {
+    dispatch_queue_t centralQueue = dispatch_queue_create("com.wimoto.ios", DISPATCH_QUEUE_SERIAL);
+    self = [super initWithDelegate:nil queue:centralQueue];
     if (self) {
-        dispatch_queue_t centralQueue = dispatch_queue_create("com.wimoto.ios", DISPATCH_QUEUE_SERIAL);
+        self.delegate       = self;
         
-        _centralBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue];
-        _managedPeripherals = [NSMutableArray array];
+        _wcmDelegate            = wcmDelegate;
+        _pendingPeripherals     = [NSMutableSet set];
         
-        NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
-        
-//        NSArray *serviceUUIDStrings = [NSArray arrayWithObjects:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE, BLE_WATER_SERVICE_UUID_PRESENCE, BLE_GROW_SERVICE_UUID_LIGHT, BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE, nil];
-//        NSMutableArray *serviceUUIDs = [NSMutableArray array];
-//        for (NSString *uuid in serviceUUIDStrings) {
-//            [serviceUUIDs addObject:[CBUUID UUIDWithString:uuid]];
-//        }
-        [_centralBluetoothManager scanForPeripheralsWithServices:nil options:scanOptions];
     }
     return self;
 }
 
-+ (NSArray*)identifiedPeripherals {
-    NSArray *managedPeripherals = [[BLEManager sharedManager] managedPeripherals];
+- (void)startScan {
+    NSDictionary *scanOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     
-    NSMutableArray *filteredArray = [NSMutableArray arrayWithCapacity:[managedPeripherals count]];
-    for (CBPeripheral *peripheral in managedPeripherals) {
-        if ([peripheral isIdentified]) {
-            [filteredArray addObject:peripheral];
-        }
-    }
-    return filteredArray;
+    NSArray *targetServices = [NSArray arrayWithObjects:
+                               [CBUUID UUIDWithString:BLE_CLIMATE_AD_SERVICE_UUID_TEMPERATURE],
+                               [CBUUID UUIDWithString:BLE_CLIMATE_AD_SERVICE_UUID_LIGHT],
+                               [CBUUID UUIDWithString:BLE_CLIMATE_AD_SERVICE_UUID_HUMIDITY],
+                               [CBUUID UUIDWithString:BLE_WATER_AD_SERVICE_UUID_PRESENCE],
+                               [CBUUID UUIDWithString:BLE_WATER_AD_SERVICE_UUID_LEVEL],
+                               [CBUUID UUIDWithString:BLE_GROW_AD_SERVICE_UUID_LIGHT],
+                               [CBUUID UUIDWithString:BLE_GROW_AD_SERVICE_UUID_SOIL_MOISTURE],
+                               [CBUUID UUIDWithString:BLE_GROW_AD_SERVICE_UUID_SOIL_TEMPERATURE],
+                               [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_ACCELEROMETER],
+                               [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_PASSIVE_INFRARED],
+                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE],
+                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE], nil];
+    
+    [self scanForPeripheralsWithServices:targetServices options:scanOptions];
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -92,26 +81,34 @@ static BLEManager *bleManager = nil;
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    if ((![_managedPeripherals containsObject:peripheral])&&(peripheral.state != CBPeripheralStateConnected)) {
-        [_managedPeripherals addObject:peripheral];
-        [_centralBluetoothManager connectPeripheral:peripheral options:nil];
+    
+    NSLog(@"WimotoCentralManager didDiscoverPeripheral %@", peripheral);
+    [_pendingPeripherals addObject:peripheral];
+    
+    if (peripheral.state == CBPeripheralStateDisconnected) {
+        [self connectPeripheral:peripheral options:nil];
     }
+    
+    NSLog(@"WimotoCentralManager peripherals %d", [_pendingPeripherals count]);
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"didConnectPeripheral %@", peripheral);
+    
     peripheral.delegate = self;
-    [peripheral discoverServices:nil];
+    
+    NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]];
+    [peripheral discoverServices:services];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_DISCONNECTED object:peripheral];
-    if ([_managedPeripherals containsObject:peripheral]) {
-        peripheral.delegate = nil;
-        [_managedPeripherals removeObject:peripheral];
-    }
+    NSLog(@"didDisconnectPeripheral %@", peripheral);
+    
+    [_wcmDelegate didDisconnectPeripheral:peripheral];
+    [_pendingPeripherals removeObject:peripheral];
 }
 
-#pragma mark - CBPeriferalDelegate
+#pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     for (CBService *aService in aPeripheral.services) {
@@ -137,9 +134,9 @@ static BLEManager *bleManager = nil;
     NSLog(@"didUpdateValueForCharacteristic start");
     if ([aPeripheral isIdentified]) {
         NSLog(@"didUpdateValueForCharacteristic peripheralType %d  systemId %@", [aPeripheral peripheralType], [aPeripheral systemId]);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:NC_BLE_MANAGER_PERIPHERAL_CONNECTED object:aPeripheral];
-        });
+        
+        [_wcmDelegate didConnectPeripheral:aPeripheral];
+        [_pendingPeripherals removeObject:aPeripheral];
     }
 }
 

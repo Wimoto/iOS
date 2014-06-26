@@ -26,8 +26,6 @@
     self = [super init];
     if (self) {
         _sensor = sensor;
-        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionNew context:NULL];
-        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -35,14 +33,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *sensorName = [self.sensor name];
+    
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+
+    NSString *sensorName = _sensor.name;
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
-    if (_sensor.rssi) {
-        _rssiLabel.text = [NSString stringWithFormat:@"%@dB", _sensor.rssi];
-    }
-    [self refreshLastUpdateLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,8 +67,15 @@
 }
 
 - (void)dealloc {
-    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
-    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL];
+    @try {
+        [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
+        [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
+        [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL];
+    }
+    @catch (NSException *exception) {
+        // No need to handle just prevent app crash
+    }
+    
     if ([self.lastUpdateTimer isValid]) {
         [self.lastUpdateTimer invalidate];
     }
@@ -77,11 +83,11 @@
 }
 
 - (void)refreshLastUpdateLabel {
-    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
-    if (lastUpdateDate) {
-        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
-        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
-    }
+//    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
+//    if (lastUpdateDate) {
+//        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
+//        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
+//    }
 }
 
 - (void)showSlider {
@@ -118,27 +124,54 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
-        _rssiLabel.text = [NSString stringWithFormat:@"%@dB", [change objectForKey:NSKeyValueChangeNewKey]];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL]) {
-        NSNumber *batteryValue = (NSNumber *)[change objectForKey:NSKeyValueChangeNewKey];
-        int value = [batteryValue intValue];
-        NSLog(@"BATTERY LEVEL INTEGER VALUE = %i", value);
-        NSString *batteryImagePath = nil;
-        if (value < 25) {
-            batteryImagePath = @"battery-low";
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            self.view.backgroundColor = [UIColor lightGrayColor];
+            _rssiLabel.hidden           = YES;
+            _batteryLevelImage.hidden   = YES;
+        } else {
+            _rssiLabel.hidden           = NO;
+            _batteryLevelImage.hidden   = NO;
         }
-        else if (value < 50) {
-            batteryImagePath = @"battery-medium";
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
+        int rssi = 0;
+        
+        NSObject *rssiObject = [change objectForKey:NSKeyValueChangeNewKey];
+        if ([rssiObject isKindOfClass:[NSNumber class]]) {
+            rssi = [(NSNumber*)rssiObject intValue];
         }
-        else if (value < 75) {
-            batteryImagePath = @"battery-high";
+        
+        if (rssi == 0) {
+            _rssiLabel.hidden = YES;
+        } else {
+            _rssiLabel.text = [NSString stringWithFormat:@"%idB", rssi];
+            _rssiLabel.hidden = NO;
         }
-        else {
-            batteryImagePath = @"battery-full";
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL]) {
+        int level = -1;
+        
+        NSObject *levelObject = [change objectForKey:NSKeyValueChangeNewKey];
+        if ([levelObject isKindOfClass:[NSNumber class]]) {
+            level = [(NSNumber *)levelObject intValue];
         }
-        _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
+        
+        if (level == -1) {
+            _batteryLevelImage.hidden = YES;
+        } else {
+            NSString *batteryImagePath = nil;
+            if (level > 75) {
+                batteryImagePath = @"battery-full";
+            } else if (level > 50) {
+                batteryImagePath = @"battery-high";
+            } else if (level > 25) {
+                batteryImagePath = @"battery-medium";
+            } else {
+                batteryImagePath = @"battery-low";
+            }
+                
+            _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
+            _batteryLevelImage.hidden = NO;
+        }
     }
 }
 
@@ -146,10 +179,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if ([textField.text isNotEmpty]) {
-        self.sensor.name = [textField text];
-        [self.sensor save:nil];
-    }
+//    if ([textField.text isNotEmpty]) {
+//        self.sensor.name = [textField text];
+//        [self.sensor save:nil];
+//    }
     return YES;
 }
 

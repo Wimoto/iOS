@@ -6,6 +6,8 @@
 //
 //
 
+#define SENSOR_VALUE_PLACEHOLDER        @"--"
+
 #import "AppViewController.h"
 #import "Sensor.h"
 #import "NMRangeSlider.h"
