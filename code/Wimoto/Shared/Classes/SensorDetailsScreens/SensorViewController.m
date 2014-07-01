@@ -83,11 +83,11 @@
 }
 
 - (void)refreshLastUpdateLabel {
-//    NSDate *lastUpdateDate = [self.sensor lastUpdateDate];
-//    if (lastUpdateDate) {
-//        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
-//        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
-//    }
+    NSDate *lastUpdateDate = [self.sensor.entity lastActivityAt];
+    if (lastUpdateDate) {
+        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
+        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
+    }
 }
 
 - (void)showSlider {

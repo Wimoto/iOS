@@ -185,7 +185,6 @@ static SensorsManager *sensorsManager = nil;
         });
     } else {
         [_sensors addObject:[Sensor sensorWithPeripheral:peripheral]];
-        
         [self notifyUnregisteredSensorsObservers];
     }    
 }

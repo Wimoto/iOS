@@ -57,7 +57,7 @@
             }
         }
     }
-    return kPeripheralTypeUndefined;    
+    return kPeripheralTypeUndefined;
 }
 
 - (BOOL)isIdentified {

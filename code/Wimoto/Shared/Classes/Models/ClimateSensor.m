@@ -124,8 +124,7 @@
                 unsigned int decimalValue;
                 [scanner scanHexInt:&decimalValue];
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-                    //self.lastUpdateDate = [NSDate date];
-                    //[self save:nil];
+                    [self saveActivityDate];
                     self.temperature = -46.85 + (175.72*decimalValue/65536);
                     [self saveNewSensorValueWithType:kValueTypeTemperature value:_temperature];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {

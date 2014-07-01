@@ -120,8 +120,7 @@
                 
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
                     NSLog(@"GROW SOIL TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                    //self.lastUpdateDate = [NSDate date];
-                    //[self save:nil];
+                    [self saveActivityDate];
                     self.soilTemperature = decimalValue;
                     NSLog(@"GROW SOIL TEMPERATURE CURRENT VALUE = %i", decimalValue);
                     [self saveNewSensorValueWithType:kValueTypeSoilTemperature value:decimalValue];

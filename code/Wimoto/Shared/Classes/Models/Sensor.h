@@ -10,6 +10,7 @@
 #import "NSData+Conversion.h"
 #import "SensorEntity.h"
 #import "SensorValue.h"
+#import "SensorsManager.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
@@ -65,5 +66,7 @@ typedef enum {
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
+
+- (void)saveActivityDate;
 
 @end
