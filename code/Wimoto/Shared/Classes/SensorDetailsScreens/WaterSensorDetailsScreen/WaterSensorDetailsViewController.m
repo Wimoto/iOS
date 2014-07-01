@@ -45,11 +45,11 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
-//    _levelSparkLine.labelText = @"";
-//    _levelSparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
-//        _levelSparkLine.dataValues = item;
-//    }];
+    _levelSparkLine.labelText = @"";
+    _levelSparkLine.showCurrentValue = NO;
+    [self.sensor lastSensorValuesWithType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
+        _levelSparkLine.dataValues = item;
+    }];
     
     WaterSensor *waterSensor = (WaterSensor *)[self sensor];
     _contactSwitch.on = (waterSensor.presenseAlarmState == kAlarmStateEnabled)?YES:NO;
@@ -152,9 +152,9 @@
         if (self.sensor.peripheral) {
             _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
-//            _levelSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
+            _levelSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
         if (self.sensor.peripheral) {
             _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";

@@ -17,6 +17,9 @@
 
 @interface SensorsManager : NSObject <WimotoCentralManagerDelegate>
 
++ (dispatch_queue_t)queue;
++ (CBLDatabase *)managerDatabase;
+
 + (void)registerSensor:(Sensor*)sensor;
 + (void)unregisterSensor:(Sensor*)sensor;
 

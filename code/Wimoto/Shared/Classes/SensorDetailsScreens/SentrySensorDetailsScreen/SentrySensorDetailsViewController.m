@@ -47,17 +47,16 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
-//    _accelerometerSparkLine.labelText = @"";
-//    _accelerometerSparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
-//        _accelerometerSparkLine.dataValues = item;
-//    }];
-//    
-//    _pasInfraredSparkLine.labelText = @"";
-//    _pasInfraredSparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
-//        _pasInfraredSparkLine.dataValues = item;
-//    }];
+    _accelerometerSparkLine.labelText = @"";
+    _accelerometerSparkLine.showCurrentValue = NO;
+    [self.sensor lastSensorValuesWithType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
+        _accelerometerSparkLine.dataValues = item;
+    }];
+    _pasInfraredSparkLine.labelText = @"";
+    _pasInfraredSparkLine.showCurrentValue = NO;
+    [self.sensor lastSensorValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
+        _pasInfraredSparkLine.dataValues = item;
+    }];
     
     SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
     _accelerometerSwitch.on = (sentrySensor.accelerometerAlarmState == kAlarmStateEnabled)?YES:NO;
@@ -134,16 +133,16 @@
         if (self.sensor.peripheral) {
             _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
-//            _accelerometerSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
+            _accelerometerSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
         if (self.sensor.peripheral) {
             _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
-//            _pasInfraredSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
+            _pasInfraredSparkLine.dataValues = item;
+        }];
     }
 }
 

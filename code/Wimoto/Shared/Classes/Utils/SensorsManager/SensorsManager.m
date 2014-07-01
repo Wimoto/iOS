@@ -72,6 +72,14 @@ static SensorsManager *sensorsManager = nil;
     return self;
 }
 
++ (dispatch_queue_t)queue {
+    return [[SensorsManager sharedManager] managerQueue];
+}
+
++ (CBLDatabase *)managerDatabase {
+    return [[SensorsManager sharedManager] cblDatabase];
+}
+
 + (void)registerSensor:(Sensor*)sensor {
     SensorsManager *manager = [SensorsManager sharedManager];
     

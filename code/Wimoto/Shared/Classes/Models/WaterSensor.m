@@ -8,8 +8,6 @@
 
 #import "WaterSensor.h"
 
-//#import "DatabaseManager.h"
-
 @implementation WaterSensor
 
 - (PeripheralType)type {
@@ -88,10 +86,10 @@
                     //self.lastUpdateDate = [NSDate date];
                     //[self save:nil];
                     self.level = value16_t;
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLevel value:value16_t];
+                    [self saveNewSensorValueWithType:kValueTypeLevel value:value16_t];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
                     self.presense = value16_t;
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePresence value:value16_t];
+                    [self saveNewSensorValueWithType:kValueTypePresence value:value16_t];
                 }
             }
         }

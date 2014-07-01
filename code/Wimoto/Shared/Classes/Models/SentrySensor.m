@@ -7,7 +7,6 @@
 //
 
 #import "SentrySensor.h"
-//#import "DatabaseManager.h"
 
 @implementation SentrySensor
 
@@ -90,11 +89,11 @@
                     //self.lastUpdateDate = [NSDate date];
                     //[self save:nil];
                     self.accelerometer = decimalValue;
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeAccelerometer value:decimalValue];
+                    [self saveNewSensorValueWithType:kValueTypeAccelerometer value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
                     NSLog(@"SENTRY PASSIVE INFRARED CURRENT HEX VALUE = %@", hexString);
                     self.pasInfrared = decimalValue;
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypePassiveInfrared value:decimalValue];
+                    [self saveNewSensorValueWithType:kValueTypePassiveInfrared value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]||

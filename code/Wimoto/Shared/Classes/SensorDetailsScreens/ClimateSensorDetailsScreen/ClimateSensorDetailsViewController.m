@@ -8,7 +8,6 @@
 
 #import "ClimateSensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
-#import "DatabaseManager.h"
 #import "ClimateSensor.h"
 #import "SensorHelper.h"
 
@@ -62,22 +61,19 @@
     
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
-//        _temperatureSparkLine.dataValues = item;
-//    }];
-    
+    [self.sensor lastSensorValuesWithType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
+        _temperatureSparkLine.dataValues = item;
+    }];
     _humiditySparkLine.labelText = @"";
     _humiditySparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
-//        _humiditySparkLine.dataValues = item;
-//    }];
-    
+    [self.sensor lastSensorValuesWithType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
+        _humiditySparkLine.dataValues = item;
+    }];
     _lightSparkLine.labelText = @"";
     _lightSparkLine.showCurrentValue = NO;
-//    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
-//        _lightSparkLine.dataValues = item;
-//    }];
-    
+    [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+        _lightSparkLine.dataValues = item;
+    }];
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
     _lightSwitch.on = (climateSensor.lightAlarmState == kAlarmStateEnabled)?YES:NO;
@@ -87,8 +83,7 @@
     NSLog(@"HUMIDITY SWITCH IS ON - %i", [_tempSwitch isOn]);
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -263,23 +258,23 @@
         if (self.sensor.peripheral) {
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
-//            _temperatureSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
+            _temperatureSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
         if (self.sensor.peripheral) {
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
-//            _humiditySparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
+            _humiditySparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
         if (self.sensor.peripheral) {
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
-//            _lightSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+            _lightSparkLine.dataValues = item;
+        }];
     }
 }
 

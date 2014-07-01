@@ -10,8 +10,6 @@
 #import "AppConstants.h"
 #import "SensorCell.h"
 #import "WimotoDeckController.h"
-
-#import "DatabaseManager.h"
 #import "SensorsManager.h"
 
 @interface SearchSensorViewController ()

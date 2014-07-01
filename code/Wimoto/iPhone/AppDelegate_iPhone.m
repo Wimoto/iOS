@@ -12,8 +12,6 @@
 #import "RightMenuViewController.h"
 #import "WimotoDeckController.h"
 
-#import "DatabaseManager.h"
-
 @implementation AppDelegate_iPhone
 
 #pragma mark -

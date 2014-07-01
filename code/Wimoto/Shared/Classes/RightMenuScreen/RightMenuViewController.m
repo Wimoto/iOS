@@ -8,11 +8,7 @@
 
 #import "RightMenuViewController.h"
 #import "RightMenuCell.h"
-
 #import "WimotoDeckController.h"
-
-#import "DatabaseManager.h"
-
 #import "AppConstants.h"
 #import "CBPeripheral+Util.h"
 

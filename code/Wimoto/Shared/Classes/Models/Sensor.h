@@ -8,8 +8,8 @@
 
 #import "CBPeripheral+Util.h"
 #import "NSData+Conversion.h"
-
 #import "SensorEntity.h"
+#import "SensorValue.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
@@ -54,6 +54,9 @@ typedef enum {
 + (id)sensorWithEntity:(SensorEntity*)entity;
 
 - (PeripheralType)type;
+
+- (void)saveNewSensorValueWithType:(SensorValueType)valueType value:(double)value;
+- (void)lastSensorValuesWithType:(SensorValueType)valueType completionHandler:(void(^)(NSMutableArray *item))completionHandler;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;

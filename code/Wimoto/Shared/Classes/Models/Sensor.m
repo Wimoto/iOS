@@ -7,12 +7,12 @@
 //
 
 #import "Sensor.h"
-
 #import "ClimateSensor.h"
 #import "WaterSensor.h"
 #import "GrowSensor.h"
 #import "SentrySensor.h"
 #import "ThermoSensor.h"
+#import "SensorsManager.h"
 
 #define DICT_KEY_SENSOR_TYPE      @"type"
 #define DICT_KEY_SENSOR_NAME      @"name"
@@ -79,8 +79,56 @@
     return self;
 }
 
-- (void)setPeripheral:(CBPeripheral *)peripheral
-{
+- (void)saveNewSensorValueWithType:(SensorValueType)valueType value:(double)value {
+    dispatch_async([SensorsManager queue], ^{
+        SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:[SensorsManager managerDatabase]];
+        [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
+        sensorValue.date = [NSDate date];
+        sensorValue.valueType = valueType;
+        sensorValue.value = value;
+        [sensorValue save:nil];
+    });
+}
+
+- (void)lastSensorValuesWithType:(SensorValueType)valueType completionHandler:(void(^)(NSMutableArray *item))completionHandler {
+    dispatch_async([SensorsManager queue], ^{
+        CBLView *view = [[SensorsManager managerDatabase] viewNamed:@"sensorValuesByDate"];
+        if (!view.mapBlock) {
+            NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
+            [view setMapBlock: MAPBLOCK({
+                if ([doc[@"type"] isEqualToString:kSensorValueType]) {
+                    id date = doc[@"date"];
+                    NSString *sensor = doc[@"sensor"];
+                    NSNumber *typeNumber = doc[@"valueType"];
+                    emit(@[sensor, typeNumber, date], doc);
+                }
+            }) version: @"1.1"];
+        }
+        CBLQuery *query = [view createQuery];
+        query.limit = 16;
+        query.descending = YES;
+        NSString *myListId = _entity.document.documentID;
+        NSNumber *typeNumber = [NSNumber numberWithInt:valueType];
+        query.startKey = @[myListId, typeNumber, @{}];
+        query.endKey = @[myListId, typeNumber];
+    
+        NSLog(@"Get last sensor values");
+    
+        CBLQueryEnumerator *queryEnumerator = [query run:nil];
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
+        for (CBLQueryRow *row in queryEnumerator) {
+            NSObject *value = row.document[@"value"];
+            if (value) {
+                [mutableArray addObject:value];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(mutableArray);
+        });
+    });
+}
+
+- (void)setPeripheral:(CBPeripheral *)peripheral {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_rssiTimer invalidate];
         _rssiTimer = nil;

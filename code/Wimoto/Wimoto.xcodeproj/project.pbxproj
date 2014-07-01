@@ -158,7 +158,6 @@
 		90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */; };
 		90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */; };
 		90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4AB185F7A6E00609A9C /* libz.dylib */; };
-		90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EAB4AF185F9A7700609A9C /* DatabaseManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -375,8 +374,6 @@
 		90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		90EAB4AB185F7A6E00609A9C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		90EAB4AE185F9A7700609A9C /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
-		90EAB4AF185F9A7700609A9C /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		90F56DDE184DD54000ADC38E /* Wimoto-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wimoto-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -581,7 +578,6 @@
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				04EFF2FF195A08B20067589E /* SensorsManager */,
 				90232E37185A521900F83210 /* BLEManager */,
-				90EAB4AD185F9A5E00609A9C /* DatabaseManager */,
 				901399C3185A5EF20003D964 /* NSString+Util.h */,
 				901399C4185A5EF20003D964 /* NSString+Util.m */,
 				49F3F91118A5108800CDA950 /* SensorHelper.h */,
@@ -949,15 +945,6 @@
 			path = Sparklines;
 			sourceTree = "<group>";
 		};
-		90EAB4AD185F9A5E00609A9C /* DatabaseManager */ = {
-			isa = PBXGroup;
-			children = (
-				90EAB4AE185F9A7700609A9C /* DatabaseManager.h */,
-				90EAB4AF185F9A7700609A9C /* DatabaseManager.m */,
-			);
-			path = DatabaseManager;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -987,7 +974,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = 98T7Z7XL3B;
 					};
 				};
 			};
@@ -1154,7 +1141,6 @@
 				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
 				30B9E11A19473866001E10A5 /* SBJsonParser.m in Sources */,
-				90EAB4B0185F9A7700609A9C /* DatabaseManager.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
 				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
@@ -1192,7 +1178,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "EC8A8E13-C0B5-4418-80DE-ED24C72D9592";
+				PROVISIONING_PROFILE = "6C095003-6539-4E96-8533-01E525475CF4";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};

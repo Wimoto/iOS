@@ -127,13 +127,13 @@
                     //self.lastUpdateDate = [NSDate date];
                     //[self save:nil];
                     self.temperature = -46.85 + (175.72*decimalValue/65536);
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeTemperature value:_temperature];
+                    [self saveNewSensorValueWithType:kValueTypeTemperature value:_temperature];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
                     self.humidity = -6.0 + (125.0*decimalValue/65536);
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeHumidity value:_humidity];
+                    [self saveNewSensorValueWithType:kValueTypeHumidity value:_humidity];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
                     self.light = 0.96 * decimalValue;
-                    //[DatabaseManager saveNewSensorValueWithSensor:self valueType:kValueTypeLight value:_light];
+                    [self saveNewSensorValueWithType:kValueTypeLight value:_light];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]]||

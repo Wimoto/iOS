@@ -9,7 +9,6 @@
 #import "GrowSensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
 #import "GrowSensor.h"
-#import "DatabaseManager.h"
 
 @interface GrowSensorDetailsViewController ()
 
@@ -59,19 +58,19 @@
     
     _soilTempSparkLine.labelText = @"";
     _soilTempSparkLine.showCurrentValue = NO;
-    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilTemperature completionHandler:^(NSMutableArray *item) {
+    [self.sensor lastSensorValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSMutableArray *item) {
         _soilTempSparkLine.dataValues = item;
     }];
     
     _soilMoistureSparkLine.labelText = @"";
     _soilMoistureSparkLine.showCurrentValue = NO;
-    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilHumidity completionHandler:^(NSMutableArray *item) {
+    [self.sensor lastSensorValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSMutableArray *item) {
         _soilMoistureSparkLine.dataValues = item;
     }];
     
     _lightSparkLine.labelText = @"";
     _lightSparkLine.showCurrentValue = NO;
-    [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+    [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
         _lightSparkLine.dataValues = item;
     }];
     
@@ -241,23 +240,23 @@
         if (self.sensor.peripheral) {
             _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilTemperature completionHandler:^(NSMutableArray *item) {
-//            _soilTempSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSMutableArray *item) {
+            _soilTempSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
         if (self.sensor.peripheral) {
             _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeSoilHumidity completionHandler:^(NSMutableArray *item) {
-//            _soilMoistureSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSMutableArray *item) {
+            _soilMoistureSparkLine.dataValues = item;
+        }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
         if (self.sensor.peripheral) {
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-//        [DatabaseManager lastSensorValuesForSensor:self.sensor andType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
-//            _lightSparkLine.dataValues = item;
-//        }];
+        [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
+            _lightSparkLine.dataValues = item;
+        }];
     }
 }
 
