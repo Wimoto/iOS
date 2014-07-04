@@ -7,9 +7,11 @@
 //
 
 #import "SensorsManager.h"
-
 #import <Couchbaselite/CouchbaseLite.h>
 #import "SensorEntity.h"
+#import "QueueManager.h"
+
+#import "Sensor.h"
 
 @interface SensorsManager ()
 
@@ -21,7 +23,6 @@
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
-@property (nonatomic, strong) dispatch_queue_t managerQueue;
 
 @end
 
@@ -48,11 +49,14 @@ static SensorsManager *sensorsManager = nil;
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         
-        _managerQueue = dispatch_queue_create("com.wimoto.sensorsManager", DISPATCH_QUEUE_SERIAL);
-        dispatch_async(_managerQueue, ^{
+        dispatch_async([QueueManager databaseQueue], ^{
             CBLView *view = [_cblDatabase viewNamed:@"registeredSensors"];
+            
+            NSString* const kSensorEntityType = NSStringFromClass([SensorEntity class]);
             [view setMapBlock:MAPBLOCK({
-                emit(doc[@"systemId"], doc);
+                if ([doc[@"type"] isEqualToString:kSensorEntityType]) {
+                    emit(doc[@"systemId"], doc);
+                }
             }) version:@"1.0"];
             
             CBLQuery *query = [view createQuery];
@@ -72,22 +76,15 @@ static SensorsManager *sensorsManager = nil;
     return self;
 }
 
-+ (dispatch_queue_t)queue {
-    return [[SensorsManager sharedManager] managerQueue];
-}
-
-+ (CBLDatabase *)managerDatabase {
-    return [[SensorsManager sharedManager] cblDatabase];
-}
-
 + (void)registerSensor:(Sensor*)sensor {
     SensorsManager *manager = [SensorsManager sharedManager];
     
-    dispatch_async(manager.managerQueue, ^{
+    dispatch_async([QueueManager databaseQueue], ^{
         SensorEntity *sensorEntity = [[SensorEntity alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
+        [sensorEntity setValue:NSStringFromClass([SensorEntity class]) ofProperty:@"type"];
         sensorEntity.name        = sensor.name;
         sensorEntity.systemId    = sensor.uniqueIdentifier;
-        sensorEntity.type        = [NSNumber numberWithInt:[sensor type]];
+        sensorEntity.sensorType  = [NSNumber numberWithInt:[sensor type]];
         [sensorEntity save:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -103,7 +100,7 @@ static SensorsManager *sensorsManager = nil;
 
 + (void)unregisterSensor:(Sensor*)sensor {
     SensorsManager *manager = [SensorsManager sharedManager];
-    dispatch_async(manager.managerQueue, ^{
+    dispatch_async([QueueManager databaseQueue], ^{
         [sensor.entity deleteDocument:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -47,8 +47,8 @@
     
     _levelSparkLine.labelText = @"";
     _levelSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
-        _levelSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeLevel completionHandler:^(NSArray *result) {
+        _levelSparkLine.dataValues = result;
     }];
     
     WaterSensor *waterSensor = (WaterSensor *)[self sensor];
@@ -152,8 +152,8 @@
         if (self.sensor.peripheral) {
             _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeLevel completionHandler:^(NSMutableArray *item) {
-            _levelSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeLevel completionHandler:^(NSArray *result) {
+            _levelSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
         if (self.sensor.peripheral) {

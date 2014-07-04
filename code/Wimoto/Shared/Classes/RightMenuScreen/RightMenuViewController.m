@@ -26,7 +26,6 @@
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
     [SensorsManager addObserverForRegisteredSensors:self];    
 }
 
@@ -61,7 +60,8 @@
         cell = _tmpCell;
         _tmpCell = nil;
     }
-    cell.sensorEntity = [_sensorsArray objectAtIndex:indexPath.row];
+    Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
+    cell.sensorEntity = [sensor entity];
     return cell;
 }
 

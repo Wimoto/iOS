@@ -9,7 +9,7 @@
 #import "CBPeripheral+Util.h"
 #import "NSData+Conversion.h"
 #import "SensorEntity.h"
-#import "SensorValue.h"
+#import "ValueEntity.h"
 #import "SensorsManager.h"
 
 #define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
@@ -56,9 +56,6 @@ typedef enum {
 
 - (PeripheralType)type;
 
-- (void)saveNewSensorValueWithType:(SensorValueType)valueType value:(double)value;
-- (void)lastSensorValuesWithType:(SensorValueType)valueType completionHandler:(void(^)(NSMutableArray *item))completionHandler;
-
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
 - (CGFloat)maximumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
@@ -67,6 +64,5 @@ typedef enum {
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
-- (void)saveActivityDate;
 
 @end

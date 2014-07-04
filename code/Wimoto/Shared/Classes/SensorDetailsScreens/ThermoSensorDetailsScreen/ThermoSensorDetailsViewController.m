@@ -51,13 +51,13 @@
     
     _irTempSparkLine.labelText = @"";
     _irTempSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
-        _irTempSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
+        _irTempSparkLine.dataValues = result;
     }];
     _probeTempSparkLine.labelText = @"";
     _probeTempSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
-        _probeTempSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
+        _probeTempSparkLine.dataValues = result;
     }];
     
     //ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
@@ -213,8 +213,8 @@
         if (self.sensor.peripheral) {
             _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeIRTemperature completionHandler:^(NSMutableArray *item) {
-            _irTempSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
+            _irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
@@ -222,8 +222,8 @@
         if (self.sensor.peripheral) {
             _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSMutableArray *item) {
-            _probeTempSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
+            _probeTempSparkLine.dataValues = result;
         }];
     }
 }

@@ -45,6 +45,7 @@
 		302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714B192D284B006E0A6C /* slider-metal-trackBackground.png */; };
 		302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */; };
 		302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A714E192D284B006E0A6C /* NMRangeSlider.m */; };
+		3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3035CE5C1965AC68008DA202 /* QueueManager.m */; };
 		304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 304B888019100110000F487B /* CBUUID+StringExtraction.m */; };
 		309D2D6C1946279E007228B9 /* RelativeDateDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 309D2D6B1946279E007228B9 /* RelativeDateDescriptor.m */; };
 		30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B29E8B184E138B000C651A /* AVFoundation.framework */; };
@@ -127,7 +128,7 @@
 		90232E31185A467100F83210 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2D185A467100F83210 /* IIViewDeckController.m */; };
 		90232E32185A467100F83210 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E2F185A467100F83210 /* IIWrapController.m */; };
 		90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E34185A46A300F83210 /* WimotoDeckController.m */; };
-		90815A421868736E00A9EC0A /* SensorValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A411868736E00A9EC0A /* SensorValue.m */; };
+		90815A421868736E00A9EC0A /* ValueEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A411868736E00A9EC0A /* ValueEntity.m */; };
 		90815A451868951600A9EC0A /* WaterSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90815A441868951600A9EC0A /* WaterSensor.m */; };
 		90C6423B184E606D008F40D2 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6423A184E606D008F40D2 /* Sensor.m */; };
 		90CD9B1818561B2300970B7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CD9B1718561B2300970B7D /* CoreBluetooth.framework */; };
@@ -206,6 +207,8 @@
 		302A714C192D284B006E0A6C /* slider-metal-trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-trackBackground@2x.png"; sourceTree = "<group>"; };
 		302A714D192D284B006E0A6C /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
 		302A714E192D284B006E0A6C /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
+		3035CE5B1965AC68008DA202 /* QueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueManager.h; sourceTree = "<group>"; };
+		3035CE5C1965AC68008DA202 /* QueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueManager.m; sourceTree = "<group>"; };
 		304B887F19100110000F487B /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		304B888019100110000F487B /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 		309D2D6A1946279E007228B9 /* RelativeDateDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelativeDateDescriptor.h; sourceTree = "<group>"; };
@@ -329,8 +332,8 @@
 		90232E2F185A467100F83210 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
 		90232E33185A46A300F83210 /* WimotoDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoDeckController.h; sourceTree = "<group>"; };
 		90232E34185A46A300F83210 /* WimotoDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoDeckController.m; sourceTree = "<group>"; };
-		90815A401868736E00A9EC0A /* SensorValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorValue.h; sourceTree = "<group>"; };
-		90815A411868736E00A9EC0A /* SensorValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorValue.m; sourceTree = "<group>"; };
+		90815A401868736E00A9EC0A /* ValueEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueEntity.h; sourceTree = "<group>"; };
+		90815A411868736E00A9EC0A /* ValueEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValueEntity.m; sourceTree = "<group>"; };
 		90815A431868951600A9EC0A /* WaterSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterSensor.h; sourceTree = "<group>"; };
 		90815A441868951600A9EC0A /* WaterSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterSensor.m; sourceTree = "<group>"; };
 		90C64239184E606D008F40D2 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
@@ -559,6 +562,15 @@
 			path = MetalTheme;
 			sourceTree = "<group>";
 		};
+		3035CE5A1965AC58008DA202 /* QueueManager */ = {
+			isa = PBXGroup;
+			children = (
+				3035CE5B1965AC68008DA202 /* QueueManager.h */,
+				3035CE5C1965AC68008DA202 /* QueueManager.m */,
+			);
+			path = QueueManager;
+			sourceTree = "<group>";
+		};
 		309D2D691946279E007228B9 /* RelativeDateDescriptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +583,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3035CE5A1965AC58008DA202 /* QueueManager */,
 				30B9E0E9194729AA001E10A5 /* DFUParts */,
 				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
@@ -787,8 +800,8 @@
 		90C64238184E6061008F40D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				90815A401868736E00A9EC0A /* SensorValue.h */,
-				90815A411868736E00A9EC0A /* SensorValue.m */,
+				90815A401868736E00A9EC0A /* ValueEntity.h */,
+				90815A411868736E00A9EC0A /* ValueEntity.m */,
 				04EFF2FC195972540067589E /* SensorEntity.h */,
 				04EFF2FD195972540067589E /* SensorEntity.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
@@ -974,7 +987,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 98T7Z7XL3B;
+						DevelopmentTeam = PZQTBD3MKF;
 					};
 				};
 			};
@@ -1102,6 +1115,7 @@
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
+				3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */,
 				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,
 				30C11813186B42A20068633C /* SentrySensor.m in Sources */,
 				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
@@ -1147,7 +1161,7 @@
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
-				90815A421868736E00A9EC0A /* SensorValue.m in Sources */,
+				90815A421868736E00A9EC0A /* ValueEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1178,7 +1192,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "6C095003-6539-4E96-8533-01E525475CF4";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};

@@ -124,15 +124,14 @@
                 unsigned int decimalValue;
                 [scanner scanHexInt:&decimalValue];
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-                    [self saveActivityDate];
                     self.temperature = -46.85 + (175.72*decimalValue/65536);
-                    [self saveNewSensorValueWithType:kValueTypeTemperature value:_temperature];
+                    [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
                     self.humidity = -6.0 + (125.0*decimalValue/65536);
-                    [self saveNewSensorValueWithType:kValueTypeHumidity value:_humidity];
+                    [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
                     self.light = 0.96 * decimalValue;
-                    [self saveNewSensorValueWithType:kValueTypeLight value:_light];
+                    [self.entity saveNewValueWithType:kValueTypeLight value:_light];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]]||

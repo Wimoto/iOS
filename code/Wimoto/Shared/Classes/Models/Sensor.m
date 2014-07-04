@@ -29,7 +29,7 @@
 }
 
 + (id)sensorWithEntity:(SensorEntity*)entity {
-    return [[[Sensor classForType:[entity.type intValue]] alloc] initWithEntity:entity];
+    return [[[Sensor classForType:[entity.sensorType intValue]] alloc] initWithEntity:entity];
 }
 
 + (Class)classForType:(PeripheralType)type {
@@ -78,66 +78,6 @@
     return self;
 }
 
-- (void)saveNewSensorValueWithType:(SensorValueType)valueType value:(double)value {
-    dispatch_async([SensorsManager queue], ^{
-        SensorValue *sensorValue = [[SensorValue alloc] initWithNewDocumentInDatabase:[SensorsManager managerDatabase]];
-        [sensorValue setValue:NSStringFromClass([SensorValue class]) ofProperty:@"type"];
-        sensorValue.date = [NSDate date];
-        sensorValue.valueType = valueType;
-        sensorValue.value = value;
-        [sensorValue save:nil];
-    });
-}
-
-- (void)lastSensorValuesWithType:(SensorValueType)valueType completionHandler:(void(^)(NSMutableArray *item))completionHandler {
-    if (_entity) {
-        dispatch_async([SensorsManager queue], ^{
-            CBLView *view = [[SensorsManager managerDatabase] viewNamed:@"sensorValuesByDate"];
-            if (!view.mapBlock) {
-                NSString* const kSensorValueType = NSStringFromClass([SensorValue class]);
-                [view setMapBlock: MAPBLOCK({
-                    if ([doc[@"type"] isEqualToString:kSensorValueType]) {
-                        id date = doc[@"date"];
-                        NSString *sensor = doc[@"sensor"];
-                        NSNumber *typeNumber = doc[@"valueType"];
-                        emit(@[sensor, typeNumber, date], doc);
-                    }
-                }) version: @"1.1"];
-            }
-            CBLQuery *query = [view createQuery];
-            query.limit = 16;
-            query.descending = YES;
-            NSString *myListId = _entity.document.documentID;
-            NSNumber *typeNumber = [NSNumber numberWithInt:valueType];
-            query.startKey = @[myListId, typeNumber, @{}];
-            query.endKey = @[myListId, typeNumber];
-    
-            NSLog(@"Get last sensor values");
-    
-            CBLQueryEnumerator *queryEnumerator = [query run:nil];
-            NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
-            for (CBLQueryRow *row in queryEnumerator) {
-                NSObject *value = row.document[@"value"];
-                if (value) {
-                    [mutableArray addObject:value];
-                }
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(mutableArray);
-            });
-        });
-    }
-}
-
-- (void)saveActivityDate {
-    if ([self isRegistered]) {
-        dispatch_async([SensorsManager queue], ^{
-            self.entity.lastActivityAt = [NSDate date];
-            [self.entity save:nil];
-        });
-    }
-}
-
 - (void)setPeripheral:(CBPeripheral *)peripheral {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_rssiTimer invalidate];
@@ -162,16 +102,8 @@
     }
 }
 
-- (SensorEntity*)entity {
-    _entity.name        = _name;
-    _entity.systemId    = _uniqueIdentifier;
-    _entity.type        = [NSNumber numberWithInt:[self type]];
-    
-    return _entity;
-}
-
 - (PeripheralType)type {
-    return kPeripheralTypeUndefined;
+    return [_peripheral peripheralType];
 }
 
 - (void)dealloc {
@@ -188,6 +120,8 @@
 }
 
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    NSLog(@"writeHighAlarmValue %d", high);
+    
     NSData *data = nil;
     int16_t value = (int16_t)high;
     if (!self.peripheral) {
@@ -232,7 +166,14 @@
     }
     data = [NSData dataWithBytes:&value length:sizeof(value)];
     NSLog(@"ALARM WRITE LOW VALUE - %@", data);
-    [self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
+    
+    const char bytes[] = "\x1E";
+    size_t length = (sizeof bytes) - 1; //string literals have implicit trailing '\0'
+    
+    NSData *myData = [NSData dataWithBytes:bytes length:length];
+    NSLog(@"MyDATA - %@   %@", myData, minValueCharacteristic);
+    
+    [self.peripheral writeValue:myData forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
@@ -290,8 +231,11 @@
 
 #pragma mark - CBPeripheralDelegate
 
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    NSLog(@"didWriteValueForCharacteristic %@", error);
+}
+
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
-    NSLog(@"peripheralDidUpdateRSSI %@", [peripheral RSSI]);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.rssi = [peripheral RSSI];
     });

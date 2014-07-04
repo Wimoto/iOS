@@ -95,15 +95,14 @@
                 
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
                     NSLog(@"THERMO IR TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                    [self saveActivityDate];
                     self.irTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %f", _irTemp);
-                    [self saveNewSensorValueWithType:kValueTypeIRTemperature value:decimalValue];
+                    [self.entity saveNewValueWithType:kValueTypeIRTemperature value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
                     NSLog(@"THERMO PROBE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
                     self.probeTemp = decimalValue;
                     NSLog(@"ThermoSensor didUpdateValueForCharacteristic probeTemp %f", _probeTemp);
-                    [self saveNewSensorValueWithType:kValueTypeProbeTemperature value:decimalValue];
+                    [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]||

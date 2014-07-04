@@ -10,6 +10,7 @@
 #import "NSString+Util.h"
 #import "RelativeDateDescriptor.h"
 #import "FirmwareViewController.h"
+#import "QueueManager.h"
 
 @interface SensorViewController ()
 
@@ -38,7 +39,7 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
 
-    NSString *sensorName = _sensor.name;
+    NSString *sensorName = [_sensor.entity name];
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
@@ -179,10 +180,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-//    if ([textField.text isNotEmpty]) {
-//        self.sensor.name = [textField text];
-//        [self.sensor save:nil];
-//    }
+    [self.sensor.entity saveNewName:[textField text]];
     return YES;
 }
 

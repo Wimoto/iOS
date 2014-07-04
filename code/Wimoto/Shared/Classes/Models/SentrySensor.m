@@ -86,13 +86,12 @@
                 
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
                     NSLog(@"SENTRY ACCELEROMETER CURRENT HEX VALUE = %@", hexString);
-                    [self saveActivityDate];
                     self.accelerometer = decimalValue;
-                    [self saveNewSensorValueWithType:kValueTypeAccelerometer value:decimalValue];
+                    [self.entity saveNewValueWithType:kValueTypeAccelerometer value:decimalValue];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
                     NSLog(@"SENTRY PASSIVE INFRARED CURRENT HEX VALUE = %@", hexString);
                     self.pasInfrared = decimalValue;
-                    [self saveNewSensorValueWithType:kValueTypePassiveInfrared value:decimalValue];
+                    [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:decimalValue];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]||

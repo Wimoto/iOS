@@ -61,19 +61,22 @@
     
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
-        _temperatureSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
+        _temperatureSparkLine.dataValues = result;
     }];
+    
     _humiditySparkLine.labelText = @"";
     _humiditySparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
-        _humiditySparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
+        _humiditySparkLine.dataValues = result;
     }];
+    
     _lightSparkLine.labelText = @"";
     _lightSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
-        _lightSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+        _lightSparkLine.dataValues = result;
     }];
+    
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     _tempSwitch.on = (climateSensor.temperatureAlarmState == kAlarmStateEnabled)?YES:NO;
     _lightSwitch.on = (climateSensor.lightAlarmState == kAlarmStateEnabled)?YES:NO;
@@ -258,22 +261,22 @@
         if (self.sensor.peripheral) {
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeTemperature completionHandler:^(NSMutableArray *item) {
-            _temperatureSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
+            _temperatureSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
         if (self.sensor.peripheral) {
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeHumidity completionHandler:^(NSMutableArray *item) {
-            _humiditySparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
+            _humiditySparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
         if (self.sensor.peripheral) {
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeLight completionHandler:^(NSMutableArray *item) {
-            _lightSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+            _lightSparkLine.dataValues = result;
         }];
     }
 }

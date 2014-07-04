@@ -49,13 +49,14 @@
     
     _accelerometerSparkLine.labelText = @"";
     _accelerometerSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
-        _accelerometerSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypeAccelerometer completionHandler:^(NSArray *result) {
+        _accelerometerSparkLine.dataValues = result;
     }];
+
     _pasInfraredSparkLine.labelText = @"";
     _pasInfraredSparkLine.showCurrentValue = NO;
-    [self.sensor lastSensorValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
-        _pasInfraredSparkLine.dataValues = item;
+    [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
+        _pasInfraredSparkLine.dataValues = result;
     }];
     
     SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
@@ -133,15 +134,15 @@
         if (self.sensor.peripheral) {
             _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypeAccelerometer completionHandler:^(NSMutableArray *item) {
-            _accelerometerSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypeAccelerometer completionHandler:^(NSArray *result) {
+            _accelerometerSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
         if (self.sensor.peripheral) {
             _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
-        [self.sensor lastSensorValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSMutableArray *item) {
-            _pasInfraredSparkLine.dataValues = item;
+        [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
+            _pasInfraredSparkLine.dataValues = result;
         }];
     }
 }
