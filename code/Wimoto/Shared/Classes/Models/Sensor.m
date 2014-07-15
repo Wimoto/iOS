@@ -101,11 +101,19 @@
         _batteryLevel = nil;
     }
 }
-
-- (PeripheralType)type {
-    return [_peripheral peripheralType];
+/*
+- (SensorEntity*)entity {
+    _entity.name        = _name;
+    _entity.systemId    = _uniqueIdentifier;
+    _entity.sensorType  = [NSNumber numberWithInt:[self type]];
+    
+    return _entity;
 }
 
+- (PeripheralType)type {
+    return kPeripheralTypeUndefined;
+}
+*/
 - (void)dealloc {
     [_rssiTimer invalidate];
     _peripheral.delegate = nil;
@@ -120,8 +128,6 @@
 }
 
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    NSLog(@"writeHighAlarmValue %d", high);
-    
     NSData *data = nil;
     int16_t value = (int16_t)high;
     if (!self.peripheral) {
@@ -142,7 +148,7 @@
     }
     data = [NSData dataWithBytes:&value length:sizeof (value)];
     NSLog(@"ALARM WRITE HIGH VALUE - %@", data);
-    [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
+    //[self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString {
@@ -166,14 +172,7 @@
     }
     data = [NSData dataWithBytes:&value length:sizeof(value)];
     NSLog(@"ALARM WRITE LOW VALUE - %@", data);
-    
-    const char bytes[] = "\x1E";
-    size_t length = (sizeof bytes) - 1; //string literals have implicit trailing '\0'
-    
-    NSData *myData = [NSData dataWithBytes:bytes length:length];
-    NSLog(@"MyDATA - %@   %@", myData, minValueCharacteristic);
-    
-    [self.peripheral writeValue:myData forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
+    //[self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
@@ -187,7 +186,7 @@
             }
         }
     }
-    NSLog(@"ENABLE ALARM, CHARACTERISTIC - %@", alarmSetCharacteristic);
+    NSLog(@"ENABLE ALARM, CHARACTERISTIC - %@ ___ %@ ___ %lu", alarmSetCharacteristic, alarmSetCharacteristic.UUID, sizeof(dat));
     [self.peripheral writeValue:[NSData dataWithBytes:&dat length:sizeof(dat)] forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -236,6 +235,7 @@
 }
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
+    NSLog(@"peripheralDidUpdateRSSI %@", [peripheral RSSI]);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.rssi = [peripheral RSSI];
     });
