@@ -120,6 +120,7 @@
 		493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4946184ECECE0000A2F6 /* cloud-download.png */; };
 		493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4947184ECECE0000A2F6 /* cloud-upload.png */; };
 		4949F32D19A4D77E00DB94C7 /* Climate 128px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4949F32C19A4D77E00DB94C7 /* Climate 128px.png */; };
+		496B527E19BD0C53005B9A8C /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 496B527D19BD0C53005B9A8C /* menu.png */; };
 		498CEFBB19AA86F400EAEB98 /* Grow 128px.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFBA19AA86F400EAEB98 /* Grow 128px.png */; };
 		498CEFBD19AA887D00EAEB98 /* sentry 128px.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFBC19AA887D00EAEB98 /* sentry 128px.png */; };
 		498CEFBF19AA896000EAEB98 /* thermo 128px.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFBE19AA896000EAEB98 /* thermo 128px.png */; };
@@ -326,6 +327,7 @@
 		493A4946184ECECE0000A2F6 /* cloud-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-download.png"; sourceTree = "<group>"; };
 		493A4947184ECECE0000A2F6 /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-upload.png"; sourceTree = "<group>"; };
 		4949F32C19A4D77E00DB94C7 /* Climate 128px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Climate 128px.png"; sourceTree = "<group>"; };
+		496B527D19BD0C53005B9A8C /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		498CEFBA19AA86F400EAEB98 /* Grow 128px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grow 128px.png"; sourceTree = "<group>"; };
 		498CEFBC19AA887D00EAEB98 /* sentry 128px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sentry 128px.png"; sourceTree = "<group>"; };
 		498CEFBE19AA896000EAEB98 /* thermo 128px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thermo 128px.png"; sourceTree = "<group>"; };
@@ -799,6 +801,7 @@
 				493A4929184EB2CB0000A2F6 /* temperature-512.png */,
 				498CEFC019AA8A5000EAEB98 /* leak 128px.png */,
 				498CEFBE19AA896000EAEB98 /* thermo 128px.png */,
+				496B527D19BD0C53005B9A8C /* menu.png */,
 				493A492C184EB44B0000A2F6 /* humidity-512.png */,
 			);
 			name = Images;
@@ -1066,6 +1069,7 @@
 				498CEFC119AA8A5000EAEB98 /* leak 128px.png in Resources */,
 				498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */,
 				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
+				496B527E19BD0C53005B9A8C /* menu.png in Resources */,
 				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
 				30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,

@@ -61,7 +61,6 @@
     
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
-    _temperatureSparkLine.currentValueColor = [UIColor redColor]2;
     [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
         _temperatureSparkLine.dataValues = result;
     }];

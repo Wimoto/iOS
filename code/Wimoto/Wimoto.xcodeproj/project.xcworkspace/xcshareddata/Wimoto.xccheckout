@@ -10,24 +10,36 @@
 	<string>Wimoto</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>8F07106D2BD6CBF91529CCE8E7C0A11A7B54115A</key>
+		<string>https://github.com/Wimoto/iOS.git</string>
 		<key>E47C381C-F375-476E-A92B-0D060175224A</key>
 		<string>https://github.com/Wimoto/iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>code/Wimoto/Wimoto.xcodeproj/project.xcworkspace</string>
+	<string>code/Wimoto/Wimoto.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E47C381C-F375-476E-A92B-0D060175224A</key>
+		<key>8F07106D2BD6CBF91529CCE8E7C0A11A7B54115A</key>
 		<string>../../../..</string>
+		<key>E47C381C-F375-476E-A92B-0D060175224A</key>
+		<string>../../../../../Repo</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Wimoto/iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E47C381C-F375-476E-A92B-0D060175224A</string>
+	<string>8F07106D2BD6CBF91529CCE8E7C0A11A7B54115A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8F07106D2BD6CBF91529CCE8E7C0A11A7B54115A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iOS</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
