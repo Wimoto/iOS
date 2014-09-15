@@ -33,7 +33,9 @@
                        context:(void *)context {
     if ([keyPath isEqualToString:SENSOR_ENTITY_NAME]) {
         NSString *nameString = [change objectForKey:NSKeyValueChangeNewKey];
-        _sensorNameLabel.text = nameString;
+        if ([nameString isKindOfClass:[NSString class]]) {
+            _sensorNameLabel.text = nameString;
+        }
     }
 }
 

@@ -39,7 +39,7 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
 
-    NSString *sensorName = [_sensor.entity name];
+    NSString *sensorName = [_sensor name];
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
