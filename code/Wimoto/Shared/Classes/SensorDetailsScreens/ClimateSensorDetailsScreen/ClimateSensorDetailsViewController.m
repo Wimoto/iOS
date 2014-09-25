@@ -62,18 +62,21 @@
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
+        NSLog(@"Climate temperature values %@", result);
         _temperatureSparkLine.dataValues = result;
     }];
     
     _humiditySparkLine.labelText = @"";
     _humiditySparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
+        NSLog(@"Climate humidity values %@", result);
         _humiditySparkLine.dataValues = result;
     }];
     
     _lightSparkLine.labelText = @"";
     _lightSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+        NSLog(@"Climate light values %@", result);
         _lightSparkLine.dataValues = result;
     }];
     
@@ -262,6 +265,7 @@
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
+            NSLog(@"Climate temperature values %@", result);
             _temperatureSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
@@ -269,6 +273,7 @@
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
+            NSLog(@"Climate humidity values %@", result);
             _humiditySparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
@@ -276,6 +281,7 @@
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+            NSLog(@"Climate light values %@", result);
             _lightSparkLine.dataValues = result;
         }];
     }
