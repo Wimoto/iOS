@@ -176,7 +176,7 @@
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    unsigned char dat = (enable)?0x01:0x00;
+    unsigned char dat = (enable)?0x001:0x000;
     CBCharacteristic *alarmSetCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
