@@ -191,8 +191,8 @@
     //NSData *data = [NSData dataWithBytes:&dat length:sizeof(dat)];
     
     int8_t value	= 1;
-    NSData *data = [NSData dataWithBytes:&value length:sizeof(dat)];
-    NSLog(@"#6data %@", data);
+    NSData *data = [NSData dataWithBytes:&value length:sizeof(value)];
+    NSLog(@"#6data %@     %d", data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
