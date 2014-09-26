@@ -127,7 +127,7 @@
 }
 
 - (void)showSlider {
-    if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM]) {
+    if ([_currentAlarmUUIDString isEqualToString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET]) {
         [self.alarmSlider setSliderRange:0];
         [self.alarmSlider setMinimumValue:-60];
         [self.alarmSlider setMaximumValue:130];

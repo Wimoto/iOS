@@ -176,7 +176,7 @@
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    unsigned char dat = (enable)?0x01:0x00;
+    int8_t value	= (enable)?1:0;
     CBCharacteristic *alarmSetCharacteristic;
     for (CBService *service in [self.peripheral services]) {
         for (CBCharacteristic *characteristic in [service characteristics]) {
@@ -186,13 +186,10 @@
             }
         }
     }
-    NSLog(@"ENABLE ALARM, CHARACTERISTIC - %@ ___ %@ ___ %lu", alarmSetCharacteristic, alarmSetCharacteristic.UUID, sizeof(dat));
+    NSLog(@"ENABLE ALARM, CHARACTERISTIC - %@ ___ %@ ___ %lu", alarmSetCharacteristic, alarmSetCharacteristic.UUID, sizeof(value));
     
-    //NSData *data = [NSData dataWithBytes:&dat length:sizeof(dat)];
-    
-    int8_t value	= 1;
     NSData *data = [NSData dataWithBytes:&value length:sizeof(value)];
-    NSLog(@"#6data %@     %d", data, sizeof(value));
+    NSLog(@"#6data %@     %lu", data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
