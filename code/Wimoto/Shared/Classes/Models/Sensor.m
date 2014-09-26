@@ -130,7 +130,7 @@
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     //int16_t value = (int16_t)high;
-    int8_t value = 7;
+    int16_t value = 7;
     if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
@@ -155,7 +155,7 @@
 - (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     //int16_t value = (int16_t)low;
-    int8_t value = 2;
+    int16_t value = 2;
     if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
