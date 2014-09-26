@@ -130,7 +130,7 @@
 - (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
     NSData *data = nil;
     //int16_t value = (int16_t)high;
-    int16_t value = 7;
+    int16_t value = 32;
     if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
@@ -147,7 +147,7 @@
         NSLog(@"No valid max characteristic");
         return;
     }
-    data = [NSData dataWithBytes:&value length:sizeof (value)];
+    data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
     NSLog(@"ALARM WRITE HIGH VALUE - %@   %lu", data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
@@ -172,7 +172,7 @@
         NSLog(@"No valid max characteristic");
         return;
     }
-    data = [NSData dataWithBytes:&value length:sizeof(value)];
+    data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
     NSLog(@"ALARM WRITE LOW VALUE - %@    %lu", data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
