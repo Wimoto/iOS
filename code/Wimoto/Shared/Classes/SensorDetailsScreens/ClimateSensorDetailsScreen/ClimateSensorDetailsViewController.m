@@ -107,8 +107,8 @@
     UISwitch *switchControl = (UISwitch *)sender;
     ClimateSensor *climateSensor = (ClimateSensor *)[self sensor];
     if ([switchControl isEqual:_tempSwitch]) {
-        [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM];
-        self.currentAlarmUUIDString = BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM;
+        [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET];
+        self.currentAlarmUUIDString = BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_SET;
     }
     else if ([switchControl isEqual:_lightSwitch]) {
         [climateSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM];
