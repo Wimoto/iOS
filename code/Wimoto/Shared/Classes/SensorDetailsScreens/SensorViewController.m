@@ -47,12 +47,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    if (!_alarmSlider) {
-        self.alarmSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-        [self.view addSubview:_alarmSlider];
-        _alarmSlider.delegate = self;
-    }
+//    [super viewWillAppear:animated];
+//    if (!_alarmSlider) {
+//        self.alarmSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
+//        [self.view addSubview:_alarmSlider];
+//        _alarmSlider.delegate = self;
+//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,11 +92,11 @@
 }
 
 - (void)showSlider {
-    [_alarmSlider showAction];
+    //[_alarmSlider showAction];
 }
 
 - (void)hideSlider {
-    [_alarmSlider hideAction:nil];
+    //[_alarmSlider hideAction:nil];
 }
 
 #pragma mark - SensorDelegate

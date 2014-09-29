@@ -102,23 +102,23 @@
 }
 
 - (void)showSlider {
-    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
-        [self.alarmSlider setSliderRange:0];
-        [self.alarmSlider setMinimumValue:-60];
-        [self.alarmSlider setMaximumValue:130];
-        [self.alarmSlider setUpperValue:[_irTempHighValueLabel.text floatValue]];
-        [self.alarmSlider setLowerValue:[_irTempLowValueLabel.text floatValue]];
-    }
-    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
-        [self.alarmSlider setSliderRange:0];
-        [self.alarmSlider setMinimumValue:10];
-        [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[_probeTempHighValueLabel.text floatValue]];
-        [self.alarmSlider setLowerValue:[_probeTempLowValueLabel.text floatValue]];
-    }
-    NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
-    NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
-    [super showSlider];
+//    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
+//        [self.alarmSlider setSliderRange:0];
+//        [self.alarmSlider setMinimumValue:-60];
+//        [self.alarmSlider setMaximumValue:130];
+//        [self.alarmSlider setUpperValue:[_irTempHighValueLabel.text floatValue]];
+//        [self.alarmSlider setLowerValue:[_irTempLowValueLabel.text floatValue]];
+//    }
+//    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
+//        [self.alarmSlider setSliderRange:0];
+//        [self.alarmSlider setMinimumValue:10];
+//        [self.alarmSlider setMaximumValue:50];
+//        [self.alarmSlider setUpperValue:[_probeTempHighValueLabel.text floatValue]];
+//        [self.alarmSlider setLowerValue:[_probeTempLowValueLabel.text floatValue]];
+//    }
+//    NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
+//    NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
+//    [super showSlider];
 }
 
 #pragma mark - SensorDelegate
@@ -166,20 +166,20 @@
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
-    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    [thermoSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-    [thermoSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-    
-    NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
-    NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
-    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
-        self.irTempHighValueLabel.text = highValueString;
-        self.irTempLowValueLabel.text = lowValueString;
-    }
-    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
-        self.probeTempHighValueLabel.text = highValueString;
-        self.probeTempLowValueLabel.text = lowValueString;
-    }
+//    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
+//    [thermoSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+//    [thermoSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+//    
+//    NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
+//    NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
+//    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
+//        self.irTempHighValueLabel.text = highValueString;
+//        self.irTempLowValueLabel.text = lowValueString;
+//    }
+//    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
+//        self.probeTempHighValueLabel.text = highValueString;
+//        self.probeTempLowValueLabel.text = lowValueString;
+//    }
 }
 
 #pragma mark - Value Observer

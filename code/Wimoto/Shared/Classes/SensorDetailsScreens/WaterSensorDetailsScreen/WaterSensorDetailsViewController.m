@@ -92,14 +92,14 @@
 }
 
 - (void)showSlider {
-    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-    if ([_currentAlarmUUIDString isEqualToString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]) {
-        [self.alarmSlider setSliderRange:0];
-        [self.alarmSlider setMinimumValue:10];
-        [self.alarmSlider setMaximumValue:50];
-        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
-        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
-    }
+//    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
+//    if ([_currentAlarmUUIDString isEqualToString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]) {
+//        [self.alarmSlider setSliderRange:0];
+//        [self.alarmSlider setMinimumValue:10];
+//        [self.alarmSlider setMaximumValue:50];
+//        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
+//        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
+//    }
 }
 
 #pragma mark - SensorDelegate
@@ -117,9 +117,9 @@
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
-    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-    [waterSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-    [waterSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+//    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
+//    [waterSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+//    [waterSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
 }
 
 #pragma mark - Value Observer
