@@ -101,19 +101,7 @@
         _batteryLevel = nil;
     }
 }
-/*
-- (SensorEntity*)entity {
-    _entity.name        = _name;
-    _entity.systemId    = _uniqueIdentifier;
-    _entity.sensorType  = [NSNumber numberWithInt:[self type]];
-    
-    return _entity;
-}
 
-- (PeripheralType)type {
-    return kPeripheralTypeUndefined;
-}
-*/
 - (void)dealloc {
     [_rssiTimer invalidate];
     _peripheral.delegate = nil;
