@@ -78,6 +78,10 @@
     return self;
 }
 
+- (PeripheralType)type {
+    return kPeripheralTypeUndefined;
+}
+
 - (void)setPeripheral:(CBPeripheral *)peripheral {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_rssiTimer invalidate];
@@ -181,10 +185,23 @@
     [self.peripheral writeValue:data forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
-- (CGFloat)alarmValueForCharacteristic:(CBCharacteristic *)characteristic {
+- (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic {
+    uint8_t alarmSetValue = 0;
+    [[characteristic value] getBytes:&alarmSetValue length:sizeof(alarmSetValue)];
+    return (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
+}
+
+- (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic {
     int16_t value	= 0;
     [[characteristic value] getBytes:&value length:sizeof(value)];
-    return (CGFloat)value / 10.0f;
+    return (float)value / 10.0f;
+}
+
+- (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic {
+    NSScanner *scanner = [NSScanner scannerWithString:[characteristic.value hexadecimalString]];
+    unsigned int decimalValue;
+    [scanner scanHexInt:&decimalValue];
+    return decimalValue;
 }
 
 - (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {

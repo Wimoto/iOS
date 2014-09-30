@@ -12,6 +12,10 @@
 #define OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY               @"humidity"
 #define OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT                  @"light"
 
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_STATE            @"temperatureAlarmState"
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_STATE               @"humidityAlarmState"
+#define OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE                  @"lightAlarmState"
+
 #define OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW              @"temperatureAlarmLow"
 #define OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH             @"temperatureAlarmHigh"
 
