@@ -64,5 +64,6 @@ typedef enum {
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
+- (CGFloat)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 @end

@@ -63,6 +63,9 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
+    
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
@@ -95,9 +98,13 @@
     [_temperatureSlider setSliderRange:0];
     [_temperatureSlider setMinimumValue:-60];
     [_temperatureSlider setMaximumValue:130];
-    [_temperatureSlider setUpperValue:[_tempHighValueLabel.text floatValue]];
-    [_temperatureSlider setLowerValue:[_tempLowValueLabel.text floatValue]];
-
+    
+    _humiditySlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
+    [self.view addSubview:_humiditySlider];
+    _humiditySlider.delegate = self;
+    [_humiditySlider setSliderRange:0];
+    [_humiditySlider setMinimumValue:-60];
+    [_humiditySlider setMaximumValue:130];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,6 +117,9 @@
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
@@ -271,6 +281,14 @@
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
             _lightSparkLine.dataValues = result;
         }];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_temperatureSlider setLowerValue:value];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_temperatureSlider setUpperValue:value];
     }
 }
 

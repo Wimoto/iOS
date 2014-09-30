@@ -177,8 +177,13 @@
                     [self alarmServiceDidStopAlarm:characteristic];
                 }
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]]||
-                     [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]||
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
+                self.temperatureAlarmLow = [self alarmValueForCharacteristic:characteristic];
+            }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+                self.temperatureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+            }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]||
                      [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
                 NSLog(@"didReadMinAlarmValueFromCharacteristicUUID %@", characteristic);
                 [self.delegate didReadMinAlarmValueFromCharacteristicUUID:characteristic.UUID];

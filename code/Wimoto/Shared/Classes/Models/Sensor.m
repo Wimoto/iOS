@@ -193,6 +193,12 @@
     [self.peripheral writeValue:data forCharacteristic:alarmSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
+- (CGFloat)alarmValueForCharacteristic:(CBCharacteristic *)characteristic {
+    int16_t value	= 0;
+    [[characteristic value] getBytes:&value length:sizeof(value)];
+    return (CGFloat)value / 10.0f;
+}
+
 - (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {
     CGFloat result  = NAN;
     int16_t value	= 0;
