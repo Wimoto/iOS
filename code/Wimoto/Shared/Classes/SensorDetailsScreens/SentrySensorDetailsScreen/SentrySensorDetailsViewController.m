@@ -23,7 +23,8 @@
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-- (IBAction)switchAction:(id)sender;
+- (IBAction)accelerometerAlarmAction:(id)sender;
+- (IBAction)pasInfraredAlarmAction:(id)sender;
 
 @end
 
@@ -38,21 +39,19 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
     _accelerometerSparkLine.labelText = @"";
     _accelerometerSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeAccelerometer completionHandler:^(NSArray *result) {
         _accelerometerSparkLine.dataValues = result;
     }];
-
     _pasInfraredSparkLine.labelText = @"";
     _pasInfraredSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
         _pasInfraredSparkLine.dataValues = result;
     }];
-    
-    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
-    _accelerometerSwitch.on = (sentrySensor.accelerometerAlarmState == kAlarmStateEnabled)?YES:NO;
-    _pasInfraredSwitch.on = (sentrySensor.pasInfraredAlarmState == kAlarmStateEnabled)?YES:NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,23 +64,21 @@
     @try {
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
     }
 }
 
-- (IBAction)switchAction:(id)sender {
-    UISwitch *switchControl = (UISwitch *)sender;
-    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
-    if ([switchControl isEqual:_accelerometerSwitch]) {
-        [sentrySensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM];
-        self.currentAlarmUUIDString = BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM;
-    }
-    else if ([switchControl isEqual:_pasInfraredSwitch]) {
-        [sentrySensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM];
-        self.currentAlarmUUIDString = BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM;
-    }
+- (IBAction)accelerometerAlarmAction:(id)sender {
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET];
+}
+
+- (IBAction)pasInfraredAlarmAction:(id)sender {
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET];
 }
 
 #pragma mark - Value Observer
@@ -123,6 +120,12 @@
         [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
             _pasInfraredSparkLine.dataValues = result;
         }];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE]) {
+        _accelerometerSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE]) {
+        _pasInfraredSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     }
 }
 

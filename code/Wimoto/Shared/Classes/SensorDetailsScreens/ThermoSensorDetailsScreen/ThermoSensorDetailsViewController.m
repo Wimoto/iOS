@@ -15,8 +15,10 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *irTempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *probeTempLabel;
+
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *irTempSparkLine;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *probeTempSparkLine;
+
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 
@@ -25,9 +27,13 @@
 @property (nonatomic, weak) IBOutlet UILabel *probeTempHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *probeTempLowValueLabel;
 
+@property (nonatomic, strong) AlarmSlider *irTempSlider;
+@property (nonatomic, strong) AlarmSlider *probeTempSlider;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-- (IBAction)switchAction:(id)sender;
+- (IBAction)irTempAlarmAction:(id)sender;
+- (IBAction)probeTempAlarmAction:(id)sender;
 
 @end
 
@@ -41,6 +47,15 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
     _irTempSparkLine.labelText = @"";
     _irTempSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
@@ -52,11 +67,19 @@
         _probeTempSparkLine.dataValues = result;
     }];
     
-    //ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    //_irTempSwitch.on = (thermoSensor.irTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    //_probeTempSwitch.on = (thermoSensor.probeTempAlarmState == kAlarmStateEnabled)?YES:NO;
-    NSLog(@"IR TEMPERATURE SWITCH IS ON - %i", [_irTempSwitch isOn]);
-    NSLog(@"PROBE TEMPERATURE SWITCH IS ON - %i", [_probeTempSwitch isOn]);
+    _irTempSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
+    [self.view addSubview:_irTempSlider];
+    _irTempSlider.delegate = self;
+    [_irTempSlider setSliderRange:0];
+    [_irTempSlider setMinimumValue:-60];
+    [_irTempSlider setMaximumValue:130];
+    
+    _probeTempSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
+    [self.view addSubview:_probeTempSlider];
+    _probeTempSlider.delegate = self;
+    [_probeTempSlider setSliderRange:0];
+    [_probeTempSlider setMinimumValue:10];
+    [_probeTempSlider setMaximumValue:50];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,68 +91,45 @@
     @try {
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
     }
 }
 
-- (IBAction)switchAction:(id)sender {
-    UISwitch *switchControl = (UISwitch *)sender;
-    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-    if ([switchControl isEqual:_irTempSwitch]) {
-        [thermoSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM];
-        self.currentAlarmUUIDString = BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM;
-    }
-    else if ([switchControl isEqual:_probeTempSwitch]) {
-        [thermoSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM];
-        self.currentAlarmUUIDString = BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM;
-    }
-    if ([switchControl isOn]) {
-        [self showSlider];
-    }
-    else {
-        [self hideSlider];
-    }
+- (IBAction)irTempAlarmAction:(id)sender {
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET];
+    ([sender isOn])?[_irTempSlider showAction]:[_irTempSlider hideAction:nil];
 }
 
-- (void)showSlider {
-//    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
-//        [self.alarmSlider setSliderRange:0];
-//        [self.alarmSlider setMinimumValue:-60];
-//        [self.alarmSlider setMaximumValue:130];
-//        [self.alarmSlider setUpperValue:[_irTempHighValueLabel.text floatValue]];
-//        [self.alarmSlider setLowerValue:[_irTempLowValueLabel.text floatValue]];
-//    }
-//    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
-//        [self.alarmSlider setSliderRange:0];
-//        [self.alarmSlider setMinimumValue:10];
-//        [self.alarmSlider setMaximumValue:50];
-//        [self.alarmSlider setUpperValue:[_probeTempHighValueLabel.text floatValue]];
-//        [self.alarmSlider setLowerValue:[_probeTempLowValueLabel.text floatValue]];
-//    }
-//    NSLog(@"ALARM SLIDER LOW VALUE - %f", [self.alarmSlider lowerValue]);
-//    NSLog(@"ALARM SLIDER HIGH VALUE - %f", [self.alarmSlider upperValue]);
-//    [super showSlider];
+- (IBAction)probeTempAlarmAction:(id)sender {
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_SET];
+    ([sender isOn])?[_probeTempSlider showAction]:[_probeTempSlider hideAction:nil];
 }
 
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
-//    ThermoSensor *thermoSensor = (ThermoSensor *)[self sensor];
-//    [thermoSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-//    [thermoSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-//    
-//    NSString *highValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.upperValue];
-//    NSString *lowValueString = [NSString stringWithFormat:@"%.f", self.alarmSlider.lowerValue];
-//    if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM]) {
-//        self.irTempHighValueLabel.text = highValueString;
-//        self.irTempLowValueLabel.text = lowValueString;
-//    }
-//    else if ([_currentAlarmUUIDString isEqualToString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]) {
-//        self.probeTempHighValueLabel.text = highValueString;
-//        self.probeTempLowValueLabel.text = lowValueString;
-//    }
+    if ([sender isEqual:_irTempSlider]) {
+        [self.sensor writeAlarmValue:_irTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_irTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
+        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.upperValue];
+        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.lowerValue];
+    } else if ([sender isEqual:_probeTempSlider]) {
+        [self.sensor writeAlarmValue:_probeTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_probeTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
+        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _probeTempSlider.upperValue];
+        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _probeTempSlider.lowerValue];
+    }
 }
 
 #pragma mark - Value Observer
@@ -175,6 +175,32 @@
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             _probeTempSparkLine.dataValues = result;
         }];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE]) {
+        _irTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE]) {
+        _probeTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_irTempSlider setLowerValue:value];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_irTempSlider setUpperValue:value];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_probeTempSlider setLowerValue:value];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_probeTempSlider setUpperValue:value];
     }
 }
 

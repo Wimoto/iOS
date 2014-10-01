@@ -73,53 +73,46 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (error) {
+        return;
+    }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ((characteristic.value)||(!error)) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
-                
-                NSString *hexString = [characteristic.value hexadecimalString];
-                NSScanner *scanner = [NSScanner scannerWithString:hexString];
-                unsigned int decimalValue;
-                [scanner scanHexInt:&decimalValue];
-                
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
-                    NSLog(@"SENTRY ACCELEROMETER CURRENT HEX VALUE = %@", hexString);
-                    self.accelerometer = decimalValue;
-                    [self.entity saveNewValueWithType:kValueTypeAccelerometer value:decimalValue];
-                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
-                    NSLog(@"SENTRY PASSIVE INFRARED CURRENT HEX VALUE = %@", hexString);
-                    self.pasInfrared = decimalValue;
-                    [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:decimalValue];
-                }
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]||
+            [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
+                self.accelerometer = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
+                self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
+                [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]) {
-                if (_accelerometerAlarmState == kAlarmStateUnknown) {
-                    self.accelerometerAlarmState = [self alarmStateForCharacteristic:characteristic];
-                }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]) {
+            if (_accelerometerAlarmState == kAlarmStateUnknown) {
+                self.accelerometerAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
-                if (_pasInfraredAlarmState == kAlarmStateUnknown) {
-                    self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
-                }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
+            if (_pasInfraredAlarmState == kAlarmStateUnknown) {
+                self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]]||
-                     [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]]) {
-                uint8_t alarmValue = 0;
-                [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
-                NSLog(@"alarm!  0x%x", alarmValue);
-                if (alarmValue & 0x01) {
-                    if (alarmValue & 0x02) {
-                        [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-                    }
-                    else {
-                        [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
-                    }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]]||
+                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]]) {
+            uint8_t alarmValue = 0;
+            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
+            NSLog(@"alarm!  0x%x", alarmValue);
+            if (alarmValue & 0x01) {
+                if (alarmValue & 0x02) {
+                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
                 }
                 else {
-                    [self alarmServiceDidStopAlarm:characteristic];
+                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
+            }
+            else {
+                [self alarmServiceDidStopAlarm:characteristic];
             }
         }
     });

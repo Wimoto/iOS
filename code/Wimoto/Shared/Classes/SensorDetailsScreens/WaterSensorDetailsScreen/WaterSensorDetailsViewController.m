@@ -19,9 +19,14 @@
 @property (nonatomic, weak) IBOutlet UISwitch *contactSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *levelSwitch;
 
+@property (nonatomic, weak) IBOutlet UILabel *levelLowValueLabel;
+@property (nonatomic, weak) IBOutlet UILabel *levelHighValueLabel;
+
+@property (nonatomic, strong) AlarmSlider *levelSlider;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-- (IBAction)switchAction:(id)sender;
+- (IBAction)levelAlarmAction:(id)sender;
 
 @end
 
@@ -36,15 +41,24 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENSE_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
+    
     _levelSparkLine.labelText = @"";
     _levelSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeLevel completionHandler:^(NSArray *result) {
         _levelSparkLine.dataValues = result;
     }];
     
-    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-    _contactSwitch.on = (waterSensor.presenseAlarmState == kAlarmStateEnabled)?YES:NO;
-    _levelSwitch.on = (waterSensor.levelAlarmState == kAlarmStateEnabled)?YES:NO;
+    _levelSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
+    [self.view addSubview:_levelSlider];
+    _levelSlider.delegate = self;
+    [_levelSlider setSliderRange:0];
+    [_levelSlider setMinimumValue:-60];
+    [_levelSlider setMaximumValue:130];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,48 +71,31 @@
     @try {
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENSE_ALARM_STATE];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_LOW];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_HIGH];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
     }
 }
 
-- (IBAction)switchAction:(id)sender {
-    UISwitch *switchControl = (UISwitch *)sender;
-    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-    if ([switchControl isEqual:_contactSwitch]) {
-        [waterSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM];
-        self.currentAlarmUUIDString = BLE_WATER_SERVICE_UUID_PRESENCE_ALARM;
-    }
-    else if ([switchControl isEqual:_levelSwitch]) {
-        [waterSensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM];
-        self.currentAlarmUUIDString = BLE_WATER_SERVICE_UUID_LEVEL_ALARM;
-        if ([switchControl isOn]) {
-            [self showSlider];
-        }
-        else {
-            [self hideSlider];
-        }
-    }
-}
-
-- (void)showSlider {
-//    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-//    if ([_currentAlarmUUIDString isEqualToString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]) {
-//        [self.alarmSlider setSliderRange:0];
-//        [self.alarmSlider setMinimumValue:10];
-//        [self.alarmSlider setMaximumValue:50];
-//        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
-//        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
-//    }
+- (IBAction)levelAlarmAction:(id)sender {
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET];
+    ([sender isOn])?[_levelSlider showAction]:[_levelSlider hideAction:nil];
 }
 
 #pragma mark - AlarmSliderDelegate
 
 - (void)alarmSliderSaveAction:(id)sender {
-//    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-//    [waterSensor writeHighAlarmValue:self.alarmSlider.upperValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
-//    [waterSensor writeLowAlarmValue:self.alarmSlider.lowerValue forCharacteristicWithUUIDString:_currentAlarmUUIDString];
+    if ([sender isEqual:_levelSlider]) {
+        [self.sensor writeAlarmValue:_levelSlider.upperValue forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_levelSlider.lowerValue forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE];
+        
+        _levelLowValueLabel.text = [NSString stringWithFormat:@"%.f", _levelSlider.upperValue];
+        _levelHighValueLabel.text = [NSString stringWithFormat:@"%.f", _levelSlider.lowerValue];
+    }
 }
 
 #pragma mark - Value Observer
@@ -138,6 +135,22 @@
         if (self.sensor.peripheral) {
             _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
         }
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE]) {
+        _levelSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENSE_ALARM_STATE]) {
+        _contactSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_LOW]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _levelLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_levelSlider setLowerValue:value];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_HIGH]) {
+        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+        _levelHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+        [_levelSlider setUpperValue:value];
     }
 }
 

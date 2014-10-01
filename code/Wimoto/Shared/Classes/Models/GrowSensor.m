@@ -114,27 +114,15 @@
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]||
             [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]||
             [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
-            
-            NSString *hexString = [characteristic.value hexadecimalString];
-            NSScanner *scanner = [NSScanner scannerWithString:hexString];
-            unsigned int decimalValue;
-            [scanner scanHexInt:&decimalValue];
-                
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
-                NSLog(@"GROW SOIL TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                self.soilTemperature = decimalValue;
-                NSLog(@"GROW SOIL TEMPERATURE CURRENT VALUE = %i", decimalValue);
-                [self.entity saveNewValueWithType:kValueTypeSoilTemperature value:decimalValue];
+                self.soilTemperature = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeSoilTemperature value:_soilTemperature];
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
-                NSLog(@"GROW LIGHT CURRENT HEX VALUE = %@", hexString);
-                self.light = decimalValue;
-                NSLog(@"GROW LIGHT CURRENT VALUE = %i", decimalValue);
-                [self.entity saveNewValueWithType:kValueTypeGrowLight value:decimalValue];
+                self.light = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeGrowLight value:_light];
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
-                NSLog(@"GROW SOIL MOISTURE CURRENT HEX VALUE = %@", hexString);
-                self.soilMoisture = decimalValue;
-                NSLog(@"GROW SOIL MOISTURE CURRENT VALUE = %i", decimalValue);
-                [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:decimalValue];
+                self.soilMoisture = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:_soilMoisture];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {

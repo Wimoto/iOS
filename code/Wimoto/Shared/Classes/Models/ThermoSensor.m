@@ -89,22 +89,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]||
             [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
-            
-            NSString *hexString = [characteristic.value hexadecimalString];
-            NSScanner *scanner = [NSScanner scannerWithString:hexString];
-            unsigned int decimalValue;
-            [scanner scanHexInt:&decimalValue];
-            
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
-                NSLog(@"THERMO IR TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                self.irTemp = decimalValue;
-                NSLog(@"ThermoSensor didUpdateValueForCharacteristic irTemp %f", _irTemp);
-                [self.entity saveNewValueWithType:kValueTypeIRTemperature value:decimalValue];
+                self.irTemp = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
-                NSLog(@"THERMO PROBE TEMPERATURE CURRENT HEX VALUE = %@", hexString);
-                self.probeTemp = decimalValue;
-                NSLog(@"ThermoSensor didUpdateValueForCharacteristic probeTemp %f", _probeTemp);
-                [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:decimalValue];
+                self.probeTemp = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]) {

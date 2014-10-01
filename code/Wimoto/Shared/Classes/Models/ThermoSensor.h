@@ -11,6 +11,15 @@
 #define OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP                         @"irTemp"
 #define OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP                      @"probeTemp"
 
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE             @"irTempAlarmState"
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE          @"probeTempAlarmState"
+
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW               @"irTempAlarmLow"
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH              @"irTempAlarmHigh"
+
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW            @"probeTempAlarmLow"
+#define OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH           @"probeTempAlarmHigh"
+
 @interface ThermoSensor : Sensor
 
 @property (nonatomic) float irTemp;

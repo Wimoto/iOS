@@ -11,6 +11,9 @@
 #define OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER                       @"accelerometer"
 #define OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED                    @"pasInfrared"
 
+#define OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE           @"accelerometerAlarmState"
+#define OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE            @"pasInfraredAlarmState"
+
 @interface SentrySensor : Sensor
 
 @property (nonatomic) float accelerometer;

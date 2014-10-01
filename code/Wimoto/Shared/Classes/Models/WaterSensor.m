@@ -82,14 +82,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]||
             [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-            const uint8_t *data = [characteristic.value bytes];
-            uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
-                self.level = value16_t;
-                [self.entity saveNewValueWithType:kValueTypeLevel value:value16_t];
+                self.level = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypeLevel value:_level];
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-                self.presense = value16_t;
-                [self.entity saveNewValueWithType:kValueTypePresence value:value16_t];
+                self.presense = [self sensorValueForCharacteristic:characteristic];
+                [self.entity saveNewValueWithType:kValueTypePresence value:_presense];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET]]) {
