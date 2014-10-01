@@ -27,15 +27,6 @@
 
 @implementation WaterSensorDetailsViewController
 
-- (id)initWithSensor:(Sensor*)sensor
-{
-    self = [super initWithSensor:sensor];
-    if (self) {
-        self.sensor.delegate = self;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -100,18 +91,6 @@
 //        [self.alarmSlider setUpperValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
 //        [self.alarmSlider setLowerValue:[waterSensor maximumAlarmValueForCharacteristicWithUUID:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]];
 //    }
-}
-
-#pragma mark - SensorDelegate
-
-- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
-    WaterSensor *waterSensor = (WaterSensor *)[self sensor];
-    if ([UUIDString isEqualToString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM]) {
-        _contactSwitch.on = (waterSensor.presenseAlarmState == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([UUIDString isEqualToString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]) {
-        _levelSwitch.on = (waterSensor.levelAlarmState == kAlarmStateEnabled)?YES:NO;
-    }
 }
 
 #pragma mark - AlarmSliderDelegate

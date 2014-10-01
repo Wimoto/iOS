@@ -119,7 +119,7 @@
     NSLog(@"ALARM DID STOPE, CHARACTERISTIC - %@", characteristic);
 }
 
-- (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString {
+- (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
     if (!self.peripheral) {
         NSLog(@"Not connected to a peripheral");
     }
@@ -137,34 +137,10 @@
         return;
     }
     
-    int16_t value = (int16_t)high;
+    int16_t value = (int16_t)alarmValue;
     NSData *data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
     NSLog(@"ALARM WRITE HIGH VALUE - %@   %@   %lu", UUIDString, data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
-}
-
-- (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    if (!self.peripheral) {
-        NSLog(@"Not connected to a peripheral");
-    }
-    CBCharacteristic *minValueCharacteristic;
-    for (CBService *service in [self.peripheral services]) {
-        for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:UUIDString]]) {
-                minValueCharacteristic = characteristic;
-                break;
-            }
-        }
-    }
-    if (!minValueCharacteristic) {
-        NSLog(@"No valid max characteristic");
-        return;
-    }
-    
-    int16_t value = (int16_t)low;
-    NSData *data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
-    NSLog(@"ALARM WRITE LOW VALUE - %@    %@   %lu", UUIDString, data, sizeof(value));
-    [self.peripheral writeValue:data forCharacteristic:minValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
@@ -202,44 +178,6 @@
     unsigned int decimalValue;
     [scanner scanHexInt:&decimalValue];
     return decimalValue;
-}
-
-- (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {
-    CGFloat result  = NAN;
-    int16_t value	= 0;
-    CBCharacteristic *minValueCharacteristic;
-    for (CBService *service in [self.peripheral services]) {
-        for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID isEqual:uuid]) {
-                minValueCharacteristic = characteristic;
-                break;
-            }
-        }
-    }
-    if (minValueCharacteristic) {
-        [[minValueCharacteristic value] getBytes:&value length:sizeof (value)];
-        result = (CGFloat)value / 10.0f;
-    }
-    return result;
-}
-
-- (CGFloat)maximumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid {
-    CGFloat result  = NAN;
-    int16_t value	= 0;
-    CBCharacteristic *maxValueCharacteristic;
-    for (CBService *service in [self.peripheral services]) {
-        for (CBCharacteristic *characteristic in [service characteristics]) {
-            if ([characteristic.UUID isEqual:uuid]) {
-                maxValueCharacteristic = characteristic;
-                break;
-            }
-        }
-    }
-    if (maxValueCharacteristic) {
-        [[maxValueCharacteristic value] getBytes:&value length:sizeof (value)];
-        result = (CGFloat)value / 10.0f;
-    }
-    return result;
 }
 
 #pragma mark - CBPeripheralDelegate

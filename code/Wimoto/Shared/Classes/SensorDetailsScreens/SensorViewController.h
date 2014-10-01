@@ -13,7 +13,7 @@
 #import "NMRangeSlider.h"
 #import "AlarmSlider.h"
 
-@interface SensorViewController : AppViewController <AlarmSliderDelegate, SensorDelegate, UITextFieldDelegate>
+@interface SensorViewController : AppViewController <AlarmSliderDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) UISwitch *currentSwitch;

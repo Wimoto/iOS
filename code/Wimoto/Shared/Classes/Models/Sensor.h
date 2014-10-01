@@ -27,14 +27,6 @@ typedef enum {
     kAlarmHigh = 1,
 } AlarmType;
 
-@protocol SensorDelegate <NSObject>
-
-- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString;
-- (void)didReadMinAlarmValueFromCharacteristicUUID:(CBUUID *)uuid;
-- (void)didReadMaxAlarmValueFromCharacteristicUUID:(CBUUID *)uuid;
-
-@end
-
 @interface Sensor : NSObject <CBPeripheralDelegate>
 
 @property (nonatomic, getter = isRegistered) BOOL registered;
@@ -49,7 +41,6 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *batteryLevel;
 
 @property (nonatomic, strong) NSNumber *rssi;
-@property (nonatomic, weak) id<SensorDelegate>delegate;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
@@ -57,10 +48,7 @@ typedef enum {
 - (PeripheralType)type;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
-- (CGFloat)minimumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
-- (CGFloat)maximumAlarmValueForCharacteristicWithUUID:(CBUUID *)uuid;
-- (void)writeHighAlarmValue:(int)high forCharacteristicWithUUIDString:(NSString *)UUIDString;
-- (void)writeLowAlarmValue:(int)low forCharacteristicWithUUIDString:(NSString *)UUIDString;
+- (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 

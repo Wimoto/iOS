@@ -75,21 +75,57 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (error) {
+        return;
+    }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ((characteristic.value)||(!error)) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-                const uint8_t *data = [characteristic.value bytes];
-                uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
-                    self.level = value16_t;
-                    [self.entity saveNewValueWithType:kValueTypeLevel value:value16_t];
-                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-                    self.presense = value16_t;
-                    [self.entity saveNewValueWithType:kValueTypePresence value:value16_t];
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]||
+            [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
+            const uint8_t *data = [characteristic.value bytes];
+            uint16_t value16_t = CFSwapInt16LittleToHost(*(uint16_t *)(&data[1]));
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
+                self.level = value16_t;
+                [self.entity saveNewValueWithType:kValueTypeLevel value:value16_t];
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
+                self.presense = value16_t;
+                [self.entity saveNewValueWithType:kValueTypePresence value:value16_t];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET]]) {
+            if (_levelAlarmState == kAlarmStateUnknown) {
+                self.levelAlarmState = [self alarmStateForCharacteristic:characteristic];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM_SET]]) {
+            if (_presenseAlarmState == kAlarmStateUnknown) {
+                self.presenseAlarmState = [self alarmStateForCharacteristic:characteristic];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]||
+                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_PRESENCE_ALARM]]) {
+            uint8_t alarmValue  = 0;
+            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
+            NSLog(@"alarm!  0x%x", alarmValue);
+            if (alarmValue & 0x01) {
+                if (alarmValue & 0x02) {
+                    NSLog(@"ALARM LOW VALUE");
+                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
+                }
+                else {
+                    NSLog(@"ALARM HIGH VALUE");
+                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
             }
+            else {
+                [self alarmServiceDidStopAlarm:characteristic];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE]]) {
+            self.levelAlarmLow = [self alarmValueForCharacteristic:characteristic];
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_HIGH_VALUE]]) {
+            self.levelAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
     });
 }

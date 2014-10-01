@@ -19,4 +19,7 @@
 @property (nonatomic) AlarmState presenseAlarmState;
 @property (nonatomic) AlarmState levelAlarmState;
 
+@property (nonatomic) float levelAlarmLow;
+@property (nonatomic) float levelAlarmHigh;
+
 @end

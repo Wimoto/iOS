@@ -94,20 +94,14 @@
                     [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:decimalValue];
                 }
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]||
-                     [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
-                uint8_t alarmSetValue  = 0;
-                [[characteristic value] getBytes:&alarmSetValue length:sizeof (alarmSetValue)];
-                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]) {
-                    if (_accelerometerAlarmState == kAlarmStateUnknown) {
-                        self.accelerometerAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM];
-                    }
-                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
-                    if (_pasInfraredAlarmState == kAlarmStateUnknown) {
-                        self.pasInfraredAlarmState = (alarmSetValue & 0x01)?kAlarmStateEnabled:kAlarmStateDisabled;
-                        [self.delegate didUpdateAlarmStateWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM];
-                    }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]) {
+                if (_accelerometerAlarmState == kAlarmStateUnknown) {
+                    self.accelerometerAlarmState = [self alarmStateForCharacteristic:characteristic];
+                }
+            }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
+                if (_pasInfraredAlarmState == kAlarmStateUnknown) {
+                    self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
                 }
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]]||

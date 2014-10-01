@@ -19,5 +19,10 @@
 @property (nonatomic) AlarmState irTempAlarmState;
 @property (nonatomic) AlarmState probeTempAlarmState;
 
+@property (nonatomic) float irTempAlarmLow;
+@property (nonatomic) float irTempAlarmHigh;
+
+@property (nonatomic) float probeTempAlarmLow;
+@property (nonatomic) float probeTempAlarmHigh;
 
 @end

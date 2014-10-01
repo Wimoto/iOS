@@ -29,15 +29,6 @@
 
 @implementation SentrySensorDetailsViewController
 
-- (id)initWithSensor:(Sensor*)sensor
-{
-    self = [super initWithSensor:sensor];
-    if (self) {
-        self.sensor.delegate = self;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -90,18 +81,6 @@
     else if ([switchControl isEqual:_pasInfraredSwitch]) {
         [sentrySensor enableAlarm:[switchControl isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM];
         self.currentAlarmUUIDString = BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM;
-    }
-}
-
-#pragma mark - SensorDelegate
-
-- (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {
-    SentrySensor *sentrySensor = (SentrySensor *)[self sensor];
-    if ([UUIDString isEqualToString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]) {
-        _accelerometerSwitch.on = (sentrySensor.accelerometerAlarmState == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([UUIDString isEqualToString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]) {
-        _pasInfraredSwitch.on = (sentrySensor.pasInfraredAlarmState == kAlarmStateEnabled)?YES:NO;
     }
 }
 

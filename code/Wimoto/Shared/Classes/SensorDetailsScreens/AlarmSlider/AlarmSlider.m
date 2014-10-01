@@ -38,15 +38,10 @@
 
 - (void)setLowerValue:(CGFloat)value {
     [_rangeSlider setLowerValue:value];
-    //_rangeSlider.lowerValue = value;
-    //_minValueLabel.text = [NSString stringWithFormat:@"%d", (int)value];
-    //[self updateSliderLabels];
 }
 
 - (void)setUpperValue:(CGFloat)value {
-    //_rangeSlider.upperValue = value;
     [_rangeSlider setUpperValue:value];
-    //_maxValueLabel.text = [NSString stringWithFormat:@"%d", (int)value];
 }
 
 - (void)setSliderRange:(CGFloat)value {
