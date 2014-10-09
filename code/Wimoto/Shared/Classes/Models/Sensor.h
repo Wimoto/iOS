@@ -54,6 +54,8 @@ typedef enum {
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;
+
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic;
+- (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 @end

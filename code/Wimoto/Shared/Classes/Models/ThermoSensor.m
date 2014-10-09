@@ -90,7 +90,7 @@
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]||
             [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
-                self.irTemp = [self sensorValueForCharacteristic:characteristic];
+                self.irTemp = [[self sensorStringValueForCharacteristic:characteristic] floatValue];
                 [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
                 self.probeTemp = [self sensorValueForCharacteristic:characteristic];

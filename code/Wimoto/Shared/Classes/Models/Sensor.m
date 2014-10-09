@@ -180,6 +180,10 @@
     return decimalValue;
 }
 
+- (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic {
+    return [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+}
+
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
