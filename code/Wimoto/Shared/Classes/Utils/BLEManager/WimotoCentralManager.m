@@ -86,7 +86,7 @@
     [_pendingPeripherals addObject:peripheral];
     
     if (peripheral.state == CBPeripheralStateDisconnected) {
-        [self connectPeripheral:peripheral options:nil];
+        [self connectPeripheral:peripheral options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnNotificationKey]];
     }
     
     NSLog(@"WimotoCentralManager peripherals %d", [_pendingPeripherals count]);
