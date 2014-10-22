@@ -411,7 +411,7 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
     }
 
     // X scale is set to show all values
-    const CGFloat xinc = sparkWidth / ([self.dataValues count] - 1);
+    const CGFloat xinc = ([self.dataValues count] < 2)?0.0:sparkWidth / ([self.dataValues count] - 1);
     
     // Y scale is auto-zoomed to specified limits (allowing for pen width)
     CGFloat yInc = (sparkHeight - self.penWidth) / (graphMax - graphMin);
