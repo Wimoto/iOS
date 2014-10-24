@@ -23,7 +23,38 @@
     WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
-        
+    
+// Local Notification categories -- added by Marc
+    
+    UIMutableUserNotificationAction *notificationAction1 = [[UIMutableUserNotificationAction alloc] init];
+    notificationAction1.identifier = @"Dismiss";
+    notificationAction1.title = @"Dismiss";
+    notificationAction1.activationMode = UIUserNotificationActivationModeBackground;
+    notificationAction1.destructive = NO;
+    notificationAction1.authenticationRequired = NO;
+    
+    UIMutableUserNotificationAction *notificationAction2 = [[UIMutableUserNotificationAction alloc] init];
+    notificationAction2.identifier = @"Switch off alarm";
+    notificationAction2.title = @"Switch off alarm";
+    notificationAction2.activationMode = UIUserNotificationActivationModeBackground;
+    notificationAction2.destructive = YES;
+    notificationAction2.authenticationRequired = YES;
+    
+    UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc] init];
+    notificationCategory.identifier = @"Sensor";
+    [notificationCategory setActions:@[notificationAction1,notificationAction2,] forContext:UIUserNotificationActionContextDefault];
+    [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextMinimal];
+    
+    NSSet *categories = [NSSet setWithObjects:notificationCategory, nil];
+
+    UIUserNotificationSettings *settings =
+    [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
+     UIUserNotificationTypeSound categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+// -- End of Local Notification stuff added by Marc
+    
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -68,13 +99,6 @@
     NSLog(@"applicationWillTerminate");
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if (application.applicationState == UIApplicationStateActive) {
-        NSString *alertBody = [notification alertBody];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:alertBody delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }
-}
 
 #pragma mark -
 #pragma mark Memory management
