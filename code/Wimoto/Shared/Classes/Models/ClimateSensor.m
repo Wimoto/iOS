@@ -114,7 +114,6 @@
     if (error) {
         return;
     }
-    
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
@@ -215,8 +214,11 @@
         }
     }
     NSLog(@"ALERT MESSAGE - %@", alertString);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
+
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = alertString;
+    localNotification.alertAction = @"View";
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end

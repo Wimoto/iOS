@@ -80,15 +80,12 @@
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]||
-            [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
-                self.level = [self sensorValueForCharacteristic:characteristic];
-                [self.entity saveNewValueWithType:kValueTypeLevel value:_level];
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-                self.presense = [self sensorValueForCharacteristic:characteristic];
-                [self.entity saveNewValueWithType:kValueTypePresence value:_presense];
-            }
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
+            self.level = [self sensorValueForCharacteristic:characteristic];
+            [self.entity saveNewValueWithType:kValueTypeLevel value:_level];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
+            self.presense = [self sensorValueForCharacteristic:characteristic];
+            [self.entity saveNewValueWithType:kValueTypePresence value:_presense];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET]]) {
             if (_levelAlarmState == kAlarmStateUnknown) {
@@ -152,8 +149,11 @@
             alertString = @"Water Level low value";
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
+
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = alertString;
+    localNotification.alertAction = @"View";
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end

@@ -78,15 +78,12 @@
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]||
-            [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
-                self.accelerometer = [self sensorValueForCharacteristic:characteristic];
-                [self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
-                self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
-                [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
-            }
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
+            self.accelerometer = [self sensorValueForCharacteristic:characteristic];
+            [self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
+            self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
+            [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET]]) {
             if (_accelerometerAlarmState == kAlarmStateUnknown) {
@@ -142,8 +139,11 @@
             alertString = @"Sentry Infrared low value";
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alarm" message:alertString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
+
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = alertString;
+    localNotification.alertAction = @"View";
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end
