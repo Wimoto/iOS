@@ -132,10 +132,10 @@
             return;
         }
         if (alarmtype == kAlarmHigh) {
-            alertString = @"Water Presense high value";
+            alertString = @"Water Presense postive alert";
         }
         else {
-            alertString = @"Water Presense low value";
+            alertString = @"Water Presense negative alert";
         }
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]) {
@@ -153,6 +153,7 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = alertString;
     localNotification.alertAction = @"View";
+    localNotification.category = @"Sensor";
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 

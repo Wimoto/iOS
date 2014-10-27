@@ -34,7 +34,7 @@
     notificationAction1.authenticationRequired = NO;
     
     UIMutableUserNotificationAction *notificationAction2 = [[UIMutableUserNotificationAction alloc] init];
-    notificationAction2.identifier = @"Switch off alarm";
+    notificationAction2.identifier = @"alarmOff";
     notificationAction2.title = @"Switch off alarm";
     notificationAction2.activationMode = UIUserNotificationActivationModeBackground;
     notificationAction2.destructive = YES;

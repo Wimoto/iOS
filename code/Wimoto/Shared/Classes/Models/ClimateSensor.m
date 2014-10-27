@@ -218,6 +218,7 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = alertString;
     localNotification.alertAction = @"View";
+    localNotification.category = @"Sensor";
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
