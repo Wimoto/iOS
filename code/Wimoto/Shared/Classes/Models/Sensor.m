@@ -82,6 +82,11 @@
     return kPeripheralTypeUndefined;
 }
 
+- (void)setName:(NSString *)name {
+    _name = name;
+    [_entity saveNewName:name];
+}
+
 - (void)setPeripheral:(CBPeripheral *)peripheral {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_rssiTimer invalidate];

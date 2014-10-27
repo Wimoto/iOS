@@ -180,7 +180,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    [self.sensor.entity saveNewName:[textField text]];
+    self.sensor.name = [textField text];
+    //[self.sensor.entity saveNewName:[textField text]];
     return YES;
 }
 

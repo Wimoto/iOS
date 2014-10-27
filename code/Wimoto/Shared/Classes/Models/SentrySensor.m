@@ -79,8 +79,17 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
-            self.accelerometer = [self sensorValueForCharacteristic:characteristic];
-            [self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
+            
+            const void *bytes = [characteristic.value bytes];
+            NSMutableArray *ary = [NSMutableArray array];
+            for (NSUInteger i = 0; i < [characteristic.value length]; i += sizeof(int32_t)) {
+                int32_t elem = OSReadLittleInt32(bytes, i);
+                [ary addObject:[NSNumber numberWithInt:elem]];
+            }
+            NSLog(@"ACCELEROMENTER VALUES - %@", ary);
+            
+            //self.accelerometer = [self sensorValueForCharacteristic:characteristic];
+            //[self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
             self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
             [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
