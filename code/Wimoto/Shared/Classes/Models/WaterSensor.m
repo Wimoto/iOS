@@ -142,12 +142,19 @@
         if (_levelAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Water Level high value";
-        }
-        else {
-            alertString = @"Water Level low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Water Level high value";
+        //}
+        //else {
+        //    alertString = @"Water Level low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ level %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+    }
+    if (alertString) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = alertString;
+        localNotification.alertAction = @"View";
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
 
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
