@@ -116,30 +116,37 @@
 }
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString = nil;
+    NSString *alertString;
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM]]) {
         if (_accelerometerAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Sentry Accelerometer alarm";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Sentry Accelerometer high value";
+        //}
+        //else {
+        //    alertString = @"Sentry Accelerometer low value";
+        //}
+        alertString = [NSString stringWithFormat:@"Sentry: %@ accelerometer %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]]) {
         if (_pasInfraredAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Sentry Passive Infrared alarm";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Sentry Infrared high value";
+        //}
+        //else {
+        //    alertString = @"Sentry Infrared low value";
+        //}
+        alertString = [NSString stringWithFormat:@"Sentry: %@ infrared %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
-    NSLog(@"ALERT MESSAGE - %@", alertString);
-    
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = alertString;
-    localNotification.alertAction = @"View";
-    localNotification.category = @"Sensor";
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    if (alertString) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = alertString;
+        localNotification.alertAction = @"View";
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 @end
