@@ -131,29 +131,32 @@
         if (_presenseAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Water Presense high value";
-        }
-        else {
-            alertString = @"Water Presense low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Water Presense high value";
+        //}
+        //else {
+        //    alertString = @"Water Presense low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ presense %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM]]) {
         if (_levelAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Water Level high value";
-        }
-        else {
-            alertString = @"Water Level low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Water Level high value";
+        //}
+        //else {
+        //    alertString = @"Water Level low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ level %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
-
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = alertString;
-    localNotification.alertAction = @"View";
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    if (alertString) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = alertString;
+        localNotification.alertAction = @"View";
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 @end

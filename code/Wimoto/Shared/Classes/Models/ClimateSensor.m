@@ -184,41 +184,45 @@
         if (_temperatureAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Climate Temperature high value";
-        }
-        else {
-            alertString = @"Climate Temperature low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Climate Temperature high value";
+        //}
+        //else {
+        //    alertString = @"Climate Temperature low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_LIGHT_ALARM]]) {
         if (_lightAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Climate Light high value";
-        }
-        else {
-            alertString = @"Climate Light low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Climate Light high value";
+        //}
+        //else {
+        //    alertString = @"Climate Light low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM]]) {
         if (_humidityAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Climate Humidity high value";
-        }
-        else {
-            alertString = @"Climate Humidity low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Climate Humidity high value";
+        //}
+        //else {
+        //    alertString = @"Climate Humidity low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     NSLog(@"ALERT MESSAGE - %@", alertString);
-
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = alertString;
-    localNotification.alertAction = @"View";
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    if (alertString) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = alertString;
+        localNotification.alertAction = @"View";
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 @end

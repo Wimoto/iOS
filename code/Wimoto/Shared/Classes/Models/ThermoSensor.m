@@ -141,29 +141,32 @@
         if (_irTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"IR Temperature high value";
-        }
-        else {
-            alertString = @"IR Temperature low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"IR Temperature high value";
+        //}
+        //else {
+        //    alertString = @"IR Temperature low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ IR Temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM]]) {
         if (_probeTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        if (alarmtype == kAlarmHigh) {
-            alertString = @"Probe Temperature high value";
-        }
-        else {
-            alertString = @"Probe Temperature low value";
-        }
+        //if (alarmtype == kAlarmHigh) {
+        //    alertString = @"Probe Temperature high value";
+        //}
+        //else {
+        //    alertString = @"Probe Temperature low value";
+        //}
+        alertString = [NSString stringWithFormat:@"%@ probe Temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
-
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = alertString;
-    localNotification.alertAction = @"View";
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    if (alertString) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = alertString;
+        localNotification.alertAction = @"View";
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 @end
