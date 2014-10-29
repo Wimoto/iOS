@@ -69,6 +69,7 @@
     
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
+    _temperatureSparkLine.currentValueColor = [UIColor redColor];
     [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
         _temperatureSparkLine.dataValues = result;
     }];
@@ -89,6 +90,7 @@
     [self.view addSubview:_temperatureSlider];
     _temperatureSlider.delegate = self;
     [_temperatureSlider setSliderRange:0];
+    [_temperatureSlider setStepValue:0.1];
     [_temperatureSlider setMinimumValue:-60];
     [_temperatureSlider setMaximumValue:130];
     

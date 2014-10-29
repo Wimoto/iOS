@@ -27,6 +27,8 @@
 - (void)setLowerValue:(CGFloat)value;
 - (void)setUpperValue:(CGFloat)value;
 - (void)setSliderRange:(CGFloat)value;
+- (void)setStepValue:(CGFloat)value;
+
 
 - (CGFloat)lowerValue;
 - (CGFloat)upperValue;

@@ -148,10 +148,11 @@
         //else {
         //    alertString = @"Sentry Infrared low value";
         //}
-        alertString = [NSString stringWithFormat:@"Sentry: %@ infrared %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+        alertString = [NSString stringWithFormat:@"Sentry: %@ infrared alarm triggered", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     if (alertString) {
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.category = @"Sensor"; //  Same as category identifier
         localNotification.alertBody = alertString;
         localNotification.alertAction = @"View";
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
