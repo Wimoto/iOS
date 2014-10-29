@@ -132,6 +132,7 @@
 		498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCC19AA94FC00EAEB98 /* settingscogs.png */; };
 		498CEFCF19AA98B700EAEB98 /* movement.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCE19AA98B700EAEB98 /* movement.png */; };
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
+		49E50BD71A016BDF00304549 /* alarm.aifc in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD61A016BDF00304549 /* alarm.aifc */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -340,6 +341,7 @@
 		498CEFCC19AA94FC00EAEB98 /* settingscogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingscogs.png; sourceTree = "<group>"; };
 		498CEFCE19AA98B700EAEB98 /* movement.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movement.png; sourceTree = "<group>"; };
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
+		49E50BD61A016BDF00304549 /* alarm.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; name = alarm.aifc; path = ../../../../../../Downloads/alarm.aifc; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				498CEFCE19AA98B700EAEB98 /* movement.png */,
 				498CEFCC19AA94FC00EAEB98 /* settingscogs.png */,
 				493A4929184EB2CB0000A2F6 /* temperature-512.png */,
+				49E50BD61A016BDF00304549 /* alarm.aifc */,
 				498CEFC019AA8A5000EAEB98 /* leak 128px.png */,
 				498CEFBE19AA896000EAEB98 /* thermo 128px.png */,
 				496B527D19BD0C53005B9A8C /* menu.png */,
@@ -1125,6 +1128,7 @@
 				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				49E50BD71A016BDF00304549 /* alarm.aifc in Resources */,
 				30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
 				498CEFC319AA8F3100EAEB98 /* microchip.png in Resources */,

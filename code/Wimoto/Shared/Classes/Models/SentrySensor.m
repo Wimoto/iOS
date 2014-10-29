@@ -155,7 +155,9 @@
         localNotification.category = @"Sensor"; //  Same as category identifier
         localNotification.alertBody = alertString;
         localNotification.alertAction = @"View";
+        localNotification.soundName = @"alarm.aifc";
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+
     }
 }
 

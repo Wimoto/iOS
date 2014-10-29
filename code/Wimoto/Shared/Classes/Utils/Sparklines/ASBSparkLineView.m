@@ -239,6 +239,9 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
     m_rangeOverlayLowerLimit = [self.dataMinimum copy];
     m_rangeOverlayUpperLimit = [self.dataMaximum copy];
     
+    self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15f];
+
+    
     // ensure we redraw correctly when resized
     self.contentMode = UIViewContentModeRedraw;
     
