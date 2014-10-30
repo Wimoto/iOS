@@ -591,6 +591,8 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
         offset = [self limitOffset:offset forOrientation:orientation];
     _offset = offset;
     _offsetOrientation = orientation;
+    
+    CGPoint startPosition = self.slidingControllerView.layer.position;
 
     self.slidingControllerView.frame = [self slidingRectForOffset:_offset forOrientation:orientation];
     
@@ -601,8 +603,8 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
     anim.duration = slidingAnim.duration;
     anim.keyPath = @"position";
     anim.fillMode = kCAFillModeForwards;
-    anim.fromValue = slidingAnim.fromValue;
-    anim.toValue = slidingAnim.toValue ?: [NSValue valueWithCGPoint:self.slidingControllerView.layer.position];
+    anim.fromValue = slidingAnim.fromValue?[NSValue valueWithCGPoint:startPosition]:nil;
+    anim.toValue = [NSValue valueWithCGPoint:self.slidingControllerView.layer.position];
     anim.timingFunction = slidingAnim.timingFunction;
     [_shadowLayer addAnimation:anim forKey:@"position"];
     

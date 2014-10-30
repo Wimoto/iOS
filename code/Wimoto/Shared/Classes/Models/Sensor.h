@@ -42,8 +42,13 @@ typedef enum {
 
 @property (nonatomic, strong) NSNumber *rssi;
 
+@property (nonatomic, assign, getter=isDemo) BOOL demo;
+
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
++ (id)demoSensorWithUniqueId:(NSString *)uniqueId;
+
+- (id)initWithEntity:(SensorEntity*)entity;
 
 - (PeripheralType)type;
 

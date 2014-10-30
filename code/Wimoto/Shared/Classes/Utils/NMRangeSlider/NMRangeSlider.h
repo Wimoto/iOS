@@ -27,7 +27,7 @@
 // If NO the slider will move freely with the tounch. When the touch ends, the value will snap to the nearest step value
 // If YES the slider will stay in its current position until it reaches a new step value.
 // default NO
-@property(assign, nonatomic) BOOL stepValueContinuously;
+@property(assign, nonatomic) BOOL stepValueAnimated;
 
 // defafult YES, indicating whether changes in the sliders value generate continuous update events.
 @property(assign, nonatomic) BOOL continuous;

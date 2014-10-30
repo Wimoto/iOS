@@ -104,7 +104,6 @@
 		4901D3F2192F885D005EB15C /* battery-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EE192F885D005EB15C /* battery-medium.png */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
-		492DECBC19FE8710000D1BD0 /* acceleromter.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 492DECBB19FE8710000D1BD0 /* acceleromter.pdf */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
 		493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4929184EB2CB0000A2F6 /* temperature-512.png */; };
 		493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A492C184EB44B0000A2F6 /* humidity-512.png */; };
@@ -172,6 +171,9 @@
 		90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */; };
 		90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */; };
 		90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4AB185F7A6E00609A9C /* libz.dylib */; };
+		F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */; };
+		F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31711A02BE7900ABD9AC /* DemoSensor.m */; };
+		F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -404,6 +406,12 @@
 		90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		90EAB4AB185F7A6E00609A9C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		90F56DDE184DD54000ADC38E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		F70D316E1A02BE7900ABD9AC /* DemoClimateSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClimateSensor.h; sourceTree = "<group>"; };
+		F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClimateSensor.m; sourceTree = "<group>"; };
+		F70D31701A02BE7900ABD9AC /* DemoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSensor.h; sourceTree = "<group>"; };
+		F70D31711A02BE7900ABD9AC /* DemoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoSensor.m; sourceTree = "<group>"; };
+		F70D31721A02BE7900ABD9AC /* DemoThermoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoThermoSensor.h; sourceTree = "<group>"; };
+		F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoThermoSensor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -840,6 +848,7 @@
 		90C64238184E6061008F40D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F70D316D1A02BE7900ABD9AC /* DemoSensors */,
 				90815A401868736E00A9EC0A /* ValueEntity.h */,
 				90815A411868736E00A9EC0A /* ValueEntity.m */,
 				04EFF2FC195972540067589E /* SensorEntity.h */,
@@ -997,6 +1006,19 @@
 			path = Sparklines;
 			sourceTree = "<group>";
 		};
+		F70D316D1A02BE7900ABD9AC /* DemoSensors */ = {
+			isa = PBXGroup;
+			children = (
+				F70D316E1A02BE7900ABD9AC /* DemoClimateSensor.h */,
+				F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */,
+				F70D31701A02BE7900ABD9AC /* DemoSensor.h */,
+				F70D31711A02BE7900ABD9AC /* DemoSensor.m */,
+				F70D31721A02BE7900ABD9AC /* DemoThermoSensor.h */,
+				F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */,
+			);
+			path = DemoSensors;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1026,7 +1048,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = PZQTBD3MKF;
 					};
 				};
 			};
@@ -1098,7 +1120,6 @@
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
-				492DECBC19FE8710000D1BD0 /* acceleromter.pdf in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
@@ -1164,6 +1185,7 @@
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
 				30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */,
 				90232E31185A467100F83210 /* IIViewDeckController.m in Sources */,
+				F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
@@ -1209,8 +1231,10 @@
 				30B9E11A19473866001E10A5 /* SBJsonParser.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
+				F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */,
 				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
+				F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
 				90815A421868736E00A9EC0A /* ValueEntity.m in Sources */,
@@ -1240,7 +1264,7 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1269,7 +1293,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;

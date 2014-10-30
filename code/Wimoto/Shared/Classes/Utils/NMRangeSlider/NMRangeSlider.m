@@ -203,9 +203,7 @@ NSUInteger DeviceSystemMajorVersion() {
         }
         
     };
-    
-    if(animated)
-    {
+    if (animated) {
         [UIView animateWithDuration:0.25  delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              
@@ -215,10 +213,8 @@ NSUInteger DeviceSystemMajorVersion() {
                          } completion:^(BOOL finished) {
                              
                          }];
-        
     }
-    else
-    {
+    else {
         setValuesBlock();
     }
     
@@ -679,7 +675,7 @@ NSUInteger DeviceSystemMajorVersion() {
     }
     
     
-    _stepValueInternal= _stepValueContinuously ? _stepValue : 0.0f;
+    _stepValueInternal= _stepValue;
     return YES;
 }
 
@@ -705,7 +701,7 @@ NSUInteger DeviceSystemMajorVersion() {
             _upperHandle.highlighted=NO;
             [self bringSubviewToFront:_lowerHandle];
             
-            [self setLowerValue:newValue animated:_stepValueContinuously ? YES : NO];
+            [self setLowerValue:newValue animated:_stepValueAnimated ? YES : NO];
         }
         else
         {
@@ -723,7 +719,7 @@ NSUInteger DeviceSystemMajorVersion() {
         {
             _lowerHandle.highlighted=NO;
             [self bringSubviewToFront:_upperHandle];
-            [self setUpperValue:newValue animated:_stepValueContinuously ? YES : NO];
+            [self setUpperValue:newValue animated:_stepValueAnimated ? YES : NO];
         }
         else
         {

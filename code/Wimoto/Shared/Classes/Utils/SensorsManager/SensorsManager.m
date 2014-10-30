@@ -10,8 +10,8 @@
 #import <Couchbaselite/CouchbaseLite.h>
 #import "SensorEntity.h"
 #import "QueueManager.h"
-
 #import "Sensor.h"
+#import "DemoThermoSensor.h"
 
 @interface SensorsManager ()
 
@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
+
+- (void)addDemoSensors;
 
 @end
 
@@ -65,7 +67,7 @@ static SensorsManager *sensorsManager = nil;
             for (CBLQueryRow *row in queryEnumerator) {
                 [_sensors addObject:[Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]]];
             }
-            
+            [self addDemoSensors];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self notifyRegisteredSensorsObservers];
                 
@@ -74,6 +76,19 @@ static SensorsManager *sensorsManager = nil;
         });
     }
     return self;
+}
+
+- (void)addDemoSensors {
+    NSArray *demoIds = @[BLE_THERMO_DEMO_MODEL, BLE_CLIMATE_DEMO_MODEL];
+    for (NSString *uniqueId in demoIds) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", uniqueId];
+        Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+        if (!sensor) {
+            sensor = [Sensor demoSensorWithUniqueId:uniqueId];
+            [_sensors addObject:sensor];
+            [self notifyUnregisteredSensorsObservers];
+        }
+    }
 }
 
 + (void)registerSensor:(Sensor*)sensor {

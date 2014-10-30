@@ -14,7 +14,9 @@ typedef enum {
     kPeripheralTypeGrow,
     kPeripheralTypeThermo,
     kPeripheralTypeSentry,
-    kPeripheralTypeWater
+    kPeripheralTypeWater,
+    kPeripheralTypeThermoDemo,
+    kPeripheralTypeClimateDemo
 } PeripheralType;
 
 
@@ -30,6 +32,9 @@ typedef enum {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define BLE_CLIMATE_DEMO_MODEL                                      @"democlimate123"
+#define BLE_THERMO_DEMO_MODEL                                       @"demothermo123"
 
 #define BLE_BATTERY_LEVEL_SERVICE                                   @"180F"
 #define BLE_BATTERY_LEVEL_CHARACTERISTIC                            @"2A19"

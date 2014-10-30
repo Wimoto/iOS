@@ -73,6 +73,7 @@
     [_irTempSlider setSliderRange:0];
     [_irTempSlider setMinimumValue:-60];
     [_irTempSlider setMaximumValue:130];
+    [_irTempSlider setStepValue:0.1 animated:NO];
     
     _probeTempSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
     [self.view addSubview:_probeTempSlider];
@@ -80,6 +81,7 @@
     [_probeTempSlider setSliderRange:0];
     [_probeTempSlider setMinimumValue:10];
     [_probeTempSlider setMaximumValue:50];
+    [_probeTempSlider setStepValue:0.1 animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,6 +147,9 @@
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
             _irTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _probeTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            if ([self.sensor isDemo]) {
+                self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
+            }
         } else {
             ThermoSensor *sensor = (ThermoSensor*)self.sensor;
             _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
@@ -160,7 +165,7 @@
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
-        if (self.sensor.peripheral) {
+        if (self.sensor.peripheral || self.sensor.isDemo) {
             _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
@@ -169,7 +174,7 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
         
-        if (self.sensor.peripheral) {
+        if (self.sensor.peripheral || self.sensor.isDemo) {
             _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {

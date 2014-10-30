@@ -86,7 +86,7 @@
                 int32_t elem = OSReadLittleInt32(bytes, i);
                 [ary addObject:[NSNumber numberWithInt:elem]];
             }
-            NSLog(@"ACCELEROMENTER VALUES - %@", ary);
+            NSLog(@"ACCELEROMETER VALUES - %@", ary);
             
             //self.accelerometer = [self sensorValueForCharacteristic:characteristic];
             //[self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];

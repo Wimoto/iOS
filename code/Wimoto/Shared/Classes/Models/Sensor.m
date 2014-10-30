@@ -32,6 +32,17 @@
     return [[[Sensor classForType:[entity.sensorType intValue]] alloc] initWithEntity:entity];
 }
 
++ (id)demoSensorWithUniqueId:(NSString *)uniqueId {
+    NSString *className = nil;
+    if ([uniqueId isEqualToString:BLE_CLIMATE_DEMO_MODEL]) {
+        className = @"DemoClimateSensor";
+    }
+    else if ([uniqueId isEqualToString:BLE_THERMO_DEMO_MODEL]) {
+        className = @"DemoThermoSensor";
+    }
+    return [[NSClassFromString(className) alloc] init];
+}
+
 + (Class)classForType:(PeripheralType)type {
     switch (type) {
         case kPeripheralTypeClimate:
@@ -48,6 +59,12 @@
             break;
         case kPeripheralTypeThermo:
             return NSClassFromString(@"ThermoSensor");
+            break;
+        case kPeripheralTypeThermoDemo:
+            return NSClassFromString(@"DemoThermoSensor");
+            break;
+        case kPeripheralTypeClimateDemo:
+            return NSClassFromString(@"DemoClimateSensor");
             break;
         default:
             return nil;
@@ -69,7 +86,7 @@
 - (id)initWithEntity:(SensorEntity*)entity {
     self = [super init];
     if (self) {
-        _entity = entity;
+        self.entity = entity;
         
         _registered         = YES;
         _name               = _entity.name;
@@ -80,6 +97,10 @@
 
 - (PeripheralType)type {
     return kPeripheralTypeUndefined;
+}
+
+- (BOOL)isDemo {
+    return (self.type == kPeripheralTypeThermoDemo || self.type == kPeripheralTypeClimateDemo);
 }
 
 - (void)setName:(NSString *)name {

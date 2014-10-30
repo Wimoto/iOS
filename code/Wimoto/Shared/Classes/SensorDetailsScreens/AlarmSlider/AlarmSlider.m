@@ -48,6 +48,11 @@
     _rangeSlider.minimumRange = value;
 }
 
+- (void)setStepValue:(CGFloat)value animated:(BOOL)animated {
+    _rangeSlider.stepValue = value;
+    _rangeSlider.stepValueAnimated = animated;
+}
+
 - (IBAction)labelSliderChanged:(NMRangeSlider*)sender {
     [self updateSliderLabels];
 }

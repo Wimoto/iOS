@@ -192,6 +192,9 @@
             _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            if (self.sensor.isDemo) {
+                self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
+            }
         } else {
             ClimateSensor *sensor = (ClimateSensor*)self.sensor;
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
@@ -207,21 +210,21 @@
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
-        if (self.sensor.peripheral) {
+        if (self.sensor.peripheral || self.sensor.isDemo) {
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             _temperatureSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
-        if (self.sensor.peripheral) {
+        if (self.sensor.peripheral || self.sensor.isDemo) {
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
             _humiditySparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
-        if (self.sensor.peripheral) {
+        if (self.sensor.peripheral || self.sensor.isDemo) {
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
