@@ -98,10 +98,10 @@ NSUInteger DeviceSystemMajorVersion() {
     _minimumValue = 0.0;
     _maximumValue = 1.0;
     _minimumRange = 0.0;
-    _stepValue = 0.0;
+    _stepValue = 0.1;
     _stepValueInternal = 0.0;
     
-    _continuous = YES;
+    _continuous = NO;
     
     _lowerValue = _minimumValue;
     _upperValue = _maximumValue;

@@ -51,10 +51,10 @@ static const CGFloat  GRAPH_Y_BORDER        = 2.0f;     // vertical border width
 static const CGFloat  CONSTANT_GRAPH_BUFFER = 0.1f;     // fraction to move the graph limits when min = max
 
 #define DEFAULT_LABEL_COL        darkGrayColor          // default label text colour
-#define DEFAULT_CURRENTVALUE_COL blueColor              // default current value colour (including the anchor marker)
+#define DEFAULT_CURRENTVALUE_COL darkGrayColor          // default current value colour (including the anchor marker)
 #define DEFAULT_OVERLAY_COL      colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0   // default overlay colour (light gray)
-#define PEN_COL                  blackColor             // default graph line colour (black)
-#define DEFAULT_GRAPH_PEN_WIDTH  1.0f
+#define PEN_COL                  whiteColor             // default graph line colour (black)
+#define DEFAULT_GRAPH_PEN_WIDTH  2.0f
 
 static const CGFloat  GRAPH_PEN_WIDTH       = DEFAULT_GRAPH_PEN_WIDTH;     // pen width for the graph line (in *pixels*)
 
@@ -238,6 +238,9 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
     m_rangeOverlayColour = [UIColor DEFAULT_OVERLAY_COL];
     m_rangeOverlayLowerLimit = [self.dataMinimum copy];
     m_rangeOverlayUpperLimit = [self.dataMaximum copy];
+    
+    self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15f];
+
     
     // ensure we redraw correctly when resized
     self.contentMode = UIViewContentModeRedraw;

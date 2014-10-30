@@ -39,10 +39,14 @@
 
 - (IBAction)settingsAction:(id)sender
 {
-    SettingsViewController *settingsController = [[SettingsViewController alloc] init];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                UIApplicationOpenSettingsURLString]];
+    
+/*    SettingsViewController *settingsController = [[SettingsViewController alloc] init];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsController];
     self.viewDeckController.centerController = settingsNavController;
     [self.viewDeckController closeLeftViewAnimated:YES duration:0.2 completion:^(IIViewDeckController *controller, BOOL success) {}];
+ */
 }
 
 - (IBAction)helpAction:(id)sender
