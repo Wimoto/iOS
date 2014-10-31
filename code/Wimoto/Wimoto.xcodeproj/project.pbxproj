@@ -131,7 +131,6 @@
 		498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCC19AA94FC00EAEB98 /* settingscogs.png */; };
 		498CEFCF19AA98B700EAEB98 /* movement.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCE19AA98B700EAEB98 /* movement.png */; };
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
-		49E50BD71A016BDF00304549 /* alarm.aifc in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD61A016BDF00304549 /* alarm.aifc */; };
 		49E50BD91A017BEC00304549 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD81A017BEC00304549 /* Settings.bundle */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
@@ -176,6 +175,8 @@
 		F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */; };
 		F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31711A02BE7900ABD9AC /* DemoSensor.m */; };
 		F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */; };
+		F70D317A1A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31791A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m */; };
+		F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D317C1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -344,7 +345,6 @@
 		498CEFCC19AA94FC00EAEB98 /* settingscogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingscogs.png; sourceTree = "<group>"; };
 		498CEFCE19AA98B700EAEB98 /* movement.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movement.png; sourceTree = "<group>"; };
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
-		49E50BD61A016BDF00304549 /* alarm.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; name = alarm.aifc; path = ../../../../../../Downloads/alarm.aifc; sourceTree = "<group>"; };
 		49E50BD81A017BEC00304549 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
@@ -416,6 +416,10 @@
 		F70D31711A02BE7900ABD9AC /* DemoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoSensor.m; sourceTree = "<group>"; };
 		F70D31721A02BE7900ABD9AC /* DemoThermoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoThermoSensor.h; sourceTree = "<group>"; };
 		F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoThermoSensor.m; sourceTree = "<group>"; };
+		F70D31781A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoThermoSensorDetailsViewController.h; sourceTree = "<group>"; };
+		F70D31791A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoThermoSensorDetailsViewController.m; sourceTree = "<group>"; };
+		F70D317B1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClimateSensorDetailsViewController.h; sourceTree = "<group>"; };
+		F70D317C1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClimateSensorDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -816,7 +820,6 @@
 				498CEFCE19AA98B700EAEB98 /* movement.png */,
 				498CEFCC19AA94FC00EAEB98 /* settingscogs.png */,
 				493A4929184EB2CB0000A2F6 /* temperature-512.png */,
-				49E50BD61A016BDF00304549 /* alarm.aifc */,
 				498CEFC019AA8A5000EAEB98 /* leak 128px.png */,
 				498CEFBE19AA896000EAEB98 /* thermo 128px.png */,
 				496B527D19BD0C53005B9A8C /* menu.png */,
@@ -930,6 +933,7 @@
 		90D4AB86184E51CF004DDB1F /* SensorDetailsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				F70D31771A02DEB500ABD9AC /* DemoSensorDetailScreens */,
 				30CD581A192E615C00FFF102 /* AlarmSlider */,
 				90D4AB87184E5270004DDB1F /* ClimateSensorDetailsScreen */,
 				90D4AB88184E5270004DDB1F /* GrowSensorDetailsScreen */,
@@ -1015,14 +1019,25 @@
 		F70D316D1A02BE7900ABD9AC /* DemoSensors */ = {
 			isa = PBXGroup;
 			children = (
-				F70D316E1A02BE7900ABD9AC /* DemoClimateSensor.h */,
-				F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */,
 				F70D31701A02BE7900ABD9AC /* DemoSensor.h */,
 				F70D31711A02BE7900ABD9AC /* DemoSensor.m */,
+				F70D316E1A02BE7900ABD9AC /* DemoClimateSensor.h */,
+				F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */,
 				F70D31721A02BE7900ABD9AC /* DemoThermoSensor.h */,
 				F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */,
 			);
 			path = DemoSensors;
+			sourceTree = "<group>";
+		};
+		F70D31771A02DEB500ABD9AC /* DemoSensorDetailScreens */ = {
+			isa = PBXGroup;
+			children = (
+				F70D31781A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.h */,
+				F70D31791A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m */,
+				F70D317B1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.h */,
+				F70D317C1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m */,
+			);
+			path = DemoSensorDetailScreens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1152,7 +1167,6 @@
 				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
-				49E50BD71A016BDF00304549 /* alarm.aifc in Resources */,
 				49E50BD91A017BEC00304549 /* Settings.bundle in Resources */,
 				30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
@@ -1208,6 +1222,7 @@
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */,
 				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
+				F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
@@ -1236,6 +1251,7 @@
 				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
 				90CD9B2418561CFE00970B7D /* SearchSensorViewController.m in Sources */,
 				90D4AB8F184E528E004DDB1F /* ClimateSensorDetailsViewController.m in Sources */,
+				F70D317A1A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m in Sources */,
 				30B9E11A19473866001E10A5 /* SBJsonParser.m in Sources */,
 				90D4AB97184E53FC004DDB1F /* GrowSensorDetailsViewController.m in Sources */,
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,

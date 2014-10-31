@@ -99,10 +99,6 @@
     return kPeripheralTypeUndefined;
 }
 
-- (BOOL)isDemo {
-    return (self.type == kPeripheralTypeThermoDemo || self.type == kPeripheralTypeClimateDemo);
-}
-
 - (void)setName:(NSString *)name {
     _name = name;
     [_entity saveNewName:name];

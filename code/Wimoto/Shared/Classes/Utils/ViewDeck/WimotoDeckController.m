@@ -16,6 +16,8 @@
 #import "GrowSensorDetailsViewController.h"
 #import "SentrySensorDetailsViewController.h"
 #import "ThermoSensorDetailsViewController.h"
+#import "DemoThermoSensorDetailsViewController.h"
+#import "DemoClimateSensorDetailsViewController.h"
 
 #import "Sensor.h"
 #import "ClimateSensor.h"
@@ -59,7 +61,7 @@
 }
 
 - (void)showSensorDetailsScreen:(Sensor*)sensor {
-    if ([sensor isKindOfClass:[ClimateSensor class]] || [sensor isKindOfClass:[DemoClimateSensor class]]) {
+    if ([sensor isKindOfClass:[ClimateSensor class]]) {
         self.centerController = [[ClimateSensorDetailsViewController alloc] initWithSensor:sensor];
     } else if ([sensor isKindOfClass:[WaterSensor class]]) {
         self.centerController = [[WaterSensorDetailsViewController alloc] initWithSensor:sensor];
@@ -67,8 +69,12 @@
         self.centerController = [[GrowSensorDetailsViewController alloc] initWithSensor:sensor];
     } else if ([sensor isKindOfClass:[SentrySensor class]]) {
         self.centerController = [[SentrySensorDetailsViewController alloc] initWithSensor:sensor];
-    } else if ([sensor isKindOfClass:[ThermoSensor class]] || [sensor isKindOfClass:[DemoThermoSensor class]]) {
+    } else if ([sensor isKindOfClass:[ThermoSensor class]]) {
         self.centerController = [[ThermoSensorDetailsViewController alloc] initWithSensor:sensor];
+    } else if ([sensor isKindOfClass:[DemoThermoSensor class]]) {
+        self.centerController = [[DemoThermoSensorDetailsViewController alloc] initWithSensor:sensor];
+    } else if ([sensor isKindOfClass:[DemoClimateSensor class]]) {
+        self.centerController = [[DemoClimateSensorDetailsViewController alloc] initWithSensor:sensor];
     } else {
         self.centerController = [[NoSensorViewController alloc] init];
     }

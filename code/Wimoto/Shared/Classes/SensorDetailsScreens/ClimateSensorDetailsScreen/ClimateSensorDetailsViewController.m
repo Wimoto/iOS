@@ -7,38 +7,8 @@
 //
 
 #import "ClimateSensorDetailsViewController.h"
-#import "ASBSparkLineView.h"
-#import "ClimateSensor.h"
-#import "SensorHelper.h"
 
 @interface ClimateSensorDetailsViewController ()
-
-@property (nonatomic, weak) IBOutlet UILabel *tempLabel;
-@property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
-@property (nonatomic, weak) IBOutlet UILabel *lightLabel;
-
-@property (nonatomic, weak) IBOutlet ASBSparkLineView *temperatureSparkLine;
-@property (nonatomic, weak) IBOutlet ASBSparkLineView *humiditySparkLine;
-@property (nonatomic, weak) IBOutlet ASBSparkLineView *lightSparkLine;
-
-@property (nonatomic, weak) IBOutlet UISwitch *tempSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *humiditySwitch;
-
-@property (nonatomic, weak) IBOutlet UILabel *tempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *tempLowValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *humidityHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *humidityLowValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
-
-@property (nonatomic, strong) AlarmSlider *temperatureSlider;
-@property (nonatomic, strong) AlarmSlider *humiditySlider;
-@property (nonatomic, strong) AlarmSlider *lightSlider;
-
-- (IBAction)temperatureAlarmAction:(id)sender;
-- (IBAction)humidityAlarmAction:(id)sender;
-- (IBAction)lightAlarmAction:(id)sender;
 
 @end
 
@@ -90,7 +60,7 @@
     [self.view addSubview:_temperatureSlider];
     _temperatureSlider.delegate = self;
     [_temperatureSlider setSliderRange:0];
-    [_temperatureSlider setStepValue:0.1];
+    [_temperatureSlider setStepValue:0.1 animated:NO];
     [_temperatureSlider setMinimumValue:-60];
     [_temperatureSlider setMaximumValue:130];
     
@@ -194,9 +164,6 @@
             _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            if (self.sensor.isDemo) {
-                self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
-            }
         } else {
             ClimateSensor *sensor = (ClimateSensor*)self.sensor;
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
@@ -212,21 +179,21 @@
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
-        if (self.sensor.peripheral || self.sensor.isDemo) {
+        if (self.sensor.peripheral) {
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             _temperatureSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
-        if (self.sensor.peripheral || self.sensor.isDemo) {
+        if (self.sensor.peripheral) {
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
             _humiditySparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
-        if (self.sensor.peripheral || self.sensor.isDemo) {
+        if (self.sensor.peripheral) {
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {

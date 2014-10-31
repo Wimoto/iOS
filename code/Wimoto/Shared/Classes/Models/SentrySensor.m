@@ -130,29 +130,19 @@
         if (_accelerometerAlarmState != kAlarmStateEnabled) {
             return;
         }
-        //if (alarmtype == kAlarmHigh) {
-        //    alertString = @"Sentry Accelerometer high value";
-        //}
-        //else {
-        //    alertString = @"Sentry Accelerometer low value";
-        //}
         alertString = [NSString stringWithFormat:@"Sentry: %@ accelerometer %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM]]) {
         if (_pasInfraredAlarmState != kAlarmStateEnabled) {
             return;
         }
-        //if (alarmtype == kAlarmHigh) {
-        //    alertString = @"Sentry Infrared high value";
-        //}
-        //else {
-        //    alertString = @"Sentry Infrared low value";
-        //}
-        alertString = [NSString stringWithFormat:@"Sentry: %@ infrared alarm triggered", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+        alertString = [NSString stringWithFormat:@"%@: %@ infrared alarm triggered", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     if (alertString) {
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        localNotification.category = @"Sensor"; //  Same as category identifier
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            localNotification.category = @"Sensor"; //  Same as category identifier
+        }
         localNotification.alertBody = alertString;
         localNotification.alertAction = @"View";
         localNotification.soundName = @"alarm.aifc";

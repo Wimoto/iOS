@@ -26,33 +26,46 @@
     
 // Local Notification categories -- added by Marc
     
-    UIMutableUserNotificationAction *notificationAction1 = [[UIMutableUserNotificationAction alloc] init];
-    notificationAction1.identifier = @"Dismiss";
-    notificationAction1.title = @"Dismiss";
-    notificationAction1.activationMode = UIUserNotificationActivationModeBackground;
-    notificationAction1.destructive = NO;
-    notificationAction1.authenticationRequired = NO;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        UIMutableUserNotificationAction *notificationAction1 = [[UIMutableUserNotificationAction alloc] init];
+        notificationAction1.identifier = @"Dismiss";
+        notificationAction1.title = @"Dismiss";
+        notificationAction1.activationMode = UIUserNotificationActivationModeBackground;
+        notificationAction1.destructive = NO;
+        notificationAction1.authenticationRequired = NO;
+        
+        UIMutableUserNotificationAction *notificationAction2 = [[UIMutableUserNotificationAction alloc] init];
+        notificationAction2.identifier = @"alarmOff";
+        notificationAction2.title = @"Switch off alarm";
+        notificationAction2.activationMode = UIUserNotificationActivationModeBackground;
+        notificationAction2.destructive = YES;
+        notificationAction2.authenticationRequired = YES;
+        
+        UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc] init];
+        notificationCategory.identifier = @"Sensor";
+        [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextDefault];
+        [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextMinimal];
+        
+        NSSet *categories = [NSSet setWithObjects:notificationCategory, nil];
+        
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
+         UIUserNotificationTypeSound categories:categories];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        //[[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
     
-    UIMutableUserNotificationAction *notificationAction2 = [[UIMutableUserNotificationAction alloc] init];
-    notificationAction2.identifier = @"alarmOff";
-    notificationAction2.title = @"Switch off alarm";
-    notificationAction2.activationMode = UIUserNotificationActivationModeBackground;
-    notificationAction2.destructive = YES;
-    notificationAction2.authenticationRequired = YES;
-    
-    UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc] init];
-    notificationCategory.identifier = @"Sensor";
-    [notificationCategory setActions:@[notificationAction1,notificationAction2,] forContext:UIUserNotificationActionContextDefault];
-    [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextMinimal];
-    
-    NSSet *categories = [NSSet setWithObjects:notificationCategory, nil];
-
-    UIUserNotificationSettings *settings =
-    [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-     UIUserNotificationTypeSound categories:categories];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+    /* // Test local notification
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        localNotification.category = @"Sensor"; //  Same as category identifier
+    }
+    localNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:6.0];
+    localNotification.alertBody = @"Alert text...";
+    localNotification.alertAction = @"View";
+    localNotification.soundName = @"alarm.aifc";
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+     */
 // -- End of Local Notification stuff added by Marc
     
     self.window.rootViewController = deckController;

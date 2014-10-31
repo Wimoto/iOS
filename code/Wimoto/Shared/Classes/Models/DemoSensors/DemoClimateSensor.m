@@ -21,11 +21,20 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.demo = YES;
         self.name = @"Demo Climate";
         self.uniqueIdentifier = BLE_CLIMATE_DEMO_MODEL;
+        _temperature = 22.0;
+        _humidity = 50.0;
+        _light = 60.0;
     }
     return self;
+}
+
+- (void)setEntity:(SensorEntity *)entity {
+    _temperature = 22.0;
+    _humidity = 50.0;
+    _light = 60.0;
+    [super setEntity:entity];
 }
 
 - (PeripheralType)type {
@@ -33,9 +42,39 @@
 }
 
 - (void)sensorUpdate {
-    self.temperature = arc4random()%50;
-    self.humidity = arc4random()%100;
-    self.light = arc4random()%120;
+    int temperatureStep = arc4random()%4 + 1 - 4/2;
+    if ((_temperature + temperatureStep) < (-5)) {
+        self.temperature+=2.0;
+    }
+    else if ((_temperature + temperatureStep) > 50) {
+        self.temperature-=2.0;
+    }
+    else {
+        self.temperature+=temperatureStep;
+    }
+    
+    int humidityStep = arc4random()%4 + 1 - 4/2;
+    if ((_humidity + humidityStep) < (0)) {
+        self.humidity+=2.0;
+    }
+    else if ((_humidity + humidityStep) > 100) {
+        self.humidity-=2.0;
+    }
+    else {
+        self.humidity+=humidityStep;
+    }
+    
+    int lightStep = arc4random()%4 + 1 - 4/2;
+    if ((_light + lightStep) < 0) {
+        self.light+=2.0;
+    }
+    else if ((_light + lightStep) > 200) {
+        self.light-=2.0;
+    }
+    else {
+        self.light+=lightStep;
+    }
+    
     [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
     [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
     [self.entity saveNewValueWithType:kValueTypeLight value:_light];

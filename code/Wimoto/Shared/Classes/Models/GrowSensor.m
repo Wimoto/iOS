@@ -181,36 +181,18 @@
         if (_lightAlarmState != kAlarmStateEnabled) {
             return;
         }
-        //if (alarmtype == kAlarmHigh) {
-        //    alertString = @"Light high value";
-        //}
-        //else {
-        //    alertString = @"Light low value";
-        //}
         alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]]) {
         if (_soilMoistureAlarmState != kAlarmStateEnabled) {
             return;
         }
-        //if (alarmtype == kAlarmHigh) {
-        //    alertString = @"Soil moisture high value";
-        //}
-        //else {
-        //    alertString = @"Soil moisture low value";
-        //}
         alertString = [NSString stringWithFormat:@"%@ soil moisture %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]]) {
         if (_soilTempAlarmState != kAlarmStateEnabled) {
             return;
         }
-        //if (alarmtype == kAlarmHigh) {
-        //    alertString = @"Soil temperature high value";
-        //}
-        //else {
-        //    alertString = @"Soil temperature low value";
-        //}
         alertString = [NSString stringWithFormat:@"%@ soil temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     if (alertString) {
