@@ -141,7 +141,7 @@
     if (alertString) {
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            localNotification.category = @"Sensor"; //  Same as category identifier
+            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
         }
         localNotification.alertBody = alertString;
         localNotification.alertAction = @"View";

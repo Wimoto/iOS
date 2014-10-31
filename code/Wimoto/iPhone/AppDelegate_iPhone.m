@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate_iPhone.h"
-
 #import "LeftMenuViewController.h"
 #import "RightMenuViewController.h"
 #import "WimotoDeckController.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation AppDelegate_iPhone
 
@@ -28,21 +28,21 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         UIMutableUserNotificationAction *notificationAction1 = [[UIMutableUserNotificationAction alloc] init];
-        notificationAction1.identifier = @"Dismiss";
+        notificationAction1.identifier = NOTIFICATION_ACTION_DISMISS_ID;
         notificationAction1.title = @"Dismiss";
         notificationAction1.activationMode = UIUserNotificationActivationModeBackground;
         notificationAction1.destructive = NO;
         notificationAction1.authenticationRequired = NO;
         
         UIMutableUserNotificationAction *notificationAction2 = [[UIMutableUserNotificationAction alloc] init];
-        notificationAction2.identifier = @"alarmOff";
+        notificationAction2.identifier = NOTIFICATION_ACTION_ALARM_OFF_ID;
         notificationAction2.title = @"Switch off alarm";
         notificationAction2.activationMode = UIUserNotificationActivationModeBackground;
         notificationAction2.destructive = YES;
         notificationAction2.authenticationRequired = YES;
         
         UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc] init];
-        notificationCategory.identifier = @"Sensor";
+        notificationCategory.identifier = NOTIFICATION_ALARM_CATEGORY_ID;
         [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextDefault];
         [notificationCategory setActions:@[notificationAction1,notificationAction2] forContext:UIUserNotificationActionContextMinimal];
         
@@ -71,6 +71,24 @@
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if ([application applicationState] == UIApplicationStateActive) {
+        [UIAlertView showWithTitle:nil message:[notification alertBody] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Switch off alarm"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        
+        }];
+    }
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
+    if ([identifier isEqualToString:NOTIFICATION_ACTION_DISMISS_ID]) {
+        NSLog(@"DISMISS");
+    }
+    else if ([identifier isEqualToString:NOTIFICATION_ACTION_ALARM_OFF_ID]) {
+        NSLog(@"ALARM OFF");
+    }
+    completionHandler();
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
