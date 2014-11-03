@@ -7,6 +7,7 @@
 //
 
 #import "WaterSensor.h"
+#import "AppConstants.h"
 
 @implementation WaterSensor
 

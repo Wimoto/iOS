@@ -87,7 +87,6 @@
 		30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */; };
 		30B9E14119477E7B001E10A5 /* FirmwareUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */; };
 		30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */; };
-		30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
@@ -131,9 +130,11 @@
 		498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCC19AA94FC00EAEB98 /* settingscogs.png */; };
 		498CEFCF19AA98B700EAEB98 /* movement.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFCE19AA98B700EAEB98 /* movement.png */; };
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
+		49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F01A04F00600D16ACD /* NSData+Conversion.m */; };
+		49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F21A04F00600D16ACD /* NSString+Util.m */; };
+		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
 		49E50BD91A017BEC00304549 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD81A017BEC00304549 /* Settings.bundle */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
-		901399C5185A5EF20003D964 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399C4185A5EF20003D964 /* NSString+Util.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
 		90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E23185A43B300F83210 /* NoSensorViewController.m */; };
 		90232E28185A440700F83210 /* NoSensorViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90232E27185A440700F83210 /* NoSensorViewController_iPhone.xib */; };
@@ -293,8 +294,6 @@
 		30B9E13F19477E7B001E10A5 /* FirmwareUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareUploadViewController.h; sourceTree = "<group>"; };
 		30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareUploadViewController.m; sourceTree = "<group>"; };
 		30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareUploadViewController_iPhone.xib; sourceTree = "<group>"; };
-		30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
-		30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
 		30C1180F186B26270068633C /* GrowSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensor.m; sourceTree = "<group>"; };
 		30C11811186B42A20068633C /* SentrySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentrySensor.h; sourceTree = "<group>"; };
@@ -345,11 +344,15 @@
 		498CEFCC19AA94FC00EAEB98 /* settingscogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingscogs.png; sourceTree = "<group>"; };
 		498CEFCE19AA98B700EAEB98 /* movement.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movement.png; sourceTree = "<group>"; };
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
+		49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
+		49CB68F01A04F00600D16ACD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
+		49CB68F11A04F00600D16ACD /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		49CB68F21A04F00600D16ACD /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
+		49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		49E50BD81A017BEC00304549 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
-		901399C3185A5EF20003D964 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
-		901399C4185A5EF20003D964 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		901399CA185B16CB0003D964 /* CBPeripheral+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Util.h"; sourceTree = "<group>"; };
 		901399CB185B16CB0003D964 /* CBPeripheral+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+Util.m"; sourceTree = "<group>"; };
 		901399CD185B22A80003D964 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
@@ -626,6 +629,12 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
+				49CB68F01A04F00600D16ACD /* NSData+Conversion.m */,
+				49CB68F11A04F00600D16ACD /* NSString+Util.h */,
+				49CB68F21A04F00600D16ACD /* NSString+Util.m */,
+				49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */,
+				49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */,
 				3035CE5A1965AC58008DA202 /* QueueManager */,
 				30B9E0E9194729AA001E10A5 /* DFUParts */,
 				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
@@ -634,12 +643,8 @@
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				04EFF2FF195A08B20067589E /* SensorsManager */,
 				90232E37185A521900F83210 /* BLEManager */,
-				901399C3185A5EF20003D964 /* NSString+Util.h */,
-				901399C4185A5EF20003D964 /* NSString+Util.m */,
 				49F3F91118A5108800CDA950 /* SensorHelper.h */,
 				49F3F91218A510E600CDA950 /* SensorHelper.m */,
-				30BAA3AE19422EBD00A8A7DD /* NSData+Conversion.h */,
-				30BAA3AF19422EBD00A8A7DD /* NSData+Conversion.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1069,7 +1074,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = PZQTBD3MKF;
+						DevelopmentTeam = 3VG2LSZQ89;
 					};
 				};
 			};
@@ -1223,6 +1228,7 @@
 				30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */,
 				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
 				F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */,
+				49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
@@ -1233,19 +1239,19 @@
 				30B9E11C19473866001E10A5 /* WPNetworkDispatcher.m in Sources */,
 				30B9E11D19473866001E10A5 /* WPRequest.m in Sources */,
 				30B9E11E19473866001E10A5 /* WPResponse.m in Sources */,
+				49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */,
 				30B487EB184DFCD6002B0CD8 /* AppTableViewController.m in Sources */,
+				49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30B9E14119477E7B001E10A5 /* FirmwareUploadViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */,
-				30BAA3B019422EBD00A8A7DD /* NSData+Conversion.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
 				30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */,
-				901399C5185A5EF20003D964 /* NSString+Util.m in Sources */,
 				90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */,
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,
 				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
@@ -1271,7 +1277,7 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1280,7 +1286,8 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Shared/Frameworks",
+					"\"$(SRCROOT)/Shared/Frameworks\"",
+					"./**",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1288,12 +1295,14 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
@@ -1303,7 +1312,7 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1312,16 +1321,18 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Shared/Frameworks",
+					"\"$(SRCROOT)/Shared/Frameworks\"",
+					"./**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;

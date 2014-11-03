@@ -7,6 +7,7 @@
 //
 
 #import "ThermoSensor.h"
+#import "AppConstants.h"
 
 @implementation ThermoSensor
 

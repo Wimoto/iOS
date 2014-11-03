@@ -8,6 +8,7 @@
 
 #import "ClimateSensor.h"
 #import "SensorHelper.h"
+#import "AppConstants.h"
 
 @interface ClimateSensor ()
 

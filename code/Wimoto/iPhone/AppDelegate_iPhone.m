@@ -11,6 +11,7 @@
 #import "RightMenuViewController.h"
 #import "WimotoDeckController.h"
 #import "UIAlertView+Blocks.h"
+#import "AppConstants.h"
 
 @implementation AppDelegate_iPhone
 
@@ -26,7 +27,7 @@
     
 // Local Notification categories -- added by Marc
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIMutableUserNotificationAction *notificationAction1 = [[UIMutableUserNotificationAction alloc] init];
         notificationAction1.identifier = NOTIFICATION_ACTION_DISMISS_ID;
         notificationAction1.title = @"Dismiss";

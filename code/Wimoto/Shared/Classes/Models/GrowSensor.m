@@ -7,6 +7,7 @@
 //
 
 #import "GrowSensor.h"
+#import "AppConstants.h"
 
 @implementation GrowSensor
 
