@@ -31,6 +31,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
 
+@property (nonatomic, weak) IBOutlet UIImageView *soilTempAlarmImage;
+@property (nonatomic, weak) IBOutlet UIImageView *soilMoistureAlarmImage;
+@property (nonatomic, weak) IBOutlet UIImageView *lightAlarmImage;
+
 @property (nonatomic, strong) AlarmSlider *soilTempSlider;
 @property (nonatomic, strong) AlarmSlider *soilMoistureSlider;
 @property (nonatomic, strong) AlarmSlider *lightSlider;
@@ -182,13 +186,41 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            _soilMoistureHighValueLabel.hidden = YES;
+            _soilTempHighValueLabel.hidden = YES;
+            _lightHighValueLabel.hidden = YES;
+            _soilMoistureLowValueLabel.hidden = YES;
+            _soilTempLowValueLabel.hidden = YES;
+            _lightLowValueLabel.hidden = YES;
+            _soilMoistureSwitch.hidden = YES;
+            _soilTempSwitch.hidden = YES;
+            _lightSwitch.hidden = YES;
+            _soilMoistureAlarmImage.hidden = YES;
+            _soilTempAlarmImage.hidden = YES;
+            _lightAlarmImage.hidden = YES;
+            [_soilMoistureSlider hideAction:nil];
+            [_soilTempSlider hideAction:nil];
+            [_lightSlider hideAction:nil];
+            
             _soilTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
+            _soilMoistureHighValueLabel.hidden = NO;
+            _soilTempHighValueLabel.hidden = NO;
+            _lightHighValueLabel.hidden = NO;
+            _soilMoistureLowValueLabel.hidden = NO;
+            _soilTempLowValueLabel.hidden = NO;
+            _lightLowValueLabel.hidden = NO;
+            _soilMoistureSwitch.hidden = NO;
+            _soilTempSwitch.hidden = NO;
+            _lightSwitch.hidden = NO;
+            _soilMoistureAlarmImage.hidden = NO;
+            _soilTempAlarmImage.hidden = NO;
+            _lightAlarmImage.hidden = NO;
             GrowSensor *sensor = (GrowSensor*)self.sensor;
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilTemperature]];
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
+            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor soilTemperature])];
+            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor soilMoisture])];
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [sensor light]];
             self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
         }
@@ -200,14 +232,14 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
             _soilTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
         if (self.sensor.peripheral) {
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
             _soilMoistureSparkLine.dataValues = result;

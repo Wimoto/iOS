@@ -30,6 +30,9 @@
 @property (nonatomic, strong) AlarmSlider *irTempSlider;
 @property (nonatomic, strong) AlarmSlider *probeTempSlider;
 
+@property (nonatomic, weak) IBOutlet UIImageView *irTempAlarmImage;
+@property (nonatomic, weak) IBOutlet UIImageView *probeTempAlarmImage;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (IBAction)irTempAlarmAction:(id)sender;

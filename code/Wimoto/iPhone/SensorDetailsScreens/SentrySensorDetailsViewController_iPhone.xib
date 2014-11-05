@@ -7,10 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SentrySensorDetailsViewController">
             <connections>
+                <outlet property="accelerometerAlarmImage" destination="7I8-s7-WyN" id="xpF-5O-kpa"/>
                 <outlet property="accelerometerLabel" destination="qIb-An-7J8" id="vtg-of-d7J"/>
                 <outlet property="accelerometerSparkLine" destination="FWh-TQ-XjM" id="T2p-Z8-3e9"/>
+                <outlet property="accelerometerSwitch" destination="qn2-0Z-5r9" id="f15-n0-KDq"/>
                 <outlet property="batteryLevelImage" destination="yeF-42-rkC" id="Rsf-XR-N91"/>
                 <outlet property="lastUpdateLabel" destination="P0X-Pu-lBh" id="8zz-w8-wx8"/>
+                <outlet property="pasInfraredAlarmImage" destination="vfs-YM-HTK" id="tqF-2K-jP3"/>
                 <outlet property="pasInfraredLabel" destination="uqs-Jg-baq" id="5QS-47-6O8"/>
                 <outlet property="pasInfraredSparkLine" destination="Lr7-k8-LYp" id="YiO-gn-Lqz"/>
                 <outlet property="pasInfraredSwitch" destination="UAj-tW-2hf" id="Qn4-W8-D9j"/>

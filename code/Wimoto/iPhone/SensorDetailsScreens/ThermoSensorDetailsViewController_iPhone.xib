@@ -8,12 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="BBN-Jq-vU9" id="6pW-YU-CSJ"/>
+                <outlet property="irTempAlarmImage" destination="PhQ-dz-A54" id="SIM-KA-XLd"/>
                 <outlet property="irTempHighValueLabel" destination="bZ4-px-W5R" id="vua-Gl-Bjw"/>
                 <outlet property="irTempLabel" destination="8t6-mc-eiS" id="XZs-86-EKl"/>
                 <outlet property="irTempLowValueLabel" destination="V3D-TB-Gby" id="m3e-Yp-qvV"/>
                 <outlet property="irTempSparkLine" destination="JHS-k0-eef" id="Gv0-HZ-fU9"/>
                 <outlet property="irTempSwitch" destination="nAK-r8-FWW" id="eT8-Ne-89I"/>
                 <outlet property="lastUpdateLabel" destination="65O-DQ-X4v" id="QxV-Gy-tma"/>
+                <outlet property="probeTempAlarmImage" destination="YeS-o4-6Ae" id="eqC-bB-jm5"/>
                 <outlet property="probeTempHighValueLabel" destination="Vh5-Ep-HKY" id="J3g-47-mVp"/>
                 <outlet property="probeTempLabel" destination="g3j-J0-PvV" id="QqK-8d-qoK"/>
                 <outlet property="probeTempLowValueLabel" destination="XOW-ga-6ao" id="6oy-fZ-F7s"/>

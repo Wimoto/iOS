@@ -161,13 +161,40 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            _tempHighValueLabel.hidden = YES;
+            _humidityHighValueLabel.hidden = YES;
+            _lightHighValueLabel.hidden = YES;
+            _tempLowValueLabel.hidden = YES;
+            _humidityLowValueLabel.hidden = YES;
+            _lightLowValueLabel.hidden = YES;
+            _tempSwitch.hidden = YES;
+            _humiditySwitch.hidden = YES;
+            _lightSwitch.hidden = YES;
+            _tempAlarmImage.hidden = YES;
+            _humidityAlarmImage.hidden = YES;
+            _lightAlarmImage.hidden = YES;
+            [_temperatureSlider hideAction:nil];
+            [_humiditySlider hideAction:nil];
+            [_lightSlider hideAction:nil];
             _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
+            _tempHighValueLabel.hidden = NO;
+            _humidityHighValueLabel.hidden = NO;
+            _lightHighValueLabel.hidden = NO;
+            _tempLowValueLabel.hidden = NO;
+            _humidityLowValueLabel.hidden = NO;
+            _lightLowValueLabel.hidden = NO;
+            _tempSwitch.hidden = NO;
+            _humiditySwitch.hidden = NO;
+            _lightSwitch.hidden = NO;
+            _tempAlarmImage.hidden = NO;
+            _humidityAlarmImage.hidden = NO;
+            _lightAlarmImage.hidden = NO;
             ClimateSensor *sensor = (ClimateSensor*)self.sensor;
-            _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
-            _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [sensor humidity]];
+            _tempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor temperature])];
+            _humidityLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor humidity])];
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [sensor light]];
             
             self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
@@ -180,14 +207,14 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            _tempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             _temperatureSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
         if (self.sensor.peripheral) {
-            _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            _humidityLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
             _humiditySparkLine.dataValues = result;
