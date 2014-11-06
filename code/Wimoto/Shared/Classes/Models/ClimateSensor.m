@@ -118,10 +118,10 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-            self.temperature = -46.85 + (175.72*[self sensorValueForCharacteristic:characteristic]/65536);
+            self.temperature = [self roundToOne:-46.85 + (175.72*[self sensorValueForCharacteristic:characteristic]/65536)];
             [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
-            self.humidity = -6.0 + (125.0*[self sensorValueForCharacteristic:characteristic]/65536);
+            self.humidity = [self roundToOne:-6.0 + (125.0*[self sensorValueForCharacteristic:characteristic]/65536)];
             [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
             self.light = 0.96 * [self sensorValueForCharacteristic:characteristic];

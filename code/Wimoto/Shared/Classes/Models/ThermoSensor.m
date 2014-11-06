@@ -89,10 +89,10 @@
     NSLog(@"ThermoSensor didUpdateValueForCharacteristic start");
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
-            self.irTemp = [[self sensorStringValueForCharacteristic:characteristic] floatValue];
+            self.irTemp = [self roundToOne:[[self sensorStringValueForCharacteristic:characteristic] floatValue]];
             [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
-            self.probeTemp = [self sensorValueForCharacteristic:characteristic];
+            self.probeTemp = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET]]) {
             if (_irTempAlarmState == kAlarmStateUnknown) {

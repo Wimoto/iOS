@@ -142,8 +142,8 @@
             _irTempAlarmImage.hidden = NO;
             _probeTempAlarmImage.hidden = NO;
             ThermoSensor *sensor = (ThermoSensor*)self.sensor;
-            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor irTemp])];
-            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor probeTemp])];
+            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
             self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
@@ -156,7 +156,7 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne(value)];
+            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             _irTempSparkLine.dataValues = result;
@@ -165,7 +165,7 @@
         float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
         
         if (self.sensor.peripheral) {
-            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne(value)];
+            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             _probeTempSparkLine.dataValues = result;

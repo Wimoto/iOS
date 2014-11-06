@@ -219,8 +219,8 @@
             _soilTempAlarmImage.hidden = NO;
             _lightAlarmImage.hidden = NO;
             GrowSensor *sensor = (GrowSensor*)self.sensor;
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor soilTemperature])];
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([sensor soilMoisture])];
+            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilTemperature]];
+            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
             _lightLabel.text = [NSString stringWithFormat:@"%.f", [sensor light]];
             self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
         }
@@ -232,14 +232,14 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
+            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
             _soilTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
         if (self.sensor.peripheral) {
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", roundToOne([[change objectForKey:NSKeyValueChangeNewKey] floatValue])];
+            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
             _soilMoistureSparkLine.dataValues = result;

@@ -113,13 +113,13 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
-            self.soilTemperature = [self sensorValueForCharacteristic:characteristic];
+            self.soilTemperature = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeSoilTemperature value:_soilTemperature];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
             self.light = [self sensorValueForCharacteristic:characteristic];
             [self.entity saveNewValueWithType:kValueTypeGrowLight value:_light];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
-            self.soilMoisture = [self sensorValueForCharacteristic:characteristic];
+            self.soilMoisture = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:_soilMoisture];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
