@@ -8,9 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WaterSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="PEB-Ku-7xD" id="wMK-vK-Wti"/>
+                <outlet property="contactAlarmImage" destination="vJb-Ja-lQp" id="mhF-bf-5BY"/>
                 <outlet property="contactLabel" destination="npa-2Y-cw2" id="RNl-Ud-tpx"/>
                 <outlet property="contactSwitch" destination="Tdu-91-O6A" id="5It-WJ-NyC"/>
                 <outlet property="lastUpdateLabel" destination="FpO-6P-Bgv" id="8dy-g4-7dc"/>
+                <outlet property="levelAlarmImage" destination="v9i-Qq-C9x" id="uw4-W4-aW2"/>
                 <outlet property="levelHighValueLabel" destination="QNF-Bp-tbR" id="KeF-7L-wfC"/>
                 <outlet property="levelLabel" destination="mG5-if-nek" id="hv3-rC-zeo"/>
                 <outlet property="levelLowValueLabel" destination="HlW-yd-aE0" id="kXJ-IY-PZ5"/>

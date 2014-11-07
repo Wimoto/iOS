@@ -32,6 +32,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
 
+@property (nonatomic, weak) IBOutlet UIView *tempAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *humidityAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
+
 @property (nonatomic, strong) AlarmSlider *temperatureSlider;
 @property (nonatomic, strong) AlarmSlider *humiditySlider;
 @property (nonatomic, strong) AlarmSlider *lightSlider;

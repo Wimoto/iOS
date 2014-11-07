@@ -161,10 +161,19 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            _tempAlarmContainer.hidden = YES;
+            _humidityAlarmContainer.hidden = YES;
+            _lightAlarmContainer.hidden = YES;
+            [_temperatureSlider hideAction:nil];
+            [_humiditySlider hideAction:nil];
+            [_lightSlider hideAction:nil];
             _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
+            _tempAlarmContainer.hidden = NO;
+            _humidityAlarmContainer.hidden = NO;
+            _lightAlarmContainer.hidden = NO;
             ClimateSensor *sensor = (ClimateSensor*)self.sensor;
             _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [sensor humidity]];

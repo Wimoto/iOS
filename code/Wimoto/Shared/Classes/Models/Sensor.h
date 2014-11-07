@@ -48,6 +48,8 @@ typedef enum {
 
 - (id)initWithEntity:(SensorEntity*)entity;
 
+- (float)roundToOne:(float)value;
+
 - (PeripheralType)type;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;

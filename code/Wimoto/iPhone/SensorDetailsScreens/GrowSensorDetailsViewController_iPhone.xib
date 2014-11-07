@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
                 <outlet property="lastUpdateLabel" destination="pWs-7t-A5o" id="ELg-OR-Ca5"/>
+                <outlet property="lightAlarmImage" destination="4dz-RG-qpx" id="Ibs-dG-KF7"/>
                 <outlet property="lightHighValueLabel" destination="nEJ-XV-9K2" id="ozt-0Z-a8j"/>
                 <outlet property="lightLabel" destination="LNT-Ni-2p1" id="UdF-bL-8m6"/>
                 <outlet property="lightLowValueLabel" destination="VRc-cR-dM4" id="jTe-9s-YQp"/>
@@ -16,11 +17,13 @@
                 <outlet property="lightSwitch" destination="DbU-0T-VNX" id="yA5-VP-5x3"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
                 <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
+                <outlet property="soilMoistureAlarmImage" destination="s40-WE-f0O" id="Cq6-AE-dCh"/>
                 <outlet property="soilMoistureHighValueLabel" destination="QIm-gN-4ZZ" id="aJY-lZ-JYP"/>
                 <outlet property="soilMoistureLabel" destination="VwV-nP-PwZ" id="4OE-3j-Ock"/>
                 <outlet property="soilMoistureLowValueLabel" destination="wxW-3b-vmQ" id="3Am-vP-NKP"/>
                 <outlet property="soilMoistureSparkLine" destination="Q0W-zR-mPo" id="jBL-kO-ZCY"/>
                 <outlet property="soilMoistureSwitch" destination="JNf-P3-NP1" id="KLf-o7-RID"/>
+                <outlet property="soilTempAlarmImage" destination="URo-RI-c3r" id="Y8W-UT-9OT"/>
                 <outlet property="soilTempHighValueLabel" destination="LRy-Qo-1pn" id="PE5-BU-VLc"/>
                 <outlet property="soilTempLabel" destination="ngH-Qk-P3o" id="jWr-9c-anZ"/>
                 <outlet property="soilTempLowValueLabel" destination="w8o-ad-fXW" id="epG-pp-2K0"/>

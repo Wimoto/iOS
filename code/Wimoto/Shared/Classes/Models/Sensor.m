@@ -133,6 +133,10 @@
     _peripheral.delegate = nil;
 }
 
+- (float)roundToOne:(float)value {
+    return roundf(value * 10) / 10;
+}
+
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     //Implement in child
 }
