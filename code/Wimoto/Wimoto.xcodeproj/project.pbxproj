@@ -173,6 +173,8 @@
 		90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */; };
 		90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */; };
 		90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EAB4AB185F7A6E00609A9C /* libz.dylib */; };
+		F70439C81A0D5A5D007F5B58 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F70439C51A0D5A5D007F5B58 /* SVProgressHUD.bundle */; };
+		F70439C91A0D5A5D007F5B58 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F70439C71A0D5A5D007F5B58 /* SVProgressHUD.m */; };
 		F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */; };
 		F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31711A02BE7900ABD9AC /* DemoSensor.m */; };
 		F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */; };
@@ -413,6 +415,10 @@
 		90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		90EAB4AB185F7A6E00609A9C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		90F56DDE184DD54000ADC38E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		F70439C41A0D5A5D007F5B58 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		F70439C51A0D5A5D007F5B58 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F70439C61A0D5A5D007F5B58 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		F70439C71A0D5A5D007F5B58 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		F70D316E1A02BE7900ABD9AC /* DemoClimateSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClimateSensor.h; sourceTree = "<group>"; };
 		F70D316F1A02BE7900ABD9AC /* DemoClimateSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClimateSensor.m; sourceTree = "<group>"; };
 		F70D31701A02BE7900ABD9AC /* DemoSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSensor.h; sourceTree = "<group>"; };
@@ -629,6 +635,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
 				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
 				49CB68F01A04F00600D16ACD /* NSData+Conversion.m */,
 				49CB68F11A04F00600D16ACD /* NSString+Util.h */,
@@ -1021,6 +1028,17 @@
 			path = Sparklines;
 			sourceTree = "<group>";
 		};
+		F70439C31A0D5A5D007F5B58 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F70439C41A0D5A5D007F5B58 /* SVProgressHUD-Prefix.pch */,
+				F70439C51A0D5A5D007F5B58 /* SVProgressHUD.bundle */,
+				F70439C61A0D5A5D007F5B58 /* SVProgressHUD.h */,
+				F70439C71A0D5A5D007F5B58 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		F70D316D1A02BE7900ABD9AC /* DemoSensors */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,7 +1092,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = PZQTBD3MKF;
 					};
 				};
 			};
@@ -1123,6 +1141,7 @@
 				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
 				496B527E19BD0C53005B9A8C /* menu.png in Resources */,
 				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
+				F70439C81A0D5A5D007F5B58 /* SVProgressHUD.bundle in Resources */,
 				30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
 				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
@@ -1219,6 +1238,7 @@
 				3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */,
 				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,
 				30C11813186B42A20068633C /* SentrySensor.m in Sources */,
+				F70439C91A0D5A5D007F5B58 /* SVProgressHUD.m in Sources */,
 				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
 				30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */,
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
@@ -1295,7 +1315,7 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1327,7 +1347,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
@@ -1347,7 +1367,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1362,7 +1382,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;

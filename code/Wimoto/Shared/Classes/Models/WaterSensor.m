@@ -15,6 +15,10 @@
     return kPeripheralTypeWater;
 }
 
+- (NSString *)codename {
+    return @"Water";
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {

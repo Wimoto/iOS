@@ -15,6 +15,10 @@
     return kPeripheralTypeSentry;
 }
 
+- (NSString *)codename {
+    return @"Sentry";
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {

@@ -31,9 +31,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
 
-@property (nonatomic, weak) IBOutlet UIImageView *soilTempAlarmImage;
-@property (nonatomic, weak) IBOutlet UIImageView *soilMoistureAlarmImage;
-@property (nonatomic, weak) IBOutlet UIImageView *lightAlarmImage;
+@property (nonatomic, weak) IBOutlet UIView *soilTempAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *soilMoistureAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
 
 @property (nonatomic, strong) AlarmSlider *soilTempSlider;
 @property (nonatomic, strong) AlarmSlider *soilMoistureSlider;
@@ -186,18 +186,9 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _soilMoistureHighValueLabel.hidden = YES;
-            _soilTempHighValueLabel.hidden = YES;
-            _lightHighValueLabel.hidden = YES;
-            _soilMoistureLowValueLabel.hidden = YES;
-            _soilTempLowValueLabel.hidden = YES;
-            _lightLowValueLabel.hidden = YES;
-            _soilMoistureSwitch.hidden = YES;
-            _soilTempSwitch.hidden = YES;
-            _lightSwitch.hidden = YES;
-            _soilMoistureAlarmImage.hidden = YES;
-            _soilTempAlarmImage.hidden = YES;
-            _lightAlarmImage.hidden = YES;
+            _soilMoistureAlarmContainer.hidden = YES;
+            _soilTempAlarmContainer.hidden = YES;
+            _lightAlarmContainer.hidden = YES;
             [_soilMoistureSlider hideAction:nil];
             [_soilTempSlider hideAction:nil];
             [_lightSlider hideAction:nil];
@@ -206,18 +197,9 @@
             _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
-            _soilMoistureHighValueLabel.hidden = NO;
-            _soilTempHighValueLabel.hidden = NO;
-            _lightHighValueLabel.hidden = NO;
-            _soilMoistureLowValueLabel.hidden = NO;
-            _soilTempLowValueLabel.hidden = NO;
-            _lightLowValueLabel.hidden = NO;
-            _soilMoistureSwitch.hidden = NO;
-            _soilTempSwitch.hidden = NO;
-            _lightSwitch.hidden = NO;
-            _soilMoistureAlarmImage.hidden = NO;
-            _soilTempAlarmImage.hidden = NO;
-            _lightAlarmImage.hidden = NO;
+            _soilMoistureAlarmContainer.hidden = NO;
+            _soilTempAlarmContainer.hidden = NO;
+            _lightAlarmContainer.hidden = NO;
             GrowSensor *sensor = (GrowSensor*)self.sensor;
             _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilTemperature]];
             _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];

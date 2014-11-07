@@ -15,6 +15,10 @@
     return kPeripheralTypeThermo;
 }
 
+- (NSString *)codename {
+    return @"Thermo";
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {

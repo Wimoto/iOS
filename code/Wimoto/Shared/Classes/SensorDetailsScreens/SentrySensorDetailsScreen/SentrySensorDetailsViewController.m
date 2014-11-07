@@ -21,8 +21,8 @@
 @property (nonatomic, weak) IBOutlet UISwitch *accelerometerSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *pasInfraredSwitch;
 
-@property (nonatomic, weak) IBOutlet UIImageView *accelerometerAlarmImage;
-@property (nonatomic, weak) IBOutlet UIImageView *pasInfraredAlarmImage;
+@property (nonatomic, weak) IBOutlet UIView *accelerometerAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *pasInfraredAlarmContainer;
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
@@ -95,17 +95,13 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _accelerometerAlarmImage.hidden = YES;
-            _pasInfraredAlarmImage.hidden = YES;
-            _accelerometerSwitch.hidden = YES;
-            _pasInfraredSwitch.hidden = YES;
+            _accelerometerAlarmContainer.hidden = YES;
+            _pasInfraredAlarmContainer.hidden = YES;
             _accelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _pasInfraredLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
-            _accelerometerAlarmImage.hidden = NO;
-            _pasInfraredAlarmImage.hidden = NO;
-            _accelerometerSwitch.hidden = NO;
-            _pasInfraredSwitch.hidden = NO;
+            _accelerometerAlarmContainer.hidden = NO;
+            _pasInfraredAlarmContainer.hidden = NO;
             SentrySensor *sensor = (SentrySensor*)self.sensor;
             _accelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor accelerometer]];
             _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [sensor pasInfrared]];

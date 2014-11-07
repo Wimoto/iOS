@@ -110,7 +110,7 @@ static inline float yPlotValue(float maxHeight, float yInc, float val, float min
 - (void)setDataValues:(NSArray *)dataValues {
     //if (![m_dataValues isEqualToArray:dataValues]) {
     
-    NSLog(@"data values are %@", dataValues);
+    //NSLog(@"data values are %@", dataValues);
     
     if ([dataValues count] == 0) {
         dataValues = nil;

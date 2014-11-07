@@ -20,6 +20,10 @@
     return kPeripheralTypeClimate;
 }
 
+- (NSString *)codename {
+    return @"Climate";
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {

@@ -15,6 +15,10 @@
     return kPeripheralTypeGrow;
 }
 
+- (NSString *)codename {
+    return @"Grow";
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
