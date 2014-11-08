@@ -39,6 +39,10 @@
     return kPeripheralTypeThermoDemo;
 }
 
+- (NSString *)codename {
+    return @"Thermo";
+}
+
 - (void)sensorUpdate {
     int irTempStep = arc4random()%4 + 1 - 4/2;
     if ((_irTemp + irTempStep) < (-5)) {

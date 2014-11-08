@@ -22,8 +22,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *levelLowValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *levelHighValueLabel;
 
-@property (nonatomic, weak) IBOutlet UIImageView *levelAlarmImage;
-@property (nonatomic, weak) IBOutlet UIImageView *contactAlarmImage;
+@property (nonatomic, weak) IBOutlet UIView *levelAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *contactAlarmContainer;
 
 @property (nonatomic, strong) AlarmSlider *levelSlider;
 
@@ -112,22 +112,14 @@
     
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _contactSwitch.hidden = YES;
-            _levelSwitch.hidden = YES;
-            _levelHighValueLabel.hidden = YES;
-            _levelLowValueLabel.hidden = YES;
-            _levelAlarmImage.hidden = YES;
-            _contactAlarmImage.hidden = YES;
+            _levelAlarmContainer.hidden = YES;
+            _contactAlarmContainer.hidden = YES;
             [_levelSlider hideAction:nil];
             _levelLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _contactLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
-            _contactSwitch.hidden = NO;
-            _levelSwitch.hidden = NO;
-            _levelHighValueLabel.hidden = NO;
-            _levelLowValueLabel.hidden = NO;
-            _levelAlarmImage.hidden = NO;
-            _contactAlarmImage.hidden = NO;
+            _levelAlarmContainer.hidden = NO;
+            _contactAlarmContainer.hidden = NO;
             WaterSensor *sensor = (WaterSensor*)self.sensor;
             _levelLabel.text = [NSString stringWithFormat:@"%.1f", [sensor level]];
             _contactLabel.text = ([sensor presense])?@"YES":@"NO";

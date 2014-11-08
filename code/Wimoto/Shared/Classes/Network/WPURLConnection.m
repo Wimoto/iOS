@@ -11,6 +11,7 @@
 @interface WPURLConnection ()
 
 @property (nonatomic, retain) NSURLRequest *formatedRequest;
+@property (nonatomic, assign) float expectedBytes;
 
 @end
 
@@ -31,8 +32,17 @@
     return self;
 }
 
+- (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)response {
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    self.statusCode = [httpResponse statusCode];
+    self.expectedBytes = [response expectedContentLength];
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	[_networkData appendData:data];
+    if ([_opResponseReceiver respondsToSelector:@selector(downloadProgress:request:)]) {
+        [_opResponseReceiver downloadProgress:(float)[data length]/_expectedBytes request:_request];
+    }
 }
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error {
@@ -42,11 +52,6 @@
     self.networkData = nil;
     self.connection = nil;
     [_opConnectionDelegate didFinishConnection:self];
-}
-
-- (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)response {
-    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    self.statusCode = [httpResponse statusCode];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection {

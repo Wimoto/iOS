@@ -10,16 +10,16 @@
 
 @interface FirmwareCell ()
 
-@property (nonatomic, weak) IBOutlet UILabel *fileNameLabel;
-@property (nonatomic, weak) IBOutlet UILabel *sizeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *sensorNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *versionLabel;
 
 @end
 
 @implementation FirmwareCell
 
-- (void)bindData:(NSDictionary *)dictionary {
-    _fileNameLabel.text = [dictionary objectForKey:@"title"];
-    _sizeLabel.text = [NSString stringWithFormat:@"%@ bytes", [dictionary objectForKey:@"size"]];
+- (void)bindData:(Firmware *)firmware {
+    _sensorNameLabel.text = [firmware name];
+    _versionLabel.text = [firmware version];
 }
 
 @end

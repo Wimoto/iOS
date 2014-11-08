@@ -99,6 +99,10 @@
     return kPeripheralTypeUndefined;
 }
 
+- (NSString *)codename {
+    return nil;
+}
+
 - (void)setName:(NSString *)name {
     _name = name;
     [_entity saveNewName:name];

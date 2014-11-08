@@ -41,6 +41,10 @@
     return kPeripheralTypeClimateDemo;
 }
 
+- (NSString *)codename {
+    return @"Climate";
+}
+
 - (void)sensorUpdate {
     int temperatureStep = arc4random()%4 + 1 - 4/2;
     if ((_temperature + temperatureStep) < (-5)) {

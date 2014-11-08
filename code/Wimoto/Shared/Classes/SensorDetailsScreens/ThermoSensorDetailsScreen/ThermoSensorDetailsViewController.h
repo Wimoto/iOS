@@ -30,8 +30,8 @@
 @property (nonatomic, strong) AlarmSlider *irTempSlider;
 @property (nonatomic, strong) AlarmSlider *probeTempSlider;
 
-@property (nonatomic, weak) IBOutlet UIImageView *irTempAlarmImage;
-@property (nonatomic, weak) IBOutlet UIImageView *probeTempAlarmImage;
+@property (nonatomic, weak) IBOutlet UIView *irTempAlarmContainer;
+@property (nonatomic, weak) IBOutlet UIView *probeTempAlarmContainer;
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 

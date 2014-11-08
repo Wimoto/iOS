@@ -22,12 +22,16 @@
 - (NSURLRequest*)formRequest {
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] init];
     switch (_requestType) {
-        case kWPGetFirmware: {
-            [mutableURLRequest setHTTPMethod:@"GET"];
-            [mutableURLRequest setURL:[NSURL URLWithString:@"http://wimoto.io:8080/api/firmwares/Climate"]];
+        case kWPRequestGetFirmwareList: {
+            [mutableURLRequest setHTTPMethod:@"GET"]; //http://wimoto.io:8080/api/firmwares/Climate
+            [mutableURLRequest setURL:[NSURL URLWithString:@"http://www.wimoto.com:8080/api/firmwares/"]];
             [mutableURLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             break;
 		}
+        case kWPRequestDownload: {
+            [mutableURLRequest setURL:[NSURL URLWithString:(NSString *)_requestData]];
+            break;
+        }
     }
     return mutableURLRequest;
 }

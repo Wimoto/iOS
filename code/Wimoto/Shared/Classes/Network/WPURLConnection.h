@@ -34,4 +34,5 @@
 - (void)processResponse:(WPResponse*)response;
 @optional
 - (void)processError:(NSError*)error;
+- (void)downloadProgress:(float)progress request:(WPRequest *)request;
 @end

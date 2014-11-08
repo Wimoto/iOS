@@ -51,6 +51,7 @@ typedef enum {
 - (float)roundToOne:(float)value;
 
 - (PeripheralType)type;
+- (NSString *)codename;
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString;

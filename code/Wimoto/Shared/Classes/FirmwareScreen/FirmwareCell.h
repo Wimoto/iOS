@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Firmware.h"
 
 @interface FirmwareCell : UITableViewCell
 
-- (void)bindData:(NSDictionary *)dictionary;
+- (void)bindData:(Firmware *)firmware;
 
 @end
