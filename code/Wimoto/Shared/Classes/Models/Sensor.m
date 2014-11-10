@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) NSTimer *rssiTimer;
 
+- (void)detectTempMeasureAndSubscribeToNotifications;
+
 @end
 
 @implementation Sensor
@@ -79,6 +81,8 @@
         
         _name               = _peripheral.name;
         _uniqueIdentifier   = [_peripheral uniqueIdentifier];
+        
+        [self detectTempMeasureAndSubscribeToNotifications];
     }
     return self;
 }
@@ -91,8 +95,35 @@
         _registered         = YES;
         _name               = _entity.name;
         _uniqueIdentifier   = _entity.systemId;
+        
+        [self detectTempMeasureAndSubscribeToNotifications];
     }
     return self;
+}
+- (id)init {
+    self = [super init];
+    if (self) {
+        [self detectTempMeasureAndSubscribeToNotifications];
+    }
+    return self;
+}
+
+- (void)detectTempMeasureAndSubscribeToNotifications {
+    BOOL isCelsius = [[NSUserDefaults standardUserDefaults] boolForKey:@"temperature_conversion"];
+    self.tempMeasure = (isCelsius)?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsNotification:)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
+}
+
+- (void)settingsNotification:(NSNotification *)notification {
+    NSUserDefaults *userDefaults = [notification object];
+    BOOL isCelsiusValue = [userDefaults boolForKey:@"temperature_conversion"];
+    TemperatureMeasure measure = isCelsiusValue?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
+    if (_tempMeasure != measure) {
+        self.tempMeasure = measure;
+    }
 }
 
 - (PeripheralType)type {
@@ -101,6 +132,14 @@
 
 - (NSString *)codename {
     return nil;
+}
+
+- (float)convertToFahrenheit:(float)value {
+    return (value * 9.0/5.0 + 32.0);
+}
+
+- (float)convertToCelsius:(float)value {
+    return ((value - 32.0) * 5.0/9.0);
 }
 
 - (void)setName:(NSString *)name {
@@ -133,6 +172,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [_rssiTimer invalidate];
     _peripheral.delegate = nil;
 }
@@ -212,6 +252,10 @@
 
 - (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic {
     return [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+}
+
+- (void)writeDfuData:(NSData *)dfuData {
+    // should be ovverriden in children
 }
 
 #pragma mark - CBPeripheralDelegate

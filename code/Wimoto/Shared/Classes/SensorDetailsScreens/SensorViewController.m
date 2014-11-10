@@ -61,12 +61,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)firmwareUpdateAction:(id)sender {
-    FirmwareViewController *firmwareController = [[FirmwareViewController alloc] initWithSensor:_sensor];
-    UINavigationController *firmwareNavController = [[UINavigationController alloc] initWithRootViewController:firmwareController];
-    [self presentViewController:firmwareNavController animated:YES completion:nil];
-}
-
 - (void)dealloc {
     @try {
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
@@ -81,6 +75,12 @@
         [self.lastUpdateTimer invalidate];
     }
     self.lastUpdateTimer = nil;
+}
+
+- (IBAction)firmwareUpdateAction:(id)sender {
+    FirmwareViewController *firmwareController = [[FirmwareViewController alloc] initWithSensor:_sensor];
+    UINavigationController *firmwareNavController = [[UINavigationController alloc] initWithRootViewController:firmwareController];
+    [self presentViewController:firmwareNavController animated:YES completion:nil];
 }
 
 - (void)refreshLastUpdateLabel {

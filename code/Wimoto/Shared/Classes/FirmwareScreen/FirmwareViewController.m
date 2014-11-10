@@ -124,12 +124,10 @@
         }
     }
     else if (response.request.requestType == kWPRequestDownload) {
-        if (response.codeStatus != 200) {
-            [SVProgressHUD showErrorWithStatus:@"Can't download"];
+        if (response.codeStatus == 200) {
+            [_sensor writeDfuData:(NSData *)[response responseData]];
         }
-        else {
-            [SVProgressHUD dismiss];
-        }
+        [SVProgressHUD dismiss];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

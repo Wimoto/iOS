@@ -13,12 +13,21 @@
 #import "UIAlertView+Blocks.h"
 #import "AppConstants.h"
 
+@interface AppDelegate_iPhone ()
+
+- (void)registerDefaultsFromSettingsBundle;
+
+@end
+
 @implementation AppDelegate_iPhone
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self registerDefaultsFromSettingsBundle];
+    
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
     WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
@@ -72,6 +81,26 @@
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)registerDefaultsFromSettingsBundle {
+    NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
+    NSString *settingsPropertyListPath = [mainBundlePath
+                                           stringByAppendingPathComponent:@"Settings.bundle/Root.plist"];
+    NSDictionary *settingsPropertyList = [NSDictionary
+                                          dictionaryWithContentsOfFile:settingsPropertyListPath];
+    NSMutableArray *preferenceArray = [settingsPropertyList objectForKey:@"PreferenceSpecifiers"];
+    NSMutableDictionary *registerableDictionary = [NSMutableDictionary dictionary];
+    
+    for (int i = 0; i < [preferenceArray count]; i++)  {
+        NSString *key = [[preferenceArray objectAtIndex:i] objectForKey:@"Key"];
+        if (key)  {
+            id value = [[preferenceArray objectAtIndex:i] objectForKey:@"DefaultValue"];
+            [registerableDictionary setObject:value forKey:key];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] registerDefaults:registerableDictionary];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {

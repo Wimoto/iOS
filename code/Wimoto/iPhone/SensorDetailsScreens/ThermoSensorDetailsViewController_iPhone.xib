@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="batteryLevelImage" destination="BBN-Jq-vU9" id="6pW-YU-CSJ"/>
                 <outlet property="irTempAlarmContainer" destination="gEK-dT-8pE" id="AGI-T6-kBN"/>
+                <outlet property="irTempConversionLabel" destination="sSg-TX-sdF" id="CiA-ny-8hg"/>
                 <outlet property="irTempHighValueLabel" destination="bZ4-px-W5R" id="vua-Gl-Bjw"/>
                 <outlet property="irTempLabel" destination="8t6-mc-eiS" id="XZs-86-EKl"/>
                 <outlet property="irTempLowValueLabel" destination="V3D-TB-Gby" id="m3e-Yp-qvV"/>
@@ -16,6 +17,7 @@
                 <outlet property="irTempSwitch" destination="nAK-r8-FWW" id="eT8-Ne-89I"/>
                 <outlet property="lastUpdateLabel" destination="65O-DQ-X4v" id="QxV-Gy-tma"/>
                 <outlet property="probeTempAlarmContainer" destination="eYE-On-YHv" id="Kpy-jW-JJb"/>
+                <outlet property="probeTempConversionLabel" destination="2aA-Oa-nby" id="m0t-8f-5lT"/>
                 <outlet property="probeTempHighValueLabel" destination="nXi-e1-rvY" id="eQg-4b-KgG"/>
                 <outlet property="probeTempLabel" destination="g3j-J0-PvV" id="QqK-8d-qoK"/>
                 <outlet property="probeTempLowValueLabel" destination="amM-iv-0S6" id="nlP-Wo-cVz"/>

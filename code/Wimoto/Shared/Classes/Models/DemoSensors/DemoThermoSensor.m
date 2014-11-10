@@ -43,26 +43,50 @@
     return @"Thermo";
 }
 
+- (float)irTemp {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTemp:[self convertToFahrenheit:_irTemp];
+}
+
+- (float)probeTemp {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTemp:[self convertToFahrenheit:_probeTemp];
+}
+
+- (float)irTempAlarmHigh {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmHigh:[self convertToFahrenheit:_irTempAlarmHigh];
+}
+
+- (float)irTempAlarmLow {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmLow:[self convertToFahrenheit:_irTempAlarmLow];
+}
+
+- (float)probeTempAlarmHigh {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmHigh:[self convertToFahrenheit:_probeTempAlarmHigh];
+}
+
+- (float)probeTempAlarmLow {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmLow:[self convertToFahrenheit:_probeTempAlarmLow];
+}
+
 - (void)sensorUpdate {
     int irTempStep = arc4random()%4 + 1 - 4/2;
     if ((_irTemp + irTempStep) < (-5)) {
-        self.irTemp+=2.0;
+        self.irTemp = _irTemp + 2.0;
     }
     else if ((_irTemp + irTempStep) > 50) {
-        self.irTemp-=2.0;
+        self.irTemp = _irTemp - 2.0;
     }
     else {
-        self.irTemp+=irTempStep;
+        self.irTemp = _irTemp + irTempStep;
     }
     int probeTempStep = arc4random()%4 + 1 - 4/2;
     if ((_probeTemp + probeTempStep) < (-5)) {
-        self.probeTemp+=2.0;
+        self.probeTemp = _probeTemp + 2.0;
     }
     else if ((_probeTemp + probeTempStep) > 70) {
-        self.probeTemp-=2.0;
+        self.probeTemp = _probeTemp - 2.0;
     }
     else {
-        self.probeTemp+=probeTempStep;
+        self.probeTemp = _probeTemp + probeTempStep;
     }
     [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
     [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];

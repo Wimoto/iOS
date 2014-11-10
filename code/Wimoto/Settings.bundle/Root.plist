@@ -5,6 +5,16 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Temperature in celsius</string>
+			<key>Key</key>
+			<string>temperature_conversion</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Group</string>
 			<key>Type</key>

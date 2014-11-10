@@ -27,6 +27,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *probeTempHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *probeTempLowValueLabel;
 
+@property (nonatomic, weak) IBOutlet UILabel *irTempConversionLabel;
+@property (nonatomic, weak) IBOutlet UILabel *probeTempConversionLabel;
+
 @property (nonatomic, strong) AlarmSlider *irTempSlider;
 @property (nonatomic, strong) AlarmSlider *probeTempSlider;
 

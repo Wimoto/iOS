@@ -26,11 +26,11 @@
     NSObject *unknownData = [responseString JSONValue];
     if (unknownData) {
         response.responseData = unknownData;
-        response.responseResult = kOPResponseResultSuccess;
     }
     else {
-        response.responseResult = kOPResponseResultError;
+        response.responseData = data;
     }
+    response.responseResult = kOPResponseResultSuccess;
     return response;
 }
 

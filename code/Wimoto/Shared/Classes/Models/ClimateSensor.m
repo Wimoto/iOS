@@ -12,6 +12,10 @@
 
 @interface ClimateSensor ()
 
+@property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
+@property (nonatomic, strong) CBCharacteristic *dfuSwitchModeCharacteristic;
+@property (nonatomic, strong) CBCharacteristic *dfuTimestampCharacteristic;
+
 @end
 
 @implementation ClimateSensor
@@ -22,6 +26,13 @@
 
 - (NSString *)codename {
     return @"Climate";
+}
+
+- (void)writeDfuData:(NSData *)dfuData {
+    char bytes[1] = {0x01};
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
+    
+    [self.peripheral writeValue:dfuData forCharacteristic:_dfuSwitchModeCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -56,6 +67,13 @@
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_HIGH_VALUE],
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM_SET],
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_HUMIDITY_ALARM],
+                                                  nil]
+                                      forService:aService];
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DFU]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
+                                                  [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET],
+                                                  [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_SWITCH_MODE],
+                                                  [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_TIMESTAMP],
                                                   nil]
                                       forService:aService];
         }
@@ -111,6 +129,19 @@
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
             
+        }
+    }
+    else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DFU]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET]]) {
+                _dfuModeSetCharacteristic = aChar;
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_SWITCH_MODE]]) {
+                _dfuSwitchModeCharacteristic = aChar;
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_TIMESTAMP]]) {
+                _dfuTimestampCharacteristic = aChar;
+            }
         }
     }
 }

@@ -15,6 +15,7 @@
 #define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 #define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
+#define OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE   @"tempMeasure"
 
 typedef enum {
     kAlarmStateUnknown = 0,
@@ -26,6 +27,11 @@ typedef enum {
     kAlarmLow = 0,
     kAlarmHigh = 1,
 } AlarmType;
+
+typedef enum {
+    kTemperatureMeasureFahrenheit = 0,
+    kTemperatureMeasureCelsius
+}TemperatureMeasure;
 
 @interface Sensor : NSObject <CBPeripheralDelegate>
 
@@ -41,6 +47,8 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *batteryLevel;
 
 @property (nonatomic, strong) NSNumber *rssi;
+
+@property (nonatomic) TemperatureMeasure tempMeasure;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
@@ -58,10 +66,16 @@ typedef enum {
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
+- (void)writeDfuData:(NSData *)dfuData;
+
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic;
 - (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic;
+
+- (void)settingsNotification:(NSNotification *)notification;
+- (float)convertToFahrenheit:(float)value;
+- (float)convertToCelsius:(float)value;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DemoThermoSensorDetailsViewController.h"
+#import "DemoThermoSensor.h"
 
 @interface DemoThermoSensorDetailsViewController ()
 
@@ -51,24 +52,30 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
+    DemoThermoSensor *sensor = (DemoThermoSensor *)[self sensor];
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+        return;
+    }
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
         self.lastUpdateLabel.text = @"Just now";
         if ([self.lastUpdateTimer isValid]) {
             [self.lastUpdateTimer invalidate];
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        self.irTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        self.irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             self.irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        self.probeTempLabel.text = [NSString stringWithFormat:@"%.1f", value];
+        self.probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             self.probeTempSparkLine.dataValues = result;
         }];
     }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+    /*
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE]) {
         self.irTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     }
@@ -95,6 +102,7 @@
         self.probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
         [self.probeTempSlider setUpperValue:value];
     }
+     */
 }
 
 @end
