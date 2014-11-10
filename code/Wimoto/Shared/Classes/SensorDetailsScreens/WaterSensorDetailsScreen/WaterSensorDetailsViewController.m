@@ -122,7 +122,7 @@
             _contactAlarmContainer.hidden = NO;
             WaterSensor *sensor = (WaterSensor*)self.sensor;
             _levelLabel.text = [NSString stringWithFormat:@"%.1f", [sensor level]];
-            _contactLabel.text = ([sensor presense])?@"YES":@"NO";
+            _contactLabel.text = ([sensor presense])?@"Wet":@"Dry";
             self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
@@ -141,7 +141,7 @@
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
         if (self.sensor.peripheral) {
-            _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"YES":@"NO";
+            _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"Wet":@"Dry";
         }
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE]) {
