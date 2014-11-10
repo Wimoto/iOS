@@ -125,7 +125,7 @@
     }
     else if (response.request.requestType == kWPRequestDownload) {
         if (response.codeStatus != 200) {
-            [SVProgressHUD showErrorWithStatus:@"Can't download"];
+            [SVProgressHUD showErrorWithStatus:@"There was an error downloading, please contact Wimoto."];
         }
         else {
             [SVProgressHUD dismiss];
