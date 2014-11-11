@@ -16,7 +16,7 @@
     response.request = request;
     response.codeStatus = code;
     NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"responseDataString - %@", responseDataString);
+    //NSLog(@"responseDataString - %@", responseDataString);
     NSString *responseString = responseDataString;
     if (!responseString) {
         response.responseResult = kOPResponseResultError;
