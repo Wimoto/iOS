@@ -124,16 +124,8 @@
         }
     }
     else if (response.request.requestType == kWPRequestDownload) {
-<<<<<<< HEAD
         if (response.codeStatus == 200) {
             [_sensor writeDfuData:(NSData *)[response responseData]];
-=======
-        if (response.codeStatus != 200) {
-            [SVProgressHUD showErrorWithStatus:@"There was an error downloading, please contact Wimoto."];
-        }
-        else {
-            [SVProgressHUD dismiss];
->>>>>>> FETCH_HEAD
         }
         [SVProgressHUD dismiss];
         [self dismissViewControllerAnimated:YES completion:nil];
