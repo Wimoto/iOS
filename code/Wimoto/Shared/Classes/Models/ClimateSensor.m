@@ -13,8 +13,6 @@
 @interface ClimateSensor ()
 
 @property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
-@property (nonatomic, strong) CBCharacteristic *dfuSwitchModeCharacteristic;
-@property (nonatomic, strong) CBCharacteristic *dfuTimestampCharacteristic;
 
 @end
 
@@ -31,8 +29,6 @@
 - (void)writeDfuData:(NSData *)dfuData {
     char bytes[1] = {0x01};
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
-    
-    [self.peripheral writeValue:dfuData forCharacteristic:_dfuSwitchModeCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -135,12 +131,6 @@
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET]]) {
                 _dfuModeSetCharacteristic = aChar;
-            }
-            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_SWITCH_MODE]]) {
-                _dfuSwitchModeCharacteristic = aChar;
-            }
-            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_TIMESTAMP]]) {
-                _dfuTimestampCharacteristic = aChar;
             }
         }
     }
