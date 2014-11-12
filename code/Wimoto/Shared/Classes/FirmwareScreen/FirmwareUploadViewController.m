@@ -10,6 +10,9 @@
 
 @interface FirmwareUploadViewController ()
 
+@property (nonatomic, strong) Sensor *sensor;
+@property (nonatomic, strong) Firmware *firmware;
+
 @property (nonatomic, strong) DFUController *dfuController;
 @property (nonatomic, weak) IBOutlet UILabel *fileNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *sizeLabel;
@@ -24,17 +27,27 @@
 
 @implementation FirmwareUploadViewController
 
-- (id)initWithDFUController:(DFUController *)dfuController {
+- (id)initWithSensor:(Sensor *)sensor andFirmware:(Firmware *)firmware {
     self = [super init];
     if (self) {
-        self.dfuController = dfuController;
+        _sensor = sensor;
+        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionNew context:NULL];
+        
+        _firmware = firmware;
+        
+        self.dfuController = [[DFUController alloc] init];
         _dfuController.delegate = self;
+        
+        [_dfuController setFirmwareURL:[NSURL URLWithString:_firmware.fileURL]];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [_sensor switchToDfuMode];
+    
     self.navigationItem.title = @"Firmware upload";
     _fileNameLabel.text = [_dfuController appName];
     _sizeLabel.text = [NSString stringWithFormat:@"%d bytes", _dfuController.appSize];
@@ -50,6 +63,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
 }
 
 - (IBAction)uploadButtonPressed:(id)sender {
@@ -98,6 +115,22 @@
         _uploadButton.enabled = YES;
     }
     self.targetStatusLabel.text = [self.dfuController stringFromState:state];
+}
+
+#pragma mark - Value Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    NSObject *peripheralObject = [change objectForKey:NSKeyValueChangeNewKey];
+    if (![peripheralObject isKindOfClass:[NSNull class]]) {
+        [_dfuController setPeripheral:(CBPeripheral *)peripheralObject];
+        [_dfuController didConnect];
+        
+        _targetNameLabel.text = [_dfuController targetName];
+    }
 }
 
 @end

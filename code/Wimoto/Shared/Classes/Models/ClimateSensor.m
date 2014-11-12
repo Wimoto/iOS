@@ -10,12 +10,6 @@
 #import "SensorHelper.h"
 #import "AppConstants.h"
 
-@interface ClimateSensor ()
-
-@property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
-
-@end
-
 @implementation ClimateSensor
 
 - (PeripheralType)type {
@@ -24,11 +18,6 @@
 
 - (NSString *)codename {
     return @"Climate";
-}
-
-- (void)writeDfuData:(NSData *)dfuData {
-    char bytes[1] = {0x01};
-    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -130,7 +119,7 @@
     else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DFU]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET]]) {
-                _dfuModeSetCharacteristic = aChar;
+                self.dfuModeSetCharacteristic = aChar;
             }
         }
     }

@@ -28,10 +28,6 @@
             [mutableURLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             break;
 		}
-        case kWPRequestDownload: {
-            [mutableURLRequest setURL:[NSURL URLWithString:(NSString *)_requestData]];
-            break;
-        }
     }
     return mutableURLRequest;
 }

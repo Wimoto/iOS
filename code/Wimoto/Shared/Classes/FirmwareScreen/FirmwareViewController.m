@@ -8,7 +8,6 @@
 
 #import "FirmwareViewController.h"
 #import "FirmwareCell.h"
-#import "DFUController.h"
 #import "FirmwareUploadViewController.h"
 #import "Firmware.h"
 #import "SVProgressHUD.h"
@@ -17,7 +16,6 @@
 
 @property (nonatomic, strong) IBOutlet FirmwareCell *tmpCell;
 @property (nonatomic, assign) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) DFUController *dfuController;
 @property (nonatomic, strong) NSArray *binaries;
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) NSMutableArray *firmwares;
@@ -43,17 +41,7 @@
     _tableView.tableFooterView = [[UIView alloc] init];
     
     self.firmwares = [NSMutableArray array];
-    [WPNetworkDispatcher performNetworkRequest:[WPRequest requestWithType:kWPRequestGetFirmwareList andData:nil] withResponseReceiver:self];
-    
-    /*
-    self.dfuController = [[DFUController alloc] init];
-    //[_dfuController setPeripheral:[_sensor peripheral]];
-    
-    NSError *error;
-    NSData *jsonData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"binary_list" withExtension:@"json"]];
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    self.binaries = [dictionary objectForKey:@"binaries"];
-    */
+    [WPNetworkDispatcher performNetworkRequest:[WPRequest requestWithType:kWPRequestGetFirmwareList andData:nil] withResponseReceiver:self];    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,24 +78,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     Firmware *firmware = [_firmwares objectAtIndex:indexPath.row];
-    [WPNetworkDispatcher performNetworkRequest:[WPRequest requestWithType:kWPRequestDownload andData:[firmware fileURL]] withResponseReceiver:self];
-    /*
-    NSDictionary *binary = [_binaries objectAtIndex:indexPath.row];
-    NSURL *firmwareURL = [[NSBundle mainBundle] URLForResource:[binary objectForKey:@"filename"] withExtension:[binary objectForKey:@"extension"]];
-    [self.dfuController setFirmwareURL:firmwareURL];
-    FirmwareUploadViewController *firmwareUploadController = [[FirmwareUploadViewController alloc] initWithDFUController:_dfuController];
+    
+    FirmwareUploadViewController *firmwareUploadController = [[FirmwareUploadViewController alloc] initWithSensor:_sensor andFirmware:firmware];
     [self.navigationController pushViewController:firmwareUploadController animated:YES];
-     */
 }
 
 #pragma mark - WPResponseReceiver
-
-- (void)downloadProgress:(float)progress request:(WPRequest *)request {
-    if (request.requestType == kWPRequestDownload) {
-        [SVProgressHUD showProgress:progress status:nil maskType:SVProgressHUDMaskTypeBlack];
-    }
-}
 
 - (void)processResponse:(WPResponse *)response {
     if (response.request.requestType == kWPRequestGetFirmwareList) {
@@ -122,13 +100,6 @@
             }];
             [_tableView reloadData];
         }
-    }
-    else if (response.request.requestType == kWPRequestDownload) {
-        if (response.codeStatus == 200) {
-            [_sensor writeDfuData:(NSData *)[response responseData]];
-        }
-        [SVProgressHUD dismiss];
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

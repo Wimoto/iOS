@@ -254,18 +254,22 @@
     return [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
 }
 
-- (void)writeDfuData:(NSData *)dfuData {
-    // should be ovverriden in children
+- (void)switchToDfuMode {
+    char bytes[1] = {0x01};
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didWriteValueForCharacteristic %@", error);
+    
+    if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
+        [self setPeripheral:nil];
+    }
 }
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
-    NSLog(@"peripheralDidUpdateRSSI %@", [peripheral RSSI]);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.rssi = [peripheral RSSI];
     });

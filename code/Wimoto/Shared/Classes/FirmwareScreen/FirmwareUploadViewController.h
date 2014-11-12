@@ -8,9 +8,11 @@
 
 #import "AppViewController.h"
 #import "DFUController.h"
+#import "Firmware.h"
+#import "Sensor.h"
 
 @interface FirmwareUploadViewController : AppViewController <DFUControllerDelegate>
 
-- (id)initWithDFUController:(DFUController *)dfuController;
+- (id)initWithSensor:(Sensor *)sensor andFirmware:(Firmware *)firmware;
 
 @end

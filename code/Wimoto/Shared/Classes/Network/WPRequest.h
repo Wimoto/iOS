@@ -8,9 +8,8 @@
 
 
 typedef enum {
-    kWPRequestGetFirmwareList = 1,
-    kWPRequestDownload
-}WPRequestType;
+    kWPRequestGetFirmwareList = 1
+} WPRequestType;
 
 @interface WPRequest : NSObject
 

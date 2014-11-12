@@ -40,6 +40,7 @@ typedef enum {
 @property (nonatomic, strong) SensorEntity *entity;
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
@@ -66,7 +67,7 @@ typedef enum {
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
-- (void)writeDfuData:(NSData *)dfuData;
+- (void)switchToDfuMode;
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;

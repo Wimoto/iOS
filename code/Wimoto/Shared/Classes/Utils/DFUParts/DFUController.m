@@ -154,7 +154,7 @@
     if (self.state == INIT)
     {
         self.state = DISCOVERING;
-        [self.target startDiscovery];
+        //[self.target startDiscovery];
     }
 }
 
