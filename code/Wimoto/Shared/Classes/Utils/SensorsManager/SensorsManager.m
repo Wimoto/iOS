@@ -13,6 +13,8 @@
 #import "Sensor.h"
 #import "DemoThermoSensor.h"
 
+#define kServerDbURL @"http://146.148.72.228:4984/wimoto"
+
 @interface SensorsManager ()
 
 @property (nonatomic, strong) NSMutableSet *sensors;
@@ -29,6 +31,13 @@
 @end
 
 @implementation SensorsManager
+{
+    NSURL* remoteSyncURL;
+    CBLReplication* _pull;
+    CBLReplication* _push;
+    NSError* _syncError;
+    }
+
 
 static SensorsManager *sensorsManager = nil;
 
@@ -50,6 +59,22 @@ static SensorsManager *sensorsManager = nil;
         _wimotoCentralManager = [[WimotoCentralManager alloc] initWithDelegate:self];
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
+        
+        
+        NSURL* serverDbURL = [NSURL URLWithString: kServerDbURL];
+        _pull = [_cblDatabase createPullReplication: serverDbURL];
+        _push = [_cblDatabase createPushReplication: serverDbURL];
+        _pull.continuous = _push.continuous = YES;
+        // Observe replication progress changes, in both directions:
+        NSNotificationCenter* nctr = [NSNotificationCenter defaultCenter];
+        [nctr addObserver: self selector: @selector(replicationProgress:)
+                     name: kCBLReplicationChangeNotification object: _pull];
+        [nctr addObserver: self selector: @selector(replicationProgress:)
+                     name: kCBLReplicationChangeNotification object: _push];
+        [_push start];
+        [_pull start];
+      
+        
         
         dispatch_async([QueueManager databaseQueue], ^{
             CBLView *view = [_cblDatabase viewNamed:@"registeredSensors"];
@@ -215,5 +240,48 @@ static SensorsManager *sensorsManager = nil;
         [self notifyUnregisteredSensorsObservers];
     }
 }
+
+- (void) replicationProgress: (NSNotificationCenter*)n {
+    if (_pull.status == kCBLReplicationActive || _push.status == kCBLReplicationActive) {
+        // Sync is active -- aggregate the progress of both replications and compute a fraction:
+        unsigned completed = _pull.completedChangesCount + _push.completedChangesCount;
+        unsigned total = _pull.changesCount+ _push.changesCount;
+        NSLog(@"SYNC progress: %u / %u", completed, total);
+        // Update the progress bar, avoiding divide-by-zero exceptions:
+    } else {
+        // Sync is idle -- hide the progress bar and show the config button:
+        NSLog(@"SYNC idle");
+    }
+    
+    // Check for any change in error status and display new errors:
+    NSError* error = _pull.lastError ? _pull.lastError : _push.lastError;
+    if (error != _syncError) {
+        _syncError = error;
+        if (error) {
+            [self showAlert: @"Error syncing" error: error fatal: NO];
+        }
+    }
+}
+
+
+// Display an error alert, without blocking.
+// If 'fatal' is true, the app will quit when it's dismissed.
+- (void)showAlert: (NSString*)message error: (NSError*)error fatal: (BOOL)fatal {
+    if (error) {
+        message = [message stringByAppendingFormat: @"\n\n%@", error.localizedDescription];
+    }
+    NSLog(@"ALERT: %@ (error=%@)", message, error);
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: (fatal ? @"Fatal Error" : @"Error")
+                                                    message: message
+                                                   delegate: (fatal ? self : nil)
+                                          cancelButtonTitle: (fatal ? @"Quit" : @"Sorry")
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    exit(0);
+}
+
 
 @end
