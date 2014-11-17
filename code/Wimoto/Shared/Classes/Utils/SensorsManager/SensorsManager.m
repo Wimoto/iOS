@@ -62,8 +62,8 @@ static SensorsManager *sensorsManager = nil;
         
         
         NSURL* serverDbURL = [NSURL URLWithString: kServerDbURL];
-        _pull = [_cblDatabase createPullReplication: serverDbURL];
-        _push = [_cblDatabase createPushReplication: serverDbURL];
+        //_pull = [_cblDatabase createPullReplication: serverDbURL];
+        //_push = [_cblDatabase createPushReplication: serverDbURL];
         _pull.continuous = _push.continuous = YES;
         // Observe replication progress changes, in both directions:
         NSNotificationCenter* nctr = [NSNotificationCenter defaultCenter];

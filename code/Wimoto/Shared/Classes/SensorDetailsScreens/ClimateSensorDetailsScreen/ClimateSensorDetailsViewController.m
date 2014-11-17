@@ -20,23 +20,6 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
-
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
-    
     _temperatureSparkLine.labelText = @"";
     _temperatureSparkLine.showCurrentValue = NO;
     _temperatureSparkLine.currentValueColor = [UIColor redColor];
@@ -77,6 +60,25 @@
     [_lightSlider setSliderRange:0];
     [_lightSlider setMinimumValue:10];
     [_lightSlider setMaximumValue:50];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
+
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_LOW options:NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,6 +88,8 @@
 
 - (void)dealloc {
     @try {
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE];
+        
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT];
@@ -158,7 +162,7 @@
                        context:(void *)context {
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    
+    ClimateSensor *sensor = (ClimateSensor*)self.sensor;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
             _tempAlarmContainer.hidden = YES;
@@ -215,29 +219,38 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE]) {
         _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_temperatureSlider setLowerValue:value];
+        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmLow];
+        [_temperatureSlider setLowerValue:sensor.temperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_temperatureSlider setUpperValue:value];
+        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmHigh];
+        [_temperatureSlider setUpperValue:sensor.temperatureAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _humidityLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_humiditySlider setLowerValue:value];
+        _humidityLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.humidityAlarmLow];
+        [_humiditySlider setLowerValue:sensor.humidityAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _humidityHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_humiditySlider setUpperValue:value];
+        _humidityHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.humidityAlarmHigh];
+        [_humiditySlider setUpperValue:sensor.humidityAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_lightSlider setLowerValue:value];
+        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmLow];
+        [_lightSlider setLowerValue:sensor.lightAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_lightSlider setUpperValue:value];
+        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmHigh];
+        [_lightSlider setUpperValue:sensor.lightAlarmHigh];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
+        TemperatureMeasure tempMeasure = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+        
+        _tempConversionLabel.text = [sensor temperatureSymbol];
+        _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
+        
+        [_temperatureSlider setMinimumValue:(tempMeasure == kTemperatureMeasureCelsius)?-60:[sensor convertToFahrenheit:-60]];
+        [_temperatureSlider setMaximumValue:(tempMeasure == kTemperatureMeasureCelsius)?130:[sensor convertToFahrenheit:130]];
+        
+        [_temperatureSlider setUpperValue:sensor.temperatureAlarmHigh];
+        [_temperatureSlider setLowerValue:sensor.temperatureAlarmLow];
+        
+        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmHigh];
+        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmLow];
     }
 }
 

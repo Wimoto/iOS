@@ -134,6 +134,10 @@
     return nil;
 }
 
+- (NSString *)temperatureSymbol {
+    return (_tempMeasure == kTemperatureMeasureCelsius)?@"˚C":@"˚F";
+}
+
 - (float)convertToFahrenheit:(float)value {
     return (value * 9.0/5.0 + 32.0);
 }

@@ -7,6 +7,7 @@
 //
 
 #import "AppViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LeftMenuViewController : AppViewController
 

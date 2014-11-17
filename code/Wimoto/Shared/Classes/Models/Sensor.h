@@ -54,7 +54,6 @@ typedef enum {
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
 + (id)demoSensorWithUniqueId:(NSString *)uniqueId;
-
 - (id)initWithEntity:(SensorEntity*)entity;
 
 - (float)roundToOne:(float)value;
@@ -78,5 +77,6 @@ typedef enum {
 - (void)settingsNotification:(NSNotification *)notification;
 - (float)convertToFahrenheit:(float)value;
 - (float)convertToCelsius:(float)value;
+- (NSString *)temperatureSymbol;
 
 @end

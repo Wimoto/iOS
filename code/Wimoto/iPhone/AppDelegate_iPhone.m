@@ -146,9 +146,10 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+    if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
+        [self openActiveSessionWithPermissions:nil allowLoginUI:NO];
+    }
+    [FBAppCall handleDidBecomeActive];
 }
 
 
@@ -160,6 +161,26 @@
     NSLog(@"applicationWillTerminate");
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+#pragma mark - Public method implementation
+
+- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {
+    [FBSession openActiveSessionWithReadPermissions:permissions
+                                       allowLoginUI:allowLoginUI
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                      NSDictionary *sessionStateInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                                                        session, @"session",
+                                                                        [NSNumber numberWithInteger:status], @"state",
+                                                                        error, @"error",
+                                                                        nil];
+                                      [[NSNotificationCenter defaultCenter] postNotificationName:@"SessionStateChangeNotification"
+                                                                                          object:nil
+                                                                                        userInfo:sessionStateInfo];
+                                  }];
+}
 
 #pragma mark -
 #pragma mark Memory management

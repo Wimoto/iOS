@@ -18,20 +18,6 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
     _irTempSparkLine.labelText = @"";
     _irTempSparkLine.showCurrentValue = NO;
     [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
@@ -54,6 +40,20 @@
     _probeTempSlider.delegate = self;
     [_probeTempSlider setSliderRange:0];
     [_probeTempSlider setStepValue:0.1 animated:NO];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -177,8 +177,8 @@
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
         TemperatureMeasure tempMeasure = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
                 
-        _irTempConversionLabel.text = (tempMeasure == kTemperatureMeasureCelsius)?@"˚C":@"˚F";
-        _probeTempConversionLabel.text = (tempMeasure == kTemperatureMeasureCelsius)?@"˚C":@"˚F";
+        _irTempConversionLabel.text = [sensor temperatureSymbol];
+        _probeTempConversionLabel.text = [sensor temperatureSymbol];
         _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
         _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
         
@@ -187,10 +187,10 @@
         [_probeTempSlider setMinimumValue:(tempMeasure == kTemperatureMeasureCelsius)?-20:[sensor convertToFahrenheit:-20]];
         [_probeTempSlider setMaximumValue:(tempMeasure == kTemperatureMeasureCelsius)?50:[sensor convertToFahrenheit:50]];
         
-        [_irTempSlider setUpperValue:(tempMeasure == kTemperatureMeasureCelsius)?[sensor convertToCelsius:_irTempSlider.upperValue]:[sensor convertToFahrenheit:_irTempSlider.upperValue]];
-        [_irTempSlider setLowerValue:(tempMeasure == kTemperatureMeasureCelsius)?[sensor convertToCelsius:_irTempSlider.lowerValue]:[sensor convertToFahrenheit:_irTempSlider.lowerValue]];
-        [_probeTempSlider setUpperValue:(tempMeasure == kTemperatureMeasureCelsius)?[sensor convertToCelsius:_probeTempSlider.upperValue]:[sensor convertToFahrenheit:_probeTempSlider.upperValue]];
-        [_probeTempSlider setLowerValue:(tempMeasure == kTemperatureMeasureCelsius)?[sensor convertToCelsius:_probeTempSlider.lowerValue]:[sensor convertToFahrenheit:_probeTempSlider.lowerValue]];
+        [_irTempSlider setUpperValue:sensor.irTempAlarmHigh];
+        [_irTempSlider setLowerValue:sensor.irTempAlarmLow];
+        [_probeTempSlider setUpperValue:sensor.probeTempAlarmHigh];
+        [_probeTempSlider setLowerValue:sensor.probeTempAlarmLow];
         
         _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.upperValue];
         _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.lowerValue];

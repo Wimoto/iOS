@@ -20,6 +20,18 @@
     return @"Climate";
 }
 
+- (float)temperature {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
+}
+
+- (float)temperatureAlarmHigh {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
+}
+
+- (float)temperatureAlarmLow {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {

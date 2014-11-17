@@ -34,6 +34,7 @@
 
 - (void)setMaximumValue:(CGFloat)value {
     _rangeSlider.maximumValue = value;
+    NSLog(@"----======== %f", _rangeSlider.maximumValue);
 }
 
 - (void)setLowerValue:(CGFloat)value {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0421CF2F1A1A7D90006D6C9C /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
@@ -82,6 +83,9 @@
 		30B9E11D19473866001E10A5 /* WPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11119473866001E10A5 /* WPRequest.m */; };
 		30B9E11E19473866001E10A5 /* WPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11319473866001E10A5 /* WPResponse.m */; };
 		30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11519473866001E10A5 /* WPURLConnection.m */; };
+		30B9E13C19477B45001E10A5 /* binary_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13919477B45001E10A5 /* binary_list.json */; };
+		30B9E13D19477B45001E10A5 /* ble_app_hrs_nrf6310.bin in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */; };
+		30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */; };
 		30B9E14119477E7B001E10A5 /* FirmwareUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */; };
 		30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
@@ -128,7 +132,6 @@
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
 		4995714A1A09238600338FAC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499571481A09238600338FAC /* Media.xcassets */; };
 		4995714D1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */; };
-		49A85BE61A1572CD0028A020 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A85BE51A1572CD0028A020 /* CouchbaseLite.framework */; };
 		49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F01A04F00600D16ACD /* NSData+Conversion.m */; };
 		49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F21A04F00600D16ACD /* NSString+Util.m */; };
 		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
@@ -177,9 +180,11 @@
 		F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31731A02BE7900ABD9AC /* DemoThermoSensor.m */; };
 		F70D317A1A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D31791A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m */; };
 		F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70D317C1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m */; };
+		F74152431A1A3E0E00A72AA5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
@@ -287,6 +292,9 @@
 		30B9E11319473866001E10A5 /* WPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPResponse.m; sourceTree = "<group>"; };
 		30B9E11419473866001E10A5 /* WPURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPURLConnection.h; sourceTree = "<group>"; };
 		30B9E11519473866001E10A5 /* WPURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPURLConnection.m; sourceTree = "<group>"; };
+		30B9E13919477B45001E10A5 /* binary_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = binary_list.json; sourceTree = "<group>"; };
+		30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_app_hrs_nrf6310.bin; sourceTree = "<group>"; };
+		30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_app_rscs_nrf6310.bin; sourceTree = "<group>"; };
 		30B9E13F19477E7B001E10A5 /* FirmwareUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareUploadViewController.h; sourceTree = "<group>"; };
 		30B9E14019477E7B001E10A5 /* FirmwareUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareUploadViewController.m; sourceTree = "<group>"; };
 		30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareUploadViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -341,7 +349,6 @@
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
 		499571481A09238600338FAC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
-		49A85BE51A1572CD0028A020 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
 		49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		49CB68F01A04F00600D16ACD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		49CB68F11A04F00600D16ACD /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -423,6 +430,7 @@
 		F70D31791A02DEFB00ABD9AC /* DemoThermoSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoThermoSensorDetailsViewController.m; sourceTree = "<group>"; };
 		F70D317B1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClimateSensorDetailsViewController.h; sourceTree = "<group>"; };
 		F70D317C1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClimateSensorDetailsViewController.m; sourceTree = "<group>"; };
+		F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Shared/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,8 +450,9 @@
 				30B29E8C184E138B000C651A /* AVFoundation.framework in Frameworks */,
 				30B487E0184DFBDA002B0CD8 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				F74152431A1A3E0E00A72AA5 /* FacebookSDK.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				49A85BE61A1572CD0028A020 /* CouchbaseLite.framework in Frameworks */,
+				0421CF2F1A1A7D90006D6C9C /* CouchbaseLite.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +537,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				49A85BE51A1572CD0028A020 /* CouchbaseLite.framework */,
+				0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */,
+				F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */,
 				90EAB4AB185F7A6E00609A9C /* libz.dylib */,
 				90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */,
 				90EAB4A7185F7A4B00609A9C /* SystemConfiguration.framework */,
@@ -701,6 +711,7 @@
 		30B9E0E9194729AA001E10A5 /* DFUParts */ = {
 			isa = PBXGroup;
 			children = (
+				30B9E13819477B45001E10A5 /* embedded_firmwares */,
 				30B9E0EA194729AA001E10A5 /* DFUController.h */,
 				30B9E0EB194729AA001E10A5 /* DFUController.m */,
 				30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */,
@@ -766,6 +777,16 @@
 				30B9E10D19473866001E10A5 /* SBJsonWriter.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		30B9E13819477B45001E10A5 /* embedded_firmwares */ = {
+			isa = PBXGroup;
+			children = (
+				30B9E13919477B45001E10A5 /* binary_list.json */,
+				30B9E13A19477B45001E10A5 /* ble_app_hrs_nrf6310.bin */,
+				30B9E13B19477B45001E10A5 /* ble_app_rscs_nrf6310.bin */,
+			);
+			path = embedded_firmwares;
 			sourceTree = "<group>";
 		};
 		30CD581A192E615C00FFF102 /* AlarmSlider */ = {
@@ -1075,7 +1096,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = PZQTBD3MKF;
 					};
 				};
 			};
@@ -1108,6 +1129,7 @@
 				302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */,
 				498CEFCF19AA98B700EAEB98 /* movement.png in Resources */,
 				493A4937184EBEBD0000A2F6 /* motion_detector-512.png in Resources */,
+				30B9E13C19477B45001E10A5 /* binary_list.json in Resources */,
 				493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */,
 				493A4948184ECECE0000A2F6 /* cloud-download.png in Resources */,
 				302A7167192D284B006E0A6C /* slider-metal-trackBackground.png in Resources */,
@@ -1164,6 +1186,7 @@
 				498CEFC719AA918400EAEB98 /* cassette2.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
+				30B9E13D19477B45001E10A5 /* ble_app_hrs_nrf6310.bin in Resources */,
 				498CEFBB19AA86F400EAEB98 /* Grow 128px.png in Resources */,
 				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
 				30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */,
@@ -1173,6 +1196,7 @@
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
 				49E50BD91A017BEC00304549 /* Settings.bundle in Resources */,
 				4995714A1A09238600338FAC /* Media.xcassets in Resources */,
+				30B9E13E19477B45001E10A5 /* ble_app_rscs_nrf6310.bin in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
 				498CEFC319AA8F3100EAEB98 /* microchip.png in Resources */,
 				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
@@ -1281,13 +1305,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
 					"./**",
+					"$(PROJECT_DIR)/Shared/Frameworks",
 					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1296,13 +1321,13 @@
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E704DEF7-37B1-4C8F-A277-83B97B1B6F6D";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1324,12 +1349,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
 					"./**",
+					"$(PROJECT_DIR)/Shared/Frameworks",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
@@ -1349,7 +1375,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1364,7 +1390,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
