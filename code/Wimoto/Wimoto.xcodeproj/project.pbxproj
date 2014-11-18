@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0421CF2F1A1A7D90006D6C9C /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */; };
+		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
@@ -18,7 +18,6 @@
 		2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E327111B887F00E27156 /* MainWindow_iPhone.xib */; };
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
-		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7131192D284B006E0A6C /* slider-default-handle-highlighted.png */; };
 		302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7132192D284B006E0A6C /* slider-default-handle-highlighted@2x.png */; };
 		302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A7133192D284B006E0A6C /* slider-default-handle.png */; };
@@ -181,7 +180,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
+		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
@@ -432,6 +431,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */,
 				90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */,
 				90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */,
 				90EAB4A8185F7A4B00609A9C /* SystemConfiguration.framework in Frameworks */,
@@ -446,8 +446,6 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				F74152431A1A3E0E00A72AA5 /* FacebookSDK.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				0421CF2F1A1A7D90006D6C9C /* CouchbaseLite.framework in Frameworks */,
-				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +529,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0421CF2E1A1A7D90006D6C9C /* CouchbaseLite.framework */,
+				048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */,
 				F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */,
 				90EAB4AB185F7A6E00609A9C /* libz.dylib */,
 				90EAB4A9185F7A5C00609A9C /* libsqlite3.dylib */,
