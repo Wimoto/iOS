@@ -7,7 +7,10 @@
 //
 
 #import "SensorsManager.h"
+
 #import <Couchbaselite/CouchbaseLite.h>
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "SensorEntity.h"
 #import "QueueManager.h"
 #import "Sensor.h"
@@ -25,9 +28,9 @@
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
+@property (nonatomic, weak) id<AuthentificationObserver>authObserver;
 
 - (void)addDemoSensors;
-- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI;
 
 @end
 
@@ -66,16 +69,13 @@ static SensorsManager *sensorsManager = nil;
         _pull = [_cblDatabase createPullReplication: serverDbURL];
         _push = [_cblDatabase createPushReplication: serverDbURL];
         _pull.continuous = _push.continuous = YES;
-        // Observe replication progress changes, in both directions:
+        
+        // Observe replication progress changes, in both directions
         NSNotificationCenter* nctr = [NSNotificationCenter defaultCenter];
         [nctr addObserver: self selector: @selector(replicationProgress:)
                      name: kCBLReplicationChangeNotification object: _pull];
         [nctr addObserver: self selector: @selector(replicationProgress:)
                      name: kCBLReplicationChangeNotification object: _push];
-        [_push start];
-        [_pull start];
-      
-        
         
         dispatch_async([QueueManager databaseQueue], ^{
             CBLView *view = [_cblDatabase viewNamed:@"registeredSensors"];
@@ -102,65 +102,6 @@ static SensorsManager *sensorsManager = nil;
         });
     }
     return self;
-}
-
-+ (void)activate {
-    SensorsManager *manager = [SensorsManager sharedManager];
-    if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
-        [manager openActiveSessionWithPermissions:nil allowLoginUI:NO];
-    }
-    [FBAppCall handleDidBecomeActive];
-}
-
-+ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication {
-    return [FBAppCall handleOpenURL:URL sourceApplication:sourceApplication];
-}
-
-+ (BOOL)isAuthentificated; {
-    return ([[FBSession activeSession] state] == FBSessionStateOpen)?YES:NO;
-}
-
-+ (void)authSwitch {
-    SensorsManager *manager = [SensorsManager sharedManager];
-    if ([FBSession activeSession].state != FBSessionStateOpen &&
-        [FBSession activeSession].state != FBSessionStateOpenTokenExtended) {
-        [manager openActiveSessionWithPermissions:@[@"email"] allowLoginUI:YES];
-    }
-    else {
-        [[FBSession activeSession] closeAndClearTokenInformation];
-    }
-}
-
-- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {
-    [FBSession openActiveSessionWithReadPermissions:permissions
-                                       allowLoginUI:allowLoginUI
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      if (!error) {
-                                          if (status == FBSessionStateOpen) {
-                                              [FBRequestConnection startWithGraphPath:@"me"
-                                                                           parameters:@{@"fields":@"email"}
-                                                                           HTTPMethod:@"GET"
-                                                                    completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                                        if (!error) {
-                                                                            NSString *email = [result objectForKey:@"email"];
-                                                                            NSString *accessToken = [[[FBSession activeSession] accessTokenData] accessToken];
-                                                                            NSLog(@"---- %@ ---- %@", email, accessToken);
-                                                                        }
-                                                                        else {
-                                                                            NSLog(@"FB GRAPH ERROR %@", [error localizedDescription]);
-                                                                        }
-                                                                    }];
-                                              [_authObserver didAuthentificate:YES];
-                                          }
-                                          else  {
-                                              [_authObserver didAuthentificate:NO];
-                                          }
-                                      }
-                                      else {
-                                          [_authObserver didAuthentificate:NO];
-                                          NSLog(@"FB SESSION ERROR: %@", error);
-                                      }
-                                  }];
 }
 
 - (void)addDemoSensors {
@@ -270,32 +211,6 @@ static SensorsManager *sensorsManager = nil;
     }
 }
 
-- (void)handleFBSessionStateChangeWithNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    FBSessionState sessionState = [[userInfo objectForKey:@"state"] integerValue];
-    NSError *error = [userInfo objectForKey:@"error"];
-    if (!error) {
-        if (sessionState == FBSessionStateOpen) {
-            [FBRequestConnection startWithGraphPath:@"me"
-                                         parameters:@{@"fields":@"email"}
-                                         HTTPMethod:@"GET"
-                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                      if (!error) {
-                                          NSString *email = [result objectForKey:@"email"];
-                                          NSString *accessToken = [[[FBSession activeSession] accessTokenData] accessToken];
-                                          NSLog(@"---- %@ ---- %@", email, accessToken);
-                                      }
-                                      else {
-                                          NSLog(@"%@", [error localizedDescription]);
-                                      }
-                                  }];
-        }
-    }
-    else {
-        NSLog(@"FB SESSION ERROR: %@", error);
-    }
-}
-
 #pragma mark - WimotoCentralManagerDelegate
 
 - (void)didConnectPeripheral:(CBPeripheral*)peripheral {
@@ -325,6 +240,58 @@ static SensorsManager *sensorsManager = nil;
 
         [self notifyUnregisteredSensorsObservers];
     }
+}
+
+#pragma mark - Replication
+
++ (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    manager.authObserver = observer;
+    
+    [observer didAuthentificate:([[FBSession activeSession] state] == FBSessionStateOpen)?YES:NO];
+}
+
++ (void)activate {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
+        [manager openActiveSessionWithPermissions:nil allowLoginUI:NO];
+    }
+    [FBAppCall handleDidBecomeActive];
+}
+
++ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication {
+    return [FBAppCall handleOpenURL:URL sourceApplication:sourceApplication];
+}
+
++ (void)authSwitch {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    if ([FBSession activeSession].state != FBSessionStateOpen &&
+        [FBSession activeSession].state != FBSessionStateOpenTokenExtended) {
+        [manager openActiveSessionWithPermissions:@[@"email"] allowLoginUI:YES];
+    }
+    else {
+        [[FBSession activeSession] closeAndClearTokenInformation];
+    }
+}
+
+- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {
+    [FBSession openActiveSessionWithReadPermissions:permissions
+                                       allowLoginUI:allowLoginUI
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                      if ((!error) && (status == FBSessionStateOpen)) {
+                                          _pull.authenticator = [CBLAuthenticator facebookAuthenticatorWithToken:[[session accessTokenData] accessToken]];
+                                          [_push start];
+                                          [_pull start];
+                                          [_authObserver didAuthentificate:YES];
+                                      }
+                                      else  {
+                                          _pull.authenticator = nil;
+                                          [_push stop];
+                                          [_pull stop];
+                                          
+                                          [_authObserver didAuthentificate:NO];
+                                      }
+                                  }];
 }
 
 - (void) replicationProgress: (NSNotificationCenter*)n {

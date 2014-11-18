@@ -28,13 +28,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_fbButton setTitle:([SensorsManager isAuthentificated])?@"Facebook Logout":@"Facebook Login" forState:UIControlStateNormal];
-    [SensorsManager sharedManager].authObserver = self;
+    [SensorsManager setAuthentificationObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [SensorsManager setAuthentificationObserver:nil];
 }
 
 - (IBAction)settingsAction:(id)sender {

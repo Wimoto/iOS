@@ -7,7 +7,6 @@
 //
 
 #import "WimotoCentralManager.h"
-#import <FacebookSDK/FacebookSDK.h>
 
 @class Sensor;
 
@@ -25,15 +24,6 @@
 
 @interface SensorsManager : NSObject <WimotoCentralManagerDelegate>
 
-@property (nonatomic, weak) id<AuthentificationObserver>authObserver;
-
-+ (SensorsManager*)sharedManager;
-
-+ (void)activate;
-+ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication;
-+ (BOOL)isAuthentificated;
-+ (void)authSwitch;
-
 + (void)registerSensor:(Sensor*)sensor;
 + (void)unregisterSensor:(Sensor*)sensor;
 
@@ -42,5 +32,11 @@
 
 + (void)addObserverForRegisteredSensors:(id<SensorsObserver>)observer;
 + (void)removeObserverForRegisteredSensors:(id<SensorsObserver>)observer;
+
+
++ (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer;
++ (void)activate;
++ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication;
++ (void)authSwitch;
 
 @end
