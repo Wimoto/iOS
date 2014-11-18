@@ -7,8 +7,8 @@
 //
 
 #import "AppViewController.h"
-#import <FacebookSDK/FacebookSDK.h>
+#import "SensorsManager.h"
 
-@interface LeftMenuViewController : AppViewController
+@interface LeftMenuViewController : AppViewController <AuthentificationObserver>
 
 @end

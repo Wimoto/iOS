@@ -137,49 +137,22 @@
      */
 }
 
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
 }
 
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
-        [self openActiveSessionWithPermissions:nil allowLoginUI:NO];
-    }
-    [FBAppCall handleDidBecomeActive];
+    [SensorsManager activate];
 }
 
-
 - (void)applicationWillTerminate:(UIApplication *)application {
-    /*
-     Called when the application is about to terminate.
-     See also applicationDidEnterBackground:.
-     */
     NSLog(@"applicationWillTerminate");
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-}
-
-#pragma mark - Public method implementation
-
-- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {
-    [FBSession openActiveSessionWithReadPermissions:permissions
-                                       allowLoginUI:allowLoginUI
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      NSDictionary *sessionStateInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                                                        session, @"session",
-                                                                        [NSNumber numberWithInteger:status], @"state",
-                                                                        error, @"error",
-                                                                        nil];
-                                      [[NSNotificationCenter defaultCenter] postNotificationName:@"SessionStateChangeNotification"
-                                                                                          object:nil
-                                                                                        userInfo:sessionStateInfo];
-                                  }];
+    return [SensorsManager handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 #pragma mark -

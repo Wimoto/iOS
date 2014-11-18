@@ -12,7 +12,6 @@
 #import "Sensor.h"
 #import "SearchSensorViewController.h"
 #import "WimotoDeckController.h"
-#import "AppDelegate_iPhone.h"
 
 @interface LeftMenuViewController ()
 
@@ -22,7 +21,6 @@
 - (IBAction)helpAction:(id)sender;
 - (IBAction)addNewSensorAction:(id)sender;
 - (IBAction)facebookLoginAction:(id)sender;
-- (void)handleFBSessionStateChangeWithNotification:(NSNotification *)notification;
 
 @end
 
@@ -30,10 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleFBSessionStateChangeWithNotification:)
-                                                 name:@"SessionStateChangeNotification"
-                                               object:nil];
+    [_fbButton setTitle:([SensorsManager isAuthentificated])?@"Facebook Logout":@"Facebook Login" forState:UIControlStateNormal];
+    [SensorsManager sharedManager].authObserver = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,44 +59,13 @@
 }
 
 - (IBAction)facebookLoginAction:(id)sender {
-    AppDelegate_iPhone *appDelegate = (AppDelegate_iPhone *)[UIApplication sharedApplication].delegate;
-    if ([FBSession activeSession].state != FBSessionStateOpen &&
-        [FBSession activeSession].state != FBSessionStateOpenTokenExtended) {
-        [appDelegate openActiveSessionWithPermissions:@[@"public_profile", @"email"] allowLoginUI:YES];
-    }
-    else {
-        [[FBSession activeSession] closeAndClearTokenInformation];
-    }
+    [SensorsManager authSwitch];
 }
 
-- (void)handleFBSessionStateChangeWithNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    FBSessionState sessionState = [[userInfo objectForKey:@"state"] integerValue];
-    NSError *error = [userInfo objectForKey:@"error"];
-    if (!error) {
-        NSLog(@"FACEBOOK ACCESS TOKEN %@", [[[FBSession activeSession] accessTokenData] accessToken]);
-        if (sessionState == FBSessionStateOpen) {
-            [FBRequestConnection startWithGraphPath:@"me"
-                                         parameters:@{@"fields":@"email"}
-                                         HTTPMethod:@"GET"
-                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                      if (!error) {
-                                          NSLog(@"FACEBOOK EMAIL %@", result);
-                                      }
-                                      else {
-                                          NSLog(@"%@", [error localizedDescription]);
-                                      }
-                                  }];
-            [_fbButton setTitle:@"Facebook Logout" forState:UIControlStateNormal];
-        }
-        else if (sessionState == FBSessionStateClosed || sessionState == FBSessionStateClosedLoginFailed) {
-            [_fbButton setTitle:@"Facebook Login" forState:UIControlStateNormal];
-        }
-    }
-    else {
-        NSLog(@"Error: %@", [error localizedDescription]);
-        [_fbButton setTitle:@"Facebook Login" forState:UIControlStateNormal];
-    }
+#pragma mark - AuthentificationObserver
+
+- (void)didAuthentificate:(BOOL)isAuthentificated {
+    [_fbButton setTitle:(isAuthentificated)?@"Facebook Logout":@"Facebook Login" forState:UIControlStateNormal];
 }
 
 @end
