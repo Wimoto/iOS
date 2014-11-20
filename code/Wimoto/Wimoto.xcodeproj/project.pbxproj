@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
+		04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC799E1A1E9398001227D6 /* DfuCentralManager.m */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
@@ -181,6 +182,8 @@
 
 /* Begin PBXFileReference section */
 		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
+		04AC799D1A1E9398001227D6 /* DfuCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DfuCentralManager.h; sourceTree = "<group>"; };
+		04AC799E1A1E9398001227D6 /* DfuCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DfuCentralManager.m; sourceTree = "<group>"; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
@@ -841,6 +844,8 @@
 		90232E37185A521900F83210 /* BLEManager */ = {
 			isa = PBXGroup;
 			children = (
+				04AC799D1A1E9398001227D6 /* DfuCentralManager.h */,
+				04AC799E1A1E9398001227D6 /* DfuCentralManager.m */,
 				04E60A75195ACA6800570833 /* WimotoCentralManager.h */,
 				04E60A76195ACA6800570833 /* WimotoCentralManager.m */,
 				901399CA185B16CB0003D964 /* CBPeripheral+Util.h */,
@@ -1216,6 +1221,7 @@
 				F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
+				04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */,
 				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,

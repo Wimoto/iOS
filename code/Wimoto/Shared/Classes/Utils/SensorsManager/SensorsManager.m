@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableSet *sensors;
 
 @property (nonatomic, strong) WimotoCentralManager *wimotoCentralManager;
+@property (nonatomic, strong) DfuCentralManager *dfuCentralManager;
 
 @property (nonatomic, strong) NSMutableArray *unregisteredSensorObservers;
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
@@ -61,6 +62,7 @@ static SensorsManager *sensorsManager = nil;
         _registeredSensorObservers      = [NSMutableArray array];
         
         _wimotoCentralManager = [[WimotoCentralManager alloc] initWithDelegate:self];
+        _dfuCentralManager = [[DfuCentralManager alloc] initWithDelegate:self];
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         
@@ -245,6 +247,7 @@ static SensorsManager *sensorsManager = nil;
 }
 
 - (void)didConnectDfuPeripheral:(CBPeripheral*)peripheral {
+    NSLog(@"SensorsManager didConnectDfuPeripheral");
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dfuUuid == %@", [[peripheral identifier] UUIDString]];
     Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
     
@@ -262,7 +265,8 @@ static SensorsManager *sensorsManager = nil;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DFU_UUID]) {
         if (![[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
             Sensor *sensor = (Sensor *)object;
-            [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
+            [_wimotoCentralManager addToDfuMode:sensor.peripheral];
+            [_dfuCentralManager startScan];
         }
     }
 }

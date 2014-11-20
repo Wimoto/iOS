@@ -15,6 +15,7 @@
 @property (nonatomic, weak) id<WimotoCentralManagerDelegate> wcmDelegate;
 
 @property (nonatomic, strong) NSMutableSet *pendingPeripherals;
+@property (nonatomic, strong) NSMutableSet *dfuPeripherals;
 
 @end
 
@@ -28,7 +29,7 @@
         
         _wcmDelegate            = wcmDelegate;
         _pendingPeripherals     = [NSMutableSet set];
-        
+        _dfuPeripherals         = [NSMutableSet set];
     }
     return self;
 }
@@ -48,10 +49,15 @@
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_ACCELEROMETER],
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_PASSIVE_INFRARED],
                                [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE],
-                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE],
-                               [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
+                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE], nil];
     
     [self scanForPeripheralsWithServices:targetServices options:scanOptions];
+}
+
+- (void)addToDfuMode:(CBPeripheral *)peripheral {
+    [_dfuPeripherals addObject:peripheral];
+    
+    [self cancelPeripheralConnection:peripheral];
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -82,6 +88,10 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    
+    if ([_dfuPeripherals containsObject:peripheral]) {
+        return;
+    }
     
     NSLog(@"WimotoCentralManager didDiscoverPeripheral %@", peripheral);
     [_pendingPeripherals addObject:peripheral];
@@ -115,12 +125,6 @@
     for (CBService *aService in aPeripheral.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
-            return;
-        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
-            NSLog(@"didDiscoverServices for DFU %@", aPeripheral);
-            
-            [_wcmDelegate didConnectDfuPeripheral:aPeripheral];
-            [_pendingPeripherals removeObject:aPeripheral];
             return;
         }
     }
