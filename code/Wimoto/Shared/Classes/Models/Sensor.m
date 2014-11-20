@@ -259,10 +259,8 @@
 }
 
 - (void)switchToDfuMode {
-    self.dfuUuid = [[self.peripheral identifier] UUIDString];
-    
-//    char bytes[1] = {0x01};
-//    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
+    char bytes[1] = {0x01};
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeripheralDelegate
