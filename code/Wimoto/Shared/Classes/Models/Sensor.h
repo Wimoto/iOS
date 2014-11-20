@@ -45,6 +45,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
 
+@property (nonatomic, strong) NSString *dfuUuid;
+
 @property (nonatomic, strong) NSNumber *batteryLevel;
 
 @property (nonatomic, strong) NSNumber *rssi;

@@ -48,7 +48,8 @@
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_ACCELEROMETER],
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_PASSIVE_INFRARED],
                                [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE],
-                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE], nil];
+                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE],
+                               [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     
     [self scanForPeripheralsWithServices:targetServices options:scanOptions];
 }
@@ -97,7 +98,7 @@
     
     peripheral.delegate = self;
     
-    NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]];
+    NSArray *services = [NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE], [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     [peripheral discoverServices:services];
 }
 
@@ -114,7 +115,13 @@
     for (CBService *aService in aPeripheral.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_SYSTEM_ID], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_MODEL_NUMBER], nil] forService:aService];
-            break;
+            return;
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
+            NSLog(@"didDiscoverServices for DFU %@", aPeripheral);
+            
+            [_wcmDelegate didConnectDfuPeripheral:aPeripheral];
+            [_pendingPeripherals removeObject:aPeripheral];
+            return;
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "DFUTargetAdapter.h"
+#import "CBPeripheral+Util.h"
 
 typedef struct __attribute__((packed))
 {
@@ -37,17 +38,17 @@ typedef struct __attribute__((packed))
 
 + (CBUUID *) serviceUUID
 {
-    return [CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"];
+    return [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU];
 }
 
 + (CBUUID *) controlPointCharacteristicUUID
 {
-    return [CBUUID UUIDWithString:@"00001531-1212-EFDE-1523-785FEABCD123"];
+    return [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT];
 }
 
 + (CBUUID *) packetCharacteristicUUID
 {
-    return [CBUUID UUIDWithString:@"00001532-1212-EFDE-1523-785FEABCD123"];
+    return [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_PACKET];
 }
 
 - (DFUTargetAdapter *) initWithDelegate:(id<DFUTargetAdapterDelegate>)delegate

@@ -242,6 +242,17 @@ static SensorsManager *sensorsManager = nil;
     }
 }
 
+- (void)didConnectDfuPeripheral:(CBPeripheral*)peripheral {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dfuUuid == %@", [[peripheral identifier] UUIDString]];
+    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+    
+    if (sensor) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sensor.peripheral = peripheral;
+        });
+    }
+}
+
 #pragma mark - Replication
 
 + (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer {

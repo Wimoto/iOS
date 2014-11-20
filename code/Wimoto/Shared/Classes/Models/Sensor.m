@@ -269,6 +269,7 @@
     NSLog(@"didWriteValueForCharacteristic %@", error);
     
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
+        _dfuUuid = [[peripheral identifier] UUIDString];
         [self setPeripheral:nil];
     }
 }
