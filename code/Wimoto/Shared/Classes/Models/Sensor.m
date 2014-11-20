@@ -259,8 +259,10 @@
 }
 
 - (void)switchToDfuMode {
-    char bytes[1] = {0x01};
-    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
+    self.dfuUuid = [[self.peripheral identifier] UUIDString];
+    
+//    char bytes[1] = {0x01};
+//    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeripheralDelegate
@@ -269,8 +271,7 @@
     NSLog(@"didWriteValueForCharacteristic %@", error);
     
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
-        _dfuUuid = [[peripheral identifier] UUIDString];
-        [self setPeripheral:nil];
+        self.dfuUuid = [[peripheral identifier] UUIDString];
     }
 }
 

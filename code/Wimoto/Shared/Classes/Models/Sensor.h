@@ -17,6 +17,8 @@
 #define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
 #define OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE   @"tempMeasure"
 
+#define OBSERVER_KEY_PATH_SENSOR_DFU_UUID       @"dfuUuid"
+
 typedef enum {
     kAlarmStateUnknown = 0,
     kAlarmStateDisabled = 1,

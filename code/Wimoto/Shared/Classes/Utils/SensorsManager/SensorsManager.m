@@ -91,7 +91,9 @@ static SensorsManager *sensorsManager = nil;
             CBLQueryEnumerator *queryEnumerator = [query run:nil];
             
             for (CBLQueryRow *row in queryEnumerator) {
-                [_sensors addObject:[Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]]];
+                Sensor *sensor = [Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]];
+                [sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_UUID options:NSKeyValueObservingOptionNew context:nil];
+                [_sensors addObject:sensor];
             }
             [self addDemoSensors];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -250,6 +252,18 @@ static SensorsManager *sensorsManager = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             sensor.peripheral = peripheral;
         });
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DFU_UUID]) {
+        if (![[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+            Sensor *sensor = (Sensor *)object;
+            [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
+        }
     }
 }
 
