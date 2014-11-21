@@ -77,11 +77,11 @@
 }
 
 - (IBAction)accelerometerAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET];
 }
 
 - (IBAction)pasInfraredAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_SERVICE_UUID_PASSIVE_INFRARED_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET];
 }
 
 #pragma mark - Value Observer

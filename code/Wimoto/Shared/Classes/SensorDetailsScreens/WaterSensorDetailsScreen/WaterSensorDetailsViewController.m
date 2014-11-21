@@ -85,7 +85,7 @@
 }
 
 - (IBAction)levelAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_SET];
     ([sender isOn])?[_levelSlider showAction]:[_levelSlider hideAction:nil];
 }
 
@@ -93,8 +93,8 @@
 
 - (void)alarmSliderSaveAction:(id)sender {
     if ([sender isEqual:_levelSlider]) {
-        [self.sensor writeAlarmValue:_levelSlider.upperValue forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_levelSlider.lowerValue forCharacteristicWithUUIDString:BLE_WATER_SERVICE_UUID_LEVEL_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_levelSlider.upperValue forCharacteristicWithUUIDString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_levelSlider.lowerValue forCharacteristicWithUUIDString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_LOW_VALUE];
         
         _levelLowValueLabel.text = [NSString stringWithFormat:@"%.f", _levelSlider.upperValue];
         _levelHighValueLabel.text = [NSString stringWithFormat:@"%.f", _levelSlider.lowerValue];

@@ -28,30 +28,30 @@
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
                                                   [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM],
                                                   nil]
                                       forService:aService];
             
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
                                                   [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM],
                                                   nil]
                                       forService:aService];
             
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
                                                   [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET],
-                                                  [CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM],
                                                   nil]
                                       forService:aService];
         }
@@ -62,12 +62,12 @@
     [super peripheral:aPeripheral didDiscoverCharacteristicsForService:service error:error];
     if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE]]) {
          for (CBCharacteristic *aChar in service.characteristics) {
-             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]||
-                 [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]||
-                 [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
+             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]||
+                 [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]||
+                 [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
                  [aPeripheral readValueForCharacteristic:aChar];
              }
-             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]]) {
+             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
                  [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
              }
              else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
@@ -78,12 +78,12 @@
     }
     else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]]||
-                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]]||
-                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET]]) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
             }
-            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]]) {
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]) {
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
@@ -94,12 +94,12 @@
     }
     else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT]]) {
         for (CBCharacteristic *aChar in service.characteristics) {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]||
-                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]]||
-                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]||
+                [aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
             }
-            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]]) {
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]) {
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
@@ -126,24 +126,24 @@
             self.soilMoisture = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:_soilMoisture];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET]]) {
             if (_lightAlarmState == kAlarmStateUnknown) {
                 self.lightAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET]]) {
             if (_soilMoistureAlarmState == kAlarmStateUnknown) {
                 self.soilMoistureAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET]]) {
             if (_soilTempAlarmState == kAlarmStateUnknown) {
                 self.soilTempAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]||
+                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]||
+                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
             uint8_t alarmValue  = 0;
             [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
             NSLog(@"alarm!  0x%x", alarmValue);
@@ -159,22 +159,22 @@
                 [self alarmServiceDidStopAlarm:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
             self.lightAlarmLow = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
             self.lightAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE]]) {
             self.soilMoistureAlarmLow = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE]]) {
             self.soilMoistureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]) {
             self.soilTemperatureAlarmLow = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]) {
             self.soilTemperatureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
     });
@@ -182,19 +182,19 @@
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     NSString *alertString = nil;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM]]) {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]) {
         if (_lightAlarmState != kAlarmStateEnabled) {
             return;
         }
         alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM]]) {
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]) {
         if (_soilMoistureAlarmState != kAlarmStateEnabled) {
             return;
         }
         alertString = [NSString stringWithFormat:@"%@ soil moisture %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM]]) {
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
         if (_soilTempAlarmState != kAlarmStateEnabled) {
             return;
         }

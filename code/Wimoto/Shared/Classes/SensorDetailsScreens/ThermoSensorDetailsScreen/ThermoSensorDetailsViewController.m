@@ -83,12 +83,12 @@
 }
 
 - (IBAction)irTempAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
     ([sender isOn])?[_irTempSlider showAction]:[_irTempSlider hideAction:nil];
 }
 
 - (IBAction)probeTempAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
     ([sender isOn])?[_probeTempSlider showAction]:[_probeTempSlider hideAction:nil];
 }
 
@@ -96,13 +96,13 @@
 
 - (void)alarmSliderSaveAction:(id)sender {
     if ([sender isEqual:_irTempSlider]) {
-        [self.sensor writeAlarmValue:_irTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_irTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_irTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_irTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
         _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.upperValue];
         _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _irTempSlider.lowerValue];
     } else if ([sender isEqual:_probeTempSlider]) {
-        [self.sensor writeAlarmValue:_probeTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_probeTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_SERVICE_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_probeTempSlider.upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_probeTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
         _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _probeTempSlider.upperValue];
         _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _probeTempSlider.lowerValue];
     }

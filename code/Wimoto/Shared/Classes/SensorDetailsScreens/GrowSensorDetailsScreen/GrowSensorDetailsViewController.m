@@ -141,17 +141,17 @@
 }
 
 - (IBAction)soilTempAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET];
     ([sender isOn])?[_soilTempSlider showAction]:[_soilTempSlider hideAction:nil];
 }
 
 - (IBAction)soilMoistureAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET];
     ([sender isOn])?[_soilMoistureSlider showAction]:[_soilMoistureSlider hideAction:nil];
 }
 
 - (IBAction)lightAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_SET];
+    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET];
     ([sender isOn])?[_lightSlider showAction]:[_lightSlider hideAction:nil];
 }
 
@@ -159,18 +159,18 @@
 
 - (void)alarmSliderSaveAction:(id)sender {
     if ([sender isEqual:_soilTempSlider]) {
-        [self.sensor writeAlarmValue:_soilTempSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_soilTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_soilTempSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_soilTempSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
         _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _soilTempSlider.upperValue];
         _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _soilTempSlider.lowerValue];
     } else if ([sender isEqual:_soilMoistureSlider]) {
-        [self.sensor writeAlarmValue:_soilMoistureSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_soilMoistureSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_soilMoistureSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_soilMoistureSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
         _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.f", _soilMoistureSlider.upperValue];
         _soilMoistureLowValueLabel.text = [NSString stringWithFormat:@"%.f", _soilMoistureSlider.lowerValue];
     } else if ([sender isEqual:_lightSlider]) {
-        [self.sensor writeAlarmValue:_lightSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_lightSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_SERVICE_UUID_LIGHT_ALARM_LOW_VALUE];
+        [self.sensor writeAlarmValue:_lightSlider.upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
+        [self.sensor writeAlarmValue:_lightSlider.lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
         _lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", _lightSlider.upperValue];
         _lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", _lightSlider.lowerValue];
     }
