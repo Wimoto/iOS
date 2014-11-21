@@ -258,9 +258,20 @@
     return [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
 }
 
+- (DataLoggerState)dataLoggerStateForCharacteristic:(CBCharacteristic *)characteristic {
+    uint8_t dataLoggerEnabled = 0;
+    [[characteristic value] getBytes:&dataLoggerEnabled length:sizeof(dataLoggerEnabled)];
+    return (dataLoggerEnabled & 0x01)?kDataLoggerStateEnabled:kDataLoggerStateDisabled;
+}
+
 - (void)switchToDfuMode {
-    char bytes[1] = {0x01};
-    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
+    char bytes[1] = { 0x01 };
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dfuModeSetCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+- (void)enableDataLogger:(BOOL)doEnable {
+    char bytes[1] = {(doEnable) ? 0x01:0x00 };
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 #pragma mark - CBPeripheralDelegate
@@ -268,6 +279,8 @@
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
         self.dfuUuid = [[peripheral identifier] UUIDString];
+    } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
+        [peripheral readValueForCharacteristic:characteristic];
     }
 }
 

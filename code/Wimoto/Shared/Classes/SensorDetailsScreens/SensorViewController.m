@@ -43,21 +43,13 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE options:NSKeyValueObservingOptionNew context:NULL];
+    
+    
     NSString *sensorName = [_sensor name];
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [super viewWillAppear:animated];
-//    if (!_alarmSlider) {
-//        self.alarmSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-//        [self.view addSubview:_alarmSlider];
-//        _alarmSlider.delegate = self;
-//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,7 +81,9 @@
 }
 
 - (IBAction)enableDataLogger:(id)sender {
+    [sender setEnabled:NO];
     
+    [_sensor enableDataLogger:![sender isSelected]];
 }
 
 - (IBAction)readDataLogger:(id)sender {
@@ -102,14 +96,6 @@
         RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
         _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
     }
-}
-
-- (void)showSlider {
-    //[_alarmSlider showAction];
-}
-
-- (void)hideSlider {
-    //[_alarmSlider hideAction:nil];
 }
 
 #pragma mark - SensorDelegate
@@ -143,6 +129,7 @@
             self.view.backgroundColor = [UIColor lightGrayColor];
             _rssiLabel.hidden           = YES;
             _batteryLevelImage.hidden   = YES;
+            _dataLoggerButton.hidden    = YES;
         } else {
             _rssiLabel.hidden           = NO;
             _batteryLevelImage.hidden   = NO;
@@ -186,6 +173,12 @@
             _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
             _batteryLevelImage.hidden = NO;
         }
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DL_STATE]) {
+        DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+        
+        _dataLoggerButton.hidden = NO;
+        _dataLoggerButton.enabled = YES;
+        _dataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
     }
 }
 

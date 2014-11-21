@@ -22,8 +22,6 @@
 @property (nonatomic, strong) NSTimer *lastUpdateTimer;
 
 - (id)initWithSensor:(Sensor *)sensor;
-- (void)showSlider;
-- (void)hideSlider;
 - (void)refreshLastUpdateLabel;
 
 @end

@@ -77,6 +77,9 @@ typedef enum {
 #define BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET                          @"E003561F-EC48-4ED0-9F3B-5419C00A94FD"
 #define BLE_CLIMATE_CHAR_UUID_DFU_TIMESTAMP                         @"1805"
 
+#define BLE_CLIMATE_SERVICE_UUID_DATA_LOGGER                        @"E003561A-EC48-4ED0-9F3B-5419C00A94FD"
+#define BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE                    @"E003561B-EC48-4ED0-9F3B-5419C00A94FD"
+
 #define BLE_WATER_MODEL                                             @"Wimoto_Water"
 #define BLE_WATER_CHAR_UUID_PRESENCE_CURRENT                        @"35D8C7DC-9D78-43C2-AB2E-0E48CAC2DBDA"
 #define BLE_WATER_AD_SERVICE_UUID_PRESENCE                          @"C7DB"

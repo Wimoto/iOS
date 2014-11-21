@@ -19,11 +19,19 @@
 
 #define OBSERVER_KEY_PATH_SENSOR_DFU_UUID       @"dfuUuid"
 
+#define OBSERVER_KEY_PATH_SENSOR_DL_STATE       @"dataLoggerState"
+
 typedef enum {
     kAlarmStateUnknown = 0,
-    kAlarmStateDisabled = 1,
+    kAlarmStateDisabled,
     kAlarmStateEnabled
 } AlarmState;
+
+typedef enum {
+    kDataLoggerStateUnknown = 0,
+    kDataLoggerStateDisabled,
+    kDataLoggerStateEnabled
+} DataLoggerState;
 
 typedef enum {
     kAlarmLow = 0,
@@ -43,6 +51,7 @@ typedef enum {
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
+@property (nonatomic, strong) CBCharacteristic *dataLoggerEnableCharacteristic;
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
@@ -54,6 +63,8 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *rssi;
 
 @property (nonatomic) TemperatureMeasure tempMeasure;
+
+@property (nonatomic) DataLoggerState dataLoggerState;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
@@ -71,12 +82,15 @@ typedef enum {
 - (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
 - (void)switchToDfuMode;
+- (void)enableDataLogger:(BOOL)doEnable;
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic;
 - (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic;
+
+- (DataLoggerState)dataLoggerStateForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (void)settingsNotification:(NSNotification *)notification;
 - (float)convertToFahrenheit:(float)value;

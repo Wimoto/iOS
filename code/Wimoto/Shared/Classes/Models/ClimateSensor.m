@@ -69,8 +69,12 @@
         } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DFU]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET],
-                                                  [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_SWITCH_MODE],
                                                   [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_TIMESTAMP],
+                                                  nil]
+                                      forService:aService];
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DATA_LOGGER]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
+                                                  [CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE],
                                                   nil]
                                       forService:aService];
         }
@@ -132,6 +136,14 @@
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DFU_MODE_SET]]) {
                 self.dfuModeSetCharacteristic = aChar;
+            }
+        }
+    }
+    else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_SERVICE_UUID_DATA_LOGGER]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
+                self.dataLoggerEnableCharacteristic = aChar;
+                [aPeripheral readValueForCharacteristic:aChar];
             }
         }
     }
@@ -201,6 +213,9 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
             self.lightAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
+            self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
         }
     });
 }
