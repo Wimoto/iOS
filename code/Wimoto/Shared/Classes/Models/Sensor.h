@@ -52,6 +52,8 @@ typedef enum {
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) CBCharacteristic *dfuModeSetCharacteristic;
 @property (nonatomic, strong) CBCharacteristic *dataLoggerEnableCharacteristic;
+@property (nonatomic, strong) CBCharacteristic *dataLoggerReadEnableCharacteristic;
+@property (nonatomic, strong) CBCharacteristic *dataLoggerReadNotificationCharacteristic;
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
@@ -83,6 +85,7 @@ typedef enum {
 
 - (void)switchToDfuMode;
 - (void)enableDataLogger:(BOOL)doEnable;
+- (void)readDataLogger;
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;

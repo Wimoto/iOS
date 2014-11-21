@@ -274,6 +274,11 @@
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
+- (void)readDataLogger {
+    char bytes[1] = { 0x01 };
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
@@ -281,6 +286,8 @@
         self.dfuUuid = [[peripheral identifier] UUIDString];
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
+    } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
+        [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
     }
 }
 

@@ -87,7 +87,7 @@
 }
 
 - (IBAction)readDataLogger:(id)sender {
-    
+    [_sensor readDataLogger];
 }
 
 - (void)refreshLastUpdateLabel {

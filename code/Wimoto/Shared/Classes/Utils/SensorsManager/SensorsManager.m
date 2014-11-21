@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
+@property (nonatomic, strong) CBLReplication *push;
 @property (nonatomic, weak) id<AuthentificationObserver>authObserver;
 
 - (void)addDemoSensors;
@@ -36,13 +37,6 @@
 @end
 
 @implementation SensorsManager
-{
-    NSURL* remoteSyncURL;
-    CBLReplication* _pull;
-    CBLReplication* _push;
-    NSError* _syncError;
-    }
-
 
 static SensorsManager *sensorsManager = nil;
 
@@ -68,14 +62,11 @@ static SensorsManager *sensorsManager = nil;
         
         
         NSURL* serverDbURL = [NSURL URLWithString: kServerDbURL];
-        _pull = [_cblDatabase createPullReplication: serverDbURL];
         _push = [_cblDatabase createPushReplication: serverDbURL];
-        _pull.continuous = _push.continuous = YES;
+        _push.continuous = YES;
         
         // Observe replication progress changes, in both directions
         NSNotificationCenter* nctr = [NSNotificationCenter defaultCenter];
-        [nctr addObserver: self selector: @selector(replicationProgress:)
-                     name: kCBLReplicationChangeNotification object: _pull];
         [nctr addObserver: self selector: @selector(replicationProgress:)
                      name: kCBLReplicationChangeNotification object: _push];
         
@@ -308,15 +299,13 @@ static SensorsManager *sensorsManager = nil;
                                        allowLoginUI:allowLoginUI
                                   completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                                       if ((!error) && (status == FBSessionStateOpen)) {
-                                          _pull.authenticator = [CBLAuthenticator facebookAuthenticatorWithToken:[[session accessTokenData] accessToken]];
+                                          _push.authenticator = [CBLAuthenticator facebookAuthenticatorWithToken:[[session accessTokenData] accessToken]];
                                           [_push start];
-                                          [_pull start];
                                           [_authObserver didAuthentificate:YES];
                                       }
                                       else  {
-                                          _pull.authenticator = nil;
+                                          _push.authenticator = nil;
                                           [_push stop];
-                                          [_pull stop];
                                           
                                           [_authObserver didAuthentificate:NO];
                                       }
@@ -324,10 +313,10 @@ static SensorsManager *sensorsManager = nil;
 }
 
 - (void) replicationProgress: (NSNotificationCenter*)n {
-    if (_pull.status == kCBLReplicationActive || _push.status == kCBLReplicationActive) {
+    if (_push.status == kCBLReplicationActive) {
         // Sync is active -- aggregate the progress of both replications and compute a fraction:
-        unsigned completed = _pull.completedChangesCount + _push.completedChangesCount;
-        unsigned total = _pull.changesCount+ _push.changesCount;
+        unsigned completed = _push.completedChangesCount;
+        unsigned total = _push.changesCount;
         NSLog(@"SYNC progress: %u / %u", completed, total);
         // Update the progress bar, avoiding divide-by-zero exceptions:
     } else {
@@ -335,14 +324,14 @@ static SensorsManager *sensorsManager = nil;
         NSLog(@"SYNC idle");
     }
     
-    // Check for any change in error status and display new errors:
-    NSError* error = _pull.lastError ? _pull.lastError : _push.lastError;
-    if (error != _syncError) {
-        _syncError = error;
-        if (error) {
-            [self showAlert: @"Error syncing" error: error fatal: NO];
-        }
-    }
+//    // Check for any change in error status and display new errors:
+//    NSError* error = _pull.lastError ? _pull.lastError : _push.lastError;
+//    if (error != _syncError) {
+//        _syncError = error;
+//        if (error) {
+//            [self showAlert: @"Error syncing" error: error fatal: NO];
+//        }
+//    }
 }
 
 

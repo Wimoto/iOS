@@ -145,6 +145,12 @@
                 self.dataLoggerEnableCharacteristic = aChar;
                 [aPeripheral readValueForCharacteristic:aChar];
             }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ_ENABLE]]) {
+                self.dataLoggerReadEnableCharacteristic = aChar;
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ]]) {
+                self.dataLoggerReadNotificationCharacteristic = aChar;
+            }
         }
     }
 }
@@ -216,6 +222,10 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
             self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ]]) {
+            NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
+            NSLog(@"dataLogger from Climate %@", dataLogger);
         }
     });
 }
