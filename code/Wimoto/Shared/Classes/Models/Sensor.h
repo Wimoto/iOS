@@ -33,7 +33,7 @@ typedef enum {
 typedef enum {
     kTemperatureMeasureFahrenheit = 0,
     kTemperatureMeasureCelsius
-}TemperatureMeasure;
+} TemperatureMeasure;
 
 @interface Sensor : NSObject <CBPeripheralDelegate>
 

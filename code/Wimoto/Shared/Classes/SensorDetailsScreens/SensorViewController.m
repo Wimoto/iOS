@@ -17,7 +17,12 @@
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
+@property (nonatomic, weak) IBOutlet UIButton *dataLoggerButton;
+
 - (IBAction)firmwareUpdateAction:(id)sender;
+
+- (IBAction)enableDataLogger:(id)sender;
+- (IBAction)readDataLogger:(id)sender;
 
 @end
 
@@ -81,6 +86,14 @@
     FirmwareViewController *firmwareController = [[FirmwareViewController alloc] initWithSensor:_sensor];
     UINavigationController *firmwareNavController = [[UINavigationController alloc] initWithRootViewController:firmwareController];
     [self presentViewController:firmwareNavController animated:YES completion:nil];
+}
+
+- (IBAction)enableDataLogger:(id)sender {
+    
+}
+
+- (IBAction)readDataLogger:(id)sender {
+    
 }
 
 - (void)refreshLastUpdateLabel {

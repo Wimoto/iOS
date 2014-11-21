@@ -266,8 +266,6 @@
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    NSLog(@"didWriteValueForCharacteristic %@", error);
-    
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
         self.dfuUuid = [[peripheral identifier] UUIDString];
     }

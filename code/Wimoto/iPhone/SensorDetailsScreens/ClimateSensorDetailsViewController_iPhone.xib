@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="jtb-bI-I3k" id="hFe-EY-rg5"/>
+                <outlet property="dataLoggerButton" destination="1vN-fW-Ewb" id="CBI-za-RMW"/>
                 <outlet property="humidityAlarmContainer" destination="CGB-gn-EQp" id="3yL-UQ-WnQ"/>
                 <outlet property="humidityHighValueLabel" destination="JHg-Ef-sea" id="9ag-Dy-BGi"/>
                 <outlet property="humidityLabel" destination="bou-t8-gdO" id="3KR-B0-QCI"/>
@@ -159,6 +160,10 @@
                     <state key="normal" title="dataLoggerEnable" image="cassette">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" image="cassette2.png"/>
+                    <connections>
+                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Cuz-lG-IqA"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
                     <rect key="frame" x="281" y="468" width="36" height="36"/>
@@ -176,6 +181,9 @@
                     <state key="normal" title="Button" image="cloud">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SK8-xm-2W0"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="guB-ja-Mj9">
                     <rect key="frame" x="129" y="190" width="191" height="49"/>
@@ -299,6 +307,7 @@
         <image name="border.png" width="1591" height="350"/>
         <image name="buttons.png" width="1591" height="581"/>
         <image name="cassette" width="100" height="100"/>
+        <image name="cassette2.png" width="1200" height="1200"/>
         <image name="chip" width="100" height="100"/>
         <image name="cloud" width="100" height="100"/>
         <image name="humidity-512.png" width="512" height="512"/>
