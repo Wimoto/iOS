@@ -187,8 +187,10 @@
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]||
                  [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]||
                  [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
+            NSLog(@"ALARM NOTIFICATION HEX %@", [characteristic.value hexadecimalString]);
+            
             uint8_t alarmValue  = 0;
-            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
+            [[characteristic value] getBytes:&alarmValue length:1];
             NSLog(@"alarm!  0x%x", alarmValue);
             if (alarmValue & 0x01) {
                 if (alarmValue & 0x02) {
