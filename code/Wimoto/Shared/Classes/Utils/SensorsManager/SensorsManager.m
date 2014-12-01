@@ -261,9 +261,14 @@ static SensorsManager *sensorsManager = nil;
             [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
             [_wimotoCentralManager stopScan];
             _wimotoCentralManager = nil;
-            [_dfuCentralManager startScan];
+            
+            [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(testStartScan) userInfo:nil repeats:NO];
         }
     }
+}
+
+- (void)testStartScan {
+    [_dfuCentralManager startScan];
 }
 
 #pragma mark - Replication
