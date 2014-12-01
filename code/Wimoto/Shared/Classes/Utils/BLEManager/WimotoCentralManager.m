@@ -60,6 +60,11 @@
     [self cancelPeripheralConnection:peripheral];
 }
 
+- (void)dealloc {
+    NSLog(@"WimotoCentralManager dealloc");
+}
+
+
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {

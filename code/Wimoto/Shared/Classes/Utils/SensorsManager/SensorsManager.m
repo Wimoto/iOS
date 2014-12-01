@@ -256,7 +256,11 @@ static SensorsManager *sensorsManager = nil;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DFU_UUID]) {
         if (![[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
             Sensor *sensor = (Sensor *)object;
-            [_wimotoCentralManager addToDfuMode:sensor.peripheral];
+            //[_wimotoCentralManager addToDfuMode:sensor.peripheral];
+            
+            [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
+            [_wimotoCentralManager stopScan];
+            _wimotoCentralManager = nil;
             [_dfuCentralManager startScan];
         }
     }
