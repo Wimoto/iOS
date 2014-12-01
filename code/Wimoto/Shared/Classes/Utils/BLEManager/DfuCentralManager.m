@@ -83,12 +83,12 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"DfuCentralManager didConnectDfuPeripheral %@", peripheral);
     
-    peripheral.delegate = self;
+    //peripheral.delegate = self;
     
-    NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]];
-    [peripheral discoverServices:services];
+    //NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]];
+    //[peripheral discoverServices:services];
     
-    //[_dcmDelegate didConnectDfuPeripheral:peripheral];
+    [_dcmDelegate didConnectDfuPeripheral:peripheral];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -98,30 +98,30 @@
     [_pendingPeripherals removeObject:peripheral];
 }
 
-#pragma mark - CBPeripheralDelegate
-
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
-    for (CBService *aService in aPeripheral.services) {
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
-            NSLog(@"DfuCentralManager didDiscoverServices BLE_GENERIC_SERVICE_UUID_DFU");
-
-            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_PACKET], nil] forService:aService];
-            return;
-        }
-    }
-}
-
-- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
-        for (CBCharacteristic *aChar in service.characteristics) {
-            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT]]) ||
-                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_PACKET]])) {
-                
-                NSLog(@"DfuCentralManager didDiscoverCharacteristicsForService BLE_GENERIC_SERVICE_UUID_DFU");
-                //[aPeripheral readValueForCharacteristic:aChar];
-            }
-        }
-    }
-}
+//#pragma mark - CBPeripheralDelegate
+//
+//- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
+//    for (CBService *aService in aPeripheral.services) {
+//        if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
+//            NSLog(@"DfuCentralManager didDiscoverServices BLE_GENERIC_SERVICE_UUID_DFU");
+//
+//            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT], [CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_PACKET], nil] forService:aService];
+//            return;
+//        }
+//    }
+//}
+//
+//- (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+//    if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU]]) {
+//        for (CBCharacteristic *aChar in service.characteristics) {
+//            if (([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT]]) ||
+//                ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU_PACKET]])) {
+//                
+//                NSLog(@"DfuCentralManager didDiscoverCharacteristicsForService BLE_GENERIC_SERVICE_UUID_DFU");
+//                //[aPeripheral readValueForCharacteristic:aChar];
+//            }
+//        }
+//    }
+//}
 
 @end
