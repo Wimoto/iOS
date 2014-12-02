@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="BBN-Jq-vU9" id="6pW-YU-CSJ"/>
+                <outlet property="dataLoggerButton" destination="RdB-V3-Aod" id="Ove-I1-spF"/>
+                <outlet property="dataReadbackButton" destination="Ik1-ij-zU8" id="TXE-mj-v6x"/>
+                <outlet property="dfuButton" destination="AOm-Za-BSl" id="B7r-ev-kRK"/>
                 <outlet property="irTempAlarmContainer" destination="gEK-dT-8pE" id="AGI-T6-kBN"/>
                 <outlet property="irTempConversionLabel" destination="sSg-TX-sdF" id="CiA-ny-8hg"/>
                 <outlet property="irTempHighValueLabel" destination="bZ4-px-W5R" id="vua-Gl-Bjw"/>
@@ -62,12 +65,16 @@
                     <rect key="frame" x="7" y="520" width="84" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RdB-V3-Aod">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RdB-V3-Aod">
                     <rect key="frame" x="95" y="469" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="dataLoggerEnable" image="cassette">
+                    <state key="normal" title="dataLoggerEnable" image="cassette2.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" image="cassette"/>
+                    <connections>
+                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Jix-M7-hvL"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ik1-ij-zU8" userLabel="cloudSync">
                     <rect key="frame" x="21" y="469" width="32" height="32"/>
@@ -75,6 +82,9 @@
                     <state key="normal" title="Button" image="cloud">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="Shs-dA-Wlb"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AOm-Za-BSl" userLabel="firmwareUpdate">
                     <rect key="frame" x="283" y="469" width="32" height="32"/>
@@ -231,6 +241,7 @@
         <image name="border.png" width="1591" height="350"/>
         <image name="buttons.png" width="1591" height="581"/>
         <image name="cassette" width="100" height="100"/>
+        <image name="cassette2.png" width="1200" height="1200"/>
         <image name="chip" width="100" height="100"/>
         <image name="cloud" width="100" height="100"/>
         <image name="infrared_thermometer-512.png" width="512" height="512"/>

@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="batteryLevelImage" destination="jtb-bI-I3k" id="hFe-EY-rg5"/>
                 <outlet property="dataLoggerButton" destination="1vN-fW-Ewb" id="CBI-za-RMW"/>
+                <outlet property="dataReadbackButton" destination="tvl-hv-kV4" id="P2B-Mp-cV7"/>
+                <outlet property="dfuButton" destination="GhK-2U-Ctl" id="Yuo-Be-6ie"/>
                 <outlet property="humidityAlarmContainer" destination="CGB-gn-EQp" id="3yL-UQ-WnQ"/>
                 <outlet property="humidityHighValueLabel" destination="JHg-Ef-sea" id="9ag-Dy-BGi"/>
                 <outlet property="humidityLabel" destination="bou-t8-gdO" id="3KR-B0-QCI"/>
@@ -165,7 +167,7 @@
                         <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Cuz-lG-IqA"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
                     <rect key="frame" x="281" y="468" width="36" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button" image="chip">
@@ -175,7 +177,7 @@
                         <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tvl-hv-kV4" userLabel="cloudSync">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tvl-hv-kV4" userLabel="cloudSync">
                     <rect key="frame" x="8" y="468" width="36" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button" image="cloud">

@@ -18,6 +18,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
 @property (nonatomic, weak) IBOutlet UIButton *dataLoggerButton;
+@property (nonatomic, weak) IBOutlet UIButton *dataReadbackButton;
+@property (nonatomic, weak) IBOutlet UIButton *dfuButton;
 
 - (IBAction)firmwareUpdateAction:(id)sender;
 
@@ -130,9 +132,13 @@
             _rssiLabel.hidden           = YES;
             _batteryLevelImage.hidden   = YES;
             _dataLoggerButton.hidden    = YES;
+            _dataReadbackButton.hidden  = YES;
+            _dfuButton.hidden           = YES;
         } else {
             _rssiLabel.hidden           = NO;
             _batteryLevelImage.hidden   = NO;
+            _dataReadbackButton.hidden  = NO;
+            _dfuButton.hidden           = NO;
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
         int rssi = 0;
