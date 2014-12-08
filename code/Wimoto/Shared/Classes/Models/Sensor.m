@@ -282,9 +282,7 @@
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
-        self.dfuUuid = [[peripheral identifier] UUIDString];
-    } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
+    if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
@@ -302,6 +300,9 @@
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_SERVICE]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC], nil]
                                       forService:aService];
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU], nil]
+                                      forService:aService];
         }
     }
 }
@@ -311,6 +312,13 @@
         for (CBCharacteristic *aChar in service.characteristics) {
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
                 [aPeripheral readValueForCharacteristic:aChar];
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+        }
+    } else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU]]) {
+                NSLog(@"Sensor didDiscoverCharacteristicsForService BLE_GENERIC_CHAR_UUID_DFU");
                 [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
         }
@@ -325,6 +333,9 @@
                 int value = bytes[0];
                 
                 self.batteryLevel = [NSNumber numberWithInt:value];                
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU]]) {
+                NSLog(@"Sensor didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_DFU");
+                self.dfuModeOn = YES;
             }
         }
     });

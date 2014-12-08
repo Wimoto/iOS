@@ -17,7 +17,7 @@
 #define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
 #define OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE   @"tempMeasure"
 
-#define OBSERVER_KEY_PATH_SENSOR_DFU_UUID       @"dfuUuid"
+#define OBSERVER_KEY_PATH_SENSOR_DFU_MODE       @"dfuModeOn"
 
 #define OBSERVER_KEY_PATH_SENSOR_DL_STATE       @"dataLoggerState"
 
@@ -58,7 +58,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
 
-@property (nonatomic, strong) NSString *dfuUuid;
+@property (nonatomic, getter=isDfuModeOn) BOOL dfuModeOn;
 
 @property (nonatomic, strong) NSNumber *batteryLevel;
 

@@ -43,6 +43,7 @@ typedef enum {
 
 #define BLE_GENERIC_CHAR_UUID_SYSTEM_ID                             @"2A23"
 #define BLE_GENERIC_CHAR_UUID_MODEL_NUMBER                          @"2A24"
+#define BLE_GENERIC_CHAR_UUID_DFU                                   @"2A05"
 
 #define BLE_GENERIC_SERVICE_UUID_DFU                                @"00001530-1212-EFDE-1523-785FEABCD123"
 #define BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT                     @"00001531-1212-EFDE-1523-785FEABCD123"

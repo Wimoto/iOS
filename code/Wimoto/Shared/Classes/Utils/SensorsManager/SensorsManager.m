@@ -23,7 +23,6 @@
 @property (nonatomic, strong) NSMutableSet *sensors;
 
 @property (nonatomic, strong) WimotoCentralManager *wimotoCentralManager;
-@property (nonatomic, strong) DfuCentralManager *dfuCentralManager;
 
 @property (nonatomic, strong) NSMutableArray *unregisteredSensorObservers;
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
@@ -56,7 +55,6 @@ static SensorsManager *sensorsManager = nil;
         _registeredSensorObservers      = [NSMutableArray array];
         
         _wimotoCentralManager = [[WimotoCentralManager alloc] initWithDelegate:self];
-        _dfuCentralManager = [[DfuCentralManager alloc] initWithDelegate:self];
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         
@@ -85,7 +83,6 @@ static SensorsManager *sensorsManager = nil;
             
             for (CBLQueryRow *row in queryEnumerator) {
                 Sensor *sensor = [Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]];
-                [sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_UUID options:NSKeyValueObservingOptionNew context:nil];
                 [_sensors addObject:sensor];
             }
             [self addDemoSensors];
@@ -247,28 +244,6 @@ static SensorsManager *sensorsManager = nil;
             sensor.peripheral = peripheral;
         });
     }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DFU_UUID]) {
-        if (![[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            Sensor *sensor = (Sensor *)object;
-            //[_wimotoCentralManager addToDfuMode:sensor.peripheral];
-            
-            [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
-            [_wimotoCentralManager stopScan];
-            _wimotoCentralManager = nil;
-            
-            [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(testStartScan) userInfo:nil repeats:NO];
-        }
-    }
-}
-
-- (void)testStartScan {
-    [_dfuCentralManager startScan];
 }
 
 #pragma mark - Replication
