@@ -42,15 +42,15 @@
 
                     NSLog(@"peripheralType: MODEL string ------- %@", model);
                     
-                    if ([model isEqual:BLE_CLIMATE_MODEL]) {
+                    if ([model rangeOfString:BLE_CLIMATE_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeClimate;
-                    } else if ([model isEqual:BLE_WATER_MODEL]) {
+                    } else if ([model rangeOfString:BLE_WATER_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeWater;
-                    } else if ([model isEqual:BLE_GROW_MODEL]) {
+                    } else if ([model rangeOfString:BLE_GROW_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeGrow;
-                    } else if ([model isEqual:BLE_SENTRY_MODEL]) {
+                    } else if ([model rangeOfString:BLE_SENTRY_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeSentry;
-                    } else if ([model isEqual:BLE_THERMO_MODEL]) {
+                    } else if ([model rangeOfString:BLE_THERMO_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeThermo;
                     }
                 }

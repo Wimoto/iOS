@@ -49,7 +49,7 @@ typedef enum {
 #define BLE_GENERIC_CHAR_UUID_DFU_CONTROL_POINT                     @"00001531-1212-EFDE-1523-785FEABCD123"
 #define BLE_GENERIC_CHAR_UUID_DFU_PACKET                            @"00001532-1212-EFDE-1523-785FEABCD123"
 
-#define BLE_CLIMATE_MODEL                                           @"Wimoto_Climate"
+#define BLE_CLIMATE_MODEL                                           @"climate"
 #define BLE_CLIMATE_AD_SERVICE_UUID_TEMPERATURE                     @"5608"
 #define BLE_CLIMATE_SERVICE_UUID_TEMPERATURE                        @"E0035608-EC48-4ED0-9F3B-5419C00A94FD"
 #define BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT                   @"E0035609-EC48-4ED0-9F3B-5419C00A94FD"
@@ -83,7 +83,7 @@ typedef enum {
 #define BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ                      @"E003561C-EC48-4ED0-9F3B-5419C00A94FD"
 #define BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ_ENABLE               @"E003561D-EC48-4ED0-9F3B-5419C00A94FD"
 
-#define BLE_WATER_MODEL                                             @"Wimoto_Water"
+#define BLE_WATER_MODEL                                             @"water"
 #define BLE_WATER_AD_SERVICE_UUID_PRESENCE                          @"C7DB"
 #define BLE_WATER_SERVICE_UUID_PRESENCE                             @"35D8C7DB-9D78-43C2-AB2E-0E48CAC2DBDA"
 #define BLE_WATER_CHAR_UUID_PRESENCE_CURRENT                        @"35D8C7DC-9D78-43C2-AB2E-0E48CAC2DBDA"
@@ -99,7 +99,7 @@ typedef enum {
 #define BLE_WATER_CHAR_UUID_LEVEL_ALARM                             @"35D8C7E4-9D78-43C2-AB2E-0E48CAC2DBDA"
 
 
-#define BLE_GROW_MODEL                                              @"Wimoto_Grow"
+#define BLE_GROW_MODEL                                              @"grow"
 #define BLE_GROW_AD_SERVICE_UUID_LIGHT                              @"470C"
 #define BLE_GROW_SERVICE_UUID_LIGHT                                 @"DAF4470C-BFB0-4DD8-9293-62AF5F545E31"
 #define BLE_GROW_CHAR_UUID_LIGHT_CURRENT                            @"DAF4470D-BFB0-4DD8-9293-62AF5F545E31"
@@ -125,7 +125,7 @@ typedef enum {
 #define BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM                   @"DAF4470B-BFB0-4DD8-9293-62AF5F545E31"
 
 
-#define BLE_SENTRY_MODEL                                            @"Wimoto_Sentry"
+#define BLE_SENTRY_MODEL                                            @"sentry"
 #define BLE_SENTRY_AD_SERVICE_UUID_ACCELEROMETER                    @"DC68"
 #define BLE_SENTRY_SERVICE_UUID_ACCELEROMETER                       @"4209DC68-E433-4420-83D8-CDAACCD2E312"
 #define BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT                  @"4209DC69-E433-4420-83D8-CDAACCD2E312"
@@ -140,7 +140,7 @@ typedef enum {
 #define BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM                 @"4209DC70-E433-4420-83D8-CDAACCD2E312"
 
 
-#define BLE_THERMO_MODEL                                            @"Wimoto_Thermo"
+#define BLE_THERMO_MODEL                                            @"thermo"
 #define BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE                   @"8E4E"
 #define BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE                      @"497B8E4E-B61E-4F82-8FE9-B12CF2497338"
 #define BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT                 @"497B8E4F-B61E-4F82-8FE9-B12CF2497338"
