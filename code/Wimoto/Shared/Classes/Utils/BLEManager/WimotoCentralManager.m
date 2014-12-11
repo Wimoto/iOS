@@ -49,15 +49,10 @@
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_ACCELEROMETER],
                                [CBUUID UUIDWithString:BLE_SENTRY_AD_SERVICE_UUID_PASSIVE_INFRARED],
                                [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE],
-                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE], nil];
+                               [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE],
+                               [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     
     [self scanForPeripheralsWithServices:targetServices options:scanOptions];
-}
-
-- (void)addToDfuMode:(CBPeripheral *)peripheral {
-    [_dfuPeripherals addObject:peripheral];
-    
-    [self cancelPeripheralConnection:peripheral];
 }
 
 - (void)dealloc {

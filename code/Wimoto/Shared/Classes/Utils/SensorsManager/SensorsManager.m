@@ -83,6 +83,7 @@ static SensorsManager *sensorsManager = nil;
             
             for (CBLQueryRow *row in queryEnumerator) {
                 Sensor *sensor = [Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]];
+                [sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE options:NSKeyValueObservingOptionNew context:nil];
                 [_sensors addObject:sensor];
             }
             [self addDemoSensors];
@@ -214,7 +215,8 @@ static SensorsManager *sensorsManager = nil;
             sensor.peripheral = peripheral;
         });
     } else {
-        [_sensors addObject:[Sensor sensorWithPeripheral:peripheral]];
+        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        [_sensors addObject:sensor];
         [self notifyUnregisteredSensorsObservers];
     }    
 }
@@ -243,6 +245,23 @@ static SensorsManager *sensorsManager = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             sensor.peripheral = peripheral;
         });
+    }
+}
+
+#pragma mark - Value Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    BOOL isDfuModeOn = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
+    NSLog(@"isDFU MODE %d", isDfuModeOn);
+    
+    if (isDfuModeOn) {
+        Sensor *sensor = (Sensor *)object;
+        [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
+        sensor.peripheral = nil;
     }
 }
 

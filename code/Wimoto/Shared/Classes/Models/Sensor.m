@@ -282,7 +282,9 @@
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
+    if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
+        self.dfuModeOn = YES;
+    } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
@@ -335,7 +337,7 @@
                 self.batteryLevel = [NSNumber numberWithInt:value];                
             } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU]]) {
                 NSLog(@"Sensor didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_DFU");
-                self.dfuModeOn = YES;
+                //self.dfuModeOn = YES;
             }
         }
     });

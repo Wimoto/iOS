@@ -31,7 +31,7 @@
     self = [super init];
     if (self) {
         _sensor = sensor;
-        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE options:NSKeyValueObservingOptionNew context:nil];
+        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionNew context:nil];
         
         _firmware = firmware;
         
@@ -66,7 +66,7 @@
 }
 
 - (void)dealloc {
-    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE];
+    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
 }
 
 - (IBAction)uploadButtonPressed:(id)sender {
@@ -124,11 +124,17 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     
-    NSLog(@"FirmwareUploadViewController switch to DFU mode");
-    [_dfuController setPeripheral:_sensor.peripheral];
-    [_dfuController didConnect];
+    NSLog(@"FirmwareUploadViewController switch to DFU mode #110");
     
-    _targetNameLabel.text = [_dfuController targetName];
+    NSObject *peripheralObject = [change objectForKey:NSKeyValueChangeNewKey];
+    if ([peripheralObject isKindOfClass:[CBPeripheral class]]) {
+        NSLog(@"FirmwareUploadViewController switch to DFU mode #120");
+        
+        [_dfuController setPeripheral:(CBPeripheral *)peripheralObject];
+        [_dfuController didConnect];
+        
+        _targetNameLabel.text = [_dfuController targetName];
+    }
 }
 
 @end

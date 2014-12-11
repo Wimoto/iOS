@@ -21,6 +21,4 @@
 
 - (void)startScan;
 
-- (void)addToDfuMode:(CBPeripheral *)peripheral;
-
 @end
