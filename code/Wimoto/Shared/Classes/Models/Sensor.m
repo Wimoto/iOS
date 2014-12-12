@@ -158,9 +158,11 @@
     });
     
     _peripheral.delegate = nil;
+    _uuidString = @"";
     
     _peripheral = peripheral;
     _peripheral.delegate = self;
+    _uuidString = [_peripheral.identifier UUIDString];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _rssiTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:_peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];

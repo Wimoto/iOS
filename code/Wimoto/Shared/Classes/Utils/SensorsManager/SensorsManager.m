@@ -238,9 +238,10 @@ static SensorsManager *sensorsManager = nil;
 
 - (void)didConnectDfuPeripheral:(CBPeripheral*)peripheral {
     NSLog(@"SensorsManager didConnectDfuPeripheral");
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dfuUuid == %@", [[peripheral identifier] UUIDString]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuidString == %@", [[peripheral identifier] UUIDString]];
     Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
     
+    NSLog(@"SensorsManager didConnectDfuPeripheral #320 %@", sensor);
     if (sensor) {
         dispatch_async(dispatch_get_main_queue(), ^{
             sensor.peripheral = peripheral;

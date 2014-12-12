@@ -57,6 +57,7 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueIdentifier;
+@property (nonatomic, strong) NSString *uuidString;
 
 @property (nonatomic, getter=isDfuModeOn) BOOL dfuModeOn;
 

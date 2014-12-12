@@ -12,6 +12,7 @@
 
 - (void)didConnectPeripheral:(CBPeripheral*)peripheral;
 - (void)didDisconnectPeripheral:(CBPeripheral*)peripheral;
+- (void)didConnectDfuPeripheral:(CBPeripheral*)peripheral;
 
 @end
 
