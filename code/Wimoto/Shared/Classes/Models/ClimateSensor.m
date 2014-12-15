@@ -32,6 +32,34 @@
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
 }
 
+- (float)getTemperatureFromSensorTemperature:(int)sensorTemperature {
+    return [self roundToOne:-46.85 + (175.72*sensorTemperature/65536)];
+}
+
+- (int)getSensorTemperatureFromTemperature:(float)temperature {
+    return ((46.85+temperature)*65536)/175.72;
+}
+
+- (float)getHumidityFromSensorHumidity:(int)sensorHumidity {
+    return [self roundToOne:-6.0 + (125.0*sensorHumidity/65536)];
+}
+
+- (int)getSensorHumidityFromHumidity:(float)humidity {
+    return ((6+humidity)*65536)/125;
+}
+
+- (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
+        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
+        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
+    } else if (([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
+               ([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
+        [super writeAlarmValue:[self getSensorHumidityFromHumidity:alarmValue] forCharacteristicWithUUIDString:UUIDString];
+    } else {
+        [super writeAlarmValue:alarmValue forCharacteristicWithUUIDString:UUIDString];
+    }
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
@@ -164,10 +192,10 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-            self.temperature = [self roundToOne:-46.85 + (175.72*[self sensorValueForCharacteristic:characteristic]/65536)];
+            self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
-            self.humidity = [self roundToOne:-6.0 + (125.0*[self sensorValueForCharacteristic:characteristic]/65536)];
+            self.humidity = [self getHumidityFromSensorHumidity:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
             self.light = 0.96 * [self sensorValueForCharacteristic:characteristic];

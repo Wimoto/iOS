@@ -213,7 +213,7 @@
     
     int16_t value = (int16_t)alarmValue;
     NSData *data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
-    NSLog(@"ALARM WRITE HIGH VALUE - %@   %@   %lu", UUIDString, data, sizeof(value));
+    NSLog(@"ALARM WRITE HIGH VALUE - %d  %@   %@   %lu", alarmValue, UUIDString, data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
