@@ -244,7 +244,7 @@
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic {
     int16_t value	= 0;
     [[characteristic value] getBytes:&value length:sizeof(value)];
-    return (float)value / 10.0f;
+    return value;
 }
 
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic {

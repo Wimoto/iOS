@@ -233,16 +233,16 @@
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
-            self.temperatureAlarmLow = [self alarmValueForCharacteristic:characteristic];
+            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-            self.temperatureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
-            self.humidityAlarmLow = [self alarmValueForCharacteristic:characteristic];
+            self.humidityAlarmLow = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE]]) {
-            self.humidityAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+            self.humidityAlarmHigh = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
             self.lightAlarmLow = [self alarmValueForCharacteristic:characteristic];
