@@ -44,22 +44,23 @@
     _temperatureSlider.delegate = self;
     [_temperatureSlider setSliderRange:0];
     [_temperatureSlider setStepValue:0.1 animated:NO];
-    [_temperatureSlider setMinimumValue:-60];
-    [_temperatureSlider setMaximumValue:130];
+    [_temperatureSlider setMinimumValue:-25];
+    [_temperatureSlider setMaximumValue:125];
     
     _humiditySlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
     [self.view addSubview:_humiditySlider];
     _humiditySlider.delegate = self;
     [_humiditySlider setSliderRange:0];
-    [_humiditySlider setMinimumValue:10];
-    [_humiditySlider setMaximumValue:50];
+    [_humiditySlider setMinimumValue:0];
+    [_humiditySlider setMaximumValue:100];
     
     _lightSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
     [self.view addSubview:_lightSlider];
     _lightSlider.delegate = self;
     [_lightSlider setSliderRange:0];
+    [_lightSlider setStepValue:1 animated:NO];
     [_lightSlider setMinimumValue:10];
-    [_lightSlider setMaximumValue:50];
+    [_lightSlider setMaximumValue:65535];
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
@@ -243,8 +244,8 @@
         _tempConversionLabel.text = [sensor temperatureSymbol];
         _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
         
-        [_temperatureSlider setMinimumValue:(tempMeasure == kTemperatureMeasureCelsius)?-60:[sensor convertToFahrenheit:-60]];
-        [_temperatureSlider setMaximumValue:(tempMeasure == kTemperatureMeasureCelsius)?130:[sensor convertToFahrenheit:130]];
+        [_temperatureSlider setMinimumValue:(tempMeasure == kTemperatureMeasureCelsius)?-25:[sensor convertToFahrenheit:-25]];
+        [_temperatureSlider setMaximumValue:(tempMeasure == kTemperatureMeasureCelsius)?125:[sensor convertToFahrenheit:125]];
         
         [_temperatureSlider setUpperValue:sensor.temperatureAlarmHigh];
         [_temperatureSlider setLowerValue:sensor.temperatureAlarmLow];
