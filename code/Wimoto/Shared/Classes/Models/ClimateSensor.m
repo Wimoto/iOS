@@ -192,15 +192,13 @@
             uint8_t alarmValue  = 0;
             [[characteristic value] getBytes:&alarmValue length:1];
             NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    NSLog(@"ALARM LOW VALUE");
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-                }
-                else {
-                    NSLog(@"ALARM HIGH VALUE");
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
-                }
+            if (alarmValue & 0x02) {
+                NSLog(@"ALARM HIGH VALUE");
+                [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
+            }
+            else if (alarmValue & 0x01) {
+                NSLog(@"ALARM LOW VALUE");
+                [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
             }
             else {
                 [self alarmServiceDidStopAlarm:characteristic];
