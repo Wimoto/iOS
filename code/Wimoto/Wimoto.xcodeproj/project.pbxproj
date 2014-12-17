@@ -132,7 +132,7 @@
 		49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F01A04F00600D16ACD /* NSData+Conversion.m */; };
 		49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F21A04F00600D16ACD /* NSString+Util.m */; };
 		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
-		49D6E7AE1A41D29B00A8D2BF /* sentryLookup.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E7AD1A41D29B00A8D2BF /* sentryLookup.plist */; };
+		49D6E7B01A41D72600A8D2BF /* sentryLookup.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E7AF1A41D72600A8D2BF /* sentryLookup.plist */; };
 		49E50BD91A017BEC00304549 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD81A017BEC00304549 /* Settings.bundle */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
@@ -352,7 +352,7 @@
 		49CB68F21A04F00600D16ACD /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
-		49D6E7AD1A41D29B00A8D2BF /* sentryLookup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = sentryLookup.plist; path = ../../../../../Documents/sentryLookup.plist; sourceTree = "<group>"; };
+		49D6E7AF1A41D72600A8D2BF /* sentryLookup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = sentryLookup.plist; path = ../../../../../Documents/sentryLookup.plist; sourceTree = "<group>"; };
 		49E50BD81A017BEC00304549 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
@@ -524,8 +524,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				49D6E7AF1A41D72600A8D2BF /* sentryLookup.plist */,
 				90F56DDE184DD54000ADC38E /* Info.plist */,
-				49D6E7AD1A41D29B00A8D2BF /* sentryLookup.plist */,
 				32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -1137,6 +1137,7 @@
 				30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
 				302A715F192D284B006E0A6C /* slider-default7-trackCrossedOver.png in Resources */,
+				49D6E7B01A41D72600A8D2BF /* sentryLookup.plist in Resources */,
 				4949F32D19A4D77E00DB94C7 /* Climate 128px.png in Resources */,
 				4901D3E8192EB294005EB15C /* droplet.png in Resources */,
 				302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */,
@@ -1174,7 +1175,6 @@
 				498CEFC719AA918400EAEB98 /* cassette2.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
-				49D6E7AE1A41D29B00A8D2BF /* sentryLookup.plist in Resources */,
 				498CEFBB19AA86F400EAEB98 /* Grow 128px.png in Resources */,
 				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
 				30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */,
