@@ -11,11 +11,10 @@
 #import "FileTypeTableViewController.h"
 #import "AppFilesTableViewController.h"
 #import "DFUOperations.h"
+#import "AppViewController.h"
 
-@interface DFUViewController : UIViewController <FileSelectionDelegate, DFUOperationsDelegate>
+@interface DFUViewController : AppViewController <FileSelectionDelegate, DFUOperationsDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
-@property (weak, nonatomic) IBOutlet UILabel *verticalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceName;
 @property (weak, nonatomic) IBOutlet UIButton *connectButton;
 @property (strong, nonatomic) NSString *selectedFileType;

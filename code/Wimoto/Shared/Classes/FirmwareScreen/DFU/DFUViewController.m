@@ -36,11 +36,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *uploadStatus;
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
-@property (weak, nonatomic) IBOutlet UIButton *selectFileButton;
 @property (weak, nonatomic) IBOutlet UIView *uploadPane;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 @property (weak, nonatomic) IBOutlet UILabel *fileType;
-@property (weak, nonatomic) IBOutlet UIButton *selectFileTypeButton;
 
 @property BOOL isTransferring;
 @property BOOL isTransfered;
@@ -55,7 +53,6 @@
 
 @implementation DFUViewController
 
-@synthesize backgroundImage;
 @synthesize deviceName;
 @synthesize connectButton;
 @synthesize selectedPeripheral;
@@ -65,29 +62,23 @@
 @synthesize uploadStatus;
 @synthesize progress;
 @synthesize progressLabel;
-@synthesize selectFileButton;
 @synthesize uploadButton;
 @synthesize uploadPane;
 @synthesize selectedFileURL;
 @synthesize fileType;
 @synthesize enumFirmwareType;
 @synthesize selectedFileType;
-@synthesize selectFileTypeButton;
 
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+- (id)init {
+    self = [super init];
     if (self) {
-        PACKETS_NOTIFICATION_INTERVAL = [[[NSUserDefaults standardUserDefaults] valueForKey:@"dfu_number_of_packets"] intValue];
-        NSLog(@"PACKETS_NOTIFICATION_INTERVAL %d",PACKETS_NOTIFICATION_INTERVAL);
         dfuOperations = [[DFUOperations alloc] initWithDelegate:self];
     }
     return self;
 }
 
 - (void)viewDidLoad {
-    backgroundImage.image = [UIImage imageNamed:([UIScreen mainScreen].bounds.size.height > 480)?@"Background4.png":@"Background35.png"];
-    self.verticalLabel.transform = CGAffineTransformRotate(CGAffineTransformMakeTranslation(-145.0f, 0.0f), (float)(-M_PI / 2));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -319,14 +310,10 @@
 }
 
 - (void)disableOtherButtons {
-    selectFileButton.enabled = NO;
-    selectFileTypeButton.enabled = NO;
     connectButton.enabled = NO;
 }
 
 - (void)enableOtherButtons {
-    selectFileButton.enabled = YES;
-    selectFileTypeButton.enabled = YES;
     connectButton.enabled = YES;
 }
 
