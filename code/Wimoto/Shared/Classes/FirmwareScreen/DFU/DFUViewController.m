@@ -7,28 +7,25 @@
 //
 
 #import "DFUViewController.h"
-//#import "Constants.h"
-#import "HelpViewController.h"
-#import "FileTypeTableViewController.h"
-#import "SSZipArchive.h"
-#import "UnzipFirmware.h"
 #import "Utility.h"
 
-@interface DFUViewController () {
-    
-}
+@interface DFUViewController ()
+
+@property (strong, nonatomic) Sensor *sensor;
+@property (strong, nonatomic) Firmware *firmware;
 
 /*!
  * This property is set when the device has been selected on the Scanner View Controller.
  */
 @property (strong, nonatomic) CBPeripheral *selectedPeripheral;
-@property (nonatomic)DfuFirmwareTypes enumFirmwareType;
 @property DFUOperations *dfuOperations;
 @property NSURL *selectedFileURL;
 @property NSURL *softdeviceURL;
 @property NSURL *bootloaderURL;
 @property NSURL *applicationURL;
 @property NSUInteger selectedFileSize;
+
+@property (weak, nonatomic) IBOutlet UILabel *deviceName;
 
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
 @property (weak, nonatomic) IBOutlet UILabel *fileSize;
@@ -54,9 +51,7 @@
 @implementation DFUViewController
 
 @synthesize deviceName;
-@synthesize connectButton;
 @synthesize selectedPeripheral;
-@synthesize dfuOperations;
 @synthesize fileName;
 @synthesize fileSize;
 @synthesize uploadStatus;
@@ -65,20 +60,25 @@
 @synthesize uploadButton;
 @synthesize uploadPane;
 @synthesize selectedFileURL;
-@synthesize fileType;
-@synthesize enumFirmwareType;
-@synthesize selectedFileType;
 
-
-- (id)init {
+- (id)initWithSensor:(Sensor *)sensor andFirmware:(Firmware *)firmware {
     self = [super init];
     if (self) {
-        dfuOperations = [[DFUOperations alloc] initWithDelegate:self];
+        _sensor = sensor;
+        _firmware = firmware;
+        
+        _dfuOperations = [[DFUOperations alloc] initWithDelegate:self];
     }
     return self;
 }
 
 - (void)viewDidLoad {
+    [self onFileSelected:[NSURL URLWithString:_firmware.fileURL]];
+
+    CBPeripheral *peripheral = _sensor.peripheral;
+    selectedPeripheral = peripheral;
+    deviceName.text = peripheral.name;
+    [_dfuOperations connectDevice:peripheral];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,7 +88,7 @@
 
 - (void)uploadPressed {
     if (self.isTransferring) {
-        [dfuOperations cancelDFU];
+        [_dfuOperations cancelDFU];
     }
     else {
         [self performDFU];
@@ -97,88 +97,12 @@
 
 - (void)performDFU {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self disableOtherButtons];
         uploadStatus.hidden = NO;
         progress.hidden = NO;
         progressLabel.hidden = NO;
         uploadButton.enabled = NO;
     });
-    if (self.isSelectedFileZipped) {
-        switch (enumFirmwareType) {
-            case SOFTDEVICE_AND_BOOTLOADER:
-                [dfuOperations performDFUOnFiles:self.softdeviceURL bootloaderURL:self.bootloaderURL firmwareType:SOFTDEVICE_AND_BOOTLOADER];
-                break;
-            case SOFTDEVICE:
-                [dfuOperations performDFUOnFile:self.softdeviceURL firmwareType:SOFTDEVICE];
-                break;
-            case BOOTLOADER:
-                [dfuOperations performDFUOnFile:self.bootloaderURL firmwareType:BOOTLOADER];
-                break;
-            case APPLICATION:
-                [dfuOperations performDFUOnFile:self.applicationURL firmwareType:APPLICATION];
-                break;
-                
-            default:
-                NSLog(@"Not valid File type");
-                break;
-        }
-    }
-    else {
-        [dfuOperations performDFUOnFile:selectedFileURL firmwareType:enumFirmwareType];
-    }
-}
-
-- (void)unzipFiles:(NSURL *)zipFileURL {
-    self.softdeviceURL = self.bootloaderURL = self.applicationURL = nil;
-    UnzipFirmware *unzipFiles = [[UnzipFirmware alloc]init];
-    NSArray *firmwareFilesURL = [unzipFiles unzipFirmwareFiles:zipFileURL];
-    for (NSURL *firmwareURL in firmwareFilesURL) {
-        if ([[[firmwareURL path] lastPathComponent] isEqualToString:@"softdevice.hex"]) {
-            self.softdeviceURL = firmwareURL;
-        }
-        else if ([[[firmwareURL path] lastPathComponent] isEqualToString:@"bootloader.hex"]) {
-            self.bootloaderURL = firmwareURL;
-        }
-        else if ([[[firmwareURL path] lastPathComponent] isEqualToString:@"application.hex"]) {
-            self.applicationURL = firmwareURL;
-        }        
-    }
-}
-
-- (void)appDidEnterBackground:(NSNotification *)_notification {
-    //    UILocalNotification *notification = [[UILocalNotification alloc]init];
-    //    notification.alertAction = @"Show";
-    //    notification.alertBody = @"You are still connected to Running Speed and Cadence sensor. It will collect data also in background.";
-    //    notification.hasAction = NO;
-    //    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-    //    notification.timeZone = [NSTimeZone  defaultTimeZone];
-    //    notification.soundName = UILocalNotificationDefaultSoundName;
-    //    [[UIApplication sharedApplication] setScheduledLocalNotifications:[NSArray arrayWithObject:notification]];
-}
-
-- (void)appDidBecomeActiveBackground:(NSNotification *)_notification {
-    //    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-}
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    // The 'scan' or 'select' seque will be performed only if DFU process has not been started or was completed.
-    //return !self.isTransferring;
-    return YES;
-}
-
-- (void)setFirmwareType:(NSString *)firmwareType {
-    if ([firmwareType isEqualToString:FIRMWARE_TYPE_SOFTDEVICE]) {
-        enumFirmwareType = SOFTDEVICE;
-    }
-    else if ([firmwareType isEqualToString:FIRMWARE_TYPE_BOOTLOADER]) {
-        enumFirmwareType = BOOTLOADER;
-    }
-    else if ([firmwareType isEqualToString:FIRMWARE_TYPE_BOTH_SOFTDEVICE_BOOTLOADER]) {
-        enumFirmwareType = SOFTDEVICE_AND_BOOTLOADER;
-    }
-    else if ([firmwareType isEqualToString:FIRMWARE_TYPE_APPLICATION]) {
-        enumFirmwareType = APPLICATION;
-    }
+    [_dfuOperations performDFUOnFile:selectedFileURL firmwareType:APPLICATION];
 }
 
 - (void)clearUI {
@@ -192,22 +116,11 @@
     progressLabel.text = @"";
     [uploadButton setTitle:@"Upload" forState:UIControlStateNormal];
     uploadButton.enabled = NO;
-    [self enableOtherButtons];
 }
 
 - (void)enableUploadButton {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (selectedFileType && self.selectedFileSize > 0) {
-            if ([self isValidFileSelected]) {
-                NSLog(@" valid file selected");
-            }
-            else {
-                NSLog(@"Valid file not available in zip file");                
-                [Utility showAlert:[self getFileValidationMessage]];
-                return;
-            }
-        }
-        if (selectedPeripheral && selectedFileType && self.selectedFileSize > 0 && self.isConnected) {
+        if (selectedPeripheral && self.selectedFileSize > 0 && self.isConnected) {
             uploadButton.enabled = YES;
         }
         else {
@@ -215,124 +128,6 @@
         }
 
     });
-}
-
-- (BOOL)isValidFileSelected {
-    NSLog(@"isValidFileSelected");
-    if (self.isSelectedFileZipped) {
-        switch (enumFirmwareType) {
-            case SOFTDEVICE_AND_BOOTLOADER:
-                if (self.softdeviceURL && self.bootloaderURL) {
-                    NSLog(@"Found Softdevice and Bootloader files in selected zip file");
-                    return YES;
-                }
-                break;
-            case SOFTDEVICE:
-                if (self.softdeviceURL) {
-                    NSLog(@"Found Softdevice file in selected zip file");
-                    return YES;
-                }
-                break;
-            case BOOTLOADER:
-                if (self.bootloaderURL) {
-                    NSLog(@"Found Bootloader file in selected zip file");
-                    return YES;
-                }
-                break;
-            case APPLICATION:
-                if (self.applicationURL) {
-                    NSLog(@"Found Application file in selected zip file");
-                    return YES;
-                }
-                break;
-                
-            default:
-                NSLog(@"Not valid File type");
-                return NO;
-                break;
-        }
-        //Corresponding file to selected file type is not present in zip file
-        return NO;
-    }
-    else if(enumFirmwareType == SOFTDEVICE_AND_BOOTLOADER){
-        NSLog(@"Please select zip file with softdevice and bootloader inside");
-        return NO;
-    }
-    else {
-        //Selcted file is not zip and file type is not Softdevice + Bootloader
-        //then it is upto user to assign correct file to corresponding file type
-        return YES;
-    }    
-}
-
-- (NSString *)getUploadStatusMessage {
-    switch (enumFirmwareType) {
-        case SOFTDEVICE:
-            return @"uploading softdevice ...";
-            break;
-        case BOOTLOADER:
-            return @"uploading bootloader ...";
-            break;
-        case APPLICATION:
-            return @"uploading application ...";
-            break;
-        case SOFTDEVICE_AND_BOOTLOADER:
-            return @"uploading softdevice ...";
-            break;
-            
-        default:
-            return @"uploading ...";
-            break;
-    }
-}
-
-- (NSString *)getFileValidationMessage {
-    NSString *message;
-    switch (enumFirmwareType) {
-        case SOFTDEVICE:
-            message = [NSString stringWithFormat:@"softdevice.hex not exist inside selected file %@",[self.selectedFileURL lastPathComponent]];
-            return message;
-        case BOOTLOADER:
-            message = [NSString stringWithFormat:@"bootloader.hex not exist inside selected file %@",[self.selectedFileURL lastPathComponent]];
-            return message;
-        case APPLICATION:
-            message = [NSString stringWithFormat:@"application.hex not exist inside selected file %@",[self.selectedFileURL lastPathComponent]];
-            return message;
-            
-        case SOFTDEVICE_AND_BOOTLOADER:
-            return @"For selected File Type, zip file is required having inside softdevice.hex and bootloader.hex";
-            break;
-            
-        default:
-            return @"Not valid File type";
-            break;
-    }
-}
-
-- (void)disableOtherButtons {
-    connectButton.enabled = NO;
-}
-
-- (void)enableOtherButtons {
-    connectButton.enabled = YES;
-}
-
-#pragma mark FileType Selector Delegate
-
-- (IBAction)unwindFileTypeSelector:(UIStoryboardSegue*)sender {
-    FileTypeTableViewController *fileTypeVC = [sender sourceViewController];
-    selectedFileType = fileTypeVC.chosenFirmwareType;
-    NSLog(@"unwindFileTypeSelector, selected Filetype: %@",selectedFileType);
-    fileType.text = selectedFileType;
-    [self setFirmwareType:selectedFileType];
-    [self enableUploadButton];
-}
-
-- (void)centralManager:(CBCentralManager *)manager didPeripheralSelected:(CBPeripheral *)peripheral {
-    selectedPeripheral = peripheral;
-    [dfuOperations setCentralManager:manager];
-    deviceName.text = peripheral.name;
-    [dfuOperations connectDevice:peripheral];
 }
 
 #pragma mark File Selection Delegate
@@ -353,7 +148,6 @@
         if ([extension isEqualToString:@"zip"]) {
             NSLog(@"this is zip file");
             self.isSelectedFileZipped = YES;
-            [self unzipFiles:selectedFileURL];
         }
         else {
             self.isSelectedFileZipped = NO;
@@ -402,7 +196,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         uploadButton.enabled = YES;
         [uploadButton setTitle:@"Cancel" forState:UIControlStateNormal];
-        NSString *uploadStatusMessage = [self getUploadStatusMessage];
+        NSString *uploadStatusMessage = @"Uploading...";
         uploadStatus.text = uploadStatusMessage;
     });
 }
@@ -411,9 +205,6 @@
     NSLog(@"onDFUCancelled");
     self.isTransferring = NO;
     self.isTransferCancelled = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self enableOtherButtons];
-    });
 }
 
 - (void)onSoftDeviceUploadStarted {
@@ -451,7 +242,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isTransferring = NO;
         self.isTransfered = YES;
-        NSString* message = [NSString stringWithFormat:@"%u bytes transfered in %u seconds", dfuOperations.binFileSize, dfuOperations.uploadTimeInSeconds];
+        NSString* message = [NSString stringWithFormat:@"%u bytes transfered in %u seconds", _dfuOperations.binFileSize, _dfuOperations.uploadTimeInSeconds];
         [Utility showAlert:message];
     });
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
 		04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC799E1A1E9398001227D6 /* DfuCentralManager.m */; };
+		04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
@@ -83,7 +84,6 @@
 		30B9E11D19473866001E10A5 /* WPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11119473866001E10A5 /* WPRequest.m */; };
 		30B9E11E19473866001E10A5 /* WPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11319473866001E10A5 /* WPResponse.m */; };
 		30B9E11F19473866001E10A5 /* WPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E11519473866001E10A5 /* WPURLConnection.m */; };
-		30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */; };
 		30C11810186B26270068633C /* GrowSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C1180F186B26270068633C /* GrowSensor.m */; };
 		30C11813186B42A20068633C /* SentrySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11812186B42A20068633C /* SentrySensor.m */; };
 		30C11816186B4EB00068633C /* ThermoSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C11815186B4EB00068633C /* ThermoSensor.m */; };
@@ -181,23 +181,14 @@
 		F72564961A41E82600BEF94B /* DFUOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564791A41E82600BEF94B /* DFUOperations.m */; };
 		F72564971A41E82600BEF94B /* DFUOperationsDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = F725647B1A41E82600BEF94B /* DFUOperationsDetails.m */; };
 		F72564981A41E82600BEF94B /* FileOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = F725647D1A41E82600BEF94B /* FileOperations.m */; };
-		F72564991A41E82600BEF94B /* AccessFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564801A41E82600BEF94B /* AccessFileSystem.m */; };
-		F725649A1A41E82600BEF94B /* AppFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564821A41E82600BEF94B /* AppFilesTableViewController.m */; };
-		F725649B1A41E82600BEF94B /* FileTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564841A41E82600BEF94B /* FileTypeTableViewController.m */; };
-		F725649C1A41E82600BEF94B /* FolderFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564861A41E82600BEF94B /* FolderFilesTableViewController.m */; };
-		F725649D1A41E82600BEF94B /* UserFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564881A41E82600BEF94B /* UserFilesTableViewController.m */; };
 		F725649E1A41E82600BEF94B /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F725648B1A41E82600BEF94B /* IntelHex2BinConverter.m */; };
-		F72564A01A41E82600BEF94B /* UnzipFirmware.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564921A41E82600BEF94B /* UnzipFirmware.m */; };
 		F72564A51A41ED6500BEF94B /* DFUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564A41A41ED6500BEF94B /* DFUViewController.m */; };
-		F72564A71A41ED8100BEF94B /* DFUViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72564A61A41ED8100BEF94B /* DFUViewController.xib */; };
-		F72564AB1A41EF7800BEF94B /* Background4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F72564AA1A41EF7800BEF94B /* Background4@2x.png */; };
 		F72564BA1A41F12900BEF94B /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = F72564AF1A41F12900BEF94B /* ioapi.c */; };
 		F72564BB1A41F12900BEF94B /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = F72564B11A41F12900BEF94B /* mztools.c */; };
 		F72564BC1A41F12900BEF94B /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = F72564B31A41F12900BEF94B /* unzip.c */; };
 		F72564BD1A41F12900BEF94B /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = F72564B51A41F12900BEF94B /* zip.c */; };
 		F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564B81A41F12900BEF94B /* SSZipArchive.m */; };
 		F72564BF1A41F12900BEF94B /* SSZipArchiveLicense.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F72564B91A41F12900BEF94B /* SSZipArchiveLicense.rtf */; };
-		F72564C11A41FACC00BEF94B /* Background35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F72564C01A41FACC00BEF94B /* Background35@2x.png */; };
 		F74152431A1A3E0E00A72AA5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -205,6 +196,7 @@
 		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		04AC799D1A1E9398001227D6 /* DfuCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DfuCentralManager.h; sourceTree = "<group>"; };
 		04AC799E1A1E9398001227D6 /* DfuCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DfuCentralManager.m; sourceTree = "<group>"; };
+		04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
@@ -312,7 +304,6 @@
 		30B9E11319473866001E10A5 /* WPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPResponse.m; sourceTree = "<group>"; };
 		30B9E11419473866001E10A5 /* WPURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPURLConnection.h; sourceTree = "<group>"; };
 		30B9E11519473866001E10A5 /* WPURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPURLConnection.m; sourceTree = "<group>"; };
-		30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareUploadViewController_iPhone.xib; sourceTree = "<group>"; };
 		30C1180E186B26270068633C /* GrowSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensor.h; sourceTree = "<group>"; };
 		30C1180F186B26270068633C /* GrowSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensor.m; sourceTree = "<group>"; };
 		30C11811186B42A20068633C /* SentrySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentrySensor.h; sourceTree = "<group>"; };
@@ -455,24 +446,10 @@
 		F725647B1A41E82600BEF94B /* DFUOperationsDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUOperationsDetails.m; sourceTree = "<group>"; };
 		F725647C1A41E82600BEF94B /* FileOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
 		F725647D1A41E82600BEF94B /* FileOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileOperations.m; sourceTree = "<group>"; };
-		F725647F1A41E82600BEF94B /* AccessFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessFileSystem.h; sourceTree = "<group>"; };
-		F72564801A41E82600BEF94B /* AccessFileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessFileSystem.m; sourceTree = "<group>"; };
-		F72564811A41E82600BEF94B /* AppFilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFilesTableViewController.h; sourceTree = "<group>"; };
-		F72564821A41E82600BEF94B /* AppFilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppFilesTableViewController.m; sourceTree = "<group>"; };
-		F72564831A41E82600BEF94B /* FileTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTypeTableViewController.h; sourceTree = "<group>"; };
-		F72564841A41E82600BEF94B /* FileTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTypeTableViewController.m; sourceTree = "<group>"; };
-		F72564851A41E82600BEF94B /* FolderFilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderFilesTableViewController.h; sourceTree = "<group>"; };
-		F72564861A41E82600BEF94B /* FolderFilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderFilesTableViewController.m; sourceTree = "<group>"; };
-		F72564871A41E82600BEF94B /* UserFilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFilesTableViewController.h; sourceTree = "<group>"; };
-		F72564881A41E82600BEF94B /* UserFilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFilesTableViewController.m; sourceTree = "<group>"; };
 		F725648A1A41E82600BEF94B /* IntelHex2BinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntelHex2BinConverter.h; sourceTree = "<group>"; };
 		F725648B1A41E82600BEF94B /* IntelHex2BinConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntelHex2BinConverter.m; sourceTree = "<group>"; };
-		F72564911A41E82600BEF94B /* UnzipFirmware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnzipFirmware.h; sourceTree = "<group>"; };
-		F72564921A41E82600BEF94B /* UnzipFirmware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnzipFirmware.m; sourceTree = "<group>"; };
 		F72564A31A41ED6500BEF94B /* DFUViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFUViewController.h; sourceTree = "<group>"; };
 		F72564A41A41ED6500BEF94B /* DFUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUViewController.m; sourceTree = "<group>"; };
-		F72564A61A41ED8100BEF94B /* DFUViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController.xib; sourceTree = "<group>"; };
-		F72564AA1A41EF7800BEF94B /* Background4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background4@2x.png"; sourceTree = "<group>"; };
 		F72564AE1A41F12900BEF94B /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		F72564AF1A41F12900BEF94B /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		F72564B01A41F12900BEF94B /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -485,7 +462,6 @@
 		F72564B71A41F12900BEF94B /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		F72564B81A41F12900BEF94B /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		F72564B91A41F12900BEF94B /* SSZipArchiveLicense.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = SSZipArchiveLicense.rtf; sourceTree = "<group>"; };
-		F72564C01A41FACC00BEF94B /* Background35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background35@2x.png"; sourceTree = "<group>"; };
 		F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Shared/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -550,7 +526,7 @@
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
 				30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */,
 				30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */,
-				30B9E14219477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib */,
+				04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -846,8 +822,6 @@
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				F72564C01A41FACC00BEF94B /* Background35@2x.png */,
-				F72564AA1A41EF7800BEF94B /* Background4@2x.png */,
 				499571481A09238600338FAC /* Media.xcassets */,
 				493A4934184EB9C80000A2F6 /* plant_temperature-512.png */,
 				493A4930184EB81A0000A2F6 /* plant_under_rain-512.png */,
@@ -1120,12 +1094,9 @@
 			children = (
 				F72564701A41E82600BEF94B /* Constants */,
 				F72564751A41E82600BEF94B /* DFUImplementation */,
-				F725647E1A41E82600BEF94B /* FileSelection */,
 				F72564891A41E82600BEF94B /* HexToBinConverter */,
-				F72564901A41E82600BEF94B /* Unzip */,
 				F72564A31A41ED6500BEF94B /* DFUViewController.h */,
 				F72564A41A41ED6500BEF94B /* DFUViewController.m */,
-				F72564A61A41ED8100BEF94B /* DFUViewController.xib */,
 			);
 			path = DFU;
 			sourceTree = "<group>";
@@ -1154,23 +1125,6 @@
 			path = DFUImplementation;
 			sourceTree = "<group>";
 		};
-		F725647E1A41E82600BEF94B /* FileSelection */ = {
-			isa = PBXGroup;
-			children = (
-				F725647F1A41E82600BEF94B /* AccessFileSystem.h */,
-				F72564801A41E82600BEF94B /* AccessFileSystem.m */,
-				F72564811A41E82600BEF94B /* AppFilesTableViewController.h */,
-				F72564821A41E82600BEF94B /* AppFilesTableViewController.m */,
-				F72564831A41E82600BEF94B /* FileTypeTableViewController.h */,
-				F72564841A41E82600BEF94B /* FileTypeTableViewController.m */,
-				F72564851A41E82600BEF94B /* FolderFilesTableViewController.h */,
-				F72564861A41E82600BEF94B /* FolderFilesTableViewController.m */,
-				F72564871A41E82600BEF94B /* UserFilesTableViewController.h */,
-				F72564881A41E82600BEF94B /* UserFilesTableViewController.m */,
-			);
-			path = FileSelection;
-			sourceTree = "<group>";
-		};
 		F72564891A41E82600BEF94B /* HexToBinConverter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1178,15 +1132,6 @@
 				F725648B1A41E82600BEF94B /* IntelHex2BinConverter.m */,
 			);
 			path = HexToBinConverter;
-			sourceTree = "<group>";
-		};
-		F72564901A41E82600BEF94B /* Unzip */ = {
-			isa = PBXGroup;
-			children = (
-				F72564911A41E82600BEF94B /* UnzipFirmware.h */,
-				F72564921A41E82600BEF94B /* UnzipFirmware.m */,
-			);
-			path = Unzip;
 			sourceTree = "<group>";
 		};
 		F72564AC1A41F12900BEF94B /* SSZipArchive */ = {
@@ -1273,7 +1218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F72564C11A41FACC00BEF94B /* Background35@2x.png in Resources */,
 				30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */,
 				302A715D192D284B006E0A6C /* slider-default7-trackBackground.png in Resources */,
 				302A7150192D284B006E0A6C /* slider-default-handle-highlighted@2x.png in Resources */,
@@ -1317,12 +1261,10 @@
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
 				4901D3F1192F885D005EB15C /* battery-low.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
-				F72564A71A41ED8100BEF94B /* DFUViewController.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */,
-				F72564AB1A41EF7800BEF94B /* Background4@2x.png in Resources */,
 				90CFFEAC17A7CF2F00353F80 /* Default-568h@2x.png in Resources */,
 				30B487E7184DFCB7002B0CD8 /* RightMenuViewController_iPhone.xib in Resources */,
 				302A7162192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png in Resources */,
@@ -1340,7 +1282,6 @@
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
 				498CEFBB19AA86F400EAEB98 /* Grow 128px.png in Resources */,
 				302A7168192D284B006E0A6C /* slider-metal-trackBackground@2x.png in Resources */,
-				30B9E14319477E91001E10A5 /* FirmwareUploadViewController_iPhone.xib in Resources */,
 				4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */,
 				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
@@ -1353,6 +1294,7 @@
 				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
 				302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
+				04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
 				302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
@@ -1383,7 +1325,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				30B487EE184DFE33002B0CD8 /* RightMenuCell.m in Sources */,
 				2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */,
-				F725649D1A41E82600BEF94B /* UserFilesTableViewController.m in Sources */,
 				F72564931A41E82600BEF94B /* Utility.m in Sources */,
 				30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */,
 				F72564971A41E82600BEF94B /* DFUOperationsDetails.m in Sources */,
@@ -1404,7 +1345,6 @@
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				F72564951A41E82600BEF94B /* BLEOperations.m in Sources */,
 				30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */,
-				F72564991A41E82600BEF94B /* AccessFileSystem.m in Sources */,
 				F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */,
 				04EFF2FE195972540067589E /* SensorEntity.m in Sources */,
 				F72564BB1A41F12900BEF94B /* mztools.c in Sources */,
@@ -1416,15 +1356,12 @@
 				49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
-				F725649C1A41E82600BEF94B /* FolderFilesTableViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
 				309D2D6C1946279E007228B9 /* RelativeDateDescriptor.m in Sources */,
-				F72564A01A41E82600BEF94B /* UnzipFirmware.m in Sources */,
 				90D8079B185B409300FDF31D /* ClimateSensor.m in Sources */,
 				30C11810186B26270068633C /* GrowSensor.m in Sources */,
 				30B9E11C19473866001E10A5 /* WPNetworkDispatcher.m in Sources */,
-				F725649A1A41E82600BEF94B /* AppFilesTableViewController.m in Sources */,
 				30B9E11D19473866001E10A5 /* WPRequest.m in Sources */,
 				30B9E11E19473866001E10A5 /* WPResponse.m in Sources */,
 				49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */,
@@ -1457,7 +1394,6 @@
 				F72564BC1A41F12900BEF94B /* unzip.c in Sources */,
 				F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
-				F725649B1A41E82600BEF94B /* FileTypeTableViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
 				90815A421868736E00A9EC0A /* ValueEntity.m in Sources */,
 			);

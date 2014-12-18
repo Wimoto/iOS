@@ -40,18 +40,6 @@ NSDate *startTime, *finishTime;
 }
 
 
--(void)setCentralManager:(CBCentralManager *)manager
-{
-    if (manager) {
-        [bleOperations setBluetoothCentralManager:manager];
-    }
-    else {
-        NSLog(@"CBCentralManager is nil");
-        NSString *errorMessage = [NSString stringWithFormat:@"Error on received CBCentralManager\n Message: Bluetooth central manager is nil"];
-        [dfuDelegate onError:errorMessage];
-    }
-}
-
 -(void)connectDevice:(CBPeripheral *)peripheral
 {
     if (peripheral) {

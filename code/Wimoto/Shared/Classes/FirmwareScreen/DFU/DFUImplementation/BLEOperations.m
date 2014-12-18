@@ -22,17 +22,10 @@ bool isDFUPacketCharacteristicFound, isDFUControlPointCharacteristic;
     return self;
 }
 
--(void)setBluetoothCentralManager:(CBCentralManager *)manager
-{
-    self.centralManager = manager;
-    self.centralManager.delegate = self;
-}
-
 -(void)connectDevice:(CBPeripheral *)peripheral
 {
     self.bluetoothPeripheral = peripheral;
-    self.bluetoothPeripheral.delegate = self;
-    [self.centralManager connectPeripheral:peripheral options:nil];
+    self.bluetoothPeripheral.delegate = self;    
 }
 
 -(void)searchDFURequiredCharacteristics:(CBService *)service
@@ -54,30 +47,6 @@ bool isDFUPacketCharacteristicFound, isDFUControlPointCharacteristic;
     }
 }
 
-#pragma mark - CentralManager delegates
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    NSLog(@"centralManagerDidUpdateState");
-}
-
--(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    NSLog(@"didConnectPeripheral");
-    [self.bluetoothPeripheral discoverServices:nil];
-}
-
--(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
-    NSLog(@"didDisconnectPeripheral");
-    [self.bleDelegate onDeviceDisconnected:peripheral];
-}
-
--(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
-    NSLog(@"didFailToConnectPeripheral");
-    [self.bleDelegate onDeviceDisconnected:peripheral];
-}
-
 #pragma mark - CBPeripheral delegates
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
@@ -92,7 +61,6 @@ bool isDFUPacketCharacteristicFound, isDFUControlPointCharacteristic;
         }
     }
     NSString *errorMessage = [NSString stringWithFormat:@"Error on discovering service\n Message: Required DFU service not available on peripheral"];
-    [self.centralManager cancelPeripheralConnection:peripheral];
     [self.bleDelegate onError:errorMessage];
 }
 
@@ -105,7 +73,6 @@ bool isDFUPacketCharacteristicFound, isDFUControlPointCharacteristic;
     }
     else {
         NSString *errorMessage = [NSString stringWithFormat:@"Error on discovering characteristics\n Message: Required DFU characteristics are not available on peripheral"];
-        [self.centralManager cancelPeripheralConnection:peripheral];
         [self.bleDelegate onError:errorMessage];
     }
 }

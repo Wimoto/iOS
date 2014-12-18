@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "FileTypeTableViewController.h"
-#import "AppFilesTableViewController.h"
 #import "DFUOperations.h"
 #import "AppViewController.h"
 
-@interface DFUViewController : AppViewController <FileSelectionDelegate, DFUOperationsDelegate>
+#import "Firmware.h"
+#import "Sensor.h"
 
-@property (weak, nonatomic) IBOutlet UILabel *deviceName;
-@property (weak, nonatomic) IBOutlet UIButton *connectButton;
-@property (strong, nonatomic) NSString *selectedFileType;
+@interface DFUViewController : AppViewController <DFUOperationsDelegate>
+
+- (id)initWithSensor:(Sensor *)sensor andFirmware:(Firmware *)firmware;
 
 @end

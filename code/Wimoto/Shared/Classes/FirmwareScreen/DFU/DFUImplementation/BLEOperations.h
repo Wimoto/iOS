@@ -20,9 +20,8 @@
 
 @end
 
-@interface BLEOperations : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface BLEOperations : NSObject <CBPeripheralDelegate>
 
-@property (strong, nonatomic) CBCentralManager *centralManager;
 @property (strong, nonatomic) CBPeripheral *bluetoothPeripheral;
 @property (strong, nonatomic)CBCharacteristic *dfuPacketCharacteristic;
 @property (strong, nonatomic)CBCharacteristic *dfuControlPointCharacteristic;
@@ -32,7 +31,6 @@
 //define delegate property
 @property (nonatomic, assign)id<BLEOperationsDelegate> bleDelegate;
 
--(void)setBluetoothCentralManager:(CBCentralManager *)manager;
 -(void)connectDevice:(CBPeripheral *)peripheral;
 
 @end

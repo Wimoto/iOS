@@ -81,7 +81,7 @@
     
     Firmware *firmware = [_firmwares objectAtIndex:indexPath.row];
     
-    DFUViewController *DFUController = [[DFUViewController alloc] init];
+    DFUViewController *DFUController = [[DFUViewController alloc] initWithSensor:_sensor andFirmware:firmware];
     [self.navigationController pushViewController:DFUController animated:YES];
 }
 
