@@ -285,7 +285,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
-        self.dfuModeOn = YES;
+        // does nothing so far
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {

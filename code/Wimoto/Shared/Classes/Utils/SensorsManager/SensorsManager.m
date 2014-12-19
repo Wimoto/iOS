@@ -245,6 +245,7 @@ static SensorsManager *sensorsManager = nil;
     if (sensor) {
         dispatch_async(dispatch_get_main_queue(), ^{
             sensor.peripheral = peripheral;
+            sensor.dfuModeOn = YES;
         });
     }
 }
