@@ -57,7 +57,6 @@
     NSLog(@"WimotoCentralManager dealloc");
 }
 
-
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
@@ -97,6 +96,7 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
     
+    NSLog(@"WimotoCentralManager didConnectPeripheral");
     NSArray *services = [NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE], [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     [peripheral discoverServices:services];
 }
