@@ -8,7 +8,7 @@
 
 #import "FirmwareViewController.h"
 #import "FirmwareCell.h"
-#import "FirmwareUploadViewController.h"
+#import "DFUViewController.h"
 #import "Firmware.h"
 #import "SVProgressHUD.h"
 
@@ -81,8 +81,8 @@
     
     Firmware *firmware = [_firmwares objectAtIndex:indexPath.row];
     
-    FirmwareUploadViewController *firmwareUploadController = [[FirmwareUploadViewController alloc] initWithSensor:_sensor andFirmware:firmware];
-    [self.navigationController pushViewController:firmwareUploadController animated:YES];
+    DFUViewController *DFUController = [[DFUViewController alloc] initWithSensor:_sensor andFirmware:firmware];
+    [self.navigationController pushViewController:DFUController animated:YES];
 }
 
 #pragma mark - WPResponseReceiver

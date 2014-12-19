@@ -233,9 +233,13 @@
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
+            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE %@", characteristic.value);
+            
             self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE %@", characteristic.value);
+
             self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
