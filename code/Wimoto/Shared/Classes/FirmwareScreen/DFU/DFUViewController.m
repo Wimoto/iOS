@@ -267,7 +267,7 @@
                        context:(void *)context {
 
     BOOL isDfuModeOn = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
-    NSLog(@"isDFU MODE %d", isDfuModeOn);
+    NSLog(@"DFUViewController isDFU MODE %d", isDfuModeOn);
 
     if (isDfuModeOn) {
         CBPeripheral *peripheral = _sensor.peripheral;

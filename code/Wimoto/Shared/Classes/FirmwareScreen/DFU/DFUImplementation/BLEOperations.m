@@ -25,7 +25,8 @@ bool isDFUPacketCharacteristicFound, isDFUControlPointCharacteristic;
 -(void)connectDevice:(CBPeripheral *)peripheral
 {
     self.bluetoothPeripheral = peripheral;
-    self.bluetoothPeripheral.delegate = self;    
+    self.bluetoothPeripheral.delegate = self;
+    [self.bluetoothPeripheral discoverServices:nil];
 }
 
 -(void)searchDFURequiredCharacteristics:(CBService *)service
