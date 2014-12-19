@@ -68,22 +68,25 @@
         _firmware = firmware;
         
         _dfuOperations = [[DFUOperations alloc] initWithDelegate:self];
+        
+        [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [self onFileSelected:[NSURL URLWithString:_firmware.fileURL]];
-
-    CBPeripheral *peripheral = _sensor.peripheral;
-    selectedPeripheral = peripheral;
-    deviceName.text = peripheral.name;
-    [_dfuOperations connectDevice:peripheral];
+    
+    [_sensor switchToDfuMode];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE];
 }
 
 - (void)uploadPressed {
@@ -255,5 +258,24 @@
         [self clearUI];
     });
 }
+
+#pragma mark - Value Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+
+    BOOL isDfuModeOn = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
+    NSLog(@"isDFU MODE %d", isDfuModeOn);
+
+    if (isDfuModeOn) {
+        CBPeripheral *peripheral = _sensor.peripheral;
+        selectedPeripheral = peripheral;
+        deviceName.text = peripheral.name;
+        [_dfuOperations connectDevice:peripheral];
+    }
+}
+
 
 @end
