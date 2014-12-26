@@ -70,7 +70,6 @@
 		30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0EB194729AA001E10A5 /* DFUController.m */; };
 		30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */; };
 		30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */; };
-		30B9E0F519472CFD001E10A5 /* FirmwareViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */; };
 		30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F719472DFC001E10A5 /* FirmwareCell.m */; };
 		30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */; };
 		30B9E0FE19473352001E10A5 /* Firmware.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0FD19473352001E10A5 /* Firmware.m */; };
@@ -277,7 +276,6 @@
 		30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUTargetAdapter.m; sourceTree = "<group>"; };
 		30B9E0F119472CD9001E10A5 /* FirmwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareViewController.h; sourceTree = "<group>"; };
 		30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareViewController.m; sourceTree = "<group>"; };
-		30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B9E0F619472DFC001E10A5 /* FirmwareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareCell.h; sourceTree = "<group>"; };
 		30B9E0F719472DFC001E10A5 /* FirmwareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareCell.m; sourceTree = "<group>"; };
 		30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareCell_iPhone.xib; sourceTree = "<group>"; };
@@ -524,7 +522,6 @@
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
-				30B9E0F419472CFD001E10A5 /* FirmwareViewController_iPhone.xib */,
 				30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */,
 				04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */,
 			);
@@ -1252,7 +1249,6 @@
 				498CEFC919AA92E500EAEB98 /* cloudupload.png in Resources */,
 				90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */,
 				302A7157192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png in Resources */,
-				30B9E0F519472CFD001E10A5 /* FirmwareViewController_iPhone.xib in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				F72564BF1A41F12900BEF94B /* SSZipArchiveLicense.rtf in Resources */,
 				498CEFBF19AA896000EAEB98 /* thermo 128px.png in Resources */,
