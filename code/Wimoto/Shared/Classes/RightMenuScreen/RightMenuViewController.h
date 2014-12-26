@@ -6,9 +6,9 @@
 //
 //
 
-#import "AppTableViewController.h"
+#import "AppViewController.h"
 #import "SensorsManager.h"
 
-@interface RightMenuViewController : AppTableViewController<SensorsObserver>
+@interface RightMenuViewController : AppViewController<SensorsObserver>
 
 @end
