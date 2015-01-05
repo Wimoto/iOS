@@ -12,8 +12,10 @@
 #import "Sensor.h"
 #import "NMRangeSlider.h"
 #import "AlarmSlider.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface SensorViewController : AppViewController <AlarmSliderDelegate, UITextFieldDelegate>
+@interface SensorViewController : AppViewController <AlarmSliderDelegate, UITextFieldDelegate, SensorDataReadingDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) UISwitch *currentSwitch;

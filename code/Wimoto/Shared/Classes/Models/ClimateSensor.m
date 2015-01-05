@@ -259,7 +259,9 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ]]) {
             NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
-            NSLog(@"dataLogger from Climate %@", dataLogger);
+            
+            NSLog(@"dataLogger is %@", dataLogger);
+            [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
         }
     });
 }

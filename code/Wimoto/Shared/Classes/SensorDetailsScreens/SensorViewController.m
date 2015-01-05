@@ -18,7 +18,10 @@
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
 @property (nonatomic, weak) IBOutlet UIButton *dataLoggerButton;
+
 @property (nonatomic, weak) IBOutlet UIButton *dataReadbackButton;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *dataReadbackIndicatorView;
+
 @property (nonatomic, weak) IBOutlet UIButton *dfuButton;
 
 - (IBAction)firmwareUpdateAction:(id)sender;
@@ -34,6 +37,7 @@
     self = [super init];
     if (self) {
         _sensor = sensor;
+        [_sensor setDataReadingDelegate:self];
     }
     return self;
 }
@@ -61,6 +65,7 @@
 }
 
 - (void)dealloc {
+    [_sensor setDataReadingDelegate:nil];
     @try {
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
@@ -89,6 +94,9 @@
 }
 
 - (IBAction)readDataLogger:(id)sender {
+    _dataReadbackButton.hidden = YES;
+    [_dataReadbackIndicatorView startAnimating];
+    
     [_sensor readDataLogger];
 }
 
@@ -197,4 +205,27 @@
     return YES;
 }
 
+#pragma mark - SensorDataReadingDelegate
+
+- (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error {
+    _dataReadbackButton.hidden = NO;
+    [_dataReadbackIndicatorView stopAnimating];
+    
+    if (!error) {
+        if([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+            mailController.mailComposeDelegate = self;
+            
+            [mailController setSubject:@"Wimoto"];
+            [mailController setMessageBody:@"Content from Wimoto Sensor" isHTML:NO];
+            [mailController addAttachmentData:data mimeType:@"text/csv" fileName:@"AppData.csv"];
+            
+            [self presentViewController:mailController animated:YES completion:nil];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

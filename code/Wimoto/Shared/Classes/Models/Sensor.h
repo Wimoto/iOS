@@ -43,6 +43,12 @@ typedef enum {
     kTemperatureMeasureCelsius
 } TemperatureMeasure;
 
+@protocol SensorDataReadingDelegate <NSObject>
+
+- (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error;
+
+@end
+
 @interface Sensor : NSObject <CBPeripheralDelegate>
 
 @property (nonatomic, getter = isRegistered) BOOL registered;
@@ -68,6 +74,7 @@ typedef enum {
 @property (nonatomic) TemperatureMeasure tempMeasure;
 
 @property (nonatomic) DataLoggerState dataLoggerState;
+@property (nonatomic, weak) id<SensorDataReadingDelegate> dataReadingDelegate;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;

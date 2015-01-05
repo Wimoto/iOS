@@ -10,6 +10,7 @@
                 <outlet property="batteryLevelImage" destination="jtb-bI-I3k" id="hFe-EY-rg5"/>
                 <outlet property="dataLoggerButton" destination="1vN-fW-Ewb" id="CBI-za-RMW"/>
                 <outlet property="dataReadbackButton" destination="tvl-hv-kV4" id="P2B-Mp-cV7"/>
+                <outlet property="dataReadbackIndicatorView" destination="8H7-EI-ZbH" id="J7b-PB-8ga"/>
                 <outlet property="dfuButton" destination="GhK-2U-Ctl" id="Yuo-Be-6ie"/>
                 <outlet property="humidityAlarmContainer" destination="CGB-gn-EQp" id="3yL-UQ-WnQ"/>
                 <outlet property="humidityHighValueLabel" destination="JHg-Ef-sea" id="9ag-Dy-BGi"/>
@@ -187,6 +188,10 @@
                         <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SK8-xm-2W0"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="8H7-EI-ZbH">
+                    <rect key="frame" x="16" y="476" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
                 <view contentMode="scaleToFill" id="guB-ja-Mj9">
                     <rect key="frame" x="129" y="190" width="191" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>

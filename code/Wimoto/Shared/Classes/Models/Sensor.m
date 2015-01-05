@@ -289,7 +289,11 @@
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
-        [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
+        if (error) {
+            [_dataReadingDelegate didUpdateSensorReadingData:nil error:error];
+        } else {
+            [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
+        }
     }
 }
 
