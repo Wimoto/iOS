@@ -10,6 +10,7 @@
                 <outlet property="batteryLevelImage" destination="jtb-bI-I3k" id="hFe-EY-rg5"/>
                 <outlet property="dataLoggerButton" destination="1vN-fW-Ewb" id="CBI-za-RMW"/>
                 <outlet property="dataReadbackButton" destination="tvl-hv-kV4" id="P2B-Mp-cV7"/>
+                <outlet property="dataReadbackIndicatorView" destination="8H7-EI-ZbH" id="J7b-PB-8ga"/>
                 <outlet property="dfuButton" destination="GhK-2U-Ctl" id="Yuo-Be-6ie"/>
                 <outlet property="humidityAlarmContainer" destination="CGB-gn-EQp" id="3yL-UQ-WnQ"/>
                 <outlet property="humidityHighValueLabel" destination="JHg-Ef-sea" id="9ag-Dy-BGi"/>

@@ -10,6 +10,7 @@
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
 		04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC799E1A1E9398001227D6 /* DfuCentralManager.m */; };
 		04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */; };
+		04E090801A5B253000FEBC66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E0907F1A5B253000FEBC66 /* MessageUI.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
@@ -197,6 +198,7 @@
 		04AC799D1A1E9398001227D6 /* DfuCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DfuCentralManager.h; sourceTree = "<group>"; };
 		04AC799E1A1E9398001227D6 /* DfuCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DfuCentralManager.m; sourceTree = "<group>"; };
 		04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
+		04E0907F1A5B253000FEBC66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
 		04EFF2FC195972540067589E /* SensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorEntity.h; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E090801A5B253000FEBC66 /* MessageUI.framework in Frameworks */,
 				048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */,
 				90EAB4AC185F7A6E00609A9C /* libz.dylib in Frameworks */,
 				90EAB4AA185F7A5C00609A9C /* libsqlite3.dylib in Frameworks */,
@@ -568,6 +571,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04E0907F1A5B253000FEBC66 /* MessageUI.framework */,
 				048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */,
 				F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */,
 				90EAB4AB185F7A6E00609A9C /* libz.dylib */,
