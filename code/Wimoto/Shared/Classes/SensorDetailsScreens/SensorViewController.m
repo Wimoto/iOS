@@ -208,6 +208,7 @@
 #pragma mark - SensorDataReadingDelegate
 
 - (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error {
+    NSLog(@"didUpdateSensorReadingData ");
     _dataReadbackButton.hidden = NO;
     [_dataReadbackIndicatorView stopAnimating];
     
