@@ -31,6 +31,7 @@
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
     WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
+    
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     

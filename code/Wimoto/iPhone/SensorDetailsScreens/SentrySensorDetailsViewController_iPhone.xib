@@ -22,7 +22,6 @@
                 <outlet property="sensorNameField" destination="BCv-L5-UuE" id="2Sc-zk-XnX"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="xAccelerometerLabel" destination="qIb-An-7J8" id="VYZ-CY-6uy"/>
-                <outlet property="yAccelerometerLabel" destination="9Xl-FM-aYX" id="0M4-be-EKl"/>
                 <outlet property="zAccelerometerLabel" destination="8lt-bZ-C9A" id="Upy-kJ-TmA"/>
             </connections>
         </placeholder>
