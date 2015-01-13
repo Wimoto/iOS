@@ -11,6 +11,7 @@
 #import "RelativeDateDescriptor.h"
 #import "FirmwareViewController.h"
 #import "QueueManager.h"
+#import "WimotoDeckController.h"
 
 @interface SensorViewController ()
 
@@ -28,6 +29,9 @@
 
 - (IBAction)enableDataLogger:(id)sender;
 - (IBAction)readDataLogger:(id)sender;
+
+- (IBAction)showLeftMenu:(id)sender;
+- (IBAction)showRightMenu:(id)sender;
 
 @end
 
@@ -98,6 +102,22 @@
     [_dataReadbackIndicatorView startAnimating];
     
     [_sensor readDataLogger];
+}
+
+- (IBAction)showLeftMenu:(id)sender {
+    if ([(WimotoDeckController*)self.viewDeckController isSideOpen:IIViewDeckLeftSide]) {
+        [(WimotoDeckController*)self.viewDeckController toggleLeftView];
+    } else {
+        [(WimotoDeckController*)self.viewDeckController openLeftViewAnimated:YES];
+    }
+}
+
+- (IBAction)showRightMenu:(id)sender {
+    if ([(WimotoDeckController*)self.viewDeckController isSideOpen:IIViewDeckRightSide]) {
+        [(WimotoDeckController*)self.viewDeckController toggleRightView];
+    } else {
+        [(WimotoDeckController*)self.viewDeckController openRightViewAnimated:YES];
+    }
 }
 
 - (void)refreshLastUpdateLabel {
