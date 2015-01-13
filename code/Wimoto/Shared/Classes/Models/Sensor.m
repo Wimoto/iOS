@@ -289,8 +289,11 @@
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
         [peripheral readValueForCharacteristic:characteristic];
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
+        NSLog(@"didWriteValueForCharacteristic _dataLoggerReadEnableCharacteristic %@", error);
         if (error) {
-            [_dataReadingDelegate didUpdateSensorReadingData:nil error:error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_dataReadingDelegate didUpdateSensorReadingData:nil error:error];
+            });
         } else {
             [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
         }
