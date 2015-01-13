@@ -137,6 +137,14 @@
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
 		4995714A1A09238600338FAC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499571481A09238600338FAC /* Media.xcassets */; };
 		4995714D1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */; };
+		49A660CE1A65B3DB00586C5A /* wimoto-cloud-sync.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660C71A65B3DB00586C5A /* wimoto-cloud-sync.png */; };
+		49A660CF1A65B3DB00586C5A /* wimoto-datalogger-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660C81A65B3DB00586C5A /* wimoto-datalogger-icon.png */; };
+		49A660D01A65B3DB00586C5A /* wimoto-droplet-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660C91A65B3DB00586C5A /* wimoto-droplet-icon.png */; };
+		49A660D11A65B3DB00586C5A /* wimoto-firmware-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660CA1A65B3DB00586C5A /* wimoto-firmware-icon.png */; };
+		49A660D21A65B3DB00586C5A /* Wimoto-menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660CB1A65B3DB00586C5A /* Wimoto-menu-icon.png */; };
+		49A660D31A65B3DB00586C5A /* wimoto-sun-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660CC1A65B3DB00586C5A /* wimoto-sun-icon.png */; };
+		49A660D41A65B3DB00586C5A /* wimoto-temperature-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660CD1A65B3DB00586C5A /* wimoto-temperature-icon.png */; };
+		49A660D61A65B43C00586C5A /* wimoto-settings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A660D51A65B43C00586C5A /* wimoto-settings-icon.png */; };
 		49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F01A04F00600D16ACD /* NSData+Conversion.m */; };
 		49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F21A04F00600D16ACD /* NSString+Util.m */; };
 		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
@@ -374,6 +382,14 @@
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
 		499571481A09238600338FAC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		49A660C71A65B3DB00586C5A /* wimoto-cloud-sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-cloud-sync.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-cloud-sync.png"; sourceTree = "<group>"; };
+		49A660C81A65B3DB00586C5A /* wimoto-datalogger-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-datalogger-icon.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-datalogger-icon.png"; sourceTree = "<group>"; };
+		49A660C91A65B3DB00586C5A /* wimoto-droplet-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-droplet-icon.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-droplet-icon.png"; sourceTree = "<group>"; };
+		49A660CA1A65B3DB00586C5A /* wimoto-firmware-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-firmware-icon.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-firmware-icon.png"; sourceTree = "<group>"; };
+		49A660CB1A65B3DB00586C5A /* Wimoto-menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Wimoto-menu-icon.png"; path = "../../../../../../../Documents/Wimoto/app/Wimoto-menu-icon.png"; sourceTree = "<group>"; };
+		49A660CC1A65B3DB00586C5A /* wimoto-sun-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-sun-icon.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-sun-icon.png"; sourceTree = "<group>"; };
+		49A660CD1A65B3DB00586C5A /* wimoto-temperature-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-temperature-icon.png"; path = "../../../../../../../Documents/Wimoto/app/wimoto-temperature-icon.png"; sourceTree = "<group>"; };
+		49A660D51A65B43C00586C5A /* wimoto-settings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-settings-icon.png"; path = "../../../../../../../Documents/wimoto-settings-icon.png"; sourceTree = "<group>"; };
 		49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		49CB68F01A04F00600D16ACD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		49CB68F11A04F00600D16ACD /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -864,10 +880,18 @@
 				498CEFC219AA8F3100EAEB98 /* microchip.png */,
 				498CEFBC19AA887D00EAEB98 /* sentry 128px.png */,
 				498CEFC819AA92E500EAEB98 /* cloudupload.png */,
+				49A660D51A65B43C00586C5A /* wimoto-settings-icon.png */,
 				498CEFC619AA918400EAEB98 /* cassette2.png */,
 				4949F32C19A4D77E00DB94C7 /* Climate 128px.png */,
 				4952E05D1A5DC74900EFCC70 /* wimoto-sun-icon.png */,
 				498CEFDC19AAB19F00EAEB98 /* buttons.png */,
+				49A660C71A65B3DB00586C5A /* wimoto-cloud-sync.png */,
+				49A660C81A65B3DB00586C5A /* wimoto-datalogger-icon.png */,
+				49A660C91A65B3DB00586C5A /* wimoto-droplet-icon.png */,
+				49A660CA1A65B3DB00586C5A /* wimoto-firmware-icon.png */,
+				49A660CB1A65B3DB00586C5A /* Wimoto-menu-icon.png */,
+				49A660CC1A65B3DB00586C5A /* wimoto-sun-icon.png */,
+				49A660CD1A65B3DB00586C5A /* wimoto-temperature-icon.png */,
 				4952E05B1A5DBFF600EFCC70 /* wimoto-datalogger-icon.png */,
 				490F3A8C184EDF43004B2BF1 /* border.png */,
 				4901D3E5192EB1D7005EB15C /* scale.png */,
@@ -1266,10 +1290,12 @@
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
 				498CEFC119AA8A5000EAEB98 /* leak 128px.png in Resources */,
 				498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */,
+				49A660CF1A65B3DB00586C5A /* wimoto-datalogger-icon.png in Resources */,
 				4995714D1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
 				496B527E19BD0C53005B9A8C /* menu.png in Resources */,
 				30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */,
+				49A660D11A65B3DB00586C5A /* wimoto-firmware-icon.png in Resources */,
 				F70439C81A0D5A5D007F5B58 /* SVProgressHUD.bundle in Resources */,
 				30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */,
 				302A7151192D284B006E0A6C /* slider-default-handle.png in Resources */,
@@ -1285,6 +1311,7 @@
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
 				498CEFC919AA92E500EAEB98 /* cloudupload.png in Resources */,
 				90CD9B2718561D3D00970B7D /* SearchSensorViewController_iPhone.xib in Resources */,
+				49A660D31A65B3DB00586C5A /* wimoto-sun-icon.png in Resources */,
 				302A7157192D284B006E0A6C /* slider-default-trackCrossedOver@2x.png in Resources */,
 				90D4ABC4184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib in Resources */,
 				F72564BF1A41F12900BEF94B /* SSZipArchiveLicense.rtf in Resources */,
@@ -1298,6 +1325,7 @@
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
+				49A660D61A65B43C00586C5A /* wimoto-settings-icon.png in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
 				4952E0561A5D871A00EFCC70 /* Wimoto-menu-icon.png in Resources */,
 				302A7161192D284B006E0A6C /* slider-metal-handle-highlighted.png in Resources */,
@@ -1313,6 +1341,7 @@
 				30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */,
 				90CD9B2E18561E4A00970B7D /* SensorCell_iPhone.xib in Resources */,
 				4901D3E6192EB1D7005EB15C /* scale.png in Resources */,
+				49A660CE1A65B3DB00586C5A /* wimoto-cloud-sync.png in Resources */,
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				498CEFC719AA918400EAEB98 /* cassette2.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
@@ -1329,10 +1358,12 @@
 				498CEFC319AA8F3100EAEB98 /* microchip.png in Resources */,
 				4952E05E1A5DC74A00EFCC70 /* wimoto-sun-icon.png in Resources */,
 				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
+				49A660D21A65B3DB00586C5A /* Wimoto-menu-icon.png in Resources */,
 				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
 				302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
 				04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */,
+				49A660D01A65B3DB00586C5A /* wimoto-droplet-icon.png in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
 				302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,
@@ -1340,6 +1371,7 @@
 				4920A0B91A606D95008A13DE /* wimoto-settings-icon.png in Resources */,
 				302A7160192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png in Resources */,
 				493A4945184ECC390000A2F6 /* mail.png in Resources */,
+				49A660D41A65B3DB00586C5A /* wimoto-temperature-icon.png in Resources */,
 				493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */,
 				498CEFBD19AA887D00EAEB98 /* sentry 128px.png in Resources */,
 				493A492F184EB6C50000A2F6 /* sun-512.png in Resources */,

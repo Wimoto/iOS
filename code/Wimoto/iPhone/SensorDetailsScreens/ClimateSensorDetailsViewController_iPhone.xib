@@ -164,12 +164,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5g-Np-V5o" userLabel="firmwareUpdate">
-                    <rect key="frame" x="8" y="466" width="34" height="34"/>
-                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTx-TC-b7C">
                     <rect key="frame" x="8" y="36" width="304" height="48"/>
                     <accessibility key="accessibilityConfiguration" hint="Sensor Name" label="Sensor Name"/>
@@ -273,6 +267,12 @@
                     <connections>
                         <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
                     </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5g-Np-V5o" userLabel="firmwareUpdate">
+                    <rect key="frame" x="8" y="466" width="34" height="34"/>
+                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="0.85882352941176465" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
