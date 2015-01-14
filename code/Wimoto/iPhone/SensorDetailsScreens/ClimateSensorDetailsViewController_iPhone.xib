@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
@@ -237,29 +237,10 @@
                         <action selector="showRightMenu:" destination="-1" eventType="touchUpInside" id="L5J-ZA-Nqn"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-fW-Ewb">
-                    <rect key="frame" x="143" y="466" width="34" height="34"/>
-                    <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="selected" image="cassette"/>
-                    <connections>
-                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Cuz-lG-IqA"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wimoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLH-D5-8Az">
                     <rect key="frame" x="8" y="525" width="84" height="45"/>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
-                    <rect key="frame" x="207" y="466" width="34" height="34"/>
-                    <state key="normal" title="Button" image="wimoto-firmware-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5g-Np-V5o" userLabel="firmwareUpdate">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5g-Np-V5o" userLabel="firmwareUpdate">
                     <rect key="frame" x="8" y="466" width="34" height="34"/>
                     <state key="normal" title="Button" image="wimoto-settings-icon.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -268,8 +249,27 @@
                         <action selector="showLeftMenu:" destination="-1" eventType="touchUpInside" id="4JQ-wv-NGi"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-fW-Ewb">
+                    <rect key="frame" x="140" y="466" width="34" height="34"/>
+                    <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="cassette"/>
+                    <connections>
+                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Cuz-lG-IqA"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
+                    <rect key="frame" x="204" y="466" width="34" height="34"/>
+                    <state key="normal" title="Button" image="wimoto-firmware-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
+                    </connections>
+                </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvl-hv-kV4" userLabel="cloudSync">
-                    <rect key="frame" x="74" y="466" width="34" height="34"/>
+                    <rect key="frame" x="71" y="466" width="34" height="34"/>
                     <state key="normal" title="Button" image="wimoto-cloud-sync.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
