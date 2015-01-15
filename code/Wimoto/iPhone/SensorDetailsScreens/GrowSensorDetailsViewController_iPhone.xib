@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -8,9 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
-                <outlet property="dataLoggerButton" destination="gLw-ZX-ST2" id="oNe-3F-9iB"/>
-                <outlet property="dataReadbackButton" destination="gqf-se-q1i" id="G4L-6H-cQA"/>
-                <outlet property="dfuButton" destination="6OS-sT-HQf" id="I4B-Nu-yIN"/>
+                <outlet property="dataLoggerButton" destination="Mor-oa-Xrn" id="LnO-nX-1xL"/>
+                <outlet property="dataReadbackButton" destination="jVn-Tj-fIz" id="QAb-PT-SMG"/>
+                <outlet property="dataReadbackIndicatorView" destination="XqC-sT-wrS" id="GyC-gZ-vk7"/>
+                <outlet property="dfuButton" destination="iwY-Um-wpd" id="5O7-KI-Fbi"/>
                 <outlet property="lastUpdateLabel" destination="pWs-7t-A5o" id="ELg-OR-Ca5"/>
                 <outlet property="lightAlarmContainer" destination="JPN-VM-v8d" id="B1I-tG-asr"/>
                 <outlet property="lightHighValueLabel" destination="peD-v1-F85" id="TPU-FR-nmH"/>
@@ -44,6 +45,37 @@
                     <rect key="frame" x="0.0" y="431" width="320" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="jVn-Tj-fIz" userLabel="cloudSync">
+                    <rect key="frame" x="77" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button" image="wimoto-cloud-sync.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SLc-oF-ESd"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Mor-oa-Xrn">
+                    <rect key="frame" x="146" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="cassette"/>
+                    <connections>
+                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="s74-1k-APu"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="iwY-Um-wpd" userLabel="firmwareUpdate">
+                    <rect key="frame" x="210" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button" image="wimoto-firmware-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="Bbk-ZN-eMy"/>
+                    </connections>
+                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="lx3-ZZ-v4f">
                     <rect key="frame" x="-2" y="498" width="325" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -52,35 +84,24 @@
                     <rect key="frame" x="5" y="520" width="84" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gLw-ZX-ST2">
-                    <rect key="frame" x="93" y="469" width="32" height="32"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6OS-sT-HQf" userLabel="firmwareUpdate">
+                    <rect key="frame" x="278" y="466" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="dataLoggerEnable" image="cassette2.png">
+                    <state key="normal" title="Button" image="Wimoto-menu-icon.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" image="cassette"/>
                     <connections>
-                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="jAg-Wb-Fpj"/>
+                        <action selector="showRightMenu:" destination="-1" eventType="touchUpInside" id="IEy-jB-CWg"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6OS-sT-HQf" userLabel="firmwareUpdate">
-                    <rect key="frame" x="287" y="469" width="32" height="32"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gqf-se-q1i" userLabel="firmwareUpdate">
+                    <rect key="frame" x="8" y="466" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button" image="chip">
+                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZU4-KA-F0B"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gqf-se-q1i" userLabel="cloudSync">
-                    <rect key="frame" x="19" y="469" width="32" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button" image="cloud">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="kkg-YA-ILi"/>
+                        <action selector="showLeftMenu:" destination="-1" eventType="touchUpInside" id="AMw-xk-r5Y"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="pWs-7t-A5o" userLabel="growLastUpdated">
@@ -296,24 +317,31 @@
                     <rect key="frame" x="8" y="342" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="XqC-sT-wrS">
+                    <rect key="frame" x="84" y="473" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.47450980392156861" green="0.74117647058823533" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="249" y="164"/>
         </view>
     </objects>
     <resources>
         <image name="Grow 128px.png" width="362" height="181"/>
+        <image name="Wimoto-menu-icon.png" width="48" height="48"/>
         <image name="alarm_clock-512-white.png" width="512" height="512"/>
         <image name="battery-full.png" width="96" height="96"/>
         <image name="border.png" width="1591" height="350"/>
         <image name="buttons.png" width="1591" height="581"/>
         <image name="cassette" width="100" height="100"/>
-        <image name="cassette2.png" width="1200" height="1200"/>
-        <image name="chip" width="100" height="100"/>
-        <image name="cloud" width="100" height="100"/>
         <image name="menu.png" width="1200" height="1200"/>
         <image name="plant_temperature-512.png" width="512" height="512"/>
         <image name="plant_under_rain-512.png" width="512" height="512"/>
         <image name="plant_under_sun-512.png" width="512" height="512"/>
+        <image name="wimoto-cloud-sync.png" width="48" height="48"/>
+        <image name="wimoto-datalogger-icon.png" width="48" height="48"/>
+        <image name="wimoto-firmware-icon.png" width="48" height="48"/>
+        <image name="wimoto-settings-icon.png" width="48" height="48"/>
         <image name="wimoto.png" width="464" height="147"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
