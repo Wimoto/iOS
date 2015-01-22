@@ -34,10 +34,11 @@
 + (void)addObserverForRegisteredSensors:(id<SensorsObserver>)observer;
 + (void)removeObserverForRegisteredSensors:(id<SensorsObserver>)observer;
 
-
 + (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer;
 + (void)activate;
 + (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication;
 + (void)authSwitch;
+
++ (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId;
 
 @end

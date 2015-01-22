@@ -10,6 +10,14 @@
 #import "SensorHelper.h"
 #import "AppConstants.h"
 
+@interface ClimateSensor ()
+
+@property (nonatomic) NSTimeInterval temperatureAlarmTimeshot;
+@property (nonatomic) NSTimeInterval humidityAlarmTimeshot;
+@property (nonatomic) NSTimeInterval lightAlarmTimeshot;
+
+@end
+
 @implementation ClimateSensor
 
 - (PeripheralType)type {
@@ -57,6 +65,20 @@
         [super writeAlarmValue:[self getSensorHumidityFromHumidity:alarmValue] forCharacteristicWithUUIDString:UUIDString];
     } else {
         [super writeAlarmValue:alarmValue forCharacteristicWithUUIDString:UUIDString];
+    }
+}
+
+- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    [super enableAlarm:enable forCharacteristicWithUUIDString:UUIDString];
+    
+    if (!enable) {
+        if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]) {
+            self.temperatureAlarmState = kAlarmStateDisabled;
+        } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]) {
+            self.lightAlarmState = kAlarmStateDisabled;
+        } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET]) {
+            self.humidityAlarmState = kAlarmStateDisabled;
+        }
     }
 }
 
@@ -194,6 +216,23 @@
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
             self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
+            
+//            if ([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+10)) {
+//                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+//                
+//                UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+//                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+//                    localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
+//                }
+//                localNotification.alertBody = @"Goo";
+//                localNotification.alertAction = @"View";
+//                
+//                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//                [dict setObject:self.uniqueIdentifier forKey:@"sensor"];
+//                [dict setObject:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM forKey:@"uuid"];
+//                localNotification.userInfo = dict;
+//                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+//            }
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
             self.humidity = [self getHumidityFromSensorHumidity:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
@@ -269,22 +308,22 @@
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     NSString *alertString = nil;
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
-        if (_temperatureAlarmState != kAlarmStateEnabled) {
-            return;
+        if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
+            _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
         }
-        alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
-        if (_lightAlarmState != kAlarmStateEnabled) {
-            return;
+        if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
+            _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
         }
-        alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
-        if (_humidityAlarmState != kAlarmStateEnabled) {
-            return;
+        if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
+            _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            alertString = [NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
         }
-        alertString = [NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
     }
     NSLog(@"ALERT MESSAGE - %@", alertString);
     if (alertString) {
@@ -294,6 +333,12 @@
         }
         localNotification.alertBody = alertString;
         localNotification.alertAction = @"View";
+        
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setObject:self.uniqueIdentifier forKey:@"sensor"];
+        [dict setObject:[characteristic.UUID UUIDString] forKey:@"uuid"];
+        localNotification.userInfo = dict;
+        
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
 }
