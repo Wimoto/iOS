@@ -85,17 +85,20 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
             
-            uint16_t xValue = 0;
-            [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 2)];
-            self.x = xValue;
+            NSString *sentryValue = [characteristic.value hexadecimalString];
+            NSLog(@"sentryValue %@", sentryValue);
             
-            uint16_t yValue = 0;
-            [[characteristic value] getBytes:&yValue range:NSMakeRange(2, 2)];
-            self.y = yValue;
-            
-            uint16_t zValue = 0;
-            [[characteristic value] getBytes:&zValue range:NSMakeRange(4, 2)];
-            self.z = zValue;
+//            uint16_t xValue = 0;
+//            [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 2)];
+//            self.x = xValue;
+//            
+//            uint16_t yValue = 0;
+//            [[characteristic value] getBytes:&yValue range:NSMakeRange(2, 2)];
+//            self.y = yValue;
+//            
+//            uint16_t zValue = 0;
+//            [[characteristic value] getBytes:&zValue range:NSMakeRange(4, 2)];
+//            self.z = zValue;
             
 //            const void *bytes = [characteristic.value bytes];
 //            
