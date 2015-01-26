@@ -9,7 +9,53 @@
 #import "SentrySensor.h"
 #import "AppConstants.h"
 
+#define DICTIONARY_KEY_ID               @"id"
+#define DICTIONARY_KEY_ANGLE_XY         @"angleXY"
+#define DICTIONARY_KEY_ANGLE_Z          @"angleZ"
+#define DICTIONARY_KEY_ANGLE_G          @"gVal"
+
+@interface ValueFactor : NSObject
+
+@property (nonatomic) int16_t factorId;
+@property (nonatomic) NSString *angleXY;
+@property (nonatomic) NSString *angleZ;
+
+- (id)initWithDictionary:(NSDictionary *)dictionary;
+
+@end
+
+@implementation ValueFactor
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        _factorId   = [[dictionary objectForKey:DICTIONARY_KEY_ID] intValue];
+        _angleXY    = [dictionary objectForKey:DICTIONARY_KEY_ANGLE_XY];
+        _angleZ     = [dictionary objectForKey:DICTIONARY_KEY_ANGLE_Z];
+    }
+    return self;
+}
+
+@end
+
 @implementation SentrySensor
+
+static NSArray *valueFactors = nil;
+
++ (NSArray *)valueFactors {
+    @synchronized(valueFactors) {
+        if (!valueFactors) {
+            NSArray *array = [NSArray arrayWithContentsOfFile:[[NSBundle  mainBundle] pathForResource:@"sentryLookup" ofType:@"plist"]];
+            
+            NSMutableArray *factors = [NSMutableArray array];
+            for (NSDictionary *dictionary in array) {
+                [factors addObject:[[ValueFactor alloc] initWithDictionary:dictionary]];
+            }
+            valueFactors = [NSArray arrayWithArray:factors];
+        }
+        return valueFactors;
+    }
+}
 
 - (PeripheralType)type {
     return kPeripheralTypeSentry;
@@ -84,33 +130,26 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
+            int16_t xValue	= 0;
+            [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 1)];
             
-            NSString *sentryValue = [characteristic.value hexadecimalString];
-            NSLog(@"sentryValue %@", sentryValue);
+            NSPredicate *xPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", xValue];
+            ValueFactor *xFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:xPredicate].lastObject;
+            self.x = [xFactor.angleXY intValue];
             
-//            uint16_t xValue = 0;
-//            [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 2)];
-//            self.x = xValue;
-//            
-//            uint16_t yValue = 0;
-//            [[characteristic value] getBytes:&yValue range:NSMakeRange(2, 2)];
-//            self.y = yValue;
-//            
-//            uint16_t zValue = 0;
-//            [[characteristic value] getBytes:&zValue range:NSMakeRange(4, 2)];
-//            self.z = zValue;
+            int16_t yValue	= 0;
+            [[characteristic value] getBytes:&yValue range:NSMakeRange(1, 1)];
             
-//            const void *bytes = [characteristic.value bytes];
-//            
-//            NSMutableArray *ary = [NSMutableArray array];
-//            for (NSUInteger i = 0; i < [characteristic.value length]; i += sizeof(int32_t)) {
-//                int32_t elem = OSReadLittleInt32(bytes, i);
-//                [ary addObject:[NSNumber numberWithInt:elem]];
-//            }
-//            NSLog(@"ACCELEROMETER VALUES - %@", ary);
+            NSPredicate *yPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", yValue];
+            ValueFactor *yFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:yPredicate].lastObject;
+            self.y = [yFactor.angleXY intValue];
             
-            //self.accelerometer = [self sensorValueForCharacteristic:characteristic];
-            //[self.entity saveNewValueWithType:kValueTypeAccelerometer value:_accelerometer];
+            int16_t zValue	= 0;
+            [[characteristic value] getBytes:&zValue range:NSMakeRange(2, 1)];
+            
+            NSPredicate *zPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", zValue];
+            ValueFactor *zFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:zPredicate].lastObject;
+            self.z = [zFactor.angleZ intValue];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
             self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
             [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
