@@ -214,9 +214,11 @@
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
+            NSLog(@"Temperature is %d", [self sensorValueForCharacteristic:characteristic]);
+            
             self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
-            
+                        
 //            if ([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+10)) {
 //                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
 //                
@@ -272,14 +274,14 @@
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
-            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE %@", characteristic.value);
-            
-            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
+            int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE %d", rValue);
+            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:rValue];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE %@", characteristic.value);
-
-            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
+            int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE %d", rValue);
+            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
             self.humidityAlarmLow = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
