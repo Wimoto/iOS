@@ -34,4 +34,6 @@ typedef enum {
 
 + (id)sensorValueForDocument:(CBLDocument*)document;
 
+- (NSDictionary *)dictionaryRepresentation;
+
 @end

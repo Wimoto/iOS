@@ -100,8 +100,12 @@
 - (IBAction)readDataLogger:(id)sender {
     _dataReadbackButton.hidden = YES;
     [_dataReadbackIndicatorView startAnimating];
-    
-    [_sensor readDataLogger];
+//
+//    [_sensor readDataLogger];
+    //[_sensor.entity ];
+    [_sensor.entity jsonRepresentation:^(NSData *result) {
+        [self didUpdateSensorReadingData:result error:nil];
+    }];
 }
 
 - (IBAction)showLeftMenu:(id)sender {
@@ -238,8 +242,8 @@
             mailController.mailComposeDelegate = self;
             
             [mailController setSubject:@"Wimoto"];
-            [mailController setMessageBody:@"Content from Wimoto Sensor" isHTML:NO];
-            [mailController addAttachmentData:data mimeType:@"text/csv" fileName:@"AppData.csv"];
+            [mailController setMessageBody:[NSString stringWithFormat:@"Content from Wimoto %@ Sensor %@", [self.sensor codename], [self.sensor uniqueIdentifier]] isHTML:NO];
+            [mailController addAttachmentData:data mimeType:@"application/json" fileName:@"AppData.json"];
             
             [self presentViewController:mailController animated:YES completion:nil];
         }
