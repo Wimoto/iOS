@@ -211,7 +211,7 @@
         return;
     }
     
-    int16_t value = (int16_t)alarmValue;
+    int16_t value = CFSwapInt16BigToHost((int16_t)alarmValue);
     NSData *data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
     NSLog(@"ALARM WRITE HIGH VALUE - %d  %@   %@   %lu", alarmValue, UUIDString, data, sizeof(value));
     [self.peripheral writeValue:data forCharacteristic:maxValueCharacteristic type:CBCharacteristicWriteWithResponse];
