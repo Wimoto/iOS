@@ -17,9 +17,10 @@
 		040829D41A65C45300B93306 /* wimoto-datalogger-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 040829D31A65C45300B93306 /* wimoto-datalogger-icon.png */; };
 		040829D61A65C4F500B93306 /* wimoto-settings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 040829D51A65C4F500B93306 /* wimoto-settings-icon.png */; };
 		040829D81A65C58200B93306 /* sentryLookup.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040829D71A65C58200B93306 /* sentryLookup.plist */; };
+		040DC6971A79680A006FB584 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */; };
+		040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */; };
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
 		04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC799E1A1E9398001227D6 /* DfuCentralManager.m */; };
-		04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */; };
 		04E090801A5B253000FEBC66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E0907F1A5B253000FEBC66 /* MessageUI.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
@@ -213,10 +214,11 @@
 		040829D31A65C45300B93306 /* wimoto-datalogger-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wimoto-datalogger-icon.png"; sourceTree = "<group>"; };
 		040829D51A65C4F500B93306 /* wimoto-settings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wimoto-settings-icon.png"; sourceTree = "<group>"; };
 		040829D71A65C58200B93306 /* sentryLookup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = sentryLookup.plist; path = Shared/sentryLookup.plist; sourceTree = "<group>"; };
+		040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
+		040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareViewController_iPhone.xib; sourceTree = "<group>"; };
 		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		04AC799D1A1E9398001227D6 /* DfuCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DfuCentralManager.h; sourceTree = "<group>"; };
 		04AC799E1A1E9398001227D6 /* DfuCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DfuCentralManager.m; sourceTree = "<group>"; };
-		04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
 		04E0907F1A5B253000FEBC66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
@@ -546,7 +548,8 @@
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
 				30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */,
-				04B03AF51A42228700193AD2 /* DFUViewController_iPhone.xib */,
+				040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */,
+				040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -1282,6 +1285,7 @@
 				4901D3E8192EB294005EB15C /* droplet.png in Resources */,
 				302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */,
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
+				040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */,
 				302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
@@ -1306,6 +1310,7 @@
 				302A7162192D284B006E0A6C /* slider-metal-handle-highlighted@2x.png in Resources */,
 				302A7159192D284B006E0A6C /* slider-default7-handle.png in Resources */,
 				493A4944184ECC390000A2F6 /* cloud.png in Resources */,
+				040DC6971A79680A006FB584 /* DFUViewController_iPhone.xib in Resources */,
 				90CFFEAD17A7CF2F00353F80 /* Default.png in Resources */,
 				302A7152192D284B006E0A6C /* slider-default-handle@2x.png in Resources */,
 				90CFFEAE17A7CF2F00353F80 /* Default@2x.png in Resources */,
@@ -1333,7 +1338,6 @@
 				040829C61A65C3CB00B93306 /* wimoto-droplet-icon.png in Resources */,
 				302A7163192D284B006E0A6C /* slider-metal-handle.png in Resources */,
 				490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */,
-				04B03AF61A42228700193AD2 /* DFUViewController_iPhone.xib in Resources */,
 				493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */,
 				302A715C192D284B006E0A6C /* slider-default7-track@2x.png in Resources */,
 				30B487F0184DFE4A002B0CD8 /* RightMenuCell_iPhone.xib in Resources */,

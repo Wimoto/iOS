@@ -135,21 +135,21 @@ static NSArray *valueFactors = nil;
             
             NSPredicate *xPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", xValue];
             ValueFactor *xFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:xPredicate].lastObject;
-            self.x = [xFactor.angleXY intValue];
+            self.x = [xFactor.angleXY floatValue];
             
             int16_t yValue	= 0;
             [[characteristic value] getBytes:&yValue range:NSMakeRange(1, 1)];
             
             NSPredicate *yPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", yValue];
             ValueFactor *yFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:yPredicate].lastObject;
-            self.y = [yFactor.angleXY intValue];
+            self.y = [yFactor.angleXY floatValue];
             
             int16_t zValue	= 0;
             [[characteristic value] getBytes:&zValue range:NSMakeRange(2, 1)];
             
             NSPredicate *zPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", zValue];
             ValueFactor *zFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:zPredicate].lastObject;
-            self.z = [zFactor.angleZ intValue];
+            self.z = [zFactor.angleZ floatValue];
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
             self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
             [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
