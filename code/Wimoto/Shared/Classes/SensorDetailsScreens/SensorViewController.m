@@ -98,14 +98,8 @@
 }
 
 - (IBAction)readDataLogger:(id)sender {
-    _dataReadbackButton.hidden = YES;
-    [_dataReadbackIndicatorView startAnimating];
-//
-//    [_sensor readDataLogger];
-    //[_sensor.entity ];
-    [_sensor.entity jsonRepresentation:^(NSData *result) {
-        [self didUpdateSensorReadingData:result error:nil];
-    }];
+    UIAlertView *readOptionsAlert = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"E-mail", @"Cloud Sync", nil];
+    [readOptionsAlert show];
 }
 
 - (IBAction)showLeftMenu:(id)sender {
@@ -227,6 +221,18 @@
     self.sensor.name = [textField text];
     //[self.sensor.entity saveNewName:[textField text]];
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        _dataReadbackButton.hidden = YES;
+        [_dataReadbackIndicatorView startAnimating];
+        
+        [_sensor.entity jsonRepresentation:^(NSData *result) {
+            [self didUpdateSensorReadingData:result error:nil];
+        }];
+    }
+
 }
 
 #pragma mark - SensorDataReadingDelegate
