@@ -30,9 +30,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *irTempConversionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *probeTempConversionLabel;
 
-@property (nonatomic, strong) AlarmSlider *irTempSlider;
-@property (nonatomic, strong) AlarmSlider *probeTempSlider;
-
 @property (nonatomic, weak) IBOutlet UIView *irTempAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *probeTempAlarmContainer;
 

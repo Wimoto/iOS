@@ -38,10 +38,6 @@
 @property (nonatomic, weak) IBOutlet UIView *humidityAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
 
-@property (nonatomic, strong) AlarmSlider *temperatureSlider;
-@property (nonatomic, strong) AlarmSlider *humiditySlider;
-@property (nonatomic, strong) AlarmSlider *lightSlider;
-
 - (IBAction)temperatureAlarmAction:(id)sender;
 - (IBAction)humidityAlarmAction:(id)sender;
 - (IBAction)lightAlarmAction:(id)sender;
