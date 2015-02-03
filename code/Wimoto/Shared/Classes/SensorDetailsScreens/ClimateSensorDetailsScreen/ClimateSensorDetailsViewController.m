@@ -7,6 +7,7 @@
 //
 
 #import "ClimateSensorDetailsViewController.h"
+#import "WPPickerView.h"
 
 @interface ClimateSensorDetailsViewController ()
 
@@ -38,29 +39,6 @@
     [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
         _lightSparkLine.dataValues = result;
     }];
-    
-    _temperatureSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-    [self.view addSubview:_temperatureSlider];
-    _temperatureSlider.delegate = self;
-    [_temperatureSlider setSliderRange:0];
-    [_temperatureSlider setStepValue:0.1 animated:NO];
-    [_temperatureSlider setMinimumValue:-25];
-    [_temperatureSlider setMaximumValue:125];
-    
-    _humiditySlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-    [self.view addSubview:_humiditySlider];
-    _humiditySlider.delegate = self;
-    [_humiditySlider setSliderRange:0];
-    [_humiditySlider setMinimumValue:0];
-    [_humiditySlider setMaximumValue:100];
-    
-    _lightSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-    [self.view addSubview:_lightSlider];
-    _lightSlider.delegate = self;
-    [_lightSlider setSliderRange:0];
-    [_lightSlider setStepValue:1 animated:NO];
-    [_lightSlider setMinimumValue:10];
-    [_lightSlider setMaximumValue:65535];
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
@@ -114,44 +92,79 @@
 }
 
 - (IBAction)temperatureAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
-    
-    ([sender isOn])?[_temperatureSlider showAction]:[_temperatureSlider hideAction:nil];
+    ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    if (_tempSwitch.on) {
+        TemperatureMeasure tempMeasure = sensor.tempMeasure;
+        float minValue = -25.0;
+        float maxValue = 125.0;
+        if (tempMeasure == kTemperatureMeasureFahrenheit) {
+            minValue = [sensor convertToFahrenheit:minValue];
+            maxValue = [sensor convertToFahrenheit:maxValue];
+        }
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
+            
+            sensor.temperatureAlarmLow = lowerValue;
+            sensor.temperatureAlarmHigh = upperValue;
+            
+            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE];
+            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
+        } cancel:^{
+            [_tempSwitch setOn:NO animated:YES];
+        }];
+        [pickerView setLowerValue:sensor.temperatureAlarmLow];
+        [pickerView setUpperValue:sensor.temperatureAlarmHigh];
+    }
+    else {
+        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
+    }
 }
 
 - (IBAction)humidityAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
-    
-    ([sender isOn])?[_humiditySlider showAction]:[_humiditySlider hideAction:nil];
+    ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    if (_humiditySwitch.on) {
+        float minValue = 0.0;
+        float maxValue = 100.0;
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
+            
+            sensor.humidityAlarmLow = lowerValue;
+            sensor.humidityAlarmHigh = upperValue;
+            
+            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE];
+            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE];
+        } cancel:^{
+            [_humiditySwitch setOn:NO animated:YES];
+        }];
+        [pickerView setLowerValue:sensor.humidityAlarmLow];
+        [pickerView setUpperValue:sensor.humidityAlarmHigh];
+    }
+    else {
+        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
+    }
 }
 
 - (IBAction)lightAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
-    
-    ([sender isOn])?[_lightSlider showAction]:[_lightSlider hideAction:nil];
-}
-
-#pragma mark - AlarmSliderDelegate
-
-- (void)alarmSliderSaveAction:(id)sender {
-    if ([sender isEqual:_temperatureSlider]) {
-        [self.sensor writeAlarmValue:_temperatureSlider.upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_temperatureSlider.lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
-        
-        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", _temperatureSlider.upperValue];
-        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", _temperatureSlider.lowerValue];
-    } else if ([sender isEqual:_humiditySlider]) {
-        [self.sensor writeAlarmValue:_humiditySlider.upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_temperatureSlider.lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE];
-        
-        _humidityHighValueLabel.text = [NSString stringWithFormat:@"%.f", _humiditySlider.upperValue];
-        _humidityLowValueLabel.text = [NSString stringWithFormat:@"%.f", _humiditySlider.lowerValue];
-    } else if ([sender isEqual:_lightSlider]) {
-        [self.sensor writeAlarmValue:_lightSlider.upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
-        [self.sensor writeAlarmValue:_lightSlider.lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
-        
-        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", _lightSlider.upperValue];
-        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", _lightSlider.lowerValue];
+    ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    if (_lightSwitch.on) {
+        float minValue = 10.0;
+        float maxValue = 65535.0;
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
+            
+            sensor.lightAlarmLow = lowerValue;
+            sensor.lightAlarmHigh = upperValue;
+            
+            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
+            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
+        } cancel:^{
+            [_lightSwitch setOn:NO animated:YES];
+        }];
+        [pickerView setLowerValue:sensor.lightAlarmLow];
+        [pickerView setUpperValue:sensor.lightAlarmHigh];
+    }
+    else {
+        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
     }
 }
 
@@ -161,7 +174,6 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     ClimateSensor *sensor = (ClimateSensor*)self.sensor;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
@@ -169,9 +181,7 @@
             _tempAlarmContainer.hidden = YES;
             _humidityAlarmContainer.hidden = YES;
             _lightAlarmContainer.hidden = YES;
-            [_temperatureSlider hideAction:nil];
-            [_humiditySlider hideAction:nil];
-            [_lightSlider hideAction:nil];
+            [WPPickerView dismiss];
             _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
@@ -221,35 +231,23 @@
         _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW]) {
         _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmLow];
-        [_temperatureSlider setLowerValue:sensor.temperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH]) {
         _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmHigh];
-        [_temperatureSlider setUpperValue:sensor.temperatureAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW]) {
         _humidityLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.humidityAlarmLow];
-        [_humiditySlider setLowerValue:sensor.humidityAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH]) {
         _humidityHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.humidityAlarmHigh];
-        [_humiditySlider setUpperValue:sensor.humidityAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_LOW]) {
         _lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmLow];
-        [_lightSlider setLowerValue:sensor.lightAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH]) {
         _lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmHigh];
-        [_lightSlider setUpperValue:sensor.lightAlarmHigh];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
-        TemperatureMeasure tempMeasure = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+        TemperatureMeasure tempMeasure = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
         
         _tempConversionLabel.text = [sensor temperatureSymbol];
         _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperature]];
-        
-        [_temperatureSlider setMinimumValue:(tempMeasure == kTemperatureMeasureCelsius)?-25:[sensor convertToFahrenheit:-25]];
-        [_temperatureSlider setMaximumValue:(tempMeasure == kTemperatureMeasureCelsius)?125:[sensor convertToFahrenheit:125]];
-        
-        [_temperatureSlider setUpperValue:sensor.temperatureAlarmHigh];
-        [_temperatureSlider setLowerValue:sensor.temperatureAlarmLow];
-        
+    
         _tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmHigh];
         _tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmLow];
     }

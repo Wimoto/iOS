@@ -201,6 +201,8 @@
 		F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = F72564B81A41F12900BEF94B /* SSZipArchive.m */; };
 		F72564BF1A41F12900BEF94B /* SSZipArchiveLicense.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F72564B91A41F12900BEF94B /* SSZipArchiveLicense.rtf */; };
 		F74152431A1A3E0E00A72AA5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */; };
+		F766A90D1A7B159800E0FDB7 /* WPPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F766A90C1A7B159800E0FDB7 /* WPPickerView.m */; };
+		F7C4F42C1A7BD7B0000B601B /* WPPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7C4F42B1A7BD7B0000B601B /* WPPickerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -485,6 +487,9 @@
 		F72564B81A41F12900BEF94B /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		F72564B91A41F12900BEF94B /* SSZipArchiveLicense.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = SSZipArchiveLicense.rtf; sourceTree = "<group>"; };
 		F74152421A1A3E0E00A72AA5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Shared/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		F766A90B1A7B159800E0FDB7 /* WPPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPPickerView.h; sourceTree = "<group>"; };
+		F766A90C1A7B159800E0FDB7 /* WPPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPPickerView.m; sourceTree = "<group>"; };
+		F7C4F42B1A7BD7B0000B601B /* WPPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WPPickerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -695,6 +700,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F766A90A1A7B154800E0FDB7 /* PickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
 				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
 				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
@@ -1195,6 +1201,16 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		F766A90A1A7B154800E0FDB7 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F766A90B1A7B159800E0FDB7 /* WPPickerView.h */,
+				F766A90C1A7B159800E0FDB7 /* WPPickerView.m */,
+				F7C4F42B1A7BD7B0000B601B /* WPPickerView.xib */,
+			);
+			path = PickerView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1321,6 +1337,7 @@
 				493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */,
 				498CEFC719AA918400EAEB98 /* cassette2.png in Resources */,
 				302A715E192D284B006E0A6C /* slider-default7-trackBackground@2x.png in Resources */,
+				F7C4F42C1A7BD7B0000B601B /* WPPickerView.xib in Resources */,
 				30B487E6184DFCB7002B0CD8 /* LeftMenuViewController_iPhone.xib in Resources */,
 				040829D21A65C43100B93306 /* wimoto-cloud-sync.png in Resources */,
 				498CEFBB19AA86F400EAEB98 /* Grow 128px.png in Resources */,
@@ -1434,6 +1451,7 @@
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
 				F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */,
 				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
+				F766A90D1A7B159800E0FDB7 /* WPPickerView.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				F72564BC1A41F12900BEF94B /* unzip.c in Sources */,
 				F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */,
