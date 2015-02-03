@@ -57,13 +57,13 @@
 }
 
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
-//    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
-//        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
-//        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
-    if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) {
-        [super writeAlarmValue:28357 forCharacteristicWithUUIDString:UUIDString];
-    } else if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString]) {
-        [super writeAlarmValue:12997 forCharacteristicWithUUIDString:UUIDString];
+    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
+        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
+        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
+//    if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) {
+//        [super writeAlarmValue:28357 forCharacteristicWithUUIDString:UUIDString];
+//    } else if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString]) {
+//        [super writeAlarmValue:12997 forCharacteristicWithUUIDString:UUIDString];
     } else if (([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
                ([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
         [super writeAlarmValue:[self getSensorHumidityFromHumidity:alarmValue] forCharacteristicWithUUIDString:UUIDString];
@@ -278,12 +278,12 @@
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
             int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
             NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
-            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
+            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:rValue];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
             int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
             NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
-            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:[self alarmValueForCharacteristic:characteristic]];
+            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
             self.humidityAlarmLow = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
