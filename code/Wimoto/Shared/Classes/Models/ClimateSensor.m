@@ -57,9 +57,13 @@
 }
 
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
-        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
-        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
+//    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
+//        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
+//        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
+    if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) {
+        [super writeAlarmValue:28357 forCharacteristicWithUUIDString:UUIDString];
+    } else if ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString]) {
+        [super writeAlarmValue:12997 forCharacteristicWithUUIDString:UUIDString];
     } else if (([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
                ([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
         [super writeAlarmValue:[self getSensorHumidityFromHumidity:alarmValue] forCharacteristicWithUUIDString:UUIDString];
