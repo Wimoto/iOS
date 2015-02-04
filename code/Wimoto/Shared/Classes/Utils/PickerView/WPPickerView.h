@@ -13,7 +13,7 @@ typedef void(^SaveBlock)(float lowerValue, float upperValue);
 
 @interface WPPickerView : UIView <UIPickerViewDataSource, UIPickerViewDelegate>
 
-+ (id)showWithMinValue:(float)minValue maxValue:(float)maxValue step:(float)step save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock;
++ (id)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock;
 + (void)dismiss;
 - (void)setUpperValue:(float)upperValue;
 - (void)setLowerValue:(float)lowerValue;

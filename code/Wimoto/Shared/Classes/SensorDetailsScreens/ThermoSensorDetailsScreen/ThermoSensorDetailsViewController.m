@@ -81,7 +81,7 @@
             minValue = [sensor convertToFahrenheit:minValue];
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
             [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
             
             sensor.irTempAlarmLow = lowerValue;
@@ -89,8 +89,6 @@
             
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
-            _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", upperValue];
-            _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", lowerValue];
         } cancel:^{
             [_irTempSwitch setOn:NO animated:YES];
         }];
@@ -112,7 +110,7 @@
         maxValue = [sensor convertToFahrenheit:maxValue];
     }
     if (_probeTempSwitch.on) {
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
             [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
             
             sensor.probeTempAlarmLow = lowerValue;
@@ -120,8 +118,6 @@
             
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
-            _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", upperValue];
-            _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", lowerValue];
         } cancel:^{
             [_probeTempSwitch setOn:NO animated:YES];
         }];
@@ -184,16 +180,16 @@
         _probeTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW]) {
-        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", [sensor irTempAlarmLow]];
+        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTempAlarmLow]];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH]) {
-        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", [sensor irTempAlarmHigh]];
+        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTempAlarmHigh]];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW]) {
-        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.f", [sensor probeTempAlarmLow]];
+        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTempAlarmLow]];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
-        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.f", [sensor probeTempAlarmHigh]];
+        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTempAlarmHigh]];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
         _irTempConversionLabel.text = [sensor temperatureSymbol];

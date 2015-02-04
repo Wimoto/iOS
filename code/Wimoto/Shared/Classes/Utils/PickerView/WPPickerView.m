@@ -16,8 +16,8 @@
 @property (nonatomic, weak) IBOutlet UIPickerView *pickerView;
 @property (nonatomic, weak) IBOutlet UIToolbar *pickerViewContainer;
 
-- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue step:(float)step save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock;
-- (NSArray *)configureDataSourceMinValue:(float)minValue maxValue:(float)maxValue step:(float)step;
+- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock;
+- (NSArray *)configureDataSourceMinValue:(float)minValue maxValue:(float)maxValue;
 - (void)hide;
 - (IBAction)save:(id)sender;
 - (IBAction)cancel:(id)sender;
@@ -26,9 +26,9 @@
 
 @implementation WPPickerView
 
-+ (id)showWithMinValue:(float)minValue maxValue:(float)maxValue step:(float)step save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock {
++ (id)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock {
     WPPickerView *pickerView = [[WPPickerView alloc] init];
-    [pickerView showWithMinValue:minValue maxValue:maxValue step:step save:saveBlock cancel:cancelBlock];
+    [pickerView showWithMinValue:minValue maxValue:maxValue save:saveBlock cancel:cancelBlock];
     return pickerView;
 }
 
@@ -42,13 +42,13 @@
     }
 }
 
-- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue step:(float)step save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock {
+- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock {
     self.saveBlock = saveBlock;
     self.cancelBlock = cancelBlock;
     
     self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor clearColor];
-    self.columns = [self configureDataSourceMinValue:minValue maxValue:maxValue step:step];
+    self.columns = [self configureDataSourceMinValue:minValue maxValue:maxValue];
     
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     self.frame = screenFrame;
@@ -65,37 +65,48 @@
     } completion:nil];
 }
 
-- (NSArray *)configureDataSourceMinValue:(float)minValue maxValue:(float)maxValue step:(float)step {
-    float properStep = (step > 0)?step:1.0;
+- (NSArray *)configureDataSourceMinValue:(float)minValue maxValue:(float)maxValue {
     NSMutableArray *rangeArray = [NSMutableArray array];
+    NSMutableArray *decimalArray = [NSMutableArray array];
     @autoreleasepool {
-        for (float i = minValue; i <= maxValue; i += properStep) {
-            [rangeArray addObject:[NSString stringWithFormat:@"%.1f", i]];
+        for (int i = minValue; i <= maxValue; i++) {
+            [rangeArray addObject:[NSString stringWithFormat:@"%i", i]];
+        }
+        for (int i = 0; i < 10; i++) {
+            [decimalArray addObject:[NSString stringWithFormat:@".%i", i]];
         }
     }
-    return @[[rangeArray copy], [rangeArray copy]];
+    return @[[rangeArray copy], [decimalArray copy], [rangeArray copy], [decimalArray copy]];
 }
 
 - (void)setLowerValue:(float)lowerValue {
-    NSInteger index = [self indexForValue:lowerValue];
+    float integerValue;
+    int decimalPart = abs(roundf((modff(lowerValue, &integerValue) * 10.0)));
+    [_pickerView selectRow:decimalPart inComponent:1 animated:NO];
+    
+    NSInteger index = [self indexForValue:(int)integerValue];
     if (index >= 0) {
         [_pickerView selectRow:index inComponent:0 animated:NO];
     }
 }
 
 - (void)setUpperValue:(float)upperValue {
-    NSInteger index = [self indexForValue:upperValue];
+    float integerValue;
+    int decimalPart = abs(roundf((modff(upperValue, &integerValue) * 10.0)));
+    [_pickerView selectRow:decimalPart inComponent:3 animated:NO];
+    
+    NSInteger index = [self indexForValue:integerValue];
     if (index >= 0) {
-        [_pickerView selectRow:index inComponent:1 animated:NO];
+        [_pickerView selectRow:index inComponent:2 animated:NO];
     }
 }
 
-- (NSInteger)indexForValue:(float)value {
+- (NSInteger)indexForValue:(int)value {
     NSArray *columnValues = [_columns objectAtIndex:0];
     float minValue = [[columnValues objectAtIndex:0] floatValue];
     float maxValue = [[columnValues lastObject] floatValue];
     if (minValue <= value <= maxValue) {
-        NSPredicate *preicate = [NSPredicate predicateWithFormat:@"self == %@", [NSString stringWithFormat:@"%.1f", value]];
+        NSPredicate *preicate = [NSPredicate predicateWithFormat:@"self == %@", [NSString stringWithFormat:@"%i", value]];
         NSArray *filteredArray = [columnValues filteredArrayUsingPredicate:preicate];
         if ([filteredArray count] > 0) {
             NSString *matchValue = [filteredArray lastObject];
@@ -111,10 +122,18 @@
     } completion:^(BOOL finished) {
         if (_saveBlock) {
             NSArray *minColumn = [_columns objectAtIndex:0];
-            NSArray *maxColumn = [_columns objectAtIndex:1];
-            NSString *lowerValueString = [minColumn objectAtIndex:[_pickerView selectedRowInComponent:0]];
-            NSString *upperValueString = [maxColumn objectAtIndex:[_pickerView selectedRowInComponent:1]];
-            _saveBlock([lowerValueString floatValue], [upperValueString floatValue]);
+            NSArray *maxColumn = [_columns objectAtIndex:2];
+            NSArray *minDecimalColumn = [_columns objectAtIndex:1];
+            NSArray *maxDecimalColumn = [_columns objectAtIndex:3];
+            float lowerValue = [[minColumn objectAtIndex:[_pickerView selectedRowInComponent:0]] floatValue];
+            float upperValue = [[maxColumn objectAtIndex:[_pickerView selectedRowInComponent:2]] floatValue];
+            float lowerDecimalValue = [[minDecimalColumn objectAtIndex:[_pickerView selectedRowInComponent:1]] floatValue];
+            float upperDecimalValue = [[maxDecimalColumn objectAtIndex:[_pickerView selectedRowInComponent:3]] floatValue];
+            
+            lowerValue += (lowerValue < 0)?-lowerDecimalValue:lowerDecimalValue;
+            upperValue += (upperValue < 0)?-upperDecimalValue:upperDecimalValue;
+            
+            _saveBlock(lowerValue, upperValue);
         }
         [self removeFromSuperview];
     }];
@@ -146,7 +165,7 @@
     return [[_columns objectAtIndex:component] count];
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSArray *rows = [_columns objectAtIndex:component];
     NSString *title = nil;
     NSObject *rowObject = [rows objectAtIndex:row];
@@ -159,19 +178,42 @@
     else {
         title = @"";
     }
-    return title;
+    return [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:(component == 1 || component == 3)?[UIColor redColor]:[UIColor blackColor]}];;
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSArray *columnValues = [_columns objectAtIndex:0];
+    NSArray *columnDecimalValues = [_columns objectAtIndex:1];
+    
     NSInteger minIndex = [pickerView selectedRowInComponent:0];
-    NSInteger maxIndex = [pickerView selectedRowInComponent:1];
+    NSInteger decimalMinIndex = [pickerView selectedRowInComponent:1];
+    NSInteger maxIndex = [pickerView selectedRowInComponent:2];
+    NSInteger decimalMaxIndex = [pickerView selectedRowInComponent:3];
+    
     NSString *lowerValueString = [columnValues objectAtIndex:minIndex];
     NSString *upperValueString = [columnValues objectAtIndex:maxIndex];
-    if ([lowerValueString floatValue] > [upperValueString floatValue]) {
-        [pickerView selectRow:maxIndex inComponent:0 animated:YES];
+    NSString *decimalLowerValueString = [columnDecimalValues objectAtIndex:decimalMinIndex];
+    NSString *decimalUpperValueString = [columnDecimalValues objectAtIndex:decimalMaxIndex];
+    
+    float decimalLowerValue = [[decimalLowerValueString substringFromIndex:1] floatValue]/10.0;
+    float decimalUpperValue = [[decimalUpperValueString substringFromIndex:1] floatValue]/10.0;
+    float integerLowerValue = [lowerValueString floatValue];
+    float integerUpperValue = [upperValueString floatValue];
+    float lowerValue = integerLowerValue + decimalLowerValue;
+    float upperValue = integerUpperValue + decimalUpperValue;
+    
+    if (lowerValue > upperValue) {
+        if (integerLowerValue > integerUpperValue) {
+            [pickerView selectRow:maxIndex inComponent:0 animated:YES];
+            if (decimalLowerValue > decimalUpperValue) {
+                [pickerView selectRow:decimalMaxIndex inComponent:1 animated:YES];
+            }
+        }
+        else {
+            [pickerView selectRow:decimalMaxIndex inComponent:1 animated:YES];
+        }
     }
 }
 

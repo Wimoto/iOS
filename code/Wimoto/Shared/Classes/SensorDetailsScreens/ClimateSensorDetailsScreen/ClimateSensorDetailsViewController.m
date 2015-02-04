@@ -101,7 +101,7 @@
             minValue = [sensor convertToFahrenheit:minValue];
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
             [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
             
             sensor.temperatureAlarmLow = lowerValue;
@@ -125,7 +125,7 @@
     if (_humiditySwitch.on) {
         float minValue = 0.0;
         float maxValue = 100.0;
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
             [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
             
             sensor.humidityAlarmLow = lowerValue;
@@ -149,7 +149,7 @@
     if (_lightSwitch.on) {
         float minValue = 10.0;
         float maxValue = 65535.0;
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue step:1.0 save:^(float lowerValue, float upperValue) {
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
             [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
             
             sensor.lightAlarmLow = lowerValue;
