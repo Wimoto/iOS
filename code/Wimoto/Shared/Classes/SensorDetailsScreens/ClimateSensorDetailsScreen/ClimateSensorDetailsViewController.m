@@ -110,7 +110,7 @@
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
-            [_tempSwitch setOn:NO animated:YES];
+            //[_tempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.temperatureAlarmLow];
         [pickerView setUpperValue:sensor.temperatureAlarmHigh];
@@ -134,7 +134,7 @@
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE];
         } cancel:^{
-            [_humiditySwitch setOn:NO animated:YES];
+            //[_humiditySwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.humidityAlarmLow];
         [pickerView setUpperValue:sensor.humidityAlarmHigh];
@@ -158,7 +158,7 @@
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
         } cancel:^{
-            [_lightSwitch setOn:NO animated:YES];
+            //[_lightSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.lightAlarmLow];
         [pickerView setUpperValue:sensor.lightAlarmHigh];
