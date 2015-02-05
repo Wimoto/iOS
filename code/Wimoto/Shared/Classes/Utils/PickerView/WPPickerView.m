@@ -165,7 +165,7 @@
     return [[_columns objectAtIndex:component] count];
 }
 
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     NSArray *rows = [_columns objectAtIndex:component];
     NSString *title = nil;
     NSObject *rowObject = [rows objectAtIndex:row];
@@ -176,9 +176,32 @@
         title = [NSString stringWithFormat:@"%@", rowObject];
     }
     else {
-        title = @"";
+       title = @"";
     }
-    return [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:(component == 1 || component == 3)?[UIColor redColor]:[UIColor blackColor]}];;
+    UIView *labelContainer = (UIView *)view;
+    if (!labelContainer) {
+        labelContainer = [[UIView alloc] init];
+        labelContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        UILabel *label = [[UILabel alloc] init];
+        label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        if (component == 0 || component == 2) {
+            label.textAlignment = NSTextAlignmentRight;
+            label.textColor = [UIColor blackColor];
+        }
+        else {
+            label.frame = CGRectMake(10.0, 0.0, 0.0, 0.0);
+            label.textAlignment = NSTextAlignmentLeft;
+            label.textColor = [UIColor redColor];
+        }
+        [labelContainer addSubview:label];
+    }
+    UILabel *label = [labelContainer.subviews lastObject];
+    label.text = title;
+    return labelContainer;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    return 80.0;
 }
 
 #pragma mark - UIPickerViewDelegate
