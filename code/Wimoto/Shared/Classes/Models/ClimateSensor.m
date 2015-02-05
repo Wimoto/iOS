@@ -75,14 +75,12 @@
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
     [super enableAlarm:enable forCharacteristicWithUUIDString:UUIDString];
     
-    if (!enable) {
-        if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]) {
-            self.temperatureAlarmState = kAlarmStateDisabled;
-        } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]) {
-            self.lightAlarmState = kAlarmStateDisabled;
-        } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET]) {
-            self.humidityAlarmState = kAlarmStateDisabled;
-        }
+    if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]) {
+        self.temperatureAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]) {
+        self.lightAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET]) {
+        self.humidityAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
     }
 }
 
