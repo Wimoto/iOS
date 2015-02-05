@@ -305,6 +305,7 @@
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     NSString *alertString = nil;
+    NSString *characteristicUuid = @"";
     NSLog(@"alarmActionWithCharacteristic #110");
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
         NSLog(@"alarmActionWithCharacteristic #120");
@@ -315,6 +316,7 @@
                 NSLog(@"alarmActionWithCharacteristic #140");
                 _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
                 alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+                characteristicUuid = BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET;
             }
         }
     }
@@ -322,12 +324,14 @@
         if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
             _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
             alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+            characteristicUuid = BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET;
         }
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
         if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
             _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
             alertString = [NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+            characteristicUuid = BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET;
         }
     }
     NSLog(@"ALERT MESSAGE - %@", alertString);
@@ -341,7 +345,7 @@
         
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [dict setObject:self.uniqueIdentifier forKey:@"sensor"];
-        [dict setObject:[characteristic.UUID UUIDString] forKey:@"uuid"];
+        [dict setObject:characteristicUuid forKey:@"uuid"];
         localNotification.userInfo = dict;
         
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
