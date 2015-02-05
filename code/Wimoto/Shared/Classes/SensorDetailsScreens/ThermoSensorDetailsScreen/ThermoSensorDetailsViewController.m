@@ -90,7 +90,7 @@
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
-            [_irTempSwitch setOn:NO animated:YES];
+            //[_irTempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.irTempAlarmLow];
         [pickerView setUpperValue:sensor.irTempAlarmHigh];
@@ -119,7 +119,7 @@
             [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
             [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
-            [_probeTempSwitch setOn:NO animated:YES];
+            //[_probeTempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.probeTempAlarmLow];
         [pickerView setUpperValue:sensor.probeTempAlarmHigh];
