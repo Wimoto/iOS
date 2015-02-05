@@ -311,10 +311,17 @@
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     NSString *alertString = nil;
+    NSLog(@"alarmActionWithCharacteristic #110");
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
-        if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
-            _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-            alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+        NSLog(@"alarmActionWithCharacteristic #120");
+//        if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
+        if (_temperatureAlarmState == kAlarmStateEnabled) {
+            NSLog(@"alarmActionWithCharacteristic #130 %.f  ----   %.f", [[NSDate date] timeIntervalSinceReferenceDate], (_temperatureAlarmTimeshot+30));
+            if ([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30)) {
+                NSLog(@"alarmActionWithCharacteristic #140");
+                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
+            }
         }
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
