@@ -81,6 +81,8 @@ typedef enum {
 + (id)demoSensorWithUniqueId:(NSString *)uniqueId;
 - (id)initWithEntity:(SensorEntity*)entity;
 
+- (void)showLocalNotificationWithMessage:(NSString *)message;
+
 - (float)roundToOne:(float)value;
 
 - (PeripheralType)type;

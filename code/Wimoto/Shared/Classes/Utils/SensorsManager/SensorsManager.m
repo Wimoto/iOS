@@ -250,23 +250,6 @@ static SensorsManager *sensorsManager = nil;
     }
 }
 
-//#pragma mark - Value Observer
-//
-//- (void)observeValueForKeyPath:(NSString *)keyPath
-//                      ofObject:(id)object
-//                        change:(NSDictionary *)change
-//                       context:(void *)context {
-//    
-//    BOOL isDfuModeOn = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
-//    NSLog(@"isDFU MODE %d", isDfuModeOn);
-//    
-//    if (isDfuModeOn) {
-//        Sensor *sensor = (Sensor *)object;
-//        [_wimotoCentralManager cancelPeripheralConnection:sensor.peripheral];
-//        sensor.peripheral = nil;
-//    }
-//}
-//
 #pragma mark - Replication
 
 + (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer {
