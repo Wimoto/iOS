@@ -12,6 +12,10 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 
+@property (nonatomic) NSTimeInterval temperatureAlarmTimeshot;
+@property (nonatomic) NSTimeInterval humidityAlarmTimeshot;
+@property (nonatomic) NSTimeInterval lightAlarmTimeshot;
+
 - (void)sensorUpdate;
 
 @end
@@ -78,6 +82,33 @@
     else {
         self.light+=lightStep;
     }
+    
+    NSString *tempNotificationsMessage = nil;
+    if (self.temperature > self.temperatureAlarmHigh) {
+        tempNotificationsMessage = @"Climate sensor temperature is too high";
+    }
+    else if (self.temperature < self.temperatureAlarmLow) {
+        tempNotificationsMessage = @"Climate sensor temperature is too low";
+    }
+    //[self showLocalNotificationWithMessage:tempNotificationsMessage];
+    
+    NSString *humidityNotificationsMessage = nil;
+    if (self.humidity > self.humidityAlarmHigh) {
+        humidityNotificationsMessage = @"Climate sensor humidity is too high";
+    }
+    else if (self.humidity < self.humidityAlarmLow) {
+        humidityNotificationsMessage = @"Climate sensor humidity is too low";
+    }
+    //[self showLocalNotificationWithMessage:humidityNotificationsMessage];
+    
+    NSString *lightNotificationsMessage = nil;
+    if (self.light > self.lightAlarmHigh) {
+        lightNotificationsMessage = @"Climate sensor light is too high";
+    }
+    else if (self.light < self.lightAlarmLow) {
+        lightNotificationsMessage = @"Climate sensor light is too low";
+    }
+    //[self showLocalNotificationWithMessage:lightNotificationsMessage];
     
     [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
     [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];

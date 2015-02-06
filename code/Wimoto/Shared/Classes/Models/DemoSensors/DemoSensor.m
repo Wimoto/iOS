@@ -30,4 +30,13 @@
 
 - (void)sensorUpdate {}
 
+- (void)showLocalNotificationWithMessage:(NSString *)message {
+    if (message) {
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertBody = message;
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
+}
+
 @end

@@ -20,7 +20,6 @@
 		040DC6971A79680A006FB584 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */; };
 		040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */; };
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
-		04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC799E1A1E9398001227D6 /* DfuCentralManager.m */; };
 		04E090801A5B253000FEBC66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E0907F1A5B253000FEBC66 /* MessageUI.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
@@ -79,8 +78,6 @@
 		30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */; };
 		30B48800184E0B08002B0CD8 /* HelpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */; };
 		30B48801184E0B08002B0CD8 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */; };
-		30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0EB194729AA001E10A5 /* DFUController.m */; };
-		30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */; };
 		30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */; };
 		30B9E0F819472DFC001E10A5 /* FirmwareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B9E0F719472DFC001E10A5 /* FirmwareCell.m */; };
 		30B9E0FA19472E0B001E10A5 /* FirmwareCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B9E0F919472E0B001E10A5 /* FirmwareCell_iPhone.xib */; };
@@ -219,8 +216,6 @@
 		040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
 		040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareViewController_iPhone.xib; sourceTree = "<group>"; };
 		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
-		04AC799D1A1E9398001227D6 /* DfuCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DfuCentralManager.h; sourceTree = "<group>"; };
-		04AC799E1A1E9398001227D6 /* DfuCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DfuCentralManager.m; sourceTree = "<group>"; };
 		04E0907F1A5B253000FEBC66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
 		04E60A76195ACA6800570833 /* WimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WimotoCentralManager.m; sourceTree = "<group>"; };
@@ -296,10 +291,6 @@
 		30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		30B487FE184E0B08002B0CD8 /* HelpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController_iPhone.xib; sourceTree = "<group>"; };
 		30B487FF184E0B08002B0CD8 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
-		30B9E0EA194729AA001E10A5 /* DFUController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFUController.h; sourceTree = "<group>"; };
-		30B9E0EB194729AA001E10A5 /* DFUController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUController.m; sourceTree = "<group>"; };
-		30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFUTargetAdapter.h; sourceTree = "<group>"; };
-		30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFUTargetAdapter.m; sourceTree = "<group>"; };
 		30B9E0F119472CD9001E10A5 /* FirmwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareViewController.h; sourceTree = "<group>"; };
 		30B9E0F219472CD9001E10A5 /* FirmwareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmwareViewController.m; sourceTree = "<group>"; };
 		30B9E0F619472DFC001E10A5 /* FirmwareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmwareCell.h; sourceTree = "<group>"; };
@@ -710,7 +701,6 @@
 				49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */,
 				49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */,
 				3035CE5A1965AC58008DA202 /* QueueManager */,
-				30B9E0E9194729AA001E10A5 /* DFUParts */,
 				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
 				90D8079F185B52D800FDF31D /* Sparklines */,
@@ -769,17 +759,6 @@
 				30B487FA184E0A6C002B0CD8 /* SettingsViewController.m */,
 			);
 			path = SettingsScreen;
-			sourceTree = "<group>";
-		};
-		30B9E0E9194729AA001E10A5 /* DFUParts */ = {
-			isa = PBXGroup;
-			children = (
-				30B9E0EA194729AA001E10A5 /* DFUController.h */,
-				30B9E0EB194729AA001E10A5 /* DFUController.m */,
-				30B9E0EC194729AA001E10A5 /* DFUTargetAdapter.h */,
-				30B9E0ED194729AA001E10A5 /* DFUTargetAdapter.m */,
-			);
-			path = DFUParts;
 			sourceTree = "<group>";
 		};
 		30B9E0F019472CB5001E10A5 /* FirmwareScreen */ = {
@@ -920,8 +899,6 @@
 		90232E37185A521900F83210 /* BLEManager */ = {
 			isa = PBXGroup;
 			children = (
-				04AC799D1A1E9398001227D6 /* DfuCentralManager.h */,
-				04AC799E1A1E9398001227D6 /* DfuCentralManager.m */,
 				04E60A75195ACA6800570833 /* WimotoCentralManager.h */,
 				04E60A76195ACA6800570833 /* WimotoCentralManager.m */,
 				901399CA185B16CB0003D964 /* CBPeripheral+Util.h */,
@@ -1393,7 +1370,6 @@
 				F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
-				04AC799F1A1E9398001227D6 /* DfuCentralManager.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
 				3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */,
 				F725649E1A41E82600BEF94B /* IntelHex2BinConverter.m in Sources */,
@@ -1405,7 +1381,6 @@
 				30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */,
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				F72564951A41E82600BEF94B /* BLEOperations.m in Sources */,
-				30B9E0EF194729AA001E10A5 /* DFUTargetAdapter.m in Sources */,
 				F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */,
 				04EFF2FE195972540067589E /* SensorEntity.m in Sources */,
 				F72564BB1A41F12900BEF94B /* mztools.c in Sources */,
@@ -1431,7 +1406,6 @@
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
-				30B9E0EE194729AA001E10A5 /* DFUController.m in Sources */,
 				F72564981A41E82600BEF94B /* FileOperations.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,

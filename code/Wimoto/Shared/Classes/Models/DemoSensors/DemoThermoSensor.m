@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 
+@property (nonatomic) NSTimeInterval irTempAlarmTimeshot;
+@property (nonatomic) NSTimeInterval probeTempAlarmTimeshot;
+
 - (void)sensorUpdate;
 
 @end
@@ -88,6 +91,25 @@
     else {
         self.probeTemp = _probeTemp + probeTempStep;
     }
+    
+    NSString *probeTempNotificationsMessage = nil;
+    if (self.probeTemp > self.probeTempAlarmHigh) {
+        probeTempNotificationsMessage = @"Thermo sensor probe temperature is too high";
+    }
+    else if (self.probeTemp < self.probeTempAlarmLow) {
+        probeTempNotificationsMessage = @"Thermo sensor probe temperature is too low";
+    }
+    //[self showLocalNotificationWithMessage:probeTempNotificationsMessage];
+    
+    NSString *irTempNotificationsMessage = nil;
+    if (self.irTemp > self.irTempAlarmHigh) {
+        irTempNotificationsMessage = @"Thermo sensor IR temperature is too high";
+    }
+    else if (self.irTemp < self.irTempAlarmLow) {
+        irTempNotificationsMessage = @"Thermo sensor IR temperature is too low";
+    }
+    //[self showLocalNotificationWithMessage:irTempNotificationsMessage];
+    
     [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
     [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
 }
