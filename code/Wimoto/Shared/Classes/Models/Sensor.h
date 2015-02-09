@@ -21,6 +21,10 @@
 
 #define OBSERVER_KEY_PATH_SENSOR_DL_STATE       @"dataLoggerState"
 
+
+#define LOCAL_NOTIFICATION_ALARM_SENSOR         @"alarmSensor"
+#define LOCAL_NOTIFICATION_ALARM_UUID           @"alarmUuid"
+
 typedef enum {
     kAlarmStateUnknown = 0,
     kAlarmStateDisabled,
@@ -87,7 +91,7 @@ typedef enum {
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString;
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
+//- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
 
 - (void)switchToDfuMode;
 - (void)enableDataLogger:(BOOL)doEnable;
@@ -95,6 +99,7 @@ typedef enum {
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;
+- (AlarmType)alarmTypeForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic;
 - (NSString *)sensorStringValueForCharacteristic:(CBCharacteristic *)characteristic;
@@ -105,5 +110,7 @@ typedef enum {
 - (float)convertToFahrenheit:(float)value;
 - (float)convertToCelsius:(float)value;
 - (NSString *)temperatureSymbol;
+
+- (void)showAlarmNotification:(NSString *)message forUuid:(NSString *)uuidString;
 
 @end

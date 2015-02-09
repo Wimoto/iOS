@@ -232,6 +232,22 @@
     return value;
 }
 
+- (AlarmType)alarmTypeForCharacteristic:(CBCharacteristic *)characteristic {
+    NSLog(@"ALARM NOTIFICATION HEX %@", [characteristic.value hexadecimalString]);
+    
+    uint8_t alarmValue  = 0;
+    [[characteristic value] getBytes:&alarmValue length:1];
+    NSLog(@"alarm!  0x%x", alarmValue);
+    if (alarmValue & 0x02) {
+        NSLog(@"ALARM HIGH VALUE");
+        return kAlarmHigh;
+    }
+    else if (alarmValue & 0x01) {
+        NSLog(@"ALARM LOW VALUE");
+        return kAlarmLow;
+    }
+}
+
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic {
     NSScanner *scanner = [NSScanner scannerWithString:[characteristic.value hexadecimalString]];
     unsigned int decimalValue;
@@ -264,6 +280,22 @@
 - (void)readDataLogger {
     char bytes[1] = { 0x01 };
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+- (void)showAlarmNotification:(NSString *)message forUuid:(NSString *)uuidString {
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
+    }
+    localNotification.alertAction = @"View";
+    localNotification.alertBody = message;
+    
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:self.uniqueIdentifier forKey:LOCAL_NOTIFICATION_ALARM_SENSOR];
+    [userInfo setObject:uuidString forKey:LOCAL_NOTIFICATION_ALARM_UUID];
+    localNotification.userInfo = userInfo;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 #pragma mark - CBPeripheralDelegate

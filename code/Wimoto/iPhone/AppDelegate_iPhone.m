@@ -108,7 +108,7 @@
     if ([application applicationState] == UIApplicationStateActive) {
         [UIAlertView showWithTitle:nil message:[notification alertBody] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Switch off alarm"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {            
             if (buttonIndex == 1) {
-                [SensorsManager switchOffAlarm:[notification.userInfo objectForKey:@"uuid"] forSensor:[notification.userInfo objectForKey:@"sensor"]];
+                [SensorsManager switchOffAlarm:[notification.userInfo objectForKey:LOCAL_NOTIFICATION_ALARM_UUID] forSensor:[notification.userInfo objectForKey:LOCAL_NOTIFICATION_ALARM_SENSOR]];
             }
         }];
     }

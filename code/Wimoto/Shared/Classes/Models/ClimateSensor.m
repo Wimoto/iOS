@@ -20,6 +20,9 @@
 
 @implementation ClimateSensor
 
+@synthesize temperatureAlarmLow = _temperatureAlarmLow;
+@synthesize temperatureAlarmHigh = _temperatureAlarmHigh;
+
 - (PeripheralType)type {
     return kPeripheralTypeClimate;
 }
@@ -32,12 +35,66 @@
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
 }
 
-- (float)temperatureAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
+- (void)setTemperatureAlarmState:(AlarmState)temperatureAlarmState {
+    _temperatureAlarmState = temperatureAlarmState;
+    
+    [super enableAlarm:(_temperatureAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
+}
+
+- (void)setHumidityAlarmState:(AlarmState)humidityAlarmState {
+    _humidityAlarmState = humidityAlarmState;
+    
+    [super enableAlarm:(_humidityAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
+}
+
+- (void)setLightAlarmState:(AlarmState)lightAlarmState {
+    _lightAlarmState = lightAlarmState;
+    
+    [super enableAlarm:(_lightAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
 }
 
 - (float)temperatureAlarmLow {
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
+}
+
+- (void)setTemperatureAlarmLow:(float)temperatureAlarmLow {
+    _temperatureAlarmLow = temperatureAlarmLow;
+    
+    [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_temperatureAlarmLow] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
+}
+
+- (float)temperatureAlarmHigh {
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
+}
+
+- (void)setTemperatureAlarmHigh:(float)temperatureAlarmHigh {
+    _temperatureAlarmHigh = temperatureAlarmHigh;
+    
+    [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_temperatureAlarmHigh] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE];
+}
+
+- (void)setHumidityAlarmLow:(float)humidityAlarmLow {
+    _humidityAlarmLow = humidityAlarmLow;
+    
+    [super writeAlarmValue:[self getSensorHumidityFromHumidity:_humidityAlarmLow] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE];
+}
+
+- (void)setHumidityAlarmHigh:(float)humidityAlarmHigh {
+    _humidityAlarmHigh = humidityAlarmHigh;
+    
+    [super writeAlarmValue:[self getSensorHumidityFromHumidity:_humidityAlarmHigh] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE];
+}
+
+- (void)setLightAlarmLow:(float)lightAlarmLow {
+    _lightAlarmLow = lightAlarmLow;
+    
+    [super writeAlarmValue:_lightAlarmLow forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
+}
+
+- (void)setLightAlarmHigh:(float)lightAlarmHigh {
+    _lightAlarmHigh = lightAlarmHigh;
+    
+    [super writeAlarmValue:_lightAlarmHigh forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
 }
 
 - (float)getTemperatureFromSensorTemperature:(int)sensorTemperature {
@@ -56,21 +113,7 @@
     return ((6+humidity)*65536)/125;
 }
 
-- (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    if (([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
-        ([BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
-        [super writeAlarmValue:[self getSensorTemperatureFromTemperature:alarmValue] forCharacteristicWithUUIDString:UUIDString];
-    } else if (([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE isEqualToString:UUIDString]) ||
-               ([BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE isEqualToString:UUIDString])) {
-        [super writeAlarmValue:[self getSensorHumidityFromHumidity:alarmValue] forCharacteristicWithUUIDString:UUIDString];
-    } else {
-        [super writeAlarmValue:alarmValue forCharacteristicWithUUIDString:UUIDString];
-    }
-}
-
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
-    [super enableAlarm:enable forCharacteristicWithUUIDString:UUIDString];
-    
     if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]) {
         self.temperatureAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
     } else if ([UUIDString isEqual:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]) {
@@ -232,21 +275,26 @@
             if (_humidityAlarmState == kAlarmStateUnknown) {
                 self.humidityAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]||
-                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]||
-                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
-            NSLog(@"ALARM NOTIFICATION HEX %@", [characteristic.value hexadecimalString]);
-            
-            uint8_t alarmValue  = 0;
-            [[characteristic value] getBytes:&alarmValue length:1];
-            NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x02) {
-                NSLog(@"ALARM HIGH VALUE");
-                [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
+            if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
+                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
             }
-            else if (alarmValue & 0x01) {
-                NSLog(@"ALARM LOW VALUE");
-                [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
+            if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
+                _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ light %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
+            }
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
+            if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
+                _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
@@ -281,48 +329,6 @@
             [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
         }
     });
-}
-
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString = nil;
-    NSString *characteristicUuid = @"";
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
-        if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
-                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-            alertString = [NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-            characteristicUuid = BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET;
-        }
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
-        if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
-            _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-            alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-            characteristicUuid = BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET;
-        }
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
-        if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
-            _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-            alertString = [NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-            characteristicUuid = BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET;
-        }
-    }
-    NSLog(@"ALERT MESSAGE - %@", alertString);
-    if (alertString) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-        }
-        localNotification.alertBody = alertString;
-        localNotification.alertAction = @"View";
-        
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setObject:self.uniqueIdentifier forKey:@"sensor"];
-        [dict setObject:characteristicUuid forKey:@"uuid"];
-        localNotification.userInfo = dict;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    }
 }
 
 @end

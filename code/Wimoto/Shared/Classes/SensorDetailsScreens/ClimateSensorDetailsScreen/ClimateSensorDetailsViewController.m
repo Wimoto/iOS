@@ -93,6 +93,8 @@
 
 - (IBAction)temperatureAlarmAction:(id)sender {
     ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    
+    sensor.temperatureAlarmState = (_tempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_tempSwitch.on) {
         TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -25.0;
@@ -101,70 +103,50 @@
             minValue = [sensor convertToFahrenheit:minValue];
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
-            
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {            
             sensor.temperatureAlarmLow = lowerValue;
-            sensor.temperatureAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
+            sensor.temperatureAlarmHigh = upperValue;            
         } cancel:^{
-            //[_tempSwitch setOn:NO animated:YES];
+            // empty implementation
         }];
         [pickerView setLowerValue:sensor.temperatureAlarmLow];
         [pickerView setUpperValue:sensor.temperatureAlarmHigh];
-    }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
     }
 }
 
 - (IBAction)humidityAlarmAction:(id)sender {
     ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    
+    sensor.humidityAlarmState = (_humiditySwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_humiditySwitch.on) {
         float minValue = 0.0;
         float maxValue = 100.0;
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
-            
+        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {            
             sensor.humidityAlarmLow = lowerValue;
-            sensor.humidityAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE];
+            sensor.humidityAlarmHigh = upperValue;            
         } cancel:^{
-            //[_humiditySwitch setOn:NO animated:YES];
+            // empty implementation
         }];
         [pickerView setLowerValue:sensor.humidityAlarmLow];
         [pickerView setUpperValue:sensor.humidityAlarmHigh];
-    }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
     }
 }
 
 - (IBAction)lightAlarmAction:(id)sender {
     ClimateSensor *sensor = (ClimateSensor *)self.sensor;
+    
+    sensor.lightAlarmState = (_lightSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_lightSwitch.on) {
         float minValue = 10.0;
         float maxValue = 65535.0;
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
-            
             sensor.lightAlarmLow = lowerValue;
-            sensor.lightAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
+            sensor.lightAlarmHigh = upperValue;            
         } cancel:^{
-            //[_lightSwitch setOn:NO animated:YES];
+            // empty implementation
         }];
         [pickerView setLowerValue:sensor.lightAlarmLow];
         [pickerView setUpperValue:sensor.lightAlarmHigh];
-    }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
     }
 }
 

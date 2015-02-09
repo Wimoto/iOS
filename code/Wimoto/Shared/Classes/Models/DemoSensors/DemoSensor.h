@@ -14,7 +14,6 @@
 
 + (id)demoSensorWithUniqueId:(NSString *)uniqueId;
 
-- (void)showLocalNotificationWithMessage:(NSString *)message;
 - (void)sensorUpdate;
 
 @end
