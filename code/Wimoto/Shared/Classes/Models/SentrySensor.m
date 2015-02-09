@@ -177,9 +177,6 @@ static NSArray *valueFactors = nil;
                     [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
             }
-            else {
-                [self alarmServiceDidStopAlarm:characteristic];
-            }
         }
     });
 }

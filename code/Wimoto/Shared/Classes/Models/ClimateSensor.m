@@ -214,23 +214,6 @@
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
             self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
-                        
-//            if ([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+10)) {
-//                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-//                
-//                UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-//                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-//                    localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-//                }
-//                localNotification.alertBody = @"Goo";
-//                localNotification.alertAction = @"View";
-//                
-//                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//                [dict setObject:self.uniqueIdentifier forKey:@"sensor"];
-//                [dict setObject:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM forKey:@"uuid"];
-//                localNotification.userInfo = dict;
-//                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-//            }
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
             self.humidity = [self getHumidityFromSensorHumidity:[self sensorValueForCharacteristic:characteristic]];
             [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
@@ -264,9 +247,6 @@
             else if (alarmValue & 0x01) {
                 NSLog(@"ALARM LOW VALUE");
                 [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-            }
-            else {
-                [self alarmServiceDidStopAlarm:characteristic];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {

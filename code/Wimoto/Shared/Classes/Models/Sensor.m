@@ -34,17 +34,6 @@
     return [[[Sensor classForType:[entity.sensorType intValue]] alloc] initWithEntity:entity];
 }
 
-+ (id)demoSensorWithUniqueId:(NSString *)uniqueId {
-    NSString *className = nil;
-    if ([uniqueId isEqualToString:BLE_CLIMATE_DEMO_MODEL]) {
-        className = @"DemoClimateSensor";
-    }
-    else if ([uniqueId isEqualToString:BLE_THERMO_DEMO_MODEL]) {
-        className = @"DemoThermoSensor";
-    }
-    return [[NSClassFromString(className) alloc] init];
-}
-
 + (Class)classForType:(PeripheralType)type {
     switch (type) {
         case kPeripheralTypeClimate:
@@ -187,10 +176,6 @@
 
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
     //Implement in child
-}
-
-- (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic {
-    NSLog(@"ALARM DID STOPE, CHARACTERISTIC - %@", characteristic);
 }
 
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {

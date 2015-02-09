@@ -2,7 +2,7 @@
 //  DemoThermoSensorDetailsViewController.h
 //  Wimoto
 //
-//  Created by Alena Kokareva on 30.10.14.
+//  Created by MC700 on 30.10.14.
 //
 //
 

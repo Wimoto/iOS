@@ -103,7 +103,7 @@ static SensorsManager *sensorsManager = nil;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", uniqueId];
         Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
         if (!sensor) {
-            sensor = [Sensor demoSensorWithUniqueId:uniqueId];
+            sensor = [DemoSensor demoSensorWithUniqueId:uniqueId];
             [_sensors addObject:sensor];
             [self notifyUnregisteredSensorsObservers];
         }
@@ -204,6 +204,20 @@ static SensorsManager *sensorsManager = nil;
     }
 }
 
+
++ (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
+    [[SensorsManager sharedManager] switchOffAlarm:UUID forSensor:sensorId];
+}
+
+- (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", sensorId];
+    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+    
+    NSLog(@"Sensors Manager switchOffAlarm %@   ____%@", sensor, sensorId);
+    
+    [sensor enableAlarm:NO forCharacteristicWithUUIDString:UUID];
+}
+
 #pragma mark - WimotoCentralManagerDelegate
 
 - (void)didConnectPeripheral:(CBPeripheral*)peripheral {
@@ -280,19 +294,6 @@ static SensorsManager *sensorsManager = nil;
     else {
         [[FBSession activeSession] closeAndClearTokenInformation];
     }
-}
-
-+ (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
-    [[SensorsManager sharedManager] switchOffAlarm:UUID forSensor:sensorId];
-}
-
-- (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", sensorId];
-    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
-    
-    NSLog(@"Sensors Manager switchOffAlarm %@   ____%@", sensor, sensorId);
-    
-    [sensor enableAlarm:NO forCharacteristicWithUUIDString:UUID];
 }
 
 - (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {

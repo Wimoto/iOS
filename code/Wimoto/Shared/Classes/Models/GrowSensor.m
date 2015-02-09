@@ -155,9 +155,6 @@
                     [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
             }
-            else {
-                [self alarmServiceDidStopAlarm:characteristic];
-            }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
             self.lightAlarmLow = [self alarmValueForCharacteristic:characteristic];

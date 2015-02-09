@@ -2,7 +2,7 @@
 //  WPPickerView.h
 //  Wimoto
 //
-//  Created by Alena Kokareva on 30.01.15.
+//  Created by MC700 on 30.01.15.
 //
 //
 

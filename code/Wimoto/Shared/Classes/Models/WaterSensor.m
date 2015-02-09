@@ -117,9 +117,6 @@
                     [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
             }
-            else {
-                [self alarmServiceDidStopAlarm:characteristic];
-            }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_LOW_VALUE]]) {
             self.levelAlarmLow = [self alarmValueForCharacteristic:characteristic];

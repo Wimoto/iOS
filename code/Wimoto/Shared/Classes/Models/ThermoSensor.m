@@ -153,9 +153,6 @@
                     [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
                 }
             }
-            else {
-                    //[self alarmServiceDidStopAlarm:characteristic];
-            }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]]) {
             self.irTempAlarmLow = [self alarmValueForCharacteristic:characteristic];

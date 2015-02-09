@@ -33,7 +33,7 @@
 
 - (PeripheralType)peripheralType
 {
-    NSLog(@"peripheralType: SERVICES COUNT === %i", [self.services count]);
+    NSLog(@"peripheralType: SERVICES COUNT === %d", [self.services count]);
     for (CBService *aService in self.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {

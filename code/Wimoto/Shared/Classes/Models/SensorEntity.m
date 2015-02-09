@@ -76,7 +76,7 @@
     });
 }
 
-- (void)jsonRepresentation:(void(^)(NSString *result))completionHandler {
+- (void)jsonRepresentation:(void(^)(NSData *result))completionHandler {
     dispatch_async([QueueManager databaseQueue], ^{
         CBLView *view = [self.database viewNamed:@"sensorValuesByDate"];
         if (!view.mapBlock) {

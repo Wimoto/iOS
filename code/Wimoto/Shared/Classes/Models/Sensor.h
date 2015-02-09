@@ -78,10 +78,7 @@ typedef enum {
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
-+ (id)demoSensorWithUniqueId:(NSString *)uniqueId;
 - (id)initWithEntity:(SensorEntity*)entity;
-
-- (void)showLocalNotificationWithMessage:(NSString *)message;
 
 - (float)roundToOne:(float)value;
 
@@ -91,7 +88,6 @@ typedef enum {
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString;
 - (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype;
-- (void)alarmServiceDidStopAlarm:(CBCharacteristic *)characteristic;
 
 - (void)switchToDfuMode;
 - (void)enableDataLogger:(BOOL)doEnable;

@@ -3,13 +3,24 @@
 //  DemoSensor.m
 //  Wimoto
 //
-//  Created by Alena Kokareva on 30.10.14.
+//  Created by MC700 on 30.10.14.
 //
 //
 
 #import "DemoSensor.h"
 
 @implementation DemoSensor
+
++ (id)demoSensorWithUniqueId:(NSString *)uniqueId {
+    NSString *className = nil;
+    if ([uniqueId isEqualToString:BLE_CLIMATE_DEMO_MODEL]) {
+        className = @"DemoClimateSensor";
+    }
+    else if ([uniqueId isEqualToString:BLE_THERMO_DEMO_MODEL]) {
+        className = @"DemoThermoSensor";
+    }
+    return [[NSClassFromString(className) alloc] init];
+}
 
 - (void)dealloc {
     [_timer invalidate];
