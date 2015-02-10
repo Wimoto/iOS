@@ -9,7 +9,22 @@
 #import "GrowSensor.h"
 #import "AppConstants.h"
 
+@interface GrowSensor ()
+
+@property (nonatomic) NSTimeInterval soilMoistureAlarmTimeshot;
+@property (nonatomic) NSTimeInterval soilTempAlarmTimeshot;
+@property (nonatomic) NSTimeInterval lightAlarmTimeshot;
+
+@end
+
 @implementation GrowSensor
+
+@synthesize soilMoistureAlarmLow = _soilMoistureAlarmLow;
+@synthesize soilMoistureAlarmHigh = _soilMoistureAlarmHigh;
+@synthesize soilTemperatureAlarmLow = _soilTemperatureAlarmLow;
+@synthesize soilTemperatureAlarmHigh = _soilTemperatureAlarmHigh;
+@synthesize lightAlarmLow = _lightAlarmLow;
+@synthesize lightAlarmHigh = _lightAlarmHigh;
 
 - (PeripheralType)type {
     return kPeripheralTypeGrow;
@@ -17,6 +32,61 @@
 
 - (NSString *)codename {
     return @"Grow";
+}
+
+- (void)setSoilMoistureAlarmState:(AlarmState)soilMoistureAlarmState {
+    _soilMoistureAlarmState = soilMoistureAlarmState;
+    [super enableAlarm:(_soilMoistureAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET];
+}
+
+- (void)setSoilTempAlarmState:(AlarmState)soilTempAlarmState {
+    _soilTempAlarmState = soilTempAlarmState;
+    [super enableAlarm:(_soilTempAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET];
+}
+
+- (void)setLightAlarmState:(AlarmState)lightAlarmState {
+    _lightAlarmState = lightAlarmState;
+    [super enableAlarm:(_lightAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET];
+}
+
+- (void)setSoilMoistureAlarmLow:(float)soilMoistureAlarmLow {
+    _soilMoistureAlarmLow = soilMoistureAlarmLow;
+    [super writeAlarmValue:_soilMoistureAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
+}
+
+- (void)setSoilMoistureAlarmHigh:(float)soilMoistureAlarmHigh {
+    _soilMoistureAlarmHigh = soilMoistureAlarmHigh;
+    [super writeAlarmValue:_soilMoistureAlarmHigh forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
+}
+
+- (void)setSoilTemperatureAlarmLow:(float)soilTemperatureAlarmLow {
+    _soilTemperatureAlarmLow = soilTemperatureAlarmLow;
+    [super writeAlarmValue:_soilTemperatureAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
+}
+
+- (void)setSoilTemperatureAlarmHigh:(float)soilTemperatureAlarmHigh {
+    _soilTemperatureAlarmHigh = soilTemperatureAlarmHigh;
+    [super writeAlarmValue:_soilTemperatureAlarmHigh forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
+}
+
+- (void)setLightAlarmLow:(float)lightAlarmLow {
+    _lightAlarmLow = lightAlarmLow;
+    [super writeAlarmValue:_lightAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
+}
+
+- (void)setLightAlarmHigh:(float)lightAlarmHigh {
+    _lightAlarmHigh = lightAlarmHigh;
+    [super writeAlarmValue:_lightAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
+}
+
+- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    if ([UUIDString isEqual:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET]) {
+        self.soilMoistureAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET]) {
+        self.soilTempAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET]) {
+        self.lightAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    }
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -141,19 +211,28 @@
                 self.soilTempAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
-            uint8_t alarmValue  = 0;
-            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
-            NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-                }
-                else {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
-                }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]) {
+            if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
+                _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ light %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]) {
+            if ((_soilMoistureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_soilMoistureAlarmTimeshot+30))) {
+                _soilMoistureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ soil moisture %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
+            if ((_soilTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_soilTempAlarmTimeshot+30))) {
+                _soilTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ soil temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
@@ -175,37 +254,6 @@
             self.soilTemperatureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
     });
-}
-
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString = nil;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM]]) {
-        if (_lightAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ light %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM]]) {
-        if (_soilMoistureAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ soil moisture %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM]]) {
-        if (_soilTempAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ soil temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    if (alertString) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-        }
-        localNotification.alertBody = alertString;
-        localNotification.alertAction = @"View";
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    }
 }
 
 @end

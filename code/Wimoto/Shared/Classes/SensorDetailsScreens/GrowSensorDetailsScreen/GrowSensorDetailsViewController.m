@@ -117,73 +117,52 @@
 
 - (IBAction)soilTempAlarmAction:(id)sender {
     GrowSensor *sensor = (GrowSensor *)self.sensor;
+    sensor.soilTempAlarmState = (_soilTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilTempSwitch.on) {
         float minValue = -60.0;
         float maxValue = 130.0;
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET];
-            
             sensor.soilTemperatureAlarmLow = lowerValue;
             sensor.soilTemperatureAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
             //[_soilTempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.soilTemperatureAlarmLow];
         [pickerView setUpperValue:sensor.soilTemperatureAlarmHigh];
     }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_SET];
-    }
 }
 
 - (IBAction)soilMoistureAlarmAction:(id)sender {
     GrowSensor *sensor = (GrowSensor *)self.sensor;
+    sensor.soilMoistureAlarmState = (_soilMoistureSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilMoistureSwitch.on) {
         float minValue = 10.0;
         float maxValue = 50.0;
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET];
-            
             sensor.soilMoistureAlarmLow = lowerValue;
             sensor.soilMoistureAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
         } cancel:^{
             //[_soilMoistureSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.soilMoistureAlarmLow];
         [pickerView setUpperValue:sensor.soilMoistureAlarmHigh];
     }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_SET];
-    }
 }
 
 - (IBAction)lightAlarmAction:(id)sender {
     GrowSensor *sensor = (GrowSensor *)self.sensor;
+    sensor.lightAlarmState = (_lightSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_lightSwitch.on) {
         float minValue = 10.0;
         float maxValue = 50.0;
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET];
-            
             sensor.lightAlarmLow = lowerValue;
             sensor.lightAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_LOW_VALUE];
         } cancel:^{
             //[_lightSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.lightAlarmLow];
         [pickerView setUpperValue:sensor.lightAlarmHigh];
-    }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET];
     }
 }
 

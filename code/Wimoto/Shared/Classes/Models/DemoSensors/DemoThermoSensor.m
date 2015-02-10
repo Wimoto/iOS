@@ -28,6 +28,12 @@
         self.uniqueIdentifier = BLE_THERMO_DEMO_MODEL;
         _irTemp = 20.0;
         _probeTemp = 30.0;
+        
+        self.irTempAlarmLow = 11.2;
+        self.irTempAlarmHigh = 34.7;
+        
+        self.probeTempAlarmLow = 23.9;
+        self.probeTempAlarmHigh = 35.5;
     }
     return self;
 }
@@ -35,6 +41,13 @@
 - (void)setEntity:(SensorEntity *)entity {
     _irTemp = 20.0;
     _probeTemp = 30.0;
+    
+    self.irTempAlarmLow = 11.2;
+    self.irTempAlarmHigh = 34.7;
+    
+    self.probeTempAlarmLow = 23.9;
+    self.probeTempAlarmHigh = 35.5;
+    
     [super setEntity:entity];
 }
 
@@ -92,26 +105,43 @@
         self.probeTemp = _probeTemp + probeTempStep;
     }
     
-    NSString *probeTempNotificationsMessage = nil;
-    if (self.probeTemp > self.probeTempAlarmHigh) {
-        probeTempNotificationsMessage = @"Thermo sensor probe temperature is too high";
+    if ((self.irTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_irTempAlarmTimeshot+30))) {
+        _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+        NSString *alarmType = nil;
+        if (self.irTemp > self.irTempAlarmHigh) {
+            alarmType = @"high value";
+        }
+        else if (self.irTemp < self.irTempAlarmLow) {
+            alarmType = @"low value";
+        }
+        if (alarmType) {
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ IR temperature %@", self.name, alarmType] forUuid:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
+        }
     }
-    else if (self.probeTemp < self.probeTempAlarmLow) {
-        probeTempNotificationsMessage = @"Thermo sensor probe temperature is too low";
+    if ((self.probeTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_probeTempAlarmTimeshot+30))) {
+        _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+        NSString *alarmType = nil;
+        if (self.probeTemp > self.probeTempAlarmHigh) {
+            alarmType = @"high value";
+        }
+        else if (self.probeTemp < self.probeTempAlarmLow) {
+            alarmType = @"low value";
+        }
+        if (alarmType) {
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ probe temperature %@", self.name, alarmType] forUuid:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
+        }
     }
-    //[self showLocalNotificationWithMessage:probeTempNotificationsMessage];
-    
-    NSString *irTempNotificationsMessage = nil;
-    if (self.irTemp > self.irTempAlarmHigh) {
-        irTempNotificationsMessage = @"Thermo sensor IR temperature is too high";
-    }
-    else if (self.irTemp < self.irTempAlarmLow) {
-        irTempNotificationsMessage = @"Thermo sensor IR temperature is too low";
-    }
-    //[self showLocalNotificationWithMessage:irTempNotificationsMessage];
     
     [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
     [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
+}
+
+- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    if ([UUIDString isEqual:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET]) {
+        self.irTempAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET]) {
+        self.probeTempAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    }
 }
 
 @end

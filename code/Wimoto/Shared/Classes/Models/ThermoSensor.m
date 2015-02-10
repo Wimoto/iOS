@@ -9,7 +9,19 @@
 #import "ThermoSensor.h"
 #import "AppConstants.h"
 
+@interface ThermoSensor ()
+
+@property (nonatomic) NSTimeInterval irTempAlarmTimeshot;;
+@property (nonatomic) NSTimeInterval probeTempAlarmTimeshot;
+
+@end
+
 @implementation ThermoSensor
+
+@synthesize irTempAlarmLow = _irTempAlarmLow;
+@synthesize irTempAlarmHigh = _irTempAlarmHigh;
+@synthesize probeTempAlarmLow = _probeTempAlarmLow;
+@synthesize probeTempAlarmHigh = _probeTempAlarmHigh;
 
 - (PeripheralType)type {
     return kPeripheralTypeThermo;
@@ -17,6 +29,36 @@
 
 - (NSString *)codename {
     return @"Thermo";
+}
+
+- (void)setIrTempAlarmState:(AlarmState)irTempAlarmState {
+    _irTempAlarmState = irTempAlarmState;
+    [super enableAlarm:(_irTempAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
+}
+
+- (void)setProbeTempAlarmState:(AlarmState)probeTempAlarmState {
+    _probeTempAlarmState = probeTempAlarmState;
+    [super enableAlarm:(_probeTempAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
+}
+
+- (void)setIrTempAlarmLow:(float)irTempAlarmLow {
+    _irTempAlarmLow = irTempAlarmLow;
+    [super writeAlarmValue:_irTempAlarmLow forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
+}
+
+- (void)setIrTempAlarmHigh:(float)irTempAlarmHigh {
+    _irTempAlarmHigh = irTempAlarmHigh;
+    [super writeAlarmValue:_irTempAlarmHigh forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
+}
+
+- (void)setProbeTempAlarmLow:(float)probeTempAlarmLow {
+    _probeTempAlarmLow = probeTempAlarmLow;
+    [super writeAlarmValue:_probeTempAlarmLow forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
+}
+
+- (void)setProbeTempAlarmHigh:(float)probeTempAlarmHigh {
+    _probeTempAlarmHigh = probeTempAlarmHigh;
+    [super writeAlarmValue:_probeTempAlarmHigh forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
 }
 
 - (float)irTemp {
@@ -49,6 +91,14 @@
         value = (self.tempMeasure == kTemperatureMeasureCelsius)?:[self convertToCelsius:value];
     }
     [super writeAlarmValue:value forCharacteristicWithUUIDString:UUIDString];
+}
+
+- (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
+    if ([UUIDString isEqual:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET]) {
+        self.irTempAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    } else if ([UUIDString isEqual:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET]) {
+        self.probeTempAlarmState = (enable)?kAlarmStateEnabled:kAlarmStateDisabled;
+    }
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -140,18 +190,20 @@
                 self.probeTempAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM]]) {
-            uint8_t alarmValue  = 0;
-            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
-            NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-                }
-                else {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
-                }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM]]) {
+            if ((_irTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_irTempAlarmTimeshot+30))) {
+                _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ ir temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
+            }
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM]]) {
+            if ((_probeTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_probeTempAlarmTimeshot+30))) {
+                _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ probe temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]]) {
@@ -168,31 +220,5 @@
         }
     });
 }
-
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM]]) {
-        if (_irTempAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ IR Temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM]]) {
-        if (_probeTempAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ probe Temperature %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    if (alertString) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-        }
-        localNotification.alertBody = alertString;
-        localNotification.alertAction = @"View";
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    }
-}
-
 
 @end

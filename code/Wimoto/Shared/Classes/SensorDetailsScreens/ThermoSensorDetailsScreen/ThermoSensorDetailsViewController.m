@@ -73,6 +73,8 @@
 
 - (IBAction)irTempAlarmAction:(id)sender {
     ThermoSensor *sensor = (ThermoSensor *)self.sensor;
+    
+    sensor.irTempAlarmState = (_irTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_irTempSwitch.on) {
         TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -60.0;
@@ -82,50 +84,36 @@
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
-            
             sensor.irTempAlarmLow = lowerValue;
             sensor.irTempAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
             //[_irTempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.irTempAlarmLow];
         [pickerView setUpperValue:sensor.irTempAlarmHigh];
     }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
-    }
 }
 
 - (IBAction)probeTempAlarmAction:(id)sender {
     ThermoSensor *sensor = (ThermoSensor *)self.sensor;
-    TemperatureMeasure tempMeasure = sensor.tempMeasure;
-    float minValue = -20.0;
-    float maxValue = 50.0;
-    if (tempMeasure == kTemperatureMeasureFahrenheit) {
-        minValue = [sensor convertToFahrenheit:minValue];
-        maxValue = [sensor convertToFahrenheit:maxValue];
-    }
+    
+    sensor.probeTempAlarmState = (_probeTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_probeTempSwitch.on) {
+        TemperatureMeasure tempMeasure = sensor.tempMeasure;
+        float minValue = -20.0;
+        float maxValue = 50.0;
+        if (tempMeasure == kTemperatureMeasureFahrenheit) {
+            minValue = [sensor convertToFahrenheit:minValue];
+            maxValue = [sensor convertToFahrenheit:maxValue];
+        }
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            [sensor enableAlarm:YES forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
-            
             sensor.probeTempAlarmLow = lowerValue;
             sensor.probeTempAlarmHigh = upperValue;
-            
-            [sensor writeAlarmValue:upperValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
-            [sensor writeAlarmValue:lowerValue forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE];
         } cancel:^{
             //[_probeTempSwitch setOn:NO animated:YES];
         }];
         [pickerView setLowerValue:sensor.probeTempAlarmLow];
         [pickerView setUpperValue:sensor.probeTempAlarmHigh];
-    }
-    else {
-        [sensor enableAlarm:NO forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
     }
 }
 

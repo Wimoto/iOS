@@ -246,6 +246,7 @@
         NSLog(@"ALARM LOW VALUE");
         return kAlarmLow;
     }
+    return -1;
 }
 
 - (int)sensorValueForCharacteristic:(CBCharacteristic *)characteristic {
