@@ -19,6 +19,12 @@
     return @"Water";
 }
 
+- (void)setPresenseAlarmState:(AlarmState)presenseAlarmState {
+    _presenseAlarmState = presenseAlarmState;
+    
+    [super enableAlarm:(_presenseAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET];
+}
+
 #pragma mark - CBPeriferalDelegate
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
