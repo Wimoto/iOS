@@ -50,7 +50,7 @@
                                [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE],
                                [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     
-    [self scanForPeripheralsWithServices:targetServices options:scanOptions];
+    [self scanForPeripheralsWithServices:nil options:scanOptions];
 }
 
 - (void)dealloc {
