@@ -140,7 +140,7 @@ typedef enum {
 #define BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM                 @"4209DC70-E433-4420-83D8-CDAACCD2E312"
 
 
-#define BLE_THERMO_MODEL                                            @"thermo"
+#define BLE_THERMO_MODEL                                            @"th"
 #define BLE_THERMO_AD_SERVICE_UUID_IR_TEMPERATURE                   @"8E4E"
 #define BLE_THERMO_SERVICE_UUID_IR_TEMPERATURE                      @"497B8E4E-B61E-4F82-8FE9-B12CF2497338"
 #define BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT                 @"497B8E4F-B61E-4F82-8FE9-B12CF2497338"
