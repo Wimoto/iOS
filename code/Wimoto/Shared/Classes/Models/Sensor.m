@@ -302,6 +302,7 @@
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    NSLog(@"didWriteValueForCharacteristic __%@__", error);
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
         // does nothing so far
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
