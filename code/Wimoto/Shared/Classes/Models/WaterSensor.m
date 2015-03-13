@@ -9,6 +9,12 @@
 #import "WaterSensor.h"
 #import "AppConstants.h"
 
+@interface WaterSensor ()
+
+@property (nonatomic) NSTimeInterval presenceAlarmTimeshot;
+
+@end
+
 @implementation WaterSensor
 
 - (PeripheralType)type {
@@ -108,20 +114,11 @@
                 self.presenseAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM]]||
-                 [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM]]) {
-            uint8_t alarmValue  = 0;
-            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
-            NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    NSLog(@"ALARM LOW VALUE");
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
-                }
-                else {
-                    NSLog(@"ALARM HIGH VALUE");
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
-                }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM]]) {
+            if ((_presenseAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_presenceAlarmTimeshot+30))) {
+                _presenceAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                [super showAlarmNotification:@"Water Presence" forUuid:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET];
             }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_LOW_VALUE]]) {
@@ -131,31 +128,6 @@
             self.levelAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
     });
-}
-
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM]]) {
-        if (_presenseAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ presense %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM]]) {
-        if (_levelAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@ level %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    if (alertString) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-        }
-        localNotification.alertBody = alertString;
-        localNotification.alertAction = @"View";
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    }
 }
 
 @end
