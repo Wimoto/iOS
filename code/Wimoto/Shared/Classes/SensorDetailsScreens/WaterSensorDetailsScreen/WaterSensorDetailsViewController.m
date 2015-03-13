@@ -29,7 +29,7 @@
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
-- (IBAction)levelAlarmAction:(id)sender;
+- (IBAction)presenceAlarmAction:(id)sender;
 
 @end
 
@@ -84,9 +84,9 @@
     }
 }
 
-- (IBAction)levelAlarmAction:(id)sender {
-    [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_SET];
-    ([sender isOn])?[_levelSlider showAction]:[_levelSlider hideAction:nil];
+- (IBAction)presenceAlarmAction:(id)sender {
+    WaterSensor *sensor = (WaterSensor *)self.sensor;
+    sensor.presenseAlarmState = (_contactSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
 }
 
 #pragma mark - AlarmSliderDelegate
