@@ -69,9 +69,10 @@
 
 - (NSString*)uniqueIdentifier {
     NSString *identifier = [self systemId];
-#ifdef DEBUG
-    identifier = [[self identifier] UUIDString];
-#endif
+    // TODO temp fix for Eugene I. sensors
+    if ([identifier isEqualToString:@"7383519721266824277"]) {
+        identifier = [[self identifier] UUIDString];
+    }
     return identifier;
 }
 
