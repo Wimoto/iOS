@@ -50,7 +50,7 @@
                                [CBUUID UUIDWithString:BLE_THERMO_AD_SERVICE_UUID_PROBE_TEMPERATURE],
                                [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     
-    [self scanForPeripheralsWithServices:nil options:scanOptions];
+    [self scanForPeripheralsWithServices:targetServices options:scanOptions];
 }
 
 - (void)dealloc {
@@ -96,7 +96,7 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
     
-    NSLog(@"WimotoCentralManager didConnectPeripheral");
+    NSLog(@"WimotoCentralManager didConnectPeripheral %@", [peripheral name]);
     NSArray *services = [NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE], [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     [peripheral discoverServices:services];
 }
@@ -130,7 +130,9 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if ([aPeripheral isIdentified]) {        
+    NSLog(@"#120WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
+    if ([aPeripheral isIdentified]) {
+        NSLog(@"#130WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
         [_wcmDelegate didConnectPeripheral:aPeripheral];
         [_pendingPeripherals removeObject:aPeripheral];
     }

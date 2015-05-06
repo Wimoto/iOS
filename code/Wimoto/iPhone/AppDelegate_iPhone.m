@@ -81,10 +81,13 @@
     
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
 - (void)registerDefaultsFromSettingsBundle {
+    NSLog(@"###registerDefaultsFromSettingsBundle");
+    
     NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *settingsPropertyListPath = [mainBundlePath
                                            stringByAppendingPathComponent:@"Settings.bundle/Root.plist"];
@@ -141,6 +144,8 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [self registerDefaultsFromSettingsBundle];
+    
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */

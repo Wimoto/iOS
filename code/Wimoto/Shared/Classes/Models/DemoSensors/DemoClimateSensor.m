@@ -156,4 +156,19 @@
     }
 }
 
+- (float)temperatureFromMeasure {
+    //NSLog(@"temp = %f, fahrTemp = %f", _temperature,  [self convertToFahrenheit:_temperature]);
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
+}
+
+- (float)temperatureAlarmLowFromMeasure {
+    //NSLog(@"low = %f, fahrLow = %f", _temperatureAlarmLow,  [self convertToFahrenheit:_temperatureAlarmLow]);
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
+}
+
+- (float)temperatureAlarmHighFromMeasure {
+    //NSLog(@"high = %f, fahrHigh = %f", _temperatureAlarmHigh,  [self convertToFahrenheit:_temperatureAlarmHigh]);
+    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
+}
+
 @end

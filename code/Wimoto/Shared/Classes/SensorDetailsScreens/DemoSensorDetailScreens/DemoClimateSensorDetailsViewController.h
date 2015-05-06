@@ -7,6 +7,7 @@
 //
 
 #import "ClimateSensorDetailsViewController.h"
+#import "DemoClimateSensor.h"
 
 @interface DemoClimateSensorDetailsViewController : ClimateSensorDetailsViewController
 

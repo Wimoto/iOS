@@ -98,21 +98,24 @@
 }
 
 - (void)detectTempMeasureAndSubscribeToNotifications {
-    BOOL isCelsius = [[NSUserDefaults standardUserDefaults] boolForKey:@"temperature_conversion"];
+    NSString *cOrFString = [[NSUserDefaults standardUserDefaults] objectForKey:@"cOrF"];
+    BOOL isCelsius = [cOrFString isEqualToString:@"C"]?YES:NO;
     self.tempMeasure = (isCelsius)?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingsNotification:)
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
+    NSLog(@"detectTempMeasureAndSubscribeToNotifications");
 }
 
 - (void)settingsNotification:(NSNotification *)notification {
-    NSUserDefaults *userDefaults = [notification object];
-    BOOL isCelsiusValue = [userDefaults boolForKey:@"temperature_conversion"];
-    TemperatureMeasure measure = isCelsiusValue?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
-    if (_tempMeasure != measure) {
-        self.tempMeasure = measure;
-    }
+    NSLog(@"settingsNotification:");
+//    NSUserDefaults *userDefaults = [notification object];
+//    BOOL isCelsiusValue = [userDefaults boolForKey:@"temperature_conversion"];
+//    TemperatureMeasure measure = isCelsiusValue?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
+//    if (_tempMeasure != measure) {
+//        self.tempMeasure = measure;
+//    }
 }
 
 - (PeripheralType)type {
