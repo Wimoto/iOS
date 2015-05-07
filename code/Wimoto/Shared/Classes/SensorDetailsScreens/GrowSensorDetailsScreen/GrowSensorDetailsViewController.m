@@ -32,6 +32,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLowValueLabel;
 
+@property (nonatomic, weak) IBOutlet UILabel *soilTempConversionLabel;
+
 @property (nonatomic, weak) IBOutlet UIView *soilTempAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *soilMoistureAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
@@ -119,11 +121,21 @@
     GrowSensor *sensor = (GrowSensor *)self.sensor;
     sensor.soilTempAlarmState = (_soilTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilTempSwitch.on) {
+        TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -60.0;
         float maxValue = 130.0;
+        if (tempMeasure == kTemperatureMeasureFahrenheit) {
+            minValue = [sensor convertToFahrenheit:minValue];
+            maxValue = [sensor convertToFahrenheit:maxValue];
+        }
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            sensor.soilTemperatureAlarmLow = lowerValue;
-            sensor.soilTemperatureAlarmHigh = upperValue;
+            if (tempMeasure == kTemperatureMeasureFahrenheit) {
+                sensor.soilTemperatureAlarmLow  = [sensor convertToCelsius:lowerValue];
+                sensor.soilTemperatureAlarmHigh = [sensor convertToCelsius:upperValue];
+            } else {
+                sensor.soilTemperatureAlarmLow = lowerValue;
+                sensor.soilTemperatureAlarmHigh = upperValue;
+            }
         } cancel:^{
             //[_soilTempSwitch setOn:NO animated:YES];
         }];
@@ -173,7 +185,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    
+    GrowSensor *sensor = (GrowSensor*)self.sensor;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
         if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
             _soilMoistureAlarmContainer.hidden = YES;
@@ -188,7 +200,7 @@
             _soilMoistureAlarmContainer.hidden = NO;
             _soilTempAlarmContainer.hidden = NO;
             _lightAlarmContainer.hidden = NO;
-            GrowSensor *sensor = (GrowSensor*)self.sensor;
+            
             _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilTemperature]];
             _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
             _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
@@ -221,39 +233,30 @@
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
             _lightSparkLine.dataValues = result;
         }];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_STATE]) {
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_STATE]) {
         _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_STATE]) {
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_STATE]) {
         _soilMoistureSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_STATE]) {
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_STATE]) {
         _soilTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_LOW]) {
+        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmLow];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_HIGH]) {
+        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmHigh];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_LOW]) {
+        _soilMoistureLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmLow];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_HIGH]) {
+        _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmHigh];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW]) {
+        _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmLow];
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
+        _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmHigh];
     }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _soilMoistureLowValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", value];
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
+        _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmHigh];
+        _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmLow];
+        
+        _soilTempConversionLabel.text = [sensor temperatureSymbol];
     }
 }
 

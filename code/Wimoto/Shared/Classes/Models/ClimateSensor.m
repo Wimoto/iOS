@@ -32,7 +32,6 @@
 }
 
 - (float)temperatureFromMeasure {
-    //NSLog(@"temp = %f, fahrTemp = %f", _temperature,  [self convertToFahrenheit:_temperature]);
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
 }
 
@@ -54,8 +53,7 @@
     [super enableAlarm:(_lightAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
 }
 
-- (float)temperatureAlarmLowFromMeasure {
-    //NSLog(@"low = %f, fahrLow = %f", _temperatureAlarmLow,  [self convertToFahrenheit:_temperatureAlarmLow]);
+- (float)temperatureAlarmLow {
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
 }
 
@@ -65,8 +63,7 @@
     [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_temperatureAlarmLow] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
 }
 
-- (float)temperatureAlarmHighFromMeasure {
-    //NSLog(@"high = %f, fahrHigh = %f", _temperatureAlarmHigh,  [self convertToFahrenheit:_temperatureAlarmHigh]);
+- (float)temperatureAlarmHigh {
     return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
 }
 

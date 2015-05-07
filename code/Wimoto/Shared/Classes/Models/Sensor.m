@@ -110,12 +110,14 @@
 
 - (void)settingsNotification:(NSNotification *)notification {
     NSLog(@"settingsNotification:");
-//    NSUserDefaults *userDefaults = [notification object];
-//    BOOL isCelsiusValue = [userDefaults boolForKey:@"temperature_conversion"];
-//    TemperatureMeasure measure = isCelsiusValue?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
-//    if (_tempMeasure != measure) {
-//        self.tempMeasure = measure;
-//    }
+    NSUserDefaults *userDefaults = [notification object];
+    NSString *cOrFString = [userDefaults objectForKey:@"cOrF"];
+    BOOL isCelsius = [cOrFString isEqualToString:@"C"]?YES:NO;
+    
+    TemperatureMeasure measure = isCelsius?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
+    if (_tempMeasure != measure) {
+        self.tempMeasure = measure;
+    }
 }
 
 - (PeripheralType)type {

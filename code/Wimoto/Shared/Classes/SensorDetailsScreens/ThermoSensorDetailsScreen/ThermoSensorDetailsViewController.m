@@ -84,8 +84,13 @@
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            sensor.irTempAlarmLow = lowerValue;
-            sensor.irTempAlarmHigh = upperValue;
+            if (tempMeasure == kTemperatureMeasureFahrenheit) {
+                sensor.irTempAlarmLow  = [sensor convertToCelsius:lowerValue];
+                sensor.irTempAlarmHigh = [sensor convertToCelsius:upperValue];
+            } else {
+                sensor.irTempAlarmLow = lowerValue;
+                sensor.irTempAlarmHigh = upperValue;
+            }
         } cancel:^{
             //[_irTempSwitch setOn:NO animated:YES];
         }];
@@ -107,8 +112,13 @@
             maxValue = [sensor convertToFahrenheit:maxValue];
         }
         WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            sensor.probeTempAlarmLow = lowerValue;
-            sensor.probeTempAlarmHigh = upperValue;
+            if (tempMeasure == kTemperatureMeasureFahrenheit) {
+                sensor.probeTempAlarmLow  = [sensor convertToCelsius:lowerValue];
+                sensor.probeTempAlarmHigh = [sensor convertToCelsius:upperValue];
+            } else {
+                sensor.probeTempAlarmLow = lowerValue;
+                sensor.probeTempAlarmHigh = upperValue;
+            }
         } cancel:^{
             //[_probeTempSwitch setOn:NO animated:YES];
         }];
@@ -181,9 +191,14 @@
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
         _irTempConversionLabel.text = [sensor temperatureSymbol];
+        //_irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.irTempAlarmHigh];
+        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.irTempAlarmLow];
+        
         _probeTempConversionLabel.text = [sensor temperatureSymbol];
-        _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
-        _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];        
+        //_probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.probeTempAlarmHigh];
+        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.probeTempAlarmLow];
     }
 }
 
