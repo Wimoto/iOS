@@ -11,10 +11,12 @@
 #import "ThermoSensor.h"
 #import "AppConstants.h"
 
+#import "WPTemperatureValueLabel.h"
+
 @interface ThermoSensorDetailsViewController : SensorViewController
 
-@property (nonatomic, weak) IBOutlet UILabel *irTempLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *irTempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *probeTempLabel;
 
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *irTempSparkLine;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *probeTempSparkLine;

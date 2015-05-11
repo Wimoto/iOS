@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04079BAA1B012C8F0013234E /* WPTemperatureValueLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04079BA91B012C8F0013234E /* WPTemperatureValueLabel.m */; };
+		04079BB61B013D440013234E /* WPTemperaturePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04079BB51B013D440013234E /* WPTemperaturePickerView.m */; };
+		04079BB91B01477B0013234E /* WPTemperatureLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04079BB81B01477B0013234E /* WPTemperatureLabel.m */; };
+		04079BBC1B014AF80013234E /* WPTemperatureSignLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04079BBB1B014AF80013234E /* WPTemperatureSignLabel.m */; };
 		040829C61A65C3CB00B93306 /* wimoto-droplet-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 040829C51A65C3CB00B93306 /* wimoto-droplet-icon.png */; };
 		040829C81A65C3D500B93306 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 040829C71A65C3D500B93306 /* settings.png */; };
 		040829CA1A65C3E700B93306 /* wimoto-firmware-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 040829C91A65C3E700B93306 /* wimoto-firmware-icon.png */; };
@@ -203,6 +207,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04079BA81B012C8F0013234E /* WPTemperatureValueLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureValueLabel.h; sourceTree = "<group>"; };
+		04079BA91B012C8F0013234E /* WPTemperatureValueLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureValueLabel.m; sourceTree = "<group>"; };
+		04079BB41B013D440013234E /* WPTemperaturePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperaturePickerView.h; sourceTree = "<group>"; };
+		04079BB51B013D440013234E /* WPTemperaturePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperaturePickerView.m; sourceTree = "<group>"; };
+		04079BB71B01477B0013234E /* WPTemperatureLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureLabel.h; sourceTree = "<group>"; };
+		04079BB81B01477B0013234E /* WPTemperatureLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureLabel.m; sourceTree = "<group>"; };
+		04079BBA1B014AF80013234E /* WPTemperatureSignLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureSignLabel.h; sourceTree = "<group>"; };
+		04079BBB1B014AF80013234E /* WPTemperatureSignLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureSignLabel.m; sourceTree = "<group>"; };
 		040829C51A65C3CB00B93306 /* wimoto-droplet-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wimoto-droplet-icon.png"; sourceTree = "<group>"; };
 		040829C71A65C3D500B93306 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		040829C91A65C3E700B93306 /* wimoto-firmware-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wimoto-firmware-icon.png"; sourceTree = "<group>"; };
@@ -510,6 +522,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04079BA71B012C7D0013234E /* TemperatureLabel */ = {
+			isa = PBXGroup;
+			children = (
+				04079BB71B01477B0013234E /* WPTemperatureLabel.h */,
+				04079BB81B01477B0013234E /* WPTemperatureLabel.m */,
+				04079BA81B012C8F0013234E /* WPTemperatureValueLabel.h */,
+				04079BA91B012C8F0013234E /* WPTemperatureValueLabel.m */,
+				04079BBA1B014AF80013234E /* WPTemperatureSignLabel.h */,
+				04079BBB1B014AF80013234E /* WPTemperatureSignLabel.m */,
+			);
+			path = TemperatureLabel;
+			sourceTree = "<group>";
+		};
 		04EFF2FF195A08B20067589E /* SensorsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +716,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				04079BA71B012C7D0013234E /* TemperatureLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
 				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
@@ -1184,6 +1210,8 @@
 				F766A90B1A7B159800E0FDB7 /* WPPickerView.h */,
 				F766A90C1A7B159800E0FDB7 /* WPPickerView.m */,
 				F7C4F42B1A7BD7B0000B601B /* WPPickerView.xib */,
+				04079BB41B013D440013234E /* WPTemperaturePickerView.h */,
+				04079BB51B013D440013234E /* WPTemperaturePickerView.m */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -1391,6 +1419,7 @@
 				F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */,
 				49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
+				04079BB91B01477B0013234E /* WPTemperatureLabel.m in Sources */,
 				90D8079E185B49D100FDF31D /* SensorViewController.m in Sources */,
 				2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */,
 				90815A451868951600A9EC0A /* WaterSensor.m in Sources */,
@@ -1405,9 +1434,11 @@
 				49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
+				04079BBC1B014AF80013234E /* WPTemperatureSignLabel.m in Sources */,
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				F72564981A41E82600BEF94B /* FileOperations.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
+				04079BB61B013D440013234E /* WPTemperaturePickerView.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
@@ -1425,6 +1456,7 @@
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
 				F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */,
 				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
+				04079BAA1B012C8F0013234E /* WPTemperatureValueLabel.m in Sources */,
 				F766A90D1A7B159800E0FDB7 /* WPPickerView.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				F72564BC1A41F12900BEF94B /* unzip.c in Sources */,

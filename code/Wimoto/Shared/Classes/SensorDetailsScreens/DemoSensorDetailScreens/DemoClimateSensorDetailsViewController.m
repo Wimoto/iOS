@@ -70,11 +70,7 @@
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
-        self.tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperatureFromMeasure]];
-        CGRect beforeFrame = self.tempLabel.frame;
-        [self.tempLabel sizeToFit];
-        CGRect afterFrame = self.tempLabel.frame;
-        self.tempLabel.frame = CGRectMake(beforeFrame.origin.x + beforeFrame.size.width - afterFrame.size.width, beforeFrame.origin.y, self.tempLabel.frame.size.width, beforeFrame.size.height);
+        [self.tempLabel setTemperature:[sensor temperature]];
         
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             self.temperatureSparkLine.dataValues = result;
@@ -107,11 +103,6 @@
         self.lightLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH]) {
         self.lightHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.lightAlarmHigh];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
-        self.tempConversionLabel.text = [sensor temperatureSymbol];
-        
-        self.tempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmHigh];
-        self.tempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmLow];
     }
 }
 

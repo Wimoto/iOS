@@ -31,10 +31,6 @@
     return @"Climate";
 }
 
-- (float)temperatureFromMeasure {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
-}
-
 - (void)setTemperatureAlarmState:(AlarmState)temperatureAlarmState {
     _temperatureAlarmState = temperatureAlarmState;
     
@@ -53,18 +49,10 @@
     [super enableAlarm:(_lightAlarmState == kAlarmStateEnabled) forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
 }
 
-- (float)temperatureAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
-}
-
 - (void)setTemperatureAlarmLow:(float)temperatureAlarmLow {
     _temperatureAlarmLow = temperatureAlarmLow;
     
     [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_temperatureAlarmLow] forCharacteristicWithUUIDString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE];
-}
-
-- (float)temperatureAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
 }
 
 - (void)setTemperatureAlarmHigh:(float)temperatureAlarmHigh {

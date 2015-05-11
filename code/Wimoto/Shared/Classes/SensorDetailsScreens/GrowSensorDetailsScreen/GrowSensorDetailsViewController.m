@@ -11,6 +11,8 @@
 #import "WPPickerView.h"
 #import "GrowSensor.h"
 
+#import "WPTemperaturePickerView.h"
+
 @interface GrowSensorDetailsViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *soilTempLabel;
@@ -121,21 +123,11 @@
     GrowSensor *sensor = (GrowSensor *)self.sensor;
     sensor.soilTempAlarmState = (_soilTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilTempSwitch.on) {
-        TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -60.0;
         float maxValue = 130.0;
-        if (tempMeasure == kTemperatureMeasureFahrenheit) {
-            minValue = [sensor convertToFahrenheit:minValue];
-            maxValue = [sensor convertToFahrenheit:maxValue];
-        }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            if (tempMeasure == kTemperatureMeasureFahrenheit) {
-                sensor.soilTemperatureAlarmLow  = [sensor convertToCelsius:lowerValue];
-                sensor.soilTemperatureAlarmHigh = [sensor convertToCelsius:upperValue];
-            } else {
-                sensor.soilTemperatureAlarmLow = lowerValue;
-                sensor.soilTemperatureAlarmHigh = upperValue;
-            }
+        WPTemperaturePickerView *pickerView = [WPTemperaturePickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
+            sensor.soilTemperatureAlarmLow = lowerValue;
+            sensor.soilTemperatureAlarmHigh = upperValue;
         } cancel:^{
             //[_soilTempSwitch setOn:NO animated:YES];
         }];
@@ -251,12 +243,6 @@
         _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
         _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmHigh];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
-        _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmHigh];
-        _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmLow];
-        
-        _soilTempConversionLabel.text = [sensor temperatureSymbol];
     }
 }
 

@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) NSTimer *rssiTimer;
 
-- (void)detectTempMeasureAndSubscribeToNotifications;
-
 @end
 
 @implementation Sensor
@@ -71,7 +69,6 @@
         _name               = _peripheral.name;
         _uniqueIdentifier   = [_peripheral uniqueIdentifier];
         
-        [self detectTempMeasureAndSubscribeToNotifications];
     }
     return self;
 }
@@ -84,40 +81,8 @@
         _registered         = YES;
         _name               = _entity.name;
         _uniqueIdentifier   = _entity.systemId;
-        
-        [self detectTempMeasureAndSubscribeToNotifications];
     }
     return self;
-}
-- (id)init {
-    self = [super init];
-    if (self) {
-        [self detectTempMeasureAndSubscribeToNotifications];
-    }
-    return self;
-}
-
-- (void)detectTempMeasureAndSubscribeToNotifications {
-    NSString *cOrFString = [[NSUserDefaults standardUserDefaults] objectForKey:@"cOrF"];
-    BOOL isCelsius = [cOrFString isEqualToString:@"C"]?YES:NO;
-    self.tempMeasure = (isCelsius)?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(settingsNotification:)
-                                                 name:NSUserDefaultsDidChangeNotification
-                                               object:nil];
-    NSLog(@"detectTempMeasureAndSubscribeToNotifications");
-}
-
-- (void)settingsNotification:(NSNotification *)notification {
-    NSLog(@"settingsNotification:");
-    NSUserDefaults *userDefaults = [notification object];
-    NSString *cOrFString = [userDefaults objectForKey:@"cOrF"];
-    BOOL isCelsius = [cOrFString isEqualToString:@"C"]?YES:NO;
-    
-    TemperatureMeasure measure = isCelsius?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
-    if (_tempMeasure != measure) {
-        self.tempMeasure = measure;
-    }
 }
 
 - (PeripheralType)type {
@@ -126,10 +91,6 @@
 
 - (NSString *)codename {
     return nil;
-}
-
-- (NSString *)temperatureSymbol {
-    return (_tempMeasure == kTemperatureMeasureCelsius)?@"˚C":@"˚F";
 }
 
 - (float)convertToFahrenheit:(float)value {

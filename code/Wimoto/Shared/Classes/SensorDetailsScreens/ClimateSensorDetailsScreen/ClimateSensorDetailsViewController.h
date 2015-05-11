@@ -11,9 +11,11 @@
 #import "ClimateSensor.h"
 #import "SensorHelper.h"
 
+#import "WPTemperatureValueLabel.h"
+
 @interface ClimateSensorDetailsViewController : SensorViewController
 
-@property (nonatomic, weak) IBOutlet UILabel *tempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *tempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 
@@ -25,8 +27,8 @@
 @property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *humiditySwitch;
 
-@property (nonatomic, weak) IBOutlet UILabel *tempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *tempLowValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *tempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *tempLowValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *humidityLowValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;

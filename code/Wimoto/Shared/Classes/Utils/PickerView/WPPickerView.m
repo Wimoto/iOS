@@ -10,13 +10,11 @@
 
 @interface WPPickerView ()
 
-@property (nonatomic, strong) NSArray *columns;
 @property (nonatomic, copy) SaveBlock saveBlock;
 @property (nonatomic, copy) CancelBlock cancelBlock;
 @property (nonatomic, weak) IBOutlet UIPickerView *pickerView;
 @property (nonatomic, weak) IBOutlet UIToolbar *pickerViewContainer;
 
-- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock;
 - (NSArray *)configureDataSourceMinValue:(float)minValue maxValue:(float)maxValue;
 - (NSInteger)indexForValue:(float)value;
 - (void)hide;

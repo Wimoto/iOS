@@ -61,34 +61,11 @@
     [super writeAlarmValue:_probeTempAlarmHigh forCharacteristicWithUUIDString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE];
 }
 
-- (float)irTemp {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTemp:[self convertToFahrenheit:_irTemp];
-}
 
-- (float)probeTemp {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTemp:[self convertToFahrenheit:_probeTemp];
-}
-
-- (float)irTempAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmHigh:[self convertToFahrenheit:_irTempAlarmHigh];
-}
-
-- (float)irTempAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmLow:[self convertToFahrenheit:_irTempAlarmLow];
-}
-
-- (float)probeTempAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmHigh:[self convertToFahrenheit:_probeTempAlarmHigh];
-}
-
-- (float)probeTempAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmLow:[self convertToFahrenheit:_probeTempAlarmLow];
-}
 
 - (void)writeAlarmValue:(int)alarmValue forCharacteristicWithUUIDString:(NSString *)UUIDString {
     int value = alarmValue;
     if ([UUIDString isEqualToString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE] || [UUIDString isEqualToString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE] || [UUIDString isEqualToString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE] || [UUIDString isEqualToString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]) {
-        value = (self.tempMeasure == kTemperatureMeasureCelsius)?:[self convertToCelsius:value];
     }
     [super writeAlarmValue:value forCharacteristicWithUUIDString:UUIDString];
 }

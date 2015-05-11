@@ -156,16 +156,4 @@
     }
 }
 
-- (float)temperatureFromMeasure {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperature:[self convertToFahrenheit:_temperature];
-}
-
-- (float)temperatureAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmLow:[self convertToFahrenheit:_temperatureAlarmLow];
-}
-
-- (float)temperatureAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_temperatureAlarmHigh:[self convertToFahrenheit:_temperatureAlarmHigh];
-}
-
 @end

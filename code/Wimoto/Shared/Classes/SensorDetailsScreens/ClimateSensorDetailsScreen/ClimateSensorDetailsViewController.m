@@ -9,6 +9,8 @@
 #import "ClimateSensorDetailsViewController.h"
 #import "WPPickerView.h"
 
+#import "WPTemperaturePickerView.h"
+
 @interface ClimateSensorDetailsViewController ()
 
 @end
@@ -40,8 +42,6 @@
         _lightSparkLine.dataValues = result;
     }];
     
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
@@ -67,8 +67,6 @@
 
 - (void)dealloc {
     @try {
-        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE];
-        
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT];
@@ -96,21 +94,11 @@
     
     sensor.temperatureAlarmState = (_tempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_tempSwitch.on) {
-        TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -50.0;
         float maxValue = 120.0;
-        if (tempMeasure == kTemperatureMeasureFahrenheit) {
-            minValue = [sensor convertToFahrenheit:minValue];
-            maxValue = [sensor convertToFahrenheit:maxValue];
-        }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            if (tempMeasure == kTemperatureMeasureFahrenheit) {
-                sensor.temperatureAlarmLow  = [sensor convertToCelsius:lowerValue];
-                sensor.temperatureAlarmHigh = [sensor convertToCelsius:upperValue];
-            } else {
-                sensor.temperatureAlarmLow = lowerValue;
-                sensor.temperatureAlarmHigh = upperValue;
-            }
+        WPTemperaturePickerView *pickerView = [WPTemperaturePickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
+            sensor.temperatureAlarmLow = lowerValue;
+            sensor.temperatureAlarmHigh = upperValue;
         } cancel:^{
             // empty implementation
         }];
@@ -177,7 +165,7 @@
             _humidityAlarmContainer.hidden = NO;
             _lightAlarmContainer.hidden = NO;
             
-            _tempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor temperatureFromMeasure]];
+            [_tempLabel setTemperature:[sensor temperature]];
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [sensor humidity]];
             _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
             
@@ -191,8 +179,9 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _tempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            [_tempLabel setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
+        
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             _temperatureSparkLine.dataValues = result;
         }];
@@ -217,9 +206,9 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE]) {
         _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW]) {
-        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmLow];
+        [_tempLowValueLabel setTemperature:sensor.temperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH]) {
-        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmHigh];
+        [_tempHighValueLabel setTemperature:sensor.temperatureAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW]) {
         _humidityLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.humidityAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH]) {
@@ -228,12 +217,6 @@
         _lightLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_HIGH]) {
         _lightHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmHigh];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
-        _tempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmHigh];
-        _tempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.temperatureAlarmLow];
-        
-        _tempConversionLabel.text = [sensor temperatureSymbol];
     }
 }
 

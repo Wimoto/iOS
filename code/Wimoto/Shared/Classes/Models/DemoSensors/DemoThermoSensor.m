@@ -59,30 +59,6 @@
     return @"Thermo";
 }
 
-- (float)irTemp {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTemp:[self convertToFahrenheit:_irTemp];
-}
-
-- (float)probeTemp {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTemp:[self convertToFahrenheit:_probeTemp];
-}
-
-- (float)irTempAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmHigh:[self convertToFahrenheit:_irTempAlarmHigh];
-}
-
-- (float)irTempAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_irTempAlarmLow:[self convertToFahrenheit:_irTempAlarmLow];
-}
-
-- (float)probeTempAlarmHigh {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmHigh:[self convertToFahrenheit:_probeTempAlarmHigh];
-}
-
-- (float)probeTempAlarmLow {
-    return (self.tempMeasure == kTemperatureMeasureCelsius)?_probeTempAlarmLow:[self convertToFahrenheit:_probeTempAlarmLow];
-}
-
 - (void)sensorUpdate {
     int irTempStep = arc4random()%4 + 1 - 4/2;
     if ((_irTemp + irTempStep) < (-5)) {

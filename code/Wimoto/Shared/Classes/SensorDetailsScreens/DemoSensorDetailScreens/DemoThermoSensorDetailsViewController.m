@@ -62,12 +62,12 @@
             [self.lastUpdateTimer invalidate];
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        self.irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+        [self.irTempLabel setTemperature:[sensor irTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             self.irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        self.probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+        [self.probeTempLabel setTemperature:[sensor probeTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             self.probeTempSparkLine.dataValues = result;
         }];

@@ -15,7 +15,6 @@
 #define OBSERVER_KEY_PATH_SENSOR_PERIPHERAL     @"peripheral"
 #define OBSERVER_KEY_PATH_SENSOR_RSSI           @"rssi"
 #define OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL  @"batteryLevel"
-#define OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE   @"tempMeasure"
 
 #define OBSERVER_KEY_PATH_SENSOR_DFU_MODE       @"dfuModeOn"
 
@@ -41,11 +40,6 @@ typedef enum {
     kAlarmLow = 0,
     kAlarmHigh = 1,
 } AlarmType;
-
-typedef enum {
-    kTemperatureMeasureFahrenheit = 0,
-    kTemperatureMeasureCelsius
-} TemperatureMeasure;
 
 @protocol SensorDataReadingDelegate <NSObject>
 
@@ -74,8 +68,6 @@ typedef enum {
 @property (nonatomic, strong) NSNumber *batteryLevel;
 
 @property (nonatomic, strong) NSNumber *rssi;
-
-@property (nonatomic) TemperatureMeasure tempMeasure;
 
 @property (nonatomic) DataLoggerState dataLoggerState;
 @property (nonatomic, weak) id<SensorDataReadingDelegate> dataReadingDelegate;
@@ -109,7 +101,6 @@ typedef enum {
 - (void)settingsNotification:(NSNotification *)notification;
 - (float)convertToFahrenheit:(float)value;
 - (float)convertToCelsius:(float)value;
-- (NSString *)temperatureSymbol;
 
 - (void)showAlarmNotification:(NSString *)message forUuid:(NSString *)uuidString;
 

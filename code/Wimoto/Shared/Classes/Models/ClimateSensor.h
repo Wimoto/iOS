@@ -44,6 +44,4 @@
 @property (nonatomic) float lightAlarmLow;
 @property (nonatomic) float lightAlarmHigh;
 
-- (float)temperatureFromMeasure;
-
 @end

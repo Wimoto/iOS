@@ -8,6 +8,7 @@
 
 #import "ThermoSensorDetailsViewController.h"
 #import "WPPickerView.h"
+#import "WPTemperaturePickerView.h"
 
 @interface ThermoSensorDetailsViewController ()
 
@@ -32,9 +33,7 @@
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
-    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    
+        
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
@@ -55,8 +54,6 @@
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP];
         
-        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE];
-        
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE];
         
@@ -76,21 +73,11 @@
     
     sensor.irTempAlarmState = (_irTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_irTempSwitch.on) {
-        TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -60.0;
         float maxValue = 130.0;
-        if (tempMeasure == kTemperatureMeasureFahrenheit) {
-            minValue = [sensor convertToFahrenheit:minValue];
-            maxValue = [sensor convertToFahrenheit:maxValue];
-        }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            if (tempMeasure == kTemperatureMeasureFahrenheit) {
-                sensor.irTempAlarmLow  = [sensor convertToCelsius:lowerValue];
-                sensor.irTempAlarmHigh = [sensor convertToCelsius:upperValue];
-            } else {
-                sensor.irTempAlarmLow = lowerValue;
-                sensor.irTempAlarmHigh = upperValue;
-            }
+        WPTemperaturePickerView *pickerView = [WPTemperaturePickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
+            sensor.irTempAlarmLow = lowerValue;
+            sensor.irTempAlarmHigh = upperValue;
         } cancel:^{
             //[_irTempSwitch setOn:NO animated:YES];
         }];
@@ -104,21 +91,11 @@
     
     sensor.probeTempAlarmState = (_probeTempSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_probeTempSwitch.on) {
-        TemperatureMeasure tempMeasure = sensor.tempMeasure;
         float minValue = -20.0;
         float maxValue = 50.0;
-        if (tempMeasure == kTemperatureMeasureFahrenheit) {
-            minValue = [sensor convertToFahrenheit:minValue];
-            maxValue = [sensor convertToFahrenheit:maxValue];
-        }
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            if (tempMeasure == kTemperatureMeasureFahrenheit) {
-                sensor.probeTempAlarmLow  = [sensor convertToCelsius:lowerValue];
-                sensor.probeTempAlarmHigh = [sensor convertToCelsius:upperValue];
-            } else {
-                sensor.probeTempAlarmLow = lowerValue;
-                sensor.probeTempAlarmHigh = upperValue;
-            }
+        WPTemperaturePickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
+            sensor.probeTempAlarmLow = lowerValue;
+            sensor.probeTempAlarmHigh = upperValue;
         } cancel:^{
             //[_probeTempSwitch setOn:NO animated:YES];
         }];
@@ -158,14 +135,14 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+            [_irTempLabel setTemperature:[sensor irTemp]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             _irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         if (self.sensor.peripheral) {
-            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+            [_probeTempLabel setTemperature:[sensor probeTemp]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             _probeTempSparkLine.dataValues = result;
@@ -188,17 +165,6 @@
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
         _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTempAlarmHigh]];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_TEMP_MEASURE]) {
-        _irTempConversionLabel.text = [sensor temperatureSymbol];
-        //_irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
-        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.irTempAlarmHigh];
-        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.irTempAlarmLow];
-        
-        _probeTempConversionLabel.text = [sensor temperatureSymbol];
-        //_probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
-        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.probeTempAlarmHigh];
-        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.probeTempAlarmLow];
     }
 }
 
