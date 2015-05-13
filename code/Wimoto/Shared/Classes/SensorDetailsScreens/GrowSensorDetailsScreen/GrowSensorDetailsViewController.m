@@ -11,11 +11,12 @@
 #import "WPPickerView.h"
 #import "GrowSensor.h"
 
+#import "WPTemperatureValueLabel.h"
 #import "WPTemperaturePickerView.h"
 
 @interface GrowSensorDetailsViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *soilTempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *soilTempLabel;
 @property (nonatomic, weak) IBOutlet UILabel *soilMoistureLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 
@@ -27,8 +28,8 @@
 @property (nonatomic, weak) IBOutlet UISwitch *soilMoistureSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *lightSwitch;
 
-@property (nonatomic, weak) IBOutlet UILabel *soilTempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *soilTempLowValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *soilTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *soilTempLowValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *soilMoistureHighValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *soilMoistureLowValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightHighValueLabel;
@@ -193,7 +194,7 @@
             _soilTempAlarmContainer.hidden = NO;
             _lightAlarmContainer.hidden = NO;
             
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilTemperature]];
+            [_soilTempLabel setTemperature:[sensor soilTemperature]];
             _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
             _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
             self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
@@ -206,7 +207,7 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            _soilTempLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            [_soilTempLabel setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
             _soilTempSparkLine.dataValues = result;
@@ -240,9 +241,9 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_HIGH]) {
         _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW]) {
-        _soilTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmLow];
+        [_soilTempLowValueLabel setTemperature:sensor.soilTemperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
-        _soilTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilTemperatureAlarmHigh];
+        [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
     }
 }
 

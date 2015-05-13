@@ -99,9 +99,6 @@ typedef enum {
 - (DataLoggerState)dataLoggerStateForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (void)settingsNotification:(NSNotification *)notification;
-- (float)convertToFahrenheit:(float)value;
-- (float)convertToCelsius:(float)value;
-
 - (void)showAlarmNotification:(NSString *)message forUuid:(NSString *)uuidString;
 
 @end

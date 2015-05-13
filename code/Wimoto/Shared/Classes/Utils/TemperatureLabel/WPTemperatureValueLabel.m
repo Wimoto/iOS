@@ -7,6 +7,7 @@
 //
 
 #import "WPTemperatureValueLabel.h"
+#import "SensorHelper.h"
 
 @interface WPTemperatureValueLabel ()
 
@@ -26,7 +27,7 @@
 - (void)setTemperature:(float)temperature {
     _temperature = temperature;
     
-    float resultValue = (self.tempMeasure == kTemperatureMeasureFahrenheit)?(_temperature * 9.f/5.f + 32.f):_temperature;
+    float resultValue = (self.tempMeasure == kTemperatureMeasureFahrenheit)?[SensorHelper fahrenheitFromCelcius:_temperature]:_temperature;
     [self setText:[NSString stringWithFormat:@"%.1f", resultValue]];
 }
 

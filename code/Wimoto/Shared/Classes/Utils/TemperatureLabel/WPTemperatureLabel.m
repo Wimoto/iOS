@@ -24,6 +24,15 @@
     [self updateWithDefaults:[NSUserDefaults standardUserDefaults]];
 }
 
+- (void)dealloc {
+    @try {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+    @catch (NSException *exception) {
+        //
+    }
+}
+
 - (void)settingsNotification:(NSNotification *)notification {
     [self updateWithDefaults:[notification object]];
 }

@@ -93,14 +93,6 @@
     return nil;
 }
 
-- (float)convertToFahrenheit:(float)value {
-    return (value * 9.0/5.0 + 32.0);
-}
-
-- (float)convertToCelsius:(float)value {
-    return ((value - 32.0) * 5.0/9.0);
-}
-
 - (void)setName:(NSString *)name {
     _name = name;
     [_entity saveNewName:name];

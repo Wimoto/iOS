@@ -22,4 +22,7 @@ typedef void(^SaveBlock)(float lowerValue, float upperValue);
 - (void)setUpperValue:(float)upperValue;
 - (void)setLowerValue:(float)lowerValue;
 
+- (float)upperValue;
+- (float)lowerValue;
+
 @end

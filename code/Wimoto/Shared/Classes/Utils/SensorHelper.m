@@ -28,4 +28,13 @@
 	return temperatureC;
 }
 
+
++ (float)fahrenheitFromCelcius:(float)celsius {
+    return (celsius * 9.f/5.f + 32.f);
+}
+
++ (float)celsiusFromFahrenheit:(float)fahrenheit {
+    return ((fahrenheit - 32.f) * 5.f/9.f);
+}
+
 @end

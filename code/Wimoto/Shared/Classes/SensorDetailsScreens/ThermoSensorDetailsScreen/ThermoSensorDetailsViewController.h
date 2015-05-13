@@ -24,13 +24,10 @@
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 
-@property (nonatomic, weak) IBOutlet UILabel *irTempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *irTempLowValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempLowValueLabel;
-
-@property (nonatomic, weak) IBOutlet UILabel *irTempConversionLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempConversionLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *irTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *irTempLowValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *probeTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *probeTempLowValueLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *irTempAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *probeTempAlarmContainer;

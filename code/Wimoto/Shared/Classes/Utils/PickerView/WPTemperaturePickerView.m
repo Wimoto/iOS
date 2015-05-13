@@ -7,7 +7,14 @@
 //
 
 #import "WPTemperaturePickerView.h"
-#import "WPTemperatureValueLabel.h"
+#import "AppConstants.h"
+#import "SensorHelper.h"
+
+@interface WPTemperaturePickerView ()
+
+@property (nonatomic) TemperatureMeasure tempMeasure;
+
+@end
 
 @implementation WPTemperaturePickerView
 
@@ -17,46 +24,53 @@
     return pickerView;
 }
 
-#pragma mark - UIPickerViewDataSource
+- (id)init {
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(settingsNotification:)
+                                                     name:NSUserDefaultsDidChangeNotification
+                                                   object:nil];
+        [self updateWithDefaults:[NSUserDefaults standardUserDefaults]];
+    }
+    return self;
+}
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    NSArray *rows = [self.columns objectAtIndex:component];
-    NSString *title = nil;
-    NSObject *rowObject = [rows objectAtIndex:row];
-    if ([rowObject isKindOfClass:[NSString class]]) {
-        title = (NSString *)rowObject;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)settingsNotification:(NSNotification *)notification {
+    [self updateWithDefaults:[notification object]];
+}
+
+- (void)updateWithDefaults:(NSUserDefaults *)userDefaults {
+    NSString *cOrFString = [userDefaults objectForKey:@"cOrF"];
+    self.tempMeasure = ([cOrFString isEqualToString:@"C"])?kTemperatureMeasureCelsius:kTemperatureMeasureFahrenheit;
+}
+
+- (void)showWithMinValue:(float)minValue maxValue:(float)maxValue save:(SaveBlock)saveBlock cancel:(CancelBlock)cancelBlock {
+    if (_tempMeasure == kTemperatureMeasureFahrenheit) {
+        minValue = [SensorHelper fahrenheitFromCelcius:minValue];
+        maxValue = [SensorHelper fahrenheitFromCelcius:maxValue];
     }
-    else if ([rowObject isKindOfClass:[NSNumber class]]) {
-        title = [NSString stringWithFormat:@"%@", rowObject];
-    }
-    else {
-        title = @"";
-    }
-    UIView *labelContainer = (UIView *)view;
-    if (!labelContainer) {
-        labelContainer = [[UIView alloc] init];
-        labelContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        WPTemperatureValueLabel *label = [[WPTemperatureValueLabel alloc] init];
-        label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        if (component == 0 || component == 2) {
-            label.textAlignment = NSTextAlignmentRight;
-            label.textColor = [UIColor blackColor];
-            label.text = title;
-        }
-        else {
-            label.frame = CGRectMake(10.0, 0.0, 0.0, 0.0);
-            label.textAlignment = NSTextAlignmentLeft;
-            label.textColor = [UIColor redColor];
-            
-            NSObject *rowObject = [rows objectAtIndex:row];
-            if ([rowObject isKindOfClass:[NSNumber class]]) {
-                NSNumber *number = (NSNumber *)rowObject;
-                [label setTemperature:[number floatValue]];
-            }
-        }
-        [labelContainer addSubview:label];
-    }
-    return labelContainer;
+    [super showWithMinValue:minValue maxValue:maxValue save:saveBlock cancel:cancelBlock];
+}
+
+- (void)setLowerValue:(float)lowerValue {
+    [super setLowerValue:(_tempMeasure == kTemperatureMeasureFahrenheit)?[SensorHelper fahrenheitFromCelcius:lowerValue]:lowerValue];
+}
+
+- (void)setUpperValue:(float)upperValue {
+    [super setUpperValue:(_tempMeasure == kTemperatureMeasureFahrenheit)?[SensorHelper fahrenheitFromCelcius:upperValue]:upperValue];
+}
+
+- (float)upperValue {
+    return (_tempMeasure == kTemperatureMeasureFahrenheit)?[SensorHelper celsiusFromFahrenheit:[super upperValue]]:[super upperValue];
+}
+
+- (float)lowerValue {
+    return (_tempMeasure == kTemperatureMeasureFahrenheit)?[SensorHelper celsiusFromFahrenheit:[super lowerValue]]:[super lowerValue];
 }
 
 @end

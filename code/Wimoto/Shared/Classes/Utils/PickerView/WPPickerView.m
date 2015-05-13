@@ -102,6 +102,100 @@
     }
 }
 
+- (float)upperValue {
+    NSArray *columnValues = [_columns objectAtIndex:0];
+    NSArray *columnDecimalValues = [_columns objectAtIndex:1];
+    
+    NSInteger minIndex = [_pickerView selectedRowInComponent:0];
+    NSInteger decimalMinIndex = [_pickerView selectedRowInComponent:1];
+    NSInteger maxIndex = [_pickerView selectedRowInComponent:2];
+    NSInteger decimalMaxIndex = [_pickerView selectedRowInComponent:3];
+    
+    NSString *lowerValueString = [columnValues objectAtIndex:minIndex];
+    NSString *upperValueString = [columnValues objectAtIndex:maxIndex];
+    NSString *decimalLowerValueString = [columnDecimalValues objectAtIndex:decimalMinIndex];
+    NSString *decimalUpperValueString = [columnDecimalValues objectAtIndex:decimalMaxIndex];
+    
+    float decimalLowerValue = [[decimalLowerValueString substringFromIndex:1] floatValue]/10.0;
+    float decimalUpperValue = [[decimalUpperValueString substringFromIndex:1] floatValue]/10.0;
+    float integerLowerValue = [lowerValueString floatValue];
+    float integerUpperValue = [upperValueString floatValue];
+    
+    float lowerValue = 0.0;
+    float upperValue = 0.0;
+    
+    if ([lowerValueString isEqualToString:@"-0"]) {
+        if (decimalLowerValue != 0.0) {
+            lowerValue = integerLowerValue - decimalLowerValue;
+        }
+    }
+    else {
+        lowerValue = integerLowerValue + ((integerLowerValue < 0)?(-decimalLowerValue):decimalLowerValue);
+    }
+    if ([upperValueString isEqualToString:@"-0"]) {
+        if (decimalUpperValue != 0.0) {
+            upperValue = integerUpperValue - decimalUpperValue;
+        }
+    }
+    else {
+        upperValue = integerUpperValue + ((integerUpperValue < 0)?(-decimalUpperValue):decimalUpperValue);
+    }
+    
+    if (lowerValue > upperValue) {
+        return lowerValue;
+    }
+    else {
+        return upperValue;
+    }
+}
+
+- (float)lowerValue {
+    NSArray *columnValues = [_columns objectAtIndex:0];
+    NSArray *columnDecimalValues = [_columns objectAtIndex:1];
+    
+    NSInteger minIndex = [_pickerView selectedRowInComponent:0];
+    NSInteger decimalMinIndex = [_pickerView selectedRowInComponent:1];
+    NSInteger maxIndex = [_pickerView selectedRowInComponent:2];
+    NSInteger decimalMaxIndex = [_pickerView selectedRowInComponent:3];
+    
+    NSString *lowerValueString = [columnValues objectAtIndex:minIndex];
+    NSString *upperValueString = [columnValues objectAtIndex:maxIndex];
+    NSString *decimalLowerValueString = [columnDecimalValues objectAtIndex:decimalMinIndex];
+    NSString *decimalUpperValueString = [columnDecimalValues objectAtIndex:decimalMaxIndex];
+    
+    float decimalLowerValue = [[decimalLowerValueString substringFromIndex:1] floatValue]/10.0;
+    float decimalUpperValue = [[decimalUpperValueString substringFromIndex:1] floatValue]/10.0;
+    float integerLowerValue = [lowerValueString floatValue];
+    float integerUpperValue = [upperValueString floatValue];
+    
+    float lowerValue = 0.0;
+    float upperValue = 0.0;
+    
+    if ([lowerValueString isEqualToString:@"-0"]) {
+        if (decimalLowerValue != 0.0) {
+            lowerValue = integerLowerValue - decimalLowerValue;
+        }
+    }
+    else {
+        lowerValue = integerLowerValue + ((integerLowerValue < 0)?(-decimalLowerValue):decimalLowerValue);
+    }
+    if ([upperValueString isEqualToString:@"-0"]) {
+        if (decimalUpperValue != 0.0) {
+            upperValue = integerUpperValue - decimalUpperValue;
+        }
+    }
+    else {
+        upperValue = integerUpperValue + ((integerUpperValue < 0)?(-decimalUpperValue):decimalUpperValue);
+    }
+    
+    if (upperValue < lowerValue) {
+        return upperValue;
+    }
+    else {
+        return lowerValue;
+    }
+}
+
 - (NSInteger)indexForValue:(float)value {
     NSArray *columnValues = [_columns objectAtIndex:0];
     float minValue = [[columnValues objectAtIndex:0] floatValue];
@@ -122,50 +216,7 @@
         [self hide];
     } completion:^(BOOL finished) {
         if (_saveBlock) {
-            NSArray *columnValues = [_columns objectAtIndex:0];
-            NSArray *columnDecimalValues = [_columns objectAtIndex:1];
-            
-            NSInteger minIndex = [_pickerView selectedRowInComponent:0];
-            NSInteger decimalMinIndex = [_pickerView selectedRowInComponent:1];
-            NSInteger maxIndex = [_pickerView selectedRowInComponent:2];
-            NSInteger decimalMaxIndex = [_pickerView selectedRowInComponent:3];
-            
-            NSString *lowerValueString = [columnValues objectAtIndex:minIndex];
-            NSString *upperValueString = [columnValues objectAtIndex:maxIndex];
-            NSString *decimalLowerValueString = [columnDecimalValues objectAtIndex:decimalMinIndex];
-            NSString *decimalUpperValueString = [columnDecimalValues objectAtIndex:decimalMaxIndex];
-            
-            float decimalLowerValue = [[decimalLowerValueString substringFromIndex:1] floatValue]/10.0;
-            float decimalUpperValue = [[decimalUpperValueString substringFromIndex:1] floatValue]/10.0;
-            float integerLowerValue = [lowerValueString floatValue];
-            float integerUpperValue = [upperValueString floatValue];
-            
-            float lowerValue = 0.0;
-            float upperValue = 0.0;
-            
-            if ([lowerValueString isEqualToString:@"-0"]) {
-                if (decimalLowerValue != 0.0) {
-                    lowerValue = integerLowerValue - decimalLowerValue;
-                }
-            }
-            else {
-                lowerValue = integerLowerValue + ((integerLowerValue < 0)?(-decimalLowerValue):decimalLowerValue);
-            }
-            if ([upperValueString isEqualToString:@"-0"]) {
-                if (decimalUpperValue != 0.0) {
-                    upperValue = integerUpperValue - decimalUpperValue;
-                }
-            }
-            else {
-                upperValue = integerUpperValue + ((integerUpperValue < 0)?(-decimalUpperValue):decimalUpperValue);
-            }
-    
-            if (lowerValue > upperValue) {
-                _saveBlock(upperValue, lowerValue);
-            }
-            else {
-                _saveBlock(lowerValue, upperValue);
-            }
+            _saveBlock([self lowerValue], [self upperValue]);
         }
         [self removeFromSuperview];
     }];

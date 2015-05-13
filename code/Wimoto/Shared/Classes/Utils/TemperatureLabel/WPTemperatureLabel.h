@@ -6,12 +6,7 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-
-typedef enum {
-    kTemperatureMeasureFahrenheit = 0,
-    kTemperatureMeasureCelsius
-} TemperatureMeasure;
+#import "AppConstants.h"
 
 @interface WPTemperatureLabel : UILabel
 

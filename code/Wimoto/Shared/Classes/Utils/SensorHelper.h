@@ -13,4 +13,7 @@
 + (float)getHumidityValue:(uint16_t)u16sRH;
 + (float)getTemperatureValue:(uint16_t)u16sT;
 
++ (float)fahrenheitFromCelcius:(float)celsius;
++ (float)celsiusFromFahrenheit:(float)fahrenheit;
+
 @end

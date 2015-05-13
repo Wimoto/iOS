@@ -92,9 +92,9 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT_ALARM_STATE]) {
         self.lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_LOW]) {
-        self.tempLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmLow];
+        [self.tempLowValueLabel setTemperature:sensor.temperatureAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_HIGH]) {
-        self.tempHighValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.temperatureAlarmHigh];
+        [self.tempHighValueLabel setTemperature:sensor.temperatureAlarmHigh];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_LOW]) {
         self.humidityLowValueLabel.text = [NSString stringWithFormat:@"%.f", sensor.humidityAlarmLow];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY_ALARM_HIGH]) {

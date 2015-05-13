@@ -123,8 +123,8 @@
         } else {
             _irTempAlarmContainer.hidden = NO;
             _probeTempAlarmContainer.hidden = NO;
-            _irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
-            _probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+            [_irTempLabel setTemperature:[sensor irTemp]];
+            [_probeTempLabel setTemperature:[sensor probeTemp]];
             self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
@@ -155,16 +155,16 @@
         _probeTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW]) {
-        _irTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTempAlarmLow]];
+        [_irTempLowValueLabel setTemperature:sensor.irTempAlarmLow];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH]) {
-        _irTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTempAlarmHigh]];
+        [_irTempHighValueLabel setTemperature:sensor.irTempAlarmHigh];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW]) {
-        _probeTempLowValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTempAlarmLow]];
+        [_probeTempLowValueLabel setTemperature:sensor.probeTempAlarmLow];
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
-        _probeTempHighValueLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTempAlarmHigh]];
+        [_probeTempHighValueLabel setTemperature:sensor.probeTempAlarmHigh];
     }
 }
 
