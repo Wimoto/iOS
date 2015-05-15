@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+    self.tempView.text = SENSOR_VALUE_PLACEHOLDER;
     self.humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
     self.lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
     self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
@@ -70,7 +70,7 @@
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
-        [self.tempLabel setTemperature:[sensor temperature]];
+        [self.tempView setTemperature:[sensor temperature]];
         
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             self.temperatureSparkLine.dataValues = result;

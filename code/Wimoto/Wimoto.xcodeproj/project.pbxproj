@@ -28,6 +28,8 @@
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
+		14CD06B81B05EF04009F8B61 /* WPTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */; };
+		14CD06BA1B05F4B3009F8B61 /* WPTemperatureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -235,6 +237,9 @@
 		04EFF2FD195972540067589E /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
 		04EFF300195A08CD0067589E /* SensorsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsManager.h; sourceTree = "<group>"; };
 		04EFF301195A08CD0067589E /* SensorsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorsManager.m; sourceTree = "<group>"; };
+		14CD06B61B05EF04009F8B61 /* WPTemperatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureView.h; sourceTree = "<group>"; };
+		14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureView.m; sourceTree = "<group>"; };
+		14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WPTemperatureView.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Wimoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wimoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -545,6 +550,16 @@
 			path = Shared/Classes/Utils/SensorsManager;
 			sourceTree = SOURCE_ROOT;
 		};
+		14CD06B51B05EEE7009F8B61 /* TemperatureView */ = {
+			isa = PBXGroup;
+			children = (
+				14CD06B61B05EF04009F8B61 /* WPTemperatureView.h */,
+				14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */,
+				14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */,
+			);
+			path = TemperatureView;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +731,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				14CD06B51B05EEE7009F8B61 /* TemperatureView */,
 				04079BA71B012C7D0013234E /* TemperatureLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
@@ -1289,6 +1305,7 @@
 				040829D01A65C42400B93306 /* wimoto-sun-icon.png in Resources */,
 				302A7164192D284B006E0A6C /* slider-metal-handle@2x.png in Resources */,
 				493A493D184EC3C00000A2F6 /* water-512.png in Resources */,
+				14CD06BA1B05F4B3009F8B61 /* WPTemperatureView.xib in Resources */,
 				498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */,
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
 				040829CE1A65C40100B93306 /* wimoto-temperature-icon.png in Resources */,
@@ -1407,6 +1424,7 @@
 				F72564BD1A41F12900BEF94B /* zip.c in Sources */,
 				302A7169192D284B006E0A6C /* NMRangeSlider.m in Sources */,
 				30B9E0F319472CD9001E10A5 /* FirmwareViewController.m in Sources */,
+				14CD06B81B05EF04009F8B61 /* WPTemperatureView.m in Sources */,
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				F72564951A41E82600BEF94B /* BLEOperations.m in Sources */,
 				F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */,

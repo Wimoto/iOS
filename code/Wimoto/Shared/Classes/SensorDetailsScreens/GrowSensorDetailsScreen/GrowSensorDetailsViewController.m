@@ -12,11 +12,13 @@
 #import "GrowSensor.h"
 
 #import "WPTemperatureValueLabel.h"
+#import "WPTemperatureView.h"
 #import "WPTemperaturePickerView.h"
 
 @interface GrowSensorDetailsViewController ()
 
-@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *soilTempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureView *soilTempView;
+
 @property (nonatomic, weak) IBOutlet UILabel *soilMoistureLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 
@@ -186,7 +188,7 @@
             _lightAlarmContainer.hidden = YES;
             [WPPickerView dismiss];
             
-            _soilTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
             _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
@@ -194,7 +196,7 @@
             _soilTempAlarmContainer.hidden = NO;
             _lightAlarmContainer.hidden = NO;
             
-            [_soilTempLabel setTemperature:[sensor soilTemperature]];
+            [_soilTempView setTemperature:[sensor soilTemperature]];
             _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
             _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
             self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
@@ -207,7 +209,7 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            [_soilTempLabel setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            [_soilTempView setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
             _soilTempSparkLine.dataValues = result;

@@ -118,13 +118,13 @@
             _probeTempAlarmContainer.hidden = YES;
             [WPPickerView dismiss];
             
-            _irTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _probeTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            _irTempView.text = SENSOR_VALUE_PLACEHOLDER;
+            _probeTempView.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
             _irTempAlarmContainer.hidden = NO;
             _probeTempAlarmContainer.hidden = NO;
-            [_irTempLabel setTemperature:[sensor irTemp]];
-            [_probeTempLabel setTemperature:[sensor probeTemp]];
+            [_irTempView setTemperature:[sensor irTemp]];
+            [_probeTempView setTemperature:[sensor probeTemp]];
             self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
@@ -135,14 +135,14 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            [_irTempLabel setTemperature:[sensor irTemp]];
+            [_irTempView setTemperature:[sensor irTemp]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             _irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
         if (self.sensor.peripheral) {
-            [_probeTempLabel setTemperature:[sensor probeTemp]];
+            [_probeTempView setTemperature:[sensor probeTemp]];
         }
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             _probeTempSparkLine.dataValues = result;

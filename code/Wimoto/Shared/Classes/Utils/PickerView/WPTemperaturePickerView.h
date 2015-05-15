@@ -7,6 +7,7 @@
 //
 
 #import "WPPickerView.h"
+#import "WPTemperatureLabel.h"
 
 @interface WPTemperaturePickerView : WPPickerView
 

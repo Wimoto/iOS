@@ -29,9 +29,9 @@
                 <outlet property="sensorNameField" destination="BTx-TC-b7C" id="FoO-7R-QW5"/>
                 <outlet property="tempAlarmContainer" destination="guB-ja-Mj9" id="omI-8X-U9n"/>
                 <outlet property="tempHighValueLabel" destination="Qf0-L1-lSS" id="9yU-S4-niE"/>
-                <outlet property="tempLabel" destination="foX-aJ-AD6" id="Nrg-KW-Pxy"/>
                 <outlet property="tempLowValueLabel" destination="0On-zC-d98" id="5K4-5g-122"/>
                 <outlet property="tempSwitch" destination="psa-nU-Tq1" id="cwu-Io-2hq"/>
+                <outlet property="tempView" destination="NQv-fT-6Qp" id="LPt-mH-f7K"/>
                 <outlet property="temperatureSparkLine" destination="8qC-Wx-gN1" id="ocf-HR-IEw"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -141,6 +141,7 @@
                 </view>
                 <view contentMode="scaleToFill" id="guB-ja-Mj9">
                     <rect key="frame" x="129" y="176" width="191" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="T20-IC-sUn">
                             <rect key="frame" x="10" y="11" width="28" height="28"/>
@@ -246,13 +247,11 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" id="foX-aJ-AD6" userLabel="temperatureCurrent" customClass="WPTemperatureValueLabel">
+                <view contentMode="scaleToFill" id="NQv-fT-6Qp" userLabel="temperatureCurrent" customClass="WPTemperatureView">
                     <rect key="frame" x="160" y="135" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="KdY-vM-CDd" userLabel="climateRSSI">
                     <rect key="frame" x="262" y="19" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -157,7 +157,7 @@
             _humidityAlarmContainer.hidden = YES;
             _lightAlarmContainer.hidden = YES;
             [WPPickerView dismiss];
-            _tempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            _tempView.text = SENSOR_VALUE_PLACEHOLDER;
             _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
             _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         } else {
@@ -165,7 +165,7 @@
             _humidityAlarmContainer.hidden = NO;
             _lightAlarmContainer.hidden = NO;
             
-            [_tempLabel setTemperature:[sensor temperature]];
+            [_tempView setTemperature:[sensor temperature]];
             _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [sensor humidity]];
             _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
             
@@ -179,7 +179,7 @@
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         
         if (self.sensor.peripheral) {
-            [_tempLabel setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            [_tempView setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         }
         
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
