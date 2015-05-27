@@ -23,4 +23,6 @@
 - (void)saveNewValueWithType:(SensorValueType)valueType value:(double)value;
 - (void)latestValuesWithType:(SensorValueType)valueType completionHandler:(void(^)(NSArray *result))completionHandler;
 
+- (void)jsonRepresentation:(void(^)(NSData *result))completionHandler;
+
 @end

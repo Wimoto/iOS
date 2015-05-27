@@ -15,7 +15,11 @@
 @interface RightMenuViewController ()
 
 @property (nonatomic, strong) NSArray *sensorsArray;
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet RightMenuCell *tmpCell;
+
+- (IBAction)addSensorAction:(id)sender;
 
 @end
 
@@ -25,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.tableView.tableFooterView = [[UIView alloc] init];
+    _tableView.tableFooterView = [[UIView alloc] init];
     [SensorsManager addObserverForRegisteredSensors:self];    
 }
 
@@ -37,6 +41,11 @@
 
 - (void)dealloc {
     [SensorsManager removeObserverForRegisteredSensors:self];
+}
+
+- (IBAction)addSensorAction:(id)sender {
+    [(WimotoDeckController*)self.viewDeckController showSearchSensorScreen];
+    [self.viewDeckController closeRightViewAnimated:YES duration:0.2 completion:nil];
 }
 
 #pragma mark - Table view data source

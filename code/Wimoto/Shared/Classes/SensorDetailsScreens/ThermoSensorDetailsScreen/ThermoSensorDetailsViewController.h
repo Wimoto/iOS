@@ -11,10 +11,13 @@
 #import "ThermoSensor.h"
 #import "AppConstants.h"
 
+#import "WPTemperatureView.h"
+#import "WPTemperatureValueLabel.h"
+
 @interface ThermoSensorDetailsViewController : SensorViewController
 
-@property (nonatomic, weak) IBOutlet UILabel *irTempLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureView *irTempView;
+@property (nonatomic, weak) IBOutlet WPTemperatureView *probeTempView;
 
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *irTempSparkLine;
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *probeTempSparkLine;
@@ -22,16 +25,10 @@
 @property (nonatomic, weak) IBOutlet UISwitch *irTempSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *probeTempSwitch;
 
-@property (nonatomic, weak) IBOutlet UILabel *irTempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *irTempLowValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempHighValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempLowValueLabel;
-
-@property (nonatomic, weak) IBOutlet UILabel *irTempConversionLabel;
-@property (nonatomic, weak) IBOutlet UILabel *probeTempConversionLabel;
-
-@property (nonatomic, strong) AlarmSlider *irTempSlider;
-@property (nonatomic, strong) AlarmSlider *probeTempSlider;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *irTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *irTempLowValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *probeTempHighValueLabel;
+@property (nonatomic, weak) IBOutlet WPTemperatureValueLabel *probeTempLowValueLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *irTempAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *probeTempAlarmContainer;

@@ -31,6 +31,7 @@
     LeftMenuViewController *leftController = [[LeftMenuViewController alloc] init];
     RightMenuViewController *rightController = [[RightMenuViewController alloc] init];
     WimotoDeckController *deckController = [[WimotoDeckController alloc] initWithCenterViewController:nil leftViewController:leftController rightViewController:rightController];
+    
     deckController.leftSize = 60.0;
     deckController.rightSize = 60.0;
     
@@ -80,10 +81,13 @@
     
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
 - (void)registerDefaultsFromSettingsBundle {
+    NSLog(@"###registerDefaultsFromSettingsBundle");
+    
     NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *settingsPropertyListPath = [mainBundlePath
                                            stringByAppendingPathComponent:@"Settings.bundle/Root.plist"];
@@ -105,8 +109,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if ([application applicationState] == UIApplicationStateActive) {
-        [UIAlertView showWithTitle:nil message:[notification alertBody] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Switch off alarm"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        
+        [UIAlertView showWithTitle:nil message:[notification alertBody] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Switch off alarm"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {            
+            if (buttonIndex == 1) {
+                [SensorsManager switchOffAlarm:[notification.userInfo objectForKey:LOCAL_NOTIFICATION_ALARM_UUID] forSensor:[notification.userInfo objectForKey:LOCAL_NOTIFICATION_ALARM_SENSOR]];
+            }
         }];
     }
 }
@@ -137,29 +143,25 @@
      */
 }
 
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [self registerDefaultsFromSettingsBundle];
+    
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
 }
 
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+    [SensorsManager activate];
 }
 
-
 - (void)applicationWillTerminate:(UIApplication *)application {
-    /*
-     Called when the application is about to terminate.
-     See also applicationDidEnterBackground:.
-     */
     NSLog(@"applicationWillTerminate");
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [SensorsManager handleOpenURL:url sourceApplication:sourceApplication];
+}
 
 #pragma mark -
 #pragma mark Memory management

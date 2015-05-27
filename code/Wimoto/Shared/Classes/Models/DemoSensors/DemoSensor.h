@@ -2,7 +2,7 @@
 //  DemoSensor.h
 //  Wimoto
 //
-//  Created by Alena Kokareva on 30.10.14.
+//  Created by MC700 on 30.10.14.
 //
 //
 
@@ -11,6 +11,8 @@
 @interface DemoSensor : Sensor
 
 @property (nonatomic, strong) NSTimer *timer;
+
++ (id)demoSensorWithUniqueId:(NSString *)uniqueId;
 
 - (void)sensorUpdate;
 

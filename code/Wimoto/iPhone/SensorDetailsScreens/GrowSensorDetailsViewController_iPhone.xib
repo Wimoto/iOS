@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
+                <outlet property="dataLoggerButton" destination="Mor-oa-Xrn" id="LnO-nX-1xL"/>
+                <outlet property="dataReadbackButton" destination="jVn-Tj-fIz" id="QAb-PT-SMG"/>
+                <outlet property="dataReadbackIndicatorView" destination="XqC-sT-wrS" id="GyC-gZ-vk7"/>
+                <outlet property="dfuButton" destination="iwY-Um-wpd" id="5O7-KI-Fbi"/>
                 <outlet property="lastUpdateLabel" destination="pWs-7t-A5o" id="ELg-OR-Ca5"/>
                 <outlet property="lightAlarmContainer" destination="JPN-VM-v8d" id="B1I-tG-asr"/>
-                <outlet property="lightHighValueLabel" destination="peD-v1-F85" id="TPU-FR-nmH"/>
+                <outlet property="lightHighValueLabel" destination="LfP-gO-UfK" id="CCg-8f-JX5"/>
                 <outlet property="lightLabel" destination="LNT-Ni-2p1" id="UdF-bL-8m6"/>
-                <outlet property="lightLowValueLabel" destination="LfP-gO-UfK" id="eql-eL-Kfm"/>
+                <outlet property="lightLowValueLabel" destination="peD-v1-F85" id="c8e-YB-BAH"/>
                 <outlet property="lightSparkLine" destination="6hY-ns-rBL" id="Wzk-S1-J7K"/>
                 <outlet property="lightSwitch" destination="slv-V2-cZf" id="niz-2D-ipd"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
                 <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
                 <outlet property="soilMoistureAlarmContainer" destination="nLP-Kf-hzH" id="d0l-QG-FVK"/>
-                <outlet property="soilMoistureHighValueLabel" destination="wF0-Ev-dmK" id="XFU-gd-iE8"/>
+                <outlet property="soilMoistureHighValueLabel" destination="h5X-ix-du9" id="GBa-NN-TSy"/>
                 <outlet property="soilMoistureLabel" destination="VwV-nP-PwZ" id="4OE-3j-Ock"/>
-                <outlet property="soilMoistureLowValueLabel" destination="h5X-ix-du9" id="qv4-nZ-ApH"/>
+                <outlet property="soilMoistureLowValueLabel" destination="wF0-Ev-dmK" id="CzG-WW-vKH"/>
                 <outlet property="soilMoistureSparkLine" destination="Q0W-zR-mPo" id="jBL-kO-ZCY"/>
                 <outlet property="soilMoistureSwitch" destination="OnN-R7-Lk6" id="7bm-cC-G2M"/>
                 <outlet property="soilTempAlarmContainer" destination="QTE-ya-KQq" id="Nh8-HO-uUd"/>
-                <outlet property="soilTempHighValueLabel" destination="37Z-hX-XQf" id="gzi-bQ-ZoE"/>
-                <outlet property="soilTempLabel" destination="ngH-Qk-P3o" id="jWr-9c-anZ"/>
-                <outlet property="soilTempLowValueLabel" destination="OBS-Bn-gAp" id="JLR-jf-BMW"/>
+                <outlet property="soilTempConversionLabel" destination="p7F-qA-zJR" id="2PE-u0-rJE"/>
+                <outlet property="soilTempHighValueLabel" destination="OBS-Bn-gAp" id="SMT-nN-QfF"/>
+                <outlet property="soilTempLowValueLabel" destination="37Z-hX-XQf" id="GOz-HW-KqU"/>
                 <outlet property="soilTempSparkLine" destination="cK4-IV-Zyq" id="N0e-Yf-dGA"/>
                 <outlet property="soilTempSwitch" destination="w3G-rf-3Js" id="QRU-ut-q7T"/>
+                <outlet property="soilTempView" destination="BpC-MT-SmD" id="DRD-YG-2SD"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -37,138 +42,73 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buttons.png" id="9bS-Jr-TAh">
-                    <rect key="frame" x="0.0" y="431" width="320" height="94"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buttons.png" id="vN1-p9-bHA">
+                    <rect key="frame" x="0.0" y="406" width="320" height="124"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="lx3-ZZ-v4f">
-                    <rect key="frame" x="-2" y="498" width="325" height="70"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="1fH-f0-3yi">
+                    <rect key="frame" x="-2" y="506" width="325" height="62"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="45w-Ti-lAG">
-                    <rect key="frame" x="5" y="520" width="84" height="45"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="jVn-Tj-fIz" userLabel="cloudSync">
+                    <rect key="frame" x="77" y="466" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gLw-ZX-ST2">
-                    <rect key="frame" x="93" y="469" width="32" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="dataLoggerEnable" image="cassette">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6OS-sT-HQf" userLabel="firmwareUpdate">
-                    <rect key="frame" x="287" y="469" width="32" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button" image="chip">
+                    <state key="normal" title="Button" image="wimoto-cloud-sync.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZU4-KA-F0B"/>
+                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SLc-oF-ESd"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gqf-se-q1i" userLabel="cloudSync">
-                    <rect key="frame" x="19" y="469" width="32" height="32"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Mor-oa-Xrn">
+                    <rect key="frame" x="146" y="466" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button" image="cloud">
+                    <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
+                    <connections>
+                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="s74-1k-APu"/>
+                    </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="0Ga-hY-Pb2" userLabel="growRSSI">
-                    <rect key="frame" x="244" y="69" width="71" height="57"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="iwY-Um-wpd" userLabel="firmwareUpdate">
+                    <rect key="frame" x="210" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button" image="wimoto-firmware-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="Bbk-ZN-eMy"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6OS-sT-HQf" userLabel="firmwareUpdate">
+                    <rect key="frame" x="278" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button" image="Wimoto-menu-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="showRightMenu:" destination="-1" eventType="touchUpInside" id="IEy-jB-CWg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gqf-se-q1i" userLabel="firmwareUpdate">
+                    <rect key="frame" x="8" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="showLeftMenu:" destination="-1" eventType="touchUpInside" id="AMw-xk-r5Y"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="pWs-7t-A5o" userLabel="growLastUpdated">
+                    <rect key="frame" x="8" y="85" width="304" height="19"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Just now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="pWs-7t-A5o" userLabel="growLastUpdated">
-                    <rect key="frame" x="73" y="69" width="184" height="57"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_under_sun-512.png" id="SdU-c6-qnq">
-                    <rect key="frame" x="5" y="139" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view contentMode="scaleToFill" id="6hY-ns-rBL" userLabel="sparkLineLight" customClass="ASBSparkLineView">
-                    <rect key="frame" x="58" y="139" width="125" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="LNT-Ni-2p1" userLabel="lightCurrent">
-                    <rect key="frame" x="156" y="143" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="lux" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qUk-al-9mU">
-                    <rect key="frame" x="287" y="139" width="30" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_under_rain-512.png" id="Jol-QK-rsO">
-                    <rect key="frame" x="5" y="234" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view contentMode="scaleToFill" id="Q0W-zR-mPo" userLabel="sparkLineSoilMoisture" customClass="ASBSparkLineView">
-                    <rect key="frame" x="58" y="234" width="125" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" id="VwV-nP-PwZ" userLabel="soilMoistureCurrent">
-                    <rect key="frame" x="156" y="238" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_temperature-512.png" id="dHz-At-uf3">
-                    <rect key="frame" x="5" y="324" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view contentMode="scaleToFill" id="cK4-IV-Zyq" userLabel="sparkLineSoilTemp" customClass="ASBSparkLineView">
-                    <rect key="frame" x="58" y="324" width="125" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="ngH-Qk-P3o" userLabel="temperatureCurrent">
-                    <rect key="frame" x="156" y="328" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="˚C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p7F-qA-zJR">
-                    <rect key="frame" x="289" y="324" width="26" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXf-2z-0CD">
-                    <rect key="frame" x="289" y="229" width="26" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="battery-full.png" id="shm-nP-0f8" userLabel="batteryLevel">
-                    <rect key="frame" x="5" y="86" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <inset key="insetFor6xAndEarlier" minX="-8" minY="0.0" maxX="8" maxY="0.0"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu.png" id="djy-m1-gNX">
-                    <rect key="frame" x="6" y="26" width="22" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu.png" id="1cb-6t-e4E">
-                    <rect key="frame" x="293" y="26" width="22" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="--" textAlignment="center" minimumFontSize="17" id="kBc-bx-CTj">
-                    <rect key="frame" x="20" y="13" width="290" height="76"/>
+                    <rect key="frame" x="8" y="36" width="304" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="48"/>
@@ -181,70 +121,144 @@
                     <rect key="frame" x="205" y="517" width="105" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="JPN-VM-v8d">
-                    <rect key="frame" x="129" y="181" width="191" height="49"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="VmH-DF-wNq">
-                            <rect key="frame" x="9" y="9" width="34" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="slv-V2-cZf" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="51" y="9" width="51" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="lightAlarmAction:" destination="-1" eventType="valueChanged" id="1Hw-ts-hxI"/>
-                            </connections>
-                        </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="peD-v1-F85">
-                            <rect key="frame" x="109" y="14" width="32" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LfP-gO-UfK">
-                            <rect key="frame" x="152" y="14" width="32" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <view contentMode="scaleToFill" id="nLP-Kf-hzH">
                     <rect key="frame" x="129" y="274" width="191" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="oCC-lx-gsL">
-                            <rect key="frame" x="9" y="9" width="34" height="32"/>
+                            <rect key="frame" x="10" y="11" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="OnN-R7-Lk6" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="51" y="9" width="51" height="31"/>
+                            <rect key="frame" x="46" y="9" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="soilMoistureAlarmAction:" destination="-1" eventType="valueChanged" id="ch1-yt-Iej"/>
                             </connections>
                         </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wF0-Ev-dmK">
-                            <rect key="frame" x="109" y="14" width="32" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wF0-Ev-dmK">
+                            <rect key="frame" x="102" y="14" width="41" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h5X-ix-du9">
-                            <rect key="frame" x="152" y="14" width="32" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h5X-ix-du9">
+                            <rect key="frame" x="147" y="14" width="41" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="0Ga-hY-Pb2" userLabel="growRSSI">
+                    <rect key="frame" x="267" y="20" width="45" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="battery-full.png" id="shm-nP-0f8" userLabel="batteryLevel">
+                    <rect key="frame" x="8" y="20" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <inset key="insetFor6xAndEarlier" minX="-8" minY="0.0" maxX="8" maxY="0.0"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_under_sun-512.png" id="SdU-c6-qnq">
+                    <rect key="frame" x="8" y="139" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <view contentMode="scaleToFill" id="6hY-ns-rBL" userLabel="sparkLineLight" customClass="ASBSparkLineView">
+                    <rect key="frame" x="49" y="135" width="100" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="LNT-Ni-2p1" userLabel="lightCurrent">
+                    <rect key="frame" x="160" y="135" width="125" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="lux" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qUk-al-9mU">
+                    <rect key="frame" x="286" y="127" width="30" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_under_rain-512.png" id="Jol-QK-rsO">
+                    <rect key="frame" x="8" y="236" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <view contentMode="scaleToFill" id="Q0W-zR-mPo" userLabel="sparkLineSoilMoisture" customClass="ASBSparkLineView">
+                    <rect key="frame" x="49" y="232" width="100" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" id="VwV-nP-PwZ" userLabel="soilMoistureCurrent">
+                    <rect key="frame" x="160" y="232" width="125" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" id="cK4-IV-Zyq" userLabel="sparkLineSoilTemp" customClass="ASBSparkLineView">
+                    <rect key="frame" x="49" y="334" width="100" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="BpC-MT-SmD" userLabel="temperatureCurrent" customClass="WPTemperatureView">
+                    <rect key="frame" x="160" y="334" width="116" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="˚C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p7F-qA-zJR" customClass="WPTemperatureSignLabel">
+                    <rect key="frame" x="284" y="334" width="26" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXf-2z-0CD">
+                    <rect key="frame" x="286" y="226" width="26" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" id="JPN-VM-v8d">
+                    <rect key="frame" x="129" y="176" width="191" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="VmH-DF-wNq">
+                            <rect key="frame" x="10" y="11" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="slv-V2-cZf" userLabel="alarmSwitchTemperature">
+                            <rect key="frame" x="46" y="9" width="51" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="lightAlarmAction:" destination="-1" eventType="valueChanged" id="1Hw-ts-hxI"/>
+                            </connections>
+                        </switch>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="peD-v1-F85">
+                            <rect key="frame" x="102" y="14" width="41" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LfP-gO-UfK">
+                            <rect key="frame" x="147" y="14" width="41" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -252,57 +266,76 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="QTE-ya-KQq">
-                    <rect key="frame" x="129" y="364" width="191" height="49"/>
+                    <rect key="frame" x="129" y="374" width="191" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="V6j-Dv-F65">
-                            <rect key="frame" x="9" y="9" width="34" height="32"/>
+                            <rect key="frame" x="10" y="11" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="w3G-rf-3Js" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="51" y="9" width="51" height="31"/>
+                            <rect key="frame" x="46" y="9" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="soilTempAlarmAction:" destination="-1" eventType="valueChanged" id="KZV-hC-S7U"/>
                             </connections>
                         </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37Z-hX-XQf">
-                            <rect key="frame" x="109" y="14" width="32" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37Z-hX-XQf" customClass="WPTemperatureValueLabel">
+                            <rect key="frame" x="102" y="14" width="41" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OBS-Bn-gAp">
-                            <rect key="frame" x="152" y="14" width="32" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OBS-Bn-gAp" customClass="WPTemperatureValueLabel">
+                            <rect key="frame" x="147" y="14" width="41" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plant_temperature-512.png" id="dHz-At-uf3">
+                    <rect key="frame" x="8" y="337" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="XqC-sT-wrS">
+                    <rect key="frame" x="84" y="473" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="6bp-dp-dY8">
+                    <rect key="frame" x="-91" y="464" width="84" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="45w-Ti-lAG">
+                    <rect key="frame" x="8" y="523" width="84" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.47450980392156861" green="0.74117647058823533" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="249" y="164"/>
         </view>
     </objects>
     <resources>
         <image name="Grow 128px.png" width="362" height="181"/>
+        <image name="Wimoto-menu-icon.png" width="48" height="48"/>
         <image name="alarm_clock-512-white.png" width="512" height="512"/>
         <image name="battery-full.png" width="96" height="96"/>
         <image name="border.png" width="1591" height="350"/>
         <image name="buttons.png" width="1591" height="581"/>
-        <image name="cassette" width="100" height="100"/>
-        <image name="chip" width="100" height="100"/>
-        <image name="cloud" width="100" height="100"/>
-        <image name="menu.png" width="1200" height="1200"/>
         <image name="plant_temperature-512.png" width="512" height="512"/>
         <image name="plant_under_rain-512.png" width="512" height="512"/>
         <image name="plant_under_sun-512.png" width="512" height="512"/>
+        <image name="wimoto-cloud-sync.png" width="48" height="48"/>
+        <image name="wimoto-datalogger-icon-enabled.png" width="48" height="48"/>
+        <image name="wimoto-datalogger-icon.png" width="48" height="48"/>
+        <image name="wimoto-firmware-icon.png" width="48" height="48"/>
+        <image name="wimoto-settings-icon.png" width="48" height="48"/>
         <image name="wimoto.png" width="464" height="147"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

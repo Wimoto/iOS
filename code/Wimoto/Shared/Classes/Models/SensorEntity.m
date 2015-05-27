@@ -76,4 +76,40 @@
     });
 }
 
+- (void)jsonRepresentation:(void(^)(NSData *result))completionHandler {
+    dispatch_async([QueueManager databaseQueue], ^{
+        CBLView *view = [self.database viewNamed:@"sensorValuesByDate"];
+        if (!view.mapBlock) {
+            NSString* const kValueEntityType = NSStringFromClass([ValueEntity class]);
+            [view setMapBlock: MAPBLOCK({
+                if ([doc[@"type"] isEqualToString:kValueEntityType]) {
+                    id date = doc[@"date"];
+                    NSString *sensor = doc[@"sensor"];
+                    emit(@[sensor, date], doc);
+                }
+            }) version: @"1.0"];
+        }
+        CBLQuery *query = [view createQuery];
+        query.descending = YES;
+        NSString *myListId = self.document.documentID;
+        query.startKey = @[myListId, @{}];
+        query.endKey = @[myListId];
+        
+        //NSLog(@"Get last sensor values");
+        
+        CBLQueryEnumerator *queryEnumerator = [query run:nil];
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
+        for (CBLQueryRow *row in queryEnumerator) {
+            ValueEntity *valueEntity = [ValueEntity modelForDocument:row.document];
+            if (valueEntity) {
+                [mutableArray addObject:[valueEntity dictionaryRepresentation]];
+            }
+        }
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:mutableArray options:0 error:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(jsonData);
+        });
+    });
+}
+
 @end

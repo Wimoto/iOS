@@ -11,13 +11,27 @@
 #import "RelativeDateDescriptor.h"
 #import "FirmwareViewController.h"
 #import "QueueManager.h"
+#import "WimotoDeckController.h"
 
 @interface SensorViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
+@property (nonatomic, weak) IBOutlet UIButton *dataLoggerButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *dataReadbackButton;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *dataReadbackIndicatorView;
+
+@property (nonatomic, weak) IBOutlet UIButton *dfuButton;
+
 - (IBAction)firmwareUpdateAction:(id)sender;
+
+- (IBAction)enableDataLogger:(id)sender;
+- (IBAction)readDataLogger:(id)sender;
+
+- (IBAction)showLeftMenu:(id)sender;
+- (IBAction)showRightMenu:(id)sender;
 
 @end
 
@@ -27,6 +41,7 @@
     self = [super init];
     if (self) {
         _sensor = sensor;
+        [_sensor setDataReadingDelegate:self];
     }
     return self;
 }
@@ -38,21 +53,13 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE options:NSKeyValueObservingOptionNew context:NULL];
+    
+    
     NSString *sensorName = [_sensor name];
     if ([sensorName isNotEmpty]) {
         self.sensorNameField.text = sensorName;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [super viewWillAppear:animated];
-//    if (!_alarmSlider) {
-//        self.alarmSlider = [[AlarmSlider alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 100.0)];
-//        [self.view addSubview:_alarmSlider];
-//        _alarmSlider.delegate = self;
-//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,6 +69,7 @@
 }
 
 - (void)dealloc {
+    [_sensor setDataReadingDelegate:nil];
     @try {
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
@@ -83,20 +91,39 @@
     [self presentViewController:firmwareNavController animated:YES completion:nil];
 }
 
+- (IBAction)enableDataLogger:(id)sender {
+    [sender setEnabled:NO];
+    
+    [_sensor enableDataLogger:![sender isSelected]];
+}
+
+- (IBAction)readDataLogger:(id)sender {
+    UIAlertView *readOptionsAlert = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"E-mail", @"Cloud Sync", nil];
+    [readOptionsAlert show];
+}
+
+- (IBAction)showLeftMenu:(id)sender {
+    if ([(WimotoDeckController*)self.viewDeckController isSideOpen:IIViewDeckLeftSide]) {
+        [(WimotoDeckController*)self.viewDeckController toggleLeftView];
+    } else {
+        [(WimotoDeckController*)self.viewDeckController openLeftViewAnimated:YES];
+    }
+}
+
+- (IBAction)showRightMenu:(id)sender {
+    if ([(WimotoDeckController*)self.viewDeckController isSideOpen:IIViewDeckRightSide]) {
+        [(WimotoDeckController*)self.viewDeckController toggleRightView];
+    } else {
+        [(WimotoDeckController*)self.viewDeckController openRightViewAnimated:YES];
+    }
+}
+
 - (void)refreshLastUpdateLabel {
     NSDate *lastUpdateDate = [self.sensor.entity lastActivityAt];
     if (lastUpdateDate) {
         RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
         _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
     }
-}
-
-- (void)showSlider {
-    //[_alarmSlider showAction];
-}
-
-- (void)hideSlider {
-    //[_alarmSlider hideAction:nil];
 }
 
 #pragma mark - SensorDelegate
@@ -130,9 +157,14 @@
             self.view.backgroundColor = [UIColor lightGrayColor];
             _rssiLabel.hidden           = YES;
             _batteryLevelImage.hidden   = YES;
+            _dataLoggerButton.hidden    = YES;
+            _dataReadbackButton.hidden  = YES;
+            _dfuButton.hidden           = YES;
         } else {
             _rssiLabel.hidden           = NO;
             _batteryLevelImage.hidden   = NO;
+            _dataReadbackButton.hidden  = NO;
+            _dfuButton.hidden           = NO;
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
         int rssi = 0;
@@ -173,6 +205,12 @@
             _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
             _batteryLevelImage.hidden = NO;
         }
+    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DL_STATE]) {
+        DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+        
+        _dataLoggerButton.hidden = NO;
+        _dataLoggerButton.enabled = YES;
+        _dataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
     }
 }
 
@@ -185,4 +223,40 @@
     return YES;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        _dataReadbackButton.hidden = YES;
+        [_dataReadbackIndicatorView startAnimating];
+        
+        [_sensor.entity jsonRepresentation:^(NSData *result) {
+            [self didUpdateSensorReadingData:result error:nil];
+        }];
+    }
+
+}
+
+#pragma mark - SensorDataReadingDelegate
+
+- (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error {
+    NSLog(@"didUpdateSensorReadingData ");
+    _dataReadbackButton.hidden = NO;
+    [_dataReadbackIndicatorView stopAnimating];
+    
+    if (!error) {
+        if([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+            mailController.mailComposeDelegate = self;
+            
+            [mailController setSubject:@"Wimoto"];
+            [mailController setMessageBody:[NSString stringWithFormat:@"Content from Wimoto %@ Sensor %@", [self.sensor codename], [self.sensor uniqueIdentifier]] isHTML:NO];
+            [mailController addAttachmentData:data mimeType:@"application/json" fileName:@"AppData.json"];
+            
+            [self presentViewController:mailController animated:YES completion:nil];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

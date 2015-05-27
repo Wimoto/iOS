@@ -2,7 +2,7 @@
 //  DemoThermoSensorDetailsViewController.m
 //  Wimoto
 //
-//  Created by Alena Kokareva on 30.10.14.
+//  Created by MC700 on 30.10.14.
 //
 //
 
@@ -35,8 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.irTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
-    self.probeTempLabel.text = SENSOR_VALUE_PLACEHOLDER;
+    self.irTempView.text = SENSOR_VALUE_PLACEHOLDER;
+    self.probeTempView.text = SENSOR_VALUE_PLACEHOLDER;
     self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
     // Do any additional setup after loading the view.
 }
@@ -62,12 +62,12 @@
             [self.lastUpdateTimer invalidate];
         }
         self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        self.irTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor irTemp]];
+        [self.irTempView setTemperature:[sensor irTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             self.irTempSparkLine.dataValues = result;
         }];
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        self.probeTempLabel.text = [NSString stringWithFormat:@"%.1f", [sensor probeTemp]];
+        [self.probeTempView setTemperature:[sensor probeTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
             self.probeTempSparkLine.dataValues = result;
         }];

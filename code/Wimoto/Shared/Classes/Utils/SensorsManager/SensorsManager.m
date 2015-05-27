@@ -7,11 +7,16 @@
 //
 
 #import "SensorsManager.h"
+
 #import <Couchbaselite/CouchbaseLite.h>
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "SensorEntity.h"
 #import "QueueManager.h"
 #import "Sensor.h"
 #import "DemoThermoSensor.h"
+
+#define kServerDbURL @"http://146.148.72.228:4984/wimoto"
 
 @interface SensorsManager ()
 
@@ -23,6 +28,8 @@
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
 
 @property (nonatomic, strong) CBLDatabase *cblDatabase;
+@property (nonatomic, strong) CBLReplication *push;
+@property (nonatomic, weak) id<AuthentificationObserver>authObserver;
 
 - (void)addDemoSensors;
 
@@ -51,6 +58,16 @@ static SensorsManager *sensorsManager = nil;
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         
+        
+        NSURL* serverDbURL = [NSURL URLWithString: kServerDbURL];
+        _push = [_cblDatabase createPushReplication: serverDbURL];
+        _push.continuous = YES;
+        
+        // Observe replication progress changes, in both directions
+        NSNotificationCenter* nctr = [NSNotificationCenter defaultCenter];
+        [nctr addObserver: self selector: @selector(replicationProgress:)
+                     name: kCBLReplicationChangeNotification object: _push];
+        
         dispatch_async([QueueManager databaseQueue], ^{
             CBLView *view = [_cblDatabase viewNamed:@"registeredSensors"];
             
@@ -65,7 +82,9 @@ static SensorsManager *sensorsManager = nil;
             CBLQueryEnumerator *queryEnumerator = [query run:nil];
             
             for (CBLQueryRow *row in queryEnumerator) {
-                [_sensors addObject:[Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]]];
+                Sensor *sensor = [Sensor sensorWithEntity:[SensorEntity modelForDocument:row.document]];
+                //[sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE options:NSKeyValueObservingOptionNew context:nil];
+                [_sensors addObject:sensor];
             }
             [self addDemoSensors];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,7 +103,7 @@ static SensorsManager *sensorsManager = nil;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", uniqueId];
         Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
         if (!sensor) {
-            sensor = [Sensor demoSensorWithUniqueId:uniqueId];
+            sensor = [DemoSensor demoSensorWithUniqueId:uniqueId];
             [_sensors addObject:sensor];
             [self notifyUnregisteredSensorsObservers];
         }
@@ -185,6 +204,20 @@ static SensorsManager *sensorsManager = nil;
     }
 }
 
+
++ (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
+    [[SensorsManager sharedManager] switchOffAlarm:UUID forSensor:sensorId];
+}
+
+- (void)switchOffAlarm:(NSString *)UUID forSensor:(NSString *)sensorId {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", sensorId];
+    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+    
+    NSLog(@"Sensors Manager switchOffAlarm %@   ____%@", sensor, sensorId);
+    
+    [sensor enableAlarm:NO forCharacteristicWithUUIDString:UUID];
+}
+
 #pragma mark - WimotoCentralManagerDelegate
 
 - (void)didConnectPeripheral:(CBPeripheral*)peripheral {
@@ -196,7 +229,8 @@ static SensorsManager *sensorsManager = nil;
             sensor.peripheral = peripheral;
         });
     } else {
-        [_sensors addObject:[Sensor sensorWithPeripheral:peripheral]];
+        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        [_sensors addObject:sensor];
         [self notifyUnregisteredSensorsObservers];
     }    
 }
@@ -215,5 +249,112 @@ static SensorsManager *sensorsManager = nil;
         [self notifyUnregisteredSensorsObservers];
     }
 }
+
+- (void)didConnectDfuPeripheral:(CBPeripheral*)peripheral {
+    NSLog(@"SensorsManager didConnectDfuPeripheral");
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuidString == %@", [[peripheral identifier] UUIDString]];
+    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+    
+    NSLog(@"SensorsManager didConnectDfuPeripheral #320 %@", sensor);
+    if (sensor) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sensor.peripheral = peripheral;
+            sensor.dfuModeOn = YES;
+        });
+    }
+}
+
+#pragma mark - Replication
+
++ (void)setAuthentificationObserver:(id<AuthentificationObserver>)observer {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    manager.authObserver = observer;
+    
+    [observer didAuthentificate:([[FBSession activeSession] state] == FBSessionStateOpen)?YES:NO];
+}
+
++ (void)activate {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
+        [manager openActiveSessionWithPermissions:nil allowLoginUI:NO];
+    }
+    [FBAppCall handleDidBecomeActive];
+}
+
++ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication {
+    return [FBAppCall handleOpenURL:URL sourceApplication:sourceApplication];
+}
+
++ (void)authSwitch {
+    SensorsManager *manager = [SensorsManager sharedManager];
+    if ([FBSession activeSession].state != FBSessionStateOpen &&
+        [FBSession activeSession].state != FBSessionStateOpenTokenExtended) {
+        [manager openActiveSessionWithPermissions:@[@"email"] allowLoginUI:YES];
+    }
+    else {
+        [[FBSession activeSession] closeAndClearTokenInformation];
+    }
+}
+
+- (void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI {
+    [FBSession openActiveSessionWithReadPermissions:permissions
+                                       allowLoginUI:allowLoginUI
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                      if ((!error) && (status == FBSessionStateOpen)) {
+                                          _push.authenticator = [CBLAuthenticator facebookAuthenticatorWithToken:[[session accessTokenData] accessToken]];
+                                          [_push start];
+                                          [_authObserver didAuthentificate:YES];
+                                      }
+                                      else  {
+                                          _push.authenticator = nil;
+                                          [_push stop];
+                                          
+                                          [_authObserver didAuthentificate:NO];
+                                      }
+                                  }];
+}
+
+- (void) replicationProgress: (NSNotificationCenter*)n {
+    if (_push.status == kCBLReplicationActive) {
+        // Sync is active -- aggregate the progress of both replications and compute a fraction:
+        unsigned completed = _push.completedChangesCount;
+        unsigned total = _push.changesCount;
+        NSLog(@"SYNC progress: %u / %u", completed, total);
+        // Update the progress bar, avoiding divide-by-zero exceptions:
+    } else {
+        // Sync is idle -- hide the progress bar and show the config button:
+        NSLog(@"SYNC idle");
+    }
+    
+//    // Check for any change in error status and display new errors:
+//    NSError* error = _pull.lastError ? _pull.lastError : _push.lastError;
+//    if (error != _syncError) {
+//        _syncError = error;
+//        if (error) {
+//            [self showAlert: @"Error syncing" error: error fatal: NO];
+//        }
+//    }
+}
+
+
+// Display an error alert, without blocking.
+// If 'fatal' is true, the app will quit when it's dismissed.
+- (void)showAlert: (NSString*)message error: (NSError*)error fatal: (BOOL)fatal {
+    if (error) {
+        message = [message stringByAppendingFormat: @"\n\n%@", error.localizedDescription];
+    }
+    NSLog(@"ALERT: %@ (error=%@)", message, error);
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle: (fatal ? @"Fatal Error" : @"Error")
+                                                    message: message
+                                                   delegate: (fatal ? self : nil)
+                                          cancelButtonTitle: (fatal ? @"Quit" : @"Sorry")
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    exit(0);
+}
+
 
 @end

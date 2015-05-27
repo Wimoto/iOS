@@ -7,7 +7,8 @@
 //
 
 #import "AppViewController.h"
+#import "SensorsManager.h"
 
-@interface LeftMenuViewController : AppViewController
+@interface LeftMenuViewController : AppViewController <AuthentificationObserver>
 
 @end

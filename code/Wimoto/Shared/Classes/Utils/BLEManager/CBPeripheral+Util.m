@@ -33,7 +33,7 @@
 
 - (PeripheralType)peripheralType
 {
-    NSLog(@"peripheralType: SERVICES COUNT === %i", [self.services count]);
+    NSLog(@"peripheralType: SERVICES COUNT === %d", [self.services count]);
     for (CBService *aService in self.services) {
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE]]) {
             for (CBCharacteristic *aChar in aService.characteristics) {
@@ -42,15 +42,15 @@
 
                     NSLog(@"peripheralType: MODEL string ------- %@", model);
                     
-                    if ([model isEqual:BLE_CLIMATE_MODEL]) {
+                    if ([model rangeOfString:BLE_CLIMATE_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeClimate;
-                    } else if ([model isEqual:BLE_WATER_MODEL]) {
+                    } else if ([model rangeOfString:BLE_WATER_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeWater;
-                    } else if ([model isEqual:BLE_GROW_MODEL]) {
+                    } else if ([model rangeOfString:BLE_GROW_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeGrow;
-                    } else if ([model isEqual:BLE_SENTRY_MODEL]) {
+                    } else if ([model rangeOfString:BLE_SENTRY_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeSentry;
-                    } else if ([model isEqual:BLE_THERMO_MODEL]) {
+                    } else if ([model rangeOfString:BLE_THERMO_MODEL options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         return kPeripheralTypeThermo;
                     }
                 }
@@ -69,9 +69,10 @@
 
 - (NSString*)uniqueIdentifier {
     NSString *identifier = [self systemId];
-#ifdef DEBUG
-    identifier = [[self identifier] UUIDString];
-#endif
+    // TODO temp fix for Eugene I. sensors
+    if ([identifier isEqualToString:@"7383519721266824277"]) {
+        identifier = [[self identifier] UUIDString];
+    }
     return identifier;
 }
 

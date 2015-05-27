@@ -24,6 +24,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[AlarmSlider delegate]"
                   moduleName = "Wimoto"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/marc/Code/iOS/code/Wimoto/Shared/Classes/SensorDetailsScreens/AlarmSlider/AlarmSlider.h"
                   timestampString = "422647339.708878"
                   startingColumnNumber = "9223372036854775807"
@@ -38,6 +39,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[AlarmSlider setDelegate:]"
                   moduleName = "Wimoto"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/marc/Code/iOS/code/Wimoto/Shared/Classes/SensorDetailsScreens/AlarmSlider/AlarmSlider.h"
                   timestampString = "422647339.709084"
                   startingColumnNumber = "9223372036854775807"
@@ -65,13 +67,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iPhone/AppDelegate_iPhone.m"
-            timestampString = "436536882.06743"
+            timestampString = "442355739.185628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/main.m"
+            timestampString = "442872390.949032"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "main()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
