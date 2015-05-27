@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
@@ -230,7 +230,7 @@
                     <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" image="cassette"/>
+                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
                     <connections>
                         <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="Jix-M7-hvL"/>
                     </connections>
@@ -254,11 +254,11 @@
         <image name="battery-full.png" width="96" height="96"/>
         <image name="border.png" width="1591" height="350"/>
         <image name="buttons.png" width="1591" height="581"/>
-        <image name="cassette" width="100" height="100"/>
         <image name="infrared_thermometer-512.png" width="512" height="512"/>
         <image name="thermo 128px.png" width="496" height="181"/>
         <image name="thermometer.png" width="96" height="96"/>
         <image name="wimoto-cloud-sync.png" width="48" height="48"/>
+        <image name="wimoto-datalogger-icon-enabled.png" width="48" height="48"/>
         <image name="wimoto-datalogger-icon.png" width="48" height="48"/>
         <image name="wimoto-firmware-icon.png" width="48" height="48"/>
         <image name="wimoto-settings-icon.png" width="48" height="48"/>

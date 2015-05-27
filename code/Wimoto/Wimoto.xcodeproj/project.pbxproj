@@ -114,6 +114,7 @@
 		4901D3F2192F885D005EB15C /* battery-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EE192F885D005EB15C /* battery-medium.png */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
+		491190E31B1399900065E1BB /* wimoto-datalogger-icon-enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
 		493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4929184EB2CB0000A2F6 /* temperature-512.png */; };
 		493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A492C184EB44B0000A2F6 /* humidity-512.png */; };
@@ -142,6 +143,7 @@
 		498CEFDD19AAB19F00EAEB98 /* buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 498CEFDC19AAB19F00EAEB98 /* buttons.png */; };
 		4995714A1A09238600338FAC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499571481A09238600338FAC /* Media.xcassets */; };
 		4995714D1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */; };
+		49A347641B16002000A9E1B5 /* Lux-to-daylight.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49A347631B16002000A9E1B5 /* Lux-to-daylight.plist */; };
 		49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F01A04F00600D16ACD /* NSData+Conversion.m */; };
 		49CB68F61A04F00600D16ACD /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F21A04F00600D16ACD /* NSString+Util.m */; };
 		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
@@ -358,6 +360,7 @@
 		4901D3EE192F885D005EB15C /* battery-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-medium.png"; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
+		491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-datalogger-icon-enabled.png"; path = "../../../../../../../Desktop/wimoto-datalogger-icon-enabled.png"; sourceTree = "<group>"; };
 		492DECBB19FE8710000D1BD0 /* acceleromter.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = acceleromter.pdf; path = ../../../../acceleromter.pdf; sourceTree = "<group>"; };
 		493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_clock-512-white.png"; sourceTree = "<group>"; };
 		493A4929184EB2CB0000A2F6 /* temperature-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temperature-512.png"; sourceTree = "<group>"; };
@@ -387,6 +390,7 @@
 		498CEFDC19AAB19F00EAEB98 /* buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttons.png; sourceTree = "<group>"; };
 		499571481A09238600338FAC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoSensorDetailsViewController_iPhone.xib; sourceTree = "<group>"; };
+		49A347631B16002000A9E1B5 /* Lux-to-daylight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Lux-to-daylight.plist"; sourceTree = "<group>"; };
 		49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		49CB68F01A04F00600D16ACD /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		49CB68F11A04F00600D16ACD /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
@@ -619,6 +623,7 @@
 			children = (
 				040829D71A65C58200B93306 /* sentryLookup.plist */,
 				90F56DDE184DD54000ADC38E /* Info.plist */,
+				49A347631B16002000A9E1B5 /* Lux-to-daylight.plist */,
 				32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -874,6 +879,7 @@
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */,
 				040829D51A65C4F500B93306 /* wimoto-settings-icon.png */,
 				040829D31A65C45300B93306 /* wimoto-datalogger-icon.png */,
 				040829D11A65C43100B93306 /* wimoto-cloud-sync.png */,
@@ -1324,6 +1330,7 @@
 				302A7165192D284B006E0A6C /* slider-metal-track.png in Resources */,
 				493A4933184EB81A0000A2F6 /* plant_under_sun-512.png in Resources */,
 				040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */,
+				49A347641B16002000A9E1B5 /* Lux-to-daylight.plist in Resources */,
 				302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
@@ -1336,6 +1343,7 @@
 				302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
+				491190E31B1399900065E1BB /* wimoto-datalogger-icon-enabled.png in Resources */,
 				4901D3F1192F885D005EB15C /* battery-low.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,

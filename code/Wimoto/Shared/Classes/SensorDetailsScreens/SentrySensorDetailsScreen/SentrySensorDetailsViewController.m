@@ -118,7 +118,7 @@
             _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor y]];
             _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor z]];
             _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [sensor pasInfrared]];
-            self.view.backgroundColor = [UIColor colorWithRed:(140.f/255.f) green:(140.f/255.f) blue:(140.f/255.f) alpha:1.f];
+            self.view.backgroundColor = [UIColor colorWithRed:(52.f/255.f) green:(80.f/255.f) blue:(159.f/255.f) alpha:1.f];
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_X]) {
         self.lastUpdateLabel.text = @"Just now";
@@ -156,10 +156,28 @@
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
         if (self.sensor.peripheral) {
             _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            
+            int pir = 0;
+            
+            NSObject *pirObject = [change objectForKey:NSKeyValueChangeNewKey];
+            if ([pirObject isKindOfClass:[NSNumber class]]) {
+                pir = [(NSNumber*)pirObject intValue];
+            }
+            
+            if (pir == 0) {
+                _pasInfraredLabel.text = @"No movement";
+            } else {
+                _pasInfraredLabel.text = @"Movement";
+            }
+
+            
+            
+            
         }
         [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
             _pasInfraredSparkLine.dataValues = result;
         }];
+        
     }
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE]) {
         _accelerometerSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
