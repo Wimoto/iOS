@@ -86,6 +86,8 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     
+    NSLog(@"centralManager didDiscoverPeripheral: %@", advertisementData);
+    
     [_pendingPeripherals addObject:peripheral];
     
     if (peripheral.state == CBPeripheralStateDisconnected) {
@@ -96,7 +98,7 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
     
-    NSLog(@"WimotoCentralManager didConnectPeripheral %@", [peripheral name]);
+    //NSLog(@"WimotoCentralManager didConnectPeripheral %@", [peripheral name]);
     NSArray *services = [NSArray arrayWithObjects:[CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DEVICE], [CBUUID UUIDWithString:BLE_GENERIC_SERVICE_UUID_DFU], nil];
     [peripheral discoverServices:services];
 }
@@ -130,9 +132,9 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    NSLog(@"#120WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
+    //NSLog(@"#120WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
     if ([aPeripheral isIdentified]) {
-        NSLog(@"#130WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
+        //NSLog(@"#130WimotoCentralManager didUpdateValueForCharacteristic %@", [aPeripheral name]);
         [_wcmDelegate didConnectPeripheral:aPeripheral];
         [_pendingPeripherals removeObject:aPeripheral];
     }
