@@ -103,7 +103,6 @@
     }
     
     if ((self.temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
-        _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
         NSString *alarmType = nil;
         if (self.temperature > self.temperatureAlarmHigh) {
             alarmType = @"high value";
@@ -112,11 +111,12 @@
             alarmType = @"low value";
         }
         if (alarmType) {
+            _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
             [super showAlarmNotification:[NSString stringWithFormat:@"%@ temperature %@", self.name, alarmType] forUuid:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
         }
     }
     if ((self.humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
-        _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
         NSString *alarmType = nil;
         if (self.humidity > self.humidityAlarmHigh) {
             alarmType = @"high value";
@@ -125,11 +125,12 @@
             alarmType = @"low value";
         }
         if (alarmType) {
+            _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
             [super showAlarmNotification:[NSString stringWithFormat:@"%@ humidity %@", self.name, alarmType] forUuid:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
         }
     }
     if ((self.lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
-        _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
         NSString *alarmType = nil;
         if (self.light > self.lightAlarmHigh) {
             alarmType = @"high value";
@@ -138,6 +139,8 @@
             alarmType = @"low value";
         }
         if (alarmType) {
+            _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
             [super showAlarmNotification:[NSString stringWithFormat:@"%@ light %@", self.name, alarmType] forUuid:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
         }
     }

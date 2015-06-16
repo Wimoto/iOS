@@ -82,7 +82,6 @@
     }
     
     if ((self.irTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_irTempAlarmTimeshot+30))) {
-        _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
         NSString *alarmType = nil;
         if (self.irTemp > self.irTempAlarmHigh) {
             alarmType = @"high value";
@@ -91,11 +90,12 @@
             alarmType = @"low value";
         }
         if (alarmType) {
+            _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
             [super showAlarmNotification:[NSString stringWithFormat:@"%@ IR temperature %@", self.name, alarmType] forUuid:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
         }
     }
     if ((self.probeTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_probeTempAlarmTimeshot+30))) {
-        _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
         NSString *alarmType = nil;
         if (self.probeTemp > self.probeTempAlarmHigh) {
             alarmType = @"high value";
@@ -104,6 +104,8 @@
             alarmType = @"low value";
         }
         if (alarmType) {
+            _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
             [super showAlarmNotification:[NSString stringWithFormat:@"%@ probe temperature %@", self.name, alarmType] forUuid:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
         }
     }
