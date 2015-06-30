@@ -9,6 +9,7 @@
 #import "SentrySensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
 #import "SentrySensor.h"
+#import "DatePickerView.h"
 
 @interface SentrySensorDetailsViewController ()
 
@@ -87,10 +88,17 @@
 
 - (IBAction)accelerometerAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET];
+    
+    [DatePickerView showWithSelectedDate:[NSDate date] completionHandler:^(NSDate *date) {
+        NSLog(@"Accelerometer - DatePickerView date %@", date);
+    }];
 }
 
 - (IBAction)pasInfraredAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET];
+    [DatePickerView showWithSelectedDate:[NSDate date] completionHandler:^(NSDate *date) {
+        NSLog(@"Infrared - DatePickerView date %@", date);
+    }];
 }
 
 #pragma mark - Value Observer

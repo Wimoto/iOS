@@ -30,6 +30,9 @@
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
 		14CD06B81B05EF04009F8B61 /* WPTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */; };
 		14CD06BA1B05F4B3009F8B61 /* WPTemperatureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */; };
+		14D628B01B3ABDFE00505A77 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D628AA1B3ABDFE00505A77 /* DatePickerView.m */; };
+		14D628B11B3ABDFE00505A77 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D628AB1B3ABDFE00505A77 /* DatePickerView.xib */; };
+		14D628B21B3ABDFE00505A77 /* SRMonthPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D628AE1B3ABDFE00505A77 /* SRMonthPicker.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -114,7 +117,6 @@
 		4901D3F2192F885D005EB15C /* battery-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3EE192F885D005EB15C /* battery-medium.png */; };
 		490F3A8D184EDF43004B2BF1 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8C184EDF43004B2BF1 /* border.png */; };
 		490F3A8F184EE251004B2BF1 /* wimoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 490F3A8E184EE251004B2BF1 /* wimoto.png */; };
-		491190E31B1399900065E1BB /* wimoto-datalogger-icon-enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */; };
 		493A4928184EB0790000A2F6 /* alarm_clock-512-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */; };
 		493A492A184EB2CB0000A2F6 /* temperature-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A4929184EB2CB0000A2F6 /* temperature-512.png */; };
 		493A492D184EB44B0000A2F6 /* humidity-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 493A492C184EB44B0000A2F6 /* humidity-512.png */; };
@@ -242,6 +244,11 @@
 		14CD06B61B05EF04009F8B61 /* WPTemperatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureView.h; sourceTree = "<group>"; };
 		14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureView.m; sourceTree = "<group>"; };
 		14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WPTemperatureView.xib; sourceTree = "<group>"; };
+		14D628A91B3ABDFE00505A77 /* DatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
+		14D628AA1B3ABDFE00505A77 /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
+		14D628AB1B3ABDFE00505A77 /* DatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
+		14D628AD1B3ABDFE00505A77 /* SRMonthPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMonthPicker.h; sourceTree = "<group>"; };
+		14D628AE1B3ABDFE00505A77 /* SRMonthPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMonthPicker.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Wimoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wimoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -360,7 +367,6 @@
 		4901D3EE192F885D005EB15C /* battery-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery-medium.png"; sourceTree = "<group>"; };
 		490F3A8C184EDF43004B2BF1 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		490F3A8E184EE251004B2BF1 /* wimoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wimoto.png; sourceTree = "<group>"; };
-		491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wimoto-datalogger-icon-enabled.png"; path = "../../../../../../../Desktop/wimoto-datalogger-icon-enabled.png"; sourceTree = "<group>"; };
 		492DECBB19FE8710000D1BD0 /* acceleromter.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = acceleromter.pdf; path = ../../../../acceleromter.pdf; sourceTree = "<group>"; };
 		493A4927184EB0790000A2F6 /* alarm_clock-512-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm_clock-512-white.png"; sourceTree = "<group>"; };
 		493A4929184EB2CB0000A2F6 /* temperature-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temperature-512.png"; sourceTree = "<group>"; };
@@ -564,6 +570,34 @@
 			path = TemperatureView;
 			sourceTree = "<group>";
 		};
+		14D628A81B3ABDFE00505A77 /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				14D628A91B3ABDFE00505A77 /* DatePickerView.h */,
+				14D628AA1B3ABDFE00505A77 /* DatePickerView.m */,
+				14D628AB1B3ABDFE00505A77 /* DatePickerView.xib */,
+				14D628AC1B3ABDFE00505A77 /* SRMonthPicker */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
+		14D628AC1B3ABDFE00505A77 /* SRMonthPicker */ = {
+			isa = PBXGroup;
+			children = (
+				14D628AD1B3ABDFE00505A77 /* SRMonthPicker.h */,
+				14D628AE1B3ABDFE00505A77 /* SRMonthPicker.m */,
+				14D628AF1B3ABDFE00505A77 /* Support */,
+			);
+			path = SRMonthPicker;
+			sourceTree = "<group>";
+		};
+		14D628AF1B3ABDFE00505A77 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +773,7 @@
 				14CD06B51B05EEE7009F8B61 /* TemperatureView */,
 				04079BA71B012C7D0013234E /* TemperatureLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
+				14D628A81B3ABDFE00505A77 /* DatePickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
 				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
 				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
@@ -879,7 +914,6 @@
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				491190E21B1399900065E1BB /* wimoto-datalogger-icon-enabled.png */,
 				040829D51A65C4F500B93306 /* wimoto-settings-icon.png */,
 				040829D31A65C45300B93306 /* wimoto-datalogger-icon.png */,
 				040829D11A65C43100B93306 /* wimoto-cloud-sync.png */,
@@ -1267,7 +1301,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3VG2LSZQ89;
+						DevelopmentTeam = PZQTBD3MKF;
 					};
 				};
 			};
@@ -1343,10 +1377,10 @@
 				302A7155192D284B006E0A6C /* slider-default-trackBackground.png in Resources */,
 				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				493A4949184ECECE0000A2F6 /* cloud-upload.png in Resources */,
-				491190E31B1399900065E1BB /* wimoto-datalogger-icon-enabled.png in Resources */,
 				4901D3F1192F885D005EB15C /* battery-low.png in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				490F3A8D184EDF43004B2BF1 /* border.png in Resources */,
+				14D628B11B3ABDFE00505A77 /* DatePickerView.xib in Resources */,
 				302A715B192D284B006E0A6C /* slider-default7-track.png in Resources */,
 				040829D81A65C58200B93306 /* sentryLookup.plist in Resources */,
 				90D4AB93184E5336004DDB1F /* ClimateSensorDetailsViewController_iPhone.xib in Resources */,
@@ -1470,6 +1504,7 @@
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
 				F72564BA1A41F12900BEF94B /* ioapi.c in Sources */,
 				30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */,
+				14D628B01B3ABDFE00505A77 /* DatePickerView.m in Sources */,
 				90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */,
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,
 				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
@@ -1482,6 +1517,7 @@
 				30B9E11B19473866001E10A5 /* SBJsonWriter.m in Sources */,
 				F70D31761A02BE7900ABD9AC /* DemoThermoSensor.m in Sources */,
 				04EFF302195A08CD0067589E /* SensorsManager.m in Sources */,
+				14D628B21B3ABDFE00505A77 /* SRMonthPicker.m in Sources */,
 				04079BAA1B012C8F0013234E /* WPTemperatureValueLabel.m in Sources */,
 				F766A90D1A7B159800E0FDB7 /* WPPickerView.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,

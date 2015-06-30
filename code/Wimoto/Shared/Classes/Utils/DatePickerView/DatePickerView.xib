@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatePickerView">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="6Iy-QM-Ofa"/>
+                <outlet property="datePicker" destination="PQM-CD-unh" id="8Cw-c0-ThY"/>
+                <outlet property="datePickerBottom" destination="7nb-YV-84X" id="KQ1-56-vV0"/>
+                <outlet property="toolBar" destination="umr-N2-dhh" id="Uep-OE-LcN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYQ-xg-0TV">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="KbY-mh-7om"/>
+                    </connections>
+                </button>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umr-N2-dhh">
+                    <rect key="frame" x="0.0" y="394" width="600" height="44"/>
+                    <items>
+                        <barButtonItem width="12" style="plain" systemItem="fixedSpace" id="S0y-zv-ara"/>
+                        <barButtonItem title="Cancel" id="6fE-MK-Xe9">
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" id="DaB-gN-Itm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="kfC-aj-bOP"/>
+                        <barButtonItem systemItem="done" id="1gM-CX-XSZ">
+                            <connections>
+                                <action selector="saveAction:" destination="-1" id="A58-Rw-6iC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="12" style="plain" systemItem="fixedSpace" id="fZi-UG-r5C"/>
+                    </items>
+                </toolbar>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQM-CD-unh" customClass="SRMonthPicker">
+                    <rect key="frame" x="0.0" y="438" width="600" height="162"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="PQM-CD-unh" secondAttribute="bottom" id="7nb-YV-84X"/>
+                <constraint firstItem="PQM-CD-unh" firstAttribute="top" secondItem="umr-N2-dhh" secondAttribute="bottom" id="C87-Ee-l0R"/>
+                <constraint firstItem="umr-N2-dhh" firstAttribute="leading" secondItem="PQM-CD-unh" secondAttribute="leading" id="GK3-49-Z6B"/>
+                <constraint firstItem="umr-N2-dhh" firstAttribute="trailing" secondItem="PQM-CD-unh" secondAttribute="trailing" id="RU5-Hc-NCs"/>
+                <constraint firstAttribute="trailing" secondItem="aYQ-xg-0TV" secondAttribute="trailing" id="f4r-rh-7DE"/>
+                <constraint firstItem="aYQ-xg-0TV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gEB-Nz-Yls"/>
+                <constraint firstAttribute="trailing" secondItem="PQM-CD-unh" secondAttribute="trailing" id="gF6-EU-gbH"/>
+                <constraint firstItem="PQM-CD-unh" firstAttribute="top" secondItem="umr-N2-dhh" secondAttribute="bottom" id="nMm-ru-ifT"/>
+                <constraint firstItem="aYQ-xg-0TV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qAK-NW-puB"/>
+                <constraint firstItem="PQM-CD-unh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="spQ-Hl-YCL"/>
+                <constraint firstAttribute="bottom" secondItem="aYQ-xg-0TV" secondAttribute="bottom" id="yYF-vm-abf"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="nMm-ru-ifT"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
