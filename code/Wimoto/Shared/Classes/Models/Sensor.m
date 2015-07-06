@@ -233,7 +233,7 @@
 
 - (void)enableDataLogger:(BOOL)doEnable {
     char bytes[1] = {(doEnable) ? 0x01:0x00 };
-    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerEnableCharacteristic type:CBCharacteristicWriteWithResponse];
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)readDataLogger {
@@ -260,7 +260,7 @@
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    NSLog(@"didWriteValueForCharacteristic __%@__", error);
+    NSLog(@"didWriteValueForCharacteristic __%@ __%@__", [characteristic UUID], error);
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
         // does nothing so far
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
