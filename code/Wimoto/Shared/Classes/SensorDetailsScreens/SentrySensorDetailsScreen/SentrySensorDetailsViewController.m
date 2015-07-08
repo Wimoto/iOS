@@ -9,7 +9,8 @@
 #import "SentrySensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
 #import "SentrySensor.h"
-#import "DatePickerView.h"
+#import "TimePickerView.h"
+#import "TimeLabel.h"
 
 @interface SentrySensorDetailsViewController ()
 
@@ -24,6 +25,12 @@
 
 @property (nonatomic, weak) IBOutlet UISwitch *accelerometerSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *pasInfraredSwitch;
+
+@property (nonatomic, weak) IBOutlet TimeLabel *accelerometerAlarmEnabledLabel;
+@property (nonatomic, weak) IBOutlet TimeLabel *accelerometerAlarmDisabledLabel;
+
+@property (nonatomic, weak) IBOutlet TimeLabel *pasInfraredAlarmEnabledLabel;
+@property (nonatomic, weak) IBOutlet TimeLabel *pasInfraredAlarmDisabledLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *accelerometerAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *pasInfraredAlarmContainer;
@@ -51,6 +58,12 @@
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_ENABLED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_DISABLED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_ENABLED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_DISABLED options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
     _accelerometerSparkLine.labelText = @"";
     _accelerometerSparkLine.showCurrentValue = NO;
@@ -80,6 +93,12 @@
         
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_ENABLED];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_DISABLED];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_ENABLED];
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_DISABLED];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
@@ -89,16 +108,31 @@
 - (IBAction)accelerometerAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET];
     
-    [DatePickerView showWithSelectedDate:[NSDate date] completionHandler:^(NSDate *date) {
-        NSLog(@"Accelerometer - DatePickerView date %@", date);
-    }];
+    SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
+    [TimePickerView showWithMinDate:sentrySensor.accelerometerAlarmEnabledTime
+                            maxDate:sentrySensor.accelerometerAlarmDisabledTime
+                               save:^(NSDate *minDate, NSDate *maxDate) {
+                                NSLog(@"Save");
+                                [sentrySensor setAccelerometerAlarmEnabledTime:minDate];
+                                [sentrySensor setAccelerometerAlarmDisabledTime:maxDate];
+                            } cancel:^{
+                                NSLog(@"Cancel");
+                            }];
 }
 
 - (IBAction)pasInfraredAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET];
-    [DatePickerView showWithSelectedDate:[NSDate date] completionHandler:^(NSDate *date) {
-        NSLog(@"Infrared - DatePickerView date %@", date);
-    }];
+    
+    SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
+    [TimePickerView showWithMinDate:sentrySensor.infraredAlarmEnabledTime
+                            maxDate:sentrySensor.infraredAlarmDisabledTime
+                               save:^(NSDate *minDate, NSDate *maxDate) {
+                                   NSLog(@"Save");
+                                   [sentrySensor setInfraredAlarmEnabledTime:minDate];
+                                   [sentrySensor setInfraredAlarmDisabledTime:maxDate];
+                            } cancel:^{
+                                NSLog(@"Cancel");
+                            }];
 }
 
 #pragma mark - Value Observer
@@ -193,6 +227,19 @@
     else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE]) {
         _pasInfraredSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
     }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_ENABLED]) {
+        [_accelerometerAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmEnabledTime]];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_DISABLED]) {
+        [_accelerometerAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmDisabledTime]];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_ENABLED]) {
+        [_pasInfraredAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmEnabledTime]];
+    }
+    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_DISABLED]) {
+        [_pasInfraredAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmDisabledTime]];
+    }
+
 }
 
 @end

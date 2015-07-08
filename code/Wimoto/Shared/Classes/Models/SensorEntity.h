@@ -9,6 +9,7 @@
 #import <Couchbaselite/Couchbaselite.h>
 #import "CBPeripheral+Util.h"
 #import "ValueEntity.h"
+#import "QueueManager.h"
 
 #define SENSOR_ENTITY_NAME                  @"name"
 

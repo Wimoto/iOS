@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -7,18 +7,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SentrySensorDetailsViewController">
             <connections>
-                <outlet property="accelerometerAlarmContainer" destination="PPb-ro-lc3" id="4zd-9c-Zog"/>
-                <outlet property="accelerometerSwitch" destination="qn2-0Z-5r9" id="f15-n0-KDq"/>
+                <outlet property="accelerometerAlarmContainer" destination="Xo6-U7-bqR" id="iQY-jY-5DA"/>
+                <outlet property="accelerometerAlarmDisabledLabel" destination="r28-TN-qB7" id="3eK-si-3zZ"/>
+                <outlet property="accelerometerAlarmEnabledLabel" destination="0Rh-uw-Caa" id="nys-3H-Hmd"/>
+                <outlet property="accelerometerSwitch" destination="aIt-fc-7tA" id="hqW-2n-S3I"/>
                 <outlet property="batteryLevelImage" destination="yeF-42-rkC" id="Rsf-XR-N91"/>
                 <outlet property="dataLoggerButton" destination="1iE-e3-GW0" id="VGG-1b-MGv"/>
                 <outlet property="dataReadbackButton" destination="8Z4-sx-0WO" id="wSf-C9-9pO"/>
                 <outlet property="dataReadbackIndicatorView" destination="Ub6-Eh-DrW" id="PeN-wB-d56"/>
                 <outlet property="dfuButton" destination="yRv-dj-Fwq" id="NDZ-AZ-I1v"/>
                 <outlet property="lastUpdateLabel" destination="P0X-Pu-lBh" id="8zz-w8-wx8"/>
-                <outlet property="pasInfraredAlarmContainer" destination="uLl-8p-BEz" id="H0j-pq-wOc"/>
+                <outlet property="pasInfraredAlarmContainer" destination="ykJ-c0-qVm" id="hri-Zr-3rz"/>
+                <outlet property="pasInfraredAlarmDisabledLabel" destination="h2P-z9-MMk" id="HMf-Kz-6QZ"/>
+                <outlet property="pasInfraredAlarmEnabledLabel" destination="Cmb-tn-0bi" id="NgK-PY-Oki"/>
                 <outlet property="pasInfraredLabel" destination="uqs-Jg-baq" id="5QS-47-6O8"/>
                 <outlet property="pasInfraredSparkLine" destination="Lr7-k8-LYp" id="YiO-gn-Lqz"/>
-                <outlet property="pasInfraredSwitch" destination="iaE-RX-G8g" id="t3T-g5-nVZ"/>
+                <outlet property="pasInfraredSwitch" destination="sdc-lJ-tqh" id="0NE-Zz-Wa4"/>
                 <outlet property="rssiLabel" destination="PpG-vp-zXH" id="pUV-36-8Yc"/>
                 <outlet property="sensorNameField" destination="BCv-L5-UuE" id="2Sc-zk-XnX"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -155,41 +159,69 @@
                     <rect key="frame" x="175" y="517" width="139" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="PPb-ro-lc3">
-                    <rect key="frame" x="198" y="210" width="122" height="47"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="Xo6-U7-bqR">
+                    <rect key="frame" x="70" y="210" width="250" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="7I8-s7-WyN">
-                            <rect key="frame" x="9" y="8" width="32" height="32"/>
+                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="NdO-wT-ZWO">
+                            <rect key="frame" x="10" y="11" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="qn2-0Z-5r9" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="54" y="9" width="51" height="31"/>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="aIt-fc-7tA" userLabel="accelerometerAlarmSwitch">
+                            <rect key="frame" x="46" y="9" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="accelerometerAlarmAction:" destination="-1" eventType="valueChanged" id="yV8-3D-I1m"/>
+                                <action selector="accelerometerAlarmAction:" destination="-1" eventType="valueChanged" id="CG9-oR-78W"/>
                             </connections>
                         </switch>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Rh-uw-Caa" customClass="TimeLabel">
+                            <rect key="frame" x="108" y="14" width="60" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r28-TN-qB7" customClass="TimeLabel">
+                            <rect key="frame" x="182" y="14" width="60" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="uLl-8p-BEz">
-                    <rect key="frame" x="198" y="353" width="122" height="47"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="ykJ-c0-qVm">
+                    <rect key="frame" x="70" y="353" width="250" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="8ri-zP-rWB">
-                            <rect key="frame" x="9" y="8" width="32" height="32"/>
+                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="Jdk-yb-fz8">
+                            <rect key="frame" x="10" y="11" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="iaE-RX-G8g" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="54" y="9" width="51" height="31"/>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="sdc-lJ-tqh" userLabel="infraredAlarmSwitch">
+                            <rect key="frame" x="46" y="9" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="pasInfraredAlarmAction:" destination="-1" eventType="valueChanged" id="Pt2-x2-H4i"/>
+                                <action selector="pasInfraredAlarmAction:" destination="-1" eventType="valueChanged" id="TTk-ID-WsU"/>
                             </connections>
                         </switch>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cmb-tn-0bi" customClass="TimeLabel">
+                            <rect key="frame" x="108" y="14" width="60" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h2P-z9-MMk" customClass="TimeLabel">
+                            <rect key="frame" x="182" y="14" width="60" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

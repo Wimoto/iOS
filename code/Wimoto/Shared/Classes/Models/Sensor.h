@@ -20,7 +20,6 @@
 
 #define OBSERVER_KEY_PATH_SENSOR_DL_STATE       @"dataLoggerState"
 
-
 #define LOCAL_NOTIFICATION_ALARM_SENSOR         @"alarmSensor"
 #define LOCAL_NOTIFICATION_ALARM_UUID           @"alarmUuid"
 

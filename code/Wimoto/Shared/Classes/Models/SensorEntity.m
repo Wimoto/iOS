@@ -7,7 +7,6 @@
 //
 
 #import "SensorEntity.h"
-#import "QueueManager.h"
 #import "NSString+Util.h"
 
 @implementation SensorEntity

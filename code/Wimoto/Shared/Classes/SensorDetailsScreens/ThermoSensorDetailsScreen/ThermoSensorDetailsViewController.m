@@ -10,6 +10,8 @@
 #import "WPPickerView.h"
 #import "WPTemperaturePickerView.h"
 
+#import "TimePickerView.h"
+
 @interface ThermoSensorDetailsViewController ()
 
 @end

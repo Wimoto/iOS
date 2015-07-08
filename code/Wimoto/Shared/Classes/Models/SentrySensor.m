@@ -8,6 +8,7 @@
 
 #import "SentrySensor.h"
 #import "AppConstants.h"
+#import "SentrySensorEntity.h"
 
 #define DICTIONARY_KEY_ID               @"id"
 #define DICTIONARY_KEY_ANGLE_XY         @"angleXY"
@@ -57,12 +58,47 @@ static NSArray *valueFactors = nil;
     }
 }
 
+- (id)initWithEntity:(SensorEntity *)entity {
+    SentrySensorEntity *sentryEntity = (SentrySensorEntity *)entity;
+    
+    self = [super initWithEntity:sentryEntity];
+    if (self) {
+        _accelerometerAlarmEnabledTime   = [(SentrySensorEntity *)self.entity accelerometerAlarmEnabledTime];
+        _accelerometerAlarmDisabledTime  = [(SentrySensorEntity *)self.entity accelerometerAlarmDisabledTime];
+        
+        _infraredAlarmEnabledTime        = [(SentrySensorEntity *)self.entity infraredAlarmEnabledTime];
+        _infraredAlarmDisabledTime       = [(SentrySensorEntity *)self.entity infraredAlarmDisabledTime];
+    }
+    
+    return self;
+}
+
 - (PeripheralType)type {
     return kPeripheralTypeSentry;
 }
 
 - (NSString *)codename {
     return @"Sentry";
+}
+
+- (void)setAccelerometerAlarmEnabledTime:(NSDate *)accelerometerAlarmEnabledTime {
+    _accelerometerAlarmEnabledTime = accelerometerAlarmEnabledTime;
+    [(SentrySensorEntity *)self.entity saveAccelerometerAlarmEnabledTime:accelerometerAlarmEnabledTime];
+}
+
+- (void)setAccelerometerAlarmDisabledTime:(NSDate *)accelerometerAlarmDisabledTime {
+    _accelerometerAlarmDisabledTime = accelerometerAlarmDisabledTime;
+    [(SentrySensorEntity *)self.entity saveAccelerometerAlarmDisabledTime:accelerometerAlarmDisabledTime];
+}
+
+- (void)setInfraredAlarmEnabledTime:(NSDate *)infraredAlarmEnabledTime {
+    _infraredAlarmEnabledTime = infraredAlarmEnabledTime;
+    [(SentrySensorEntity *)self.entity saveInfraredAlarmEnabledTime:infraredAlarmEnabledTime];
+}
+
+- (void)setInfraredAlarmDisabledTime:(NSDate *)infraredAlarmDisabledTime {
+    _infraredAlarmDisabledTime = infraredAlarmDisabledTime;
+    [(SentrySensorEntity *)self.entity saveInfraredAlarmDisabledTime:infraredAlarmDisabledTime];
 }
 
 #pragma mark - CBPeriferalDelegate
