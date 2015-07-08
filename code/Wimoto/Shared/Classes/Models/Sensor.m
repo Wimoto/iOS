@@ -232,8 +232,10 @@
 }
 
 - (void)enableDataLogger:(BOOL)doEnable {
-    char bytes[1] = {(doEnable) ? 0x01:0x00 };
-    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
+    //char bytes[1] = {(doEnable) ? 0x01:0x00 };
+    
+    char bytes[1] = { 0x01 };
+    [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)readDataLogger {
@@ -264,7 +266,11 @@
     if ([characteristic isEqual:_dfuModeSetCharacteristic]) {
         // does nothing so far
     } else if ([characteristic isEqual:_dataLoggerEnableCharacteristic]) {
-        [peripheral readValueForCharacteristic:characteristic];
+        if (error) {
+            self.dataLoggerState = kDataLoggerStateDisabled;
+        } else {
+            [peripheral readValueForCharacteristic:characteristic];
+        }
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         NSLog(@"didWriteValueForCharacteristic _dataLoggerReadEnableCharacteristic %@", error);
         if (error) {

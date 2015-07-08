@@ -92,9 +92,12 @@
 }
 
 - (IBAction)enableDataLogger:(id)sender {
-    [sender setEnabled:NO];
-    
-    [_sensor enableDataLogger:![sender isSelected]];
+    if ([sender isSelected]) {
+        [_sensor readDataLogger];
+    } else {
+        [sender setEnabled:NO];
+        [_sensor enableDataLogger:![sender isSelected]];
+    }
 }
 
 - (IBAction)readDataLogger:(id)sender {
@@ -206,11 +209,13 @@
             _batteryLevelImage.hidden = NO;
         }
     } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DL_STATE]) {
-        DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
-        
-        _dataLoggerButton.hidden = NO;
-        _dataLoggerButton.enabled = YES;
-        _dataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+            
+            _dataLoggerButton.hidden = NO;
+            _dataLoggerButton.enabled = YES;
+            _dataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
+        });
     }
 }
 

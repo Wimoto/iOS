@@ -23,6 +23,7 @@
 		040829D81A65C58200B93306 /* sentryLookup.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040829D71A65C58200B93306 /* sentryLookup.plist */; };
 		040DC6971A79680A006FB584 /* DFUViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */; };
 		040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */; };
+		042DD3351B4DA5AC0057B59E /* wimoto-datalogger-icon-enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 042DD3341B4DA5AC0057B59E /* wimoto-datalogger-icon-enabled.png */; };
 		048A445E1A1B815D002E6B57 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */; };
 		04E090801A5B253000FEBC66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E0907F1A5B253000FEBC66 /* MessageUI.framework */; };
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
@@ -234,6 +235,7 @@
 		040829D71A65C58200B93306 /* sentryLookup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = sentryLookup.plist; path = Shared/sentryLookup.plist; sourceTree = "<group>"; };
 		040DC6961A79680A006FB584 /* DFUViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DFUViewController_iPhone.xib; sourceTree = "<group>"; };
 		040DC6981A796A00006FB584 /* FirmwareViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirmwareViewController_iPhone.xib; sourceTree = "<group>"; };
+		042DD3341B4DA5AC0057B59E /* wimoto-datalogger-icon-enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wimoto-datalogger-icon-enabled.png"; sourceTree = "<group>"; };
 		048A445D1A1B815D002E6B57 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Shared/Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		04E0907F1A5B253000FEBC66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		04E60A75195ACA6800570833 /* WimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WimotoCentralManager.h; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 		493A492B184EB4250000A2F6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				042DD3341B4DA5AC0057B59E /* wimoto-datalogger-icon-enabled.png */,
 				040829D51A65C4F500B93306 /* wimoto-settings-icon.png */,
 				040829D31A65C45300B93306 /* wimoto-datalogger-icon.png */,
 				040829D11A65C43100B93306 /* wimoto-cloud-sync.png */,
@@ -1406,6 +1409,7 @@
 				4995714A1A09238600338FAC /* Media.xcassets in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
 				498CEFC319AA8F3100EAEB98 /* microchip.png in Resources */,
+				042DD3351B4DA5AC0057B59E /* wimoto-datalogger-icon-enabled.png in Resources */,
 				302A714F192D284B006E0A6C /* slider-default-handle-highlighted.png in Resources */,
 				302A7166192D284B006E0A6C /* slider-metal-track@2x.png in Resources */,
 				040829C61A65C3CB00B93306 /* wimoto-droplet-icon.png in Resources */,
