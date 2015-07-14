@@ -309,11 +309,17 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
             self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+            
+            NSLog(@"dataLoggerState is %d", self.dataLoggerState);
+            if (self.dataLoggerState == kDataLoggerStateEnabled) {
+                NSLog(@"enable notifications for E003561C-EC48-4ED0-9F3B-5419C00A94FD");
+                [self.peripheral setNotifyValue:YES forCharacteristic:self.dataLoggerReadNotificationCharacteristic];
+            }
         }
         else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
             NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
             
-            NSLog(@"dataLogger is %@", dataLogger);
+            NSLog(@"dataLogger is %@", characteristic.value);
             [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
         }
     });

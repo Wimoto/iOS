@@ -270,7 +270,6 @@
             self.dataLoggerState = kDataLoggerStateDisabled;
         } else {
             [peripheral readValueForCharacteristic:characteristic];
-            [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
         }
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         NSLog(@"didWriteValueForCharacteristic _dataLoggerReadEnableCharacteristic %@", error);
