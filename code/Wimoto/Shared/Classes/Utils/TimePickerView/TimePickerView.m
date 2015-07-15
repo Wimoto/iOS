@@ -71,8 +71,18 @@
     _pickerViewContainer.frame = CGRectMake(0.0, self.frame.size.height, self.frame.size.width, _pickerViewContainer.frame.size.height);
     [self addSubview:_pickerViewContainer];
     
-    [_leftTimePicker setDate:minDate];
-    [_rightTimePicker setDate:maxDate];
+    
+    if (minDate) {
+        [_leftTimePicker setDate:minDate];
+    } else {
+        [_leftTimePicker setDate:[NSDate date]];
+    }
+    
+    if (maxDate) {
+        [_rightTimePicker setDate:maxDate];
+    } else {
+        [_rightTimePicker setDate:[NSDate date]];
+    }
     
     [self layoutIfNeeded];
     
