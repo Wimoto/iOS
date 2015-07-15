@@ -277,8 +277,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_dataReadingDelegate didUpdateSensorReadingData:nil error:error];
             });
-        } else {
-            [peripheral setNotifyValue:YES forCharacteristic:_dataLoggerReadNotificationCharacteristic];
         }
     }
 }
