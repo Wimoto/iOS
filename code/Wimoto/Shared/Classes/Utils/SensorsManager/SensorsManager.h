@@ -7,6 +7,7 @@
 //
 
 #import "WimotoCentralManager.h"
+#import "DemoWimotoCentralManager.h"
 
 @class Sensor;
 
@@ -22,7 +23,7 @@
 
 @end
 
-@interface SensorsManager : NSObject <WimotoCentralManagerDelegate>
+@interface SensorsManager : NSObject <WimotoCentralManagerDelegate, DemoWimotoCentralManagerDelegate>
 
 + (void)registerSensor:(Sensor*)sensor;
 + (void)unregisterSensor:(Sensor*)sensor;

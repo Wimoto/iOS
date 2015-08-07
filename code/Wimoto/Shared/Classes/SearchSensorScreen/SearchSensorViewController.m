@@ -63,7 +63,7 @@
     
     Sensor *sensor = [_sensorsArray objectAtIndex:indexPath.row];
     
-    [SensorsManager registerSensor:sensor];
+    [SensorsManager registerSensor:sensor]  ;
     [(WimotoDeckController*)self.viewDeckController showSensorDetailsScreen:sensor];
 }
 

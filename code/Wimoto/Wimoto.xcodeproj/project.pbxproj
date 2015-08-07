@@ -33,6 +33,8 @@
 		14C72C1A1B46D4F5004D8623 /* TimePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C72C191B46D4F5004D8623 /* TimePickerView.xib */; };
 		14CD06B81B05EF04009F8B61 /* WPTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */; };
 		14CD06BA1B05F4B3009F8B61 /* WPTemperatureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */; };
+		14CFBCA31B59206500F52EBC /* DemoWimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CFBCA21B59206500F52EBC /* DemoWimotoCentralManager.m */; };
+		14CFBCAC1B594BEA00F52EBC /* DemoCBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CFBCAB1B594BEA00F52EBC /* DemoCBPeripheral.m */; };
 		14F737501B4D1D35003350DD /* SentrySensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F7374F1B4D1D35003350DD /* SentrySensorEntity.m */; };
 		14F737541B4D428B003350DD /* TimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F737531B4D428B003350DD /* TimeLabel.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -250,6 +252,10 @@
 		14CD06B61B05EF04009F8B61 /* WPTemperatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTemperatureView.h; sourceTree = "<group>"; };
 		14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTemperatureView.m; sourceTree = "<group>"; };
 		14CD06B91B05F4B3009F8B61 /* WPTemperatureView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WPTemperatureView.xib; sourceTree = "<group>"; };
+		14CFBCA11B59206500F52EBC /* DemoWimotoCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoWimotoCentralManager.h; sourceTree = "<group>"; };
+		14CFBCA21B59206500F52EBC /* DemoWimotoCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoWimotoCentralManager.m; sourceTree = "<group>"; };
+		14CFBCAA1B594BEA00F52EBC /* DemoCBPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCBPeripheral.h; sourceTree = "<group>"; };
+		14CFBCAB1B594BEA00F52EBC /* DemoCBPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCBPeripheral.m; sourceTree = "<group>"; };
 		14F7374E1B4D1D35003350DD /* SentrySensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentrySensorEntity.h; sourceTree = "<group>"; };
 		14F7374F1B4D1D35003350DD /* SentrySensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentrySensorEntity.m; sourceTree = "<group>"; };
 		14F737521B4D428B003350DD /* TimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLabel.h; sourceTree = "<group>"; };
@@ -981,8 +987,12 @@
 			children = (
 				04E60A75195ACA6800570833 /* WimotoCentralManager.h */,
 				04E60A76195ACA6800570833 /* WimotoCentralManager.m */,
+				14CFBCA11B59206500F52EBC /* DemoWimotoCentralManager.h */,
+				14CFBCA21B59206500F52EBC /* DemoWimotoCentralManager.m */,
 				901399CA185B16CB0003D964 /* CBPeripheral+Util.h */,
 				901399CB185B16CB0003D964 /* CBPeripheral+Util.m */,
+				14CFBCAA1B594BEA00F52EBC /* DemoCBPeripheral.h */,
+				14CFBCAB1B594BEA00F52EBC /* DemoCBPeripheral.m */,
 				304B887F19100110000F487B /* CBUUID+StringExtraction.h */,
 				304B888019100110000F487B /* CBUUID+StringExtraction.m */,
 			);
@@ -1451,6 +1461,7 @@
 				14F737541B4D428B003350DD /* TimeLabel.m in Sources */,
 				F72564971A41E82600BEF94B /* DFUOperationsDetails.m in Sources */,
 				90232E31185A467100F83210 /* IIViewDeckController.m in Sources */,
+				14CFBCA31B59206500F52EBC /* DemoWimotoCentralManager.m in Sources */,
 				F70D31751A02BE7900ABD9AC /* DemoSensor.m in Sources */,
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
@@ -1497,6 +1508,7 @@
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				F72564981A41E82600BEF94B /* FileOperations.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
+				14CFBCAC1B594BEA00F52EBC /* DemoCBPeripheral.m in Sources */,
 				04079BB61B013D440013234E /* WPTemperaturePickerView.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,

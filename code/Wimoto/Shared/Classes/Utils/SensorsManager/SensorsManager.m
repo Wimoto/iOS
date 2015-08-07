@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableSet *sensors;
 
 @property (nonatomic, strong) WimotoCentralManager *wimotoCentralManager;
+@property (nonatomic, strong) DemoWimotoCentralManager *demoWimotoCentralManager;
 
 @property (nonatomic, strong) NSMutableArray *unregisteredSensorObservers;
 @property (nonatomic, strong) NSMutableArray *registeredSensorObservers;
@@ -55,6 +56,7 @@ static SensorsManager *sensorsManager = nil;
         _registeredSensorObservers      = [NSMutableArray array];
         
         _wimotoCentralManager = [[WimotoCentralManager alloc] initWithDelegate:self];
+        _demoWimotoCentralManager = [[DemoWimotoCentralManager alloc] initWithDelegate:self];
         
         _cblDatabase = [[CBLManager sharedInstance] databaseNamed:@"wimoto" error:nil];
         
@@ -91,6 +93,7 @@ static SensorsManager *sensorsManager = nil;
                 [self notifyRegisteredSensorsObservers];
                 
                 [_wimotoCentralManager startScan];
+            //  [_demoWimotoCentralManager startDemoScan];
             });
         });
     }
@@ -261,6 +264,26 @@ static SensorsManager *sensorsManager = nil;
             sensor.peripheral = peripheral;
             sensor.dfuModeOn = YES;
         });
+    }
+}
+
+#pragma mark - WimotoCentralManagerDelegate
+
+- (void)didConnectDemoPeripheral:(DemoCBPeripheral *)peripheral {
+    NSLog(@"SensorsManager didConnectDemoPeripheral");
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueIdentifier == %@", [peripheral uniqueIdentifier]];
+    Sensor *sensor = [_sensors filteredSetUsingPredicate:predicate].anyObject;
+    
+    if (sensor) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sensor.peripheral = peripheral;
+        });
+    } else {
+        Sensor *sensor = [Sensor sensorWithPeripheral:peripheral];
+        //Sensor *sensor = [DemoSensor demoSensorWithUniqueId:[peripheral uniqueIdentifier]];
+        [_sensors addObject:sensor];
+        [self notifyUnregisteredSensorsObservers];
     }
 }
 

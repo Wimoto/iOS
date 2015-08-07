@@ -12,7 +12,7 @@
 
 @interface WimotoCentralManager ()
 
-@property (nonatomic, weak) id<WimotoCentralManagerDelegate> wcmDelegate;
+//@property (nonatomic, weak) id<WimotoCentralManagerDelegate> wcmDelegate;
 
 @property (nonatomic, strong) NSMutableSet *pendingPeripherals;
 

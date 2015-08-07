@@ -18,6 +18,8 @@
 
 @interface WimotoCentralManager : CBCentralManager <CBCentralManagerDelegate, CBPeripheralDelegate>
 
+@property (nonatomic, weak) id<WimotoCentralManagerDelegate> wcmDelegate;
+
 - (id)initWithDelegate:(id<WimotoCentralManagerDelegate>)wcmDelegate;
 
 - (void)startScan;

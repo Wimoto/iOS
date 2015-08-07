@@ -28,6 +28,10 @@
     return [[[Sensor classForType:[peripheral peripheralType]] alloc] initWithPeripheral:peripheral];
 }
 
++ (id)sensorWithDemoPeripheral:(DemoCBPeripheral *)demoPeripheral {
+    return [[[Sensor classForType:[demoPeripheral peripheralType]] alloc] initWithPeripheral:demoPeripheral];
+}
+
 + (id)sensorWithEntity:(SensorEntity*)entity {
     return [[[Sensor classForType:[entity.sensorType intValue]] alloc] initWithEntity:entity];
 }
@@ -239,6 +243,8 @@
 }
 
 - (void)readDataLogger {
+    [self.peripheral setNotifyValue:YES forCharacteristic:self.dataLoggerReadNotificationCharacteristic];
+    
     char bytes[1] = { 0x01 };
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
@@ -269,7 +275,8 @@
         if (error) {
             self.dataLoggerState = kDataLoggerStateDisabled;
         } else {
-            [peripheral readValueForCharacteristic:characteristic];
+            self.dataLoggerState = kDataLoggerStateEnabled;
+            //[peripheral readValueForCharacteristic:characteristic];
         }
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         NSLog(@"didWriteValueForCharacteristic _dataLoggerReadEnableCharacteristic %@", error);
