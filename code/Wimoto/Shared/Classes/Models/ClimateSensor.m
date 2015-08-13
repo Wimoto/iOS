@@ -246,7 +246,6 @@
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     
-    NSLog(@"aPeripheral didUpdateValueForCharacteristic %@", characteristic);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
             self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
