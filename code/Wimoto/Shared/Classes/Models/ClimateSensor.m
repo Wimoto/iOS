@@ -225,9 +225,13 @@
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
                 self.dataLoggerEnableCharacteristic = aChar;
                 [aPeripheral readValueForCharacteristic:aChar];
+                
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ_ENABLE]]) {
                 self.dataLoggerReadEnableCharacteristic = aChar;
+                
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
             }
             else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_READ]]) {
                 self.dataLoggerReadNotificationCharacteristic = aChar;
@@ -241,6 +245,8 @@
         return;
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
+    
+    NSLog(@"aPeripheral didUpdateValueForCharacteristic %@", characteristic);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
             self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
@@ -307,8 +313,10 @@
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
             self.lightAlarmHigh = [self alarmValueForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
+        else if ([characteristic isEqual:self.dataLoggerEnableCharacteristic]) {
             self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+            
+            NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);
             
 //            NSLog(@"dataLoggerState is %d", self.dataLoggerState);
 //            if (self.dataLoggerState == kDataLoggerStateEnabled) {
@@ -316,10 +324,13 @@
 //                [self.peripheral setNotifyValue:YES forCharacteristic:self.dataLoggerReadNotificationCharacteristic];
 //            }
         }
+        else if ([characteristic isEqual:self.dataLoggerReadEnableCharacteristic]) {
+            NSLog(@"self.dataLoggerReadEnableCharacteristic %@", [characteristic value]);
+        }
         else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
             NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
             
-            NSLog(@"dataLogger is %@", characteristic.value);
+            NSLog(@"dataLogger is %@", [characteristic value]);
             [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
         }
     });
