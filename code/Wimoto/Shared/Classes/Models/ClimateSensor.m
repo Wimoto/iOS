@@ -329,7 +329,7 @@
         else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
             NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
             
-            NSLog(@"dataLogger is %@", [characteristic value]);
+            NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
             [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
         }
     });

@@ -16,10 +16,4 @@
 @property (copy) NSDate     *infraredAlarmEnabledTime;
 @property (copy) NSDate     *infraredAlarmDisabledTime;
 
-- (void)saveAccelerometerAlarmEnabledTime:(NSDate *)accelerometerAlarmEnabledTime;
-- (void)saveAccelerometerAlarmDisabledTime:(NSDate *)accelerometerAlarmDisabledTime;
-
-- (void)saveInfraredAlarmEnabledTime:(NSDate *)infraredAlarmEnabledTime;
-- (void)saveInfraredAlarmDisabledTime:(NSDate *)infraredAlarmDisabledTime;
-
 @end

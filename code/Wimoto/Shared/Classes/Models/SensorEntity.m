@@ -94,8 +94,6 @@
         query.startKey = @[myListId, @{}];
         query.endKey = @[myListId];
         
-        //NSLog(@"Get last sensor values");
-        
         CBLQueryEnumerator *queryEnumerator = [query run:nil];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[queryEnumerator count]];
         for (CBLQueryRow *row in queryEnumerator) {

@@ -108,31 +108,38 @@
 - (IBAction)accelerometerAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET];
     
-    SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
-    [TimePickerView showWithMinDate:sentrySensor.accelerometerAlarmEnabledTime
-                            maxDate:sentrySensor.accelerometerAlarmDisabledTime
-                               save:^(NSDate *minDate, NSDate *maxDate) {
-                                NSLog(@"Save");
-                                [sentrySensor setAccelerometerAlarmEnabledTime:minDate];
-                                [sentrySensor setAccelerometerAlarmDisabledTime:maxDate];
-                            } cancel:^{
-                                NSLog(@"Cancel");
-                            }];
+    if (_accelerometerSwitch.on) {
+        SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
+        [TimePickerView showWithMinDate:sentrySensor.accelerometerAlarmEnabledTime
+                                maxDate:sentrySensor.accelerometerAlarmDisabledTime
+                                   save:^(NSDate *minDate, NSDate *maxDate) {
+                                       NSLog(@"Save");
+                                       [sentrySensor setAccelerometerAlarmEnabledTime:minDate];
+                                       [sentrySensor setAccelerometerAlarmDisabledTime:maxDate];
+                                       [sentrySensor save];
+                                   } cancel:^{
+                                       NSLog(@"Cancel");
+                                   }];
+    }
 }
 
 - (IBAction)pasInfraredAlarmAction:(id)sender {
     [self.sensor enableAlarm:[sender isOn] forCharacteristicWithUUIDString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET];
     
-    SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
-    [TimePickerView showWithMinDate:sentrySensor.infraredAlarmEnabledTime
-                            maxDate:sentrySensor.infraredAlarmDisabledTime
-                               save:^(NSDate *minDate, NSDate *maxDate) {
-                                   NSLog(@"Save");
-                                   [sentrySensor setInfraredAlarmEnabledTime:minDate];
-                                   [sentrySensor setInfraredAlarmDisabledTime:maxDate];
-                            } cancel:^{
-                                NSLog(@"Cancel");
-                            }];
+    if (_pasInfraredSwitch.on) {
+        SentrySensor *sentrySensor = (SentrySensor *)self.sensor;
+        [TimePickerView showWithMinDate:sentrySensor.infraredAlarmEnabledTime
+                                maxDate:sentrySensor.infraredAlarmDisabledTime
+                                   save:^(NSDate *minDate, NSDate *maxDate) {
+                                       NSLog(@"Save");
+                                       [sentrySensor setInfraredAlarmEnabledTime:minDate];
+                                       [sentrySensor setInfraredAlarmDisabledTime:maxDate];
+                                       
+                                       [sentrySensor save];
+                                   } cancel:^{
+                                       NSLog(@"Cancel");
+                                   }];
+    }
 }
 
 #pragma mark - Value Observer

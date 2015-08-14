@@ -40,4 +40,6 @@
 @property (nonatomic) NSDate *infraredAlarmEnabledTime;
 @property (nonatomic) NSDate *infraredAlarmDisabledTime;
 
+- (void)save;
+
 @end

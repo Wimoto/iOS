@@ -39,6 +39,13 @@
 
 @end
 
+@interface SentrySensor()
+
+@property (nonatomic) NSTimeInterval accelerometerAlarmTimeshot;
+@property (nonatomic) NSTimeInterval infraredAlarmTimeshot;
+
+@end
+
 @implementation SentrySensor
 
 static NSArray *valueFactors = nil;
@@ -81,24 +88,15 @@ static NSArray *valueFactors = nil;
     return @"Sentry";
 }
 
-- (void)setAccelerometerAlarmEnabledTime:(NSDate *)accelerometerAlarmEnabledTime {
-    _accelerometerAlarmEnabledTime = accelerometerAlarmEnabledTime;
-    [(SentrySensorEntity *)self.entity saveAccelerometerAlarmEnabledTime:accelerometerAlarmEnabledTime];
-}
-
-- (void)setAccelerometerAlarmDisabledTime:(NSDate *)accelerometerAlarmDisabledTime {
-    _accelerometerAlarmDisabledTime = accelerometerAlarmDisabledTime;
-    [(SentrySensorEntity *)self.entity saveAccelerometerAlarmDisabledTime:accelerometerAlarmDisabledTime];
-}
-
-- (void)setInfraredAlarmEnabledTime:(NSDate *)infraredAlarmEnabledTime {
-    _infraredAlarmEnabledTime = infraredAlarmEnabledTime;
-    [(SentrySensorEntity *)self.entity saveInfraredAlarmEnabledTime:infraredAlarmEnabledTime];
-}
-
-- (void)setInfraredAlarmDisabledTime:(NSDate *)infraredAlarmDisabledTime {
-    _infraredAlarmDisabledTime = infraredAlarmDisabledTime;
-    [(SentrySensorEntity *)self.entity saveInfraredAlarmDisabledTime:infraredAlarmDisabledTime];
+- (void)save {
+    SentrySensorEntity *sentryEntity = (SentrySensorEntity *)self.entity;
+    sentryEntity.accelerometerAlarmDisabledTime = _accelerometerAlarmDisabledTime;
+    sentryEntity.accelerometerAlarmEnabledTime = _accelerometerAlarmEnabledTime;
+    sentryEntity.infraredAlarmEnabledTime = _infraredAlarmEnabledTime;
+    sentryEntity.infraredAlarmDisabledTime = _infraredAlarmDisabledTime;
+    dispatch_async([QueueManager databaseQueue], ^{
+        [sentryEntity save:nil];
+    });
 }
 
 #pragma mark - CBPeriferalDelegate
@@ -106,7 +104,6 @@ static NSArray *valueFactors = nil;
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     [super peripheral:aPeripheral didDiscoverServices:error];
     for (CBService *aService in aPeripheral.services) {
-        NSLog(@"SentrySensor didDiscoverServices %@", aService);
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_SERVICE_UUID_ACCELEROMETER]]) {
             [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
                                                   [CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT],
@@ -199,49 +196,26 @@ static NSArray *valueFactors = nil;
             if (_pasInfraredAlarmState == kAlarmStateUnknown) {
                 self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
             }
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]||
-                [characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM]]) {
-            uint8_t alarmValue = 0;
-            [[characteristic value] getBytes:&alarmValue length:sizeof (alarmValue)];
-            NSLog(@"alarm!  0x%x", alarmValue);
-            if (alarmValue & 0x01) {
-                if (alarmValue & 0x02) {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmLow];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]) {
+            NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
+            if ((currentTimeshot > [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate])) {
+                if ((_accelerometerAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_accelerometerAlarmTimeshot+30))) {
+                    _accelerometerAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                    
+                    [super showAlarmNotification:[NSString stringWithFormat:@"%@ accelerometer alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM];
                 }
-                else {
-                    [self alarmActionWithCharacteristic:characteristic alarmType:kAlarmHigh];
+            }
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM]]) {
+            NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
+            if ((currentTimeshot > [_infraredAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_infraredAlarmDisabledTime timeIntervalSinceReferenceDate])) {
+                if ((_pasInfraredAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_infraredAlarmTimeshot+30))) {
+                    _infraredAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                    
+                    [super showAlarmNotification:[NSString stringWithFormat:@"%@ infrared alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM];
                 }
             }
         }
     });
-}
-
-- (void)alarmActionWithCharacteristic:(CBCharacteristic *)characteristic alarmType:(AlarmType)alarmtype {
-    NSString *alertString;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]) {
-        if (_accelerometerAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"Sentry: %@ accelerometer %@", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM]]) {
-        if (_pasInfraredAlarmState != kAlarmStateEnabled) {
-            return;
-        }
-        alertString = [NSString stringWithFormat:@"%@: %@ infrared alarm triggered", self.name, (alarmtype == kAlarmHigh)?@"high value":@"low value"];
-    }
-    if (alertString) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            localNotification.category = NOTIFICATION_ALARM_CATEGORY_ID; //  Same as category identifier
-        }
-        localNotification.alertBody = alertString;
-        localNotification.alertAction = @"View";
-        localNotification.soundName = @"alarm.aifc";
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-
-    }
 }
 
 @end
