@@ -18,7 +18,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *rssiLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *batteryLevelImage;
 
-@property (nonatomic, weak) IBOutlet UIButton *dataLoggerButton;
+@property (nonatomic, weak) IBOutlet UIButton *enableSensorDataLoggerButton;
+@property (nonatomic, weak) IBOutlet UIButton *readSensorDataLoggerButton;
 
 @property (nonatomic, weak) IBOutlet UIButton *dataReadbackButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *dataReadbackIndicatorView;
@@ -27,7 +28,9 @@
 
 - (IBAction)firmwareUpdateAction:(id)sender;
 
-- (IBAction)enableDataLogger:(id)sender;
+- (IBAction)enableSensorDataLogger:(id)sender;
+- (IBAction)readSensorDataLogger:(id)sender;
+
 - (IBAction)readDataLogger:(id)sender;
 
 - (IBAction)showLeftMenu:(id)sender;
@@ -53,7 +56,7 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
-    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE options:NSKeyValueObservingOptionNew context:NULL];
+    [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
     
     NSString *sensorName = [_sensor name];
@@ -74,6 +77,7 @@
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL];
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_RSSI];
         [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL];
+        [_sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
@@ -91,13 +95,12 @@
     [self presentViewController:firmwareNavController animated:YES completion:nil];
 }
 
-- (IBAction)enableDataLogger:(id)sender {
-    if ([sender isSelected]) {
-        [_sensor readDataLogger];
-    } else {
-        [sender setEnabled:NO];
-        [_sensor enableDataLogger:![sender isSelected]];
-    }
+- (IBAction)enableSensorDataLogger:(id)sender {
+    [_sensor enableDataLogger:YES];
+}
+
+- (IBAction)readSensorDataLogger:(id)sender {
+    [_sensor readDataLogger];
 }
 
 - (IBAction)readDataLogger:(id)sender {
@@ -160,12 +163,17 @@
             self.view.backgroundColor = [UIColor lightGrayColor];
             _rssiLabel.hidden           = YES;
             _batteryLevelImage.hidden   = YES;
-            _dataLoggerButton.hidden    = YES;
+//            _enableSensorDataLoggerButton.hidden    = NO;
+//            _enableSensorDataLoggerButton.enabled   = NO;
+//            _readSensorDataLoggerButton.hidden      = YES;
             _dataReadbackButton.hidden  = YES;
             _dfuButton.hidden           = YES;
         } else {
             _rssiLabel.hidden           = NO;
             _batteryLevelImage.hidden   = NO;
+//            _enableSensorDataLoggerButton.hidden    = NO;
+//            _enableSensorDataLoggerButton.enabled   = NO;
+//            _readSensorDataLoggerButton.hidden      = YES;
             _dataReadbackButton.hidden  = NO;
             _dfuButton.hidden           = NO;
         }
@@ -212,9 +220,39 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
             
-            _dataLoggerButton.hidden = NO;
-            _dataLoggerButton.enabled = YES;
-            _dataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
+            switch (dlState) {
+                case kDataLoggerStateNone:
+                    _enableSensorDataLoggerButton.hidden = YES;
+                    _readSensorDataLoggerButton.hidden = YES;
+                    break;
+                case kDataLoggerStateUnknown:
+                    _enableSensorDataLoggerButton.hidden = NO;
+                    _enableSensorDataLoggerButton.enabled = NO;
+                    _readSensorDataLoggerButton.hidden = YES;
+                    break;
+                case kDataLoggerStateDisabled:
+                    _enableSensorDataLoggerButton.hidden = NO;
+                    _enableSensorDataLoggerButton.enabled = YES;
+                    _readSensorDataLoggerButton.hidden = YES;
+                    break;
+                case kDataLoggerStateEnabled:
+                    _enableSensorDataLoggerButton.hidden = YES;
+                    _enableSensorDataLoggerButton.enabled = NO;
+                    _readSensorDataLoggerButton.hidden = NO;
+                    _readSensorDataLoggerButton.enabled = YES;
+                    break;
+                case kDataLoggerStateRead:
+                    _enableSensorDataLoggerButton.hidden = YES;
+                    _enableSensorDataLoggerButton.enabled = NO;
+                    _readSensorDataLoggerButton.hidden = NO;
+                    _readSensorDataLoggerButton.enabled = NO;
+                    break;
+                default:
+                    break;
+            }
+//            _enableSensorDataLoggerButton.hidden = NO;
+//            _enableSensorDataLoggerButton.enabled = YES;
+//            //_enableSensorDataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
         });
     }
 }
@@ -241,6 +279,21 @@
 }
 
 #pragma mark - SensorDataReadingDelegate
+
+- (void)didReadSensorDataLogger:(NSArray *)data {
+    NSLog(@"didReadSensorDataLogger");
+    
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+        mailController.mailComposeDelegate = self;
+        
+        [mailController setSubject:@"Wimoto"];
+        [mailController setMessageBody:[NSString stringWithFormat:@"Content from Wimoto %@ Sensor %@", [self.sensor codename], [self.sensor uniqueIdentifier]] isHTML:NO];
+        [mailController addAttachmentData:[NSJSONSerialization dataWithJSONObject:data options:0 error:nil] mimeType:@"application/json" fileName:@"AppData.json"];
+        
+        [self presentViewController:mailController animated:YES completion:nil];
+    }
+}
 
 - (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error {
     NSLog(@"didUpdateSensorReadingData ");

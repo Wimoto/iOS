@@ -315,22 +315,16 @@
         else if ([characteristic isEqual:self.dataLoggerEnableCharacteristic]) {
             self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
             
-            NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);
-            
-//            NSLog(@"dataLoggerState is %d", self.dataLoggerState);
-//            if (self.dataLoggerState == kDataLoggerStateEnabled) {
-//                NSLog(@"enable notifications for E003561C-EC48-4ED0-9F3B-5419C00A94FD");
-//                [self.peripheral setNotifyValue:YES forCharacteristic:self.dataLoggerReadNotificationCharacteristic];
-//            }
+            NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);            
         }
         else if ([characteristic isEqual:self.dataLoggerReadEnableCharacteristic]) {
             NSLog(@"self.dataLoggerReadEnableCharacteristic %@", [characteristic value]);
         }
         else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
-            NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
+            //NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
             
             NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
-            [self.dataReadingDelegate didUpdateSensorReadingData:characteristic.value error:error];
+            [self writeSensorDataLog:[characteristic.value hexadecimalString]];
         }
     });
 }

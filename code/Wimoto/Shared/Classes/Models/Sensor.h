@@ -30,9 +30,11 @@ typedef enum {
 } AlarmState;
 
 typedef enum {
-    kDataLoggerStateUnknown = 0,
+    kDataLoggerStateNone = 0,
+    kDataLoggerStateUnknown,
     kDataLoggerStateDisabled,
-    kDataLoggerStateEnabled
+    kDataLoggerStateEnabled,
+    kDataLoggerStateRead
 } DataLoggerState;
 
 typedef enum {
@@ -42,6 +44,7 @@ typedef enum {
 
 @protocol SensorDataReadingDelegate <NSObject>
 
+- (void)didReadSensorDataLogger:(NSArray *)data;
 - (void)didUpdateSensorReadingData:(NSData *)data error:(NSError *)error;
 
 @end
@@ -88,6 +91,7 @@ typedef enum {
 - (void)switchToDfuMode;
 - (void)enableDataLogger:(BOOL)doEnable;
 - (void)readDataLogger;
+- (void)writeSensorDataLog:(NSString *)dataLog;
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;

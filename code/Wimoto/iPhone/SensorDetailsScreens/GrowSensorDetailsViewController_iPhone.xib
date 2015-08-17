@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="shm-nP-0f8" id="ma1-qH-Trc"/>
-                <outlet property="dataLoggerButton" destination="Mor-oa-Xrn" id="LnO-nX-1xL"/>
                 <outlet property="dataReadbackButton" destination="jVn-Tj-fIz" id="QAb-PT-SMG"/>
                 <outlet property="dataReadbackIndicatorView" destination="XqC-sT-wrS" id="GyC-gZ-vk7"/>
                 <outlet property="dfuButton" destination="iwY-Um-wpd" id="5O7-KI-Fbi"/>

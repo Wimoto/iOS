@@ -19,6 +19,7 @@
 @interface Sensor ()
 
 @property (nonatomic, strong) NSTimer *rssiTimer;
+@property (nonatomic, strong) NSMutableArray *sensorDataLogs;
 
 @end
 
@@ -72,7 +73,6 @@
         
         _name               = _peripheral.name;
         _uniqueIdentifier   = [_peripheral uniqueIdentifier];
-        
     }
     return self;
 }
@@ -118,11 +118,25 @@
     });
     
     if (peripheral) {
+        self.dataLoggerState = kDataLoggerStateUnknown;
         [_peripheral discoverServices:nil];
         [_peripheral readRSSI];
     } else {
+        self.dataLoggerState = kDataLoggerStateNone;
         _rssi = nil;
         _batteryLevel = nil;
+    }
+}
+
+- (void)setDataLoggerState:(DataLoggerState)dataLoggerState {
+    _dataLoggerState = dataLoggerState;
+    
+    if (_dataLoggerState == kDataLoggerStateEnabled) {
+        _sensorDataLogs = [NSMutableArray array];
+    } else if (_dataLoggerState == kDataLoggerStateDisabled) {
+        if (_sensorDataLogs) {
+            [self.dataReadingDelegate didReadSensorDataLogger:_sensorDataLogs];
+        }
     }
 }
 
@@ -236,17 +250,23 @@
 }
 
 - (void)enableDataLogger:(BOOL)doEnable {
-    //char bytes[1] = {(doEnable) ? 0x01:0x00 };
+    self.dataLoggerState = kDataLoggerStateUnknown;
     
     char bytes[1] = { 0x01 };
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)readDataLogger {
+    self.dataLoggerState = kDataLoggerStateRead;
+    
     [self.peripheral setNotifyValue:YES forCharacteristic:self.dataLoggerReadNotificationCharacteristic];
     
     char bytes[1] = { 0x01 };
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+- (void)writeSensorDataLog:(NSString *)dataLog {
+    [_sensorDataLogs addObject:dataLog];
 }
 
 - (void)showAlarmNotification:(NSString *)message forUuid:(NSString *)uuidString {
@@ -275,15 +295,12 @@
         if (error) {
             self.dataLoggerState = kDataLoggerStateDisabled;
         } else {
-            self.dataLoggerState = kDataLoggerStateEnabled;
-            //[peripheral readValueForCharacteristic:characteristic];
+            [peripheral readValueForCharacteristic:characteristic];            
         }
     } else if ([characteristic isEqual:_dataLoggerReadEnableCharacteristic]) {
         NSLog(@"didWriteValueForCharacteristic _dataLoggerReadEnableCharacteristic %@", error);
         if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_dataReadingDelegate didUpdateSensorReadingData:nil error:error];
-            });
+            self.dataLoggerState = kDataLoggerStateDisabled;
         }
     }
 }

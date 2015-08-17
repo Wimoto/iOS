@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
             <connections>
                 <outlet property="batteryLevelImage" destination="BBN-Jq-vU9" id="6pW-YU-CSJ"/>
-                <outlet property="dataLoggerButton" destination="RdB-V3-Aod" id="Ove-I1-spF"/>
                 <outlet property="dataReadbackButton" destination="Ik1-ij-zU8" id="TXE-mj-v6x"/>
                 <outlet property="dataReadbackIndicatorView" destination="hjF-U8-hRl" id="ZEt-3w-DDI"/>
                 <outlet property="dfuButton" destination="AOm-Za-BSl" id="B7r-ev-kRK"/>
