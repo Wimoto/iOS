@@ -91,7 +91,7 @@ typedef enum {
 - (void)switchToDfuMode;
 - (void)enableDataLogger:(BOOL)doEnable;
 - (void)readDataLogger;
-- (void)writeSensorDataLog:(NSString *)dataLog;
+- (void)writeSensorDataLog:(NSDictionary *)dataLog;
 
 - (AlarmState)alarmStateForCharacteristic:(CBCharacteristic *)characteristic;
 - (float)alarmValueForCharacteristic:(CBCharacteristic *)characteristic;

@@ -6,6 +6,16 @@
 //
 //
 
+#import "DataLog.h"
+
+@interface ClimateDataLog : DataLog
+
+@property (nonatomic) NSUInteger temperature;
+@property (nonatomic) NSUInteger humidity;
+@property (nonatomic) NSUInteger light;
+
+@end
+
 #import "ClimateSensor.h"
 #import "SensorHelper.h"
 #import "AppConstants.h"
@@ -324,9 +334,56 @@
             //NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
             
             NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
-            [self writeSensorDataLog:[characteristic.value hexadecimalString]];
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSURL *storeUrl = [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:@"dax.data"]];
+//            
+//            [characteristic.value writeToURL:storeUrl atomically:YES];
+            
+            //NSLog(@"strd data %@", [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:storeUrl] encoding:NSUTF8StringEncoding]);
+            
+            ClimateDataLog *climateDataLog = [[ClimateDataLog alloc] initWithData:characteristic.value];
+            climateDataLog.temperature = [self getTemperatureFromSensorTemperature:climateDataLog.temperature];
+            climateDataLog.humidity = [self getHumidityFromSensorHumidity:climateDataLog.humidity];
+            
+            [self writeSensorDataLog:[climateDataLog dictionaryDescription]];
         }
     });
 }
 
 @end
+
+static NSString * const kDataLogJsonTemperature     = @"Temperature";
+static NSString * const kDataLogJsonLight           = @"Light";
+static NSString * const kDataLogJsonHumidity        = @"Humidity";
+
+@implementation ClimateDataLog
+
+- (id)initWithData:(NSData *)data {
+    self = [super initWithData:data];
+    if (self) {
+        int16_t temperature	= 0;
+        [data getBytes:&temperature range:NSMakeRange(8, 2)];
+        _temperature = temperature;
+        
+        int16_t light	= 0;
+        [data getBytes:&light range:NSMakeRange(10, 2)];
+        _light = light;
+        
+        int16_t humidity	= 0;
+        [data getBytes:&humidity range:NSMakeRange(12, 2)];
+        _humidity = humidity;
+    }
+    return self;
+}
+
+- (NSDictionary *)dictionaryDescription {
+    NSMutableDictionary *mutableDictionary = [[super dictionaryDescription] mutableCopy];
+    [mutableDictionary setObject:[NSNumber numberWithInteger:_temperature] forKey:kDataLogJsonTemperature];
+    [mutableDictionary setObject:[NSNumber numberWithInteger:_light] forKey:kDataLogJsonLight];
+    [mutableDictionary setObject:[NSNumber numberWithInteger:_humidity] forKey:kDataLogJsonHumidity];
+    
+    return mutableDictionary;
+}
+
+@end
+

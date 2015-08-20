@@ -265,7 +265,7 @@
     [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_dataLoggerReadEnableCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
-- (void)writeSensorDataLog:(NSString *)dataLog {
+- (void)writeSensorDataLog:(NSDictionary *)dataLog {
     [_sensorDataLogs addObject:dataLog];
 }
 

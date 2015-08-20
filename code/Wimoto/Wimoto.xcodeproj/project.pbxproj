@@ -155,6 +155,7 @@
 		49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */; };
 		49E50BD91A017BEC00304549 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD81A017BEC00304549 /* Settings.bundle */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
+		85A7D2F91B865662006C258D /* DataLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A7D2F81B865662006C258D /* DataLog.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
 		90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E23185A43B300F83210 /* NoSensorViewController.m */; };
 		90232E28185A440700F83210 /* NoSensorViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90232E27185A440700F83210 /* NoSensorViewController_iPhone.xib */; };
@@ -417,6 +418,8 @@
 		49E50BD81A017BEC00304549 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49F3F91118A5108800CDA950 /* SensorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorHelper.h; sourceTree = "<group>"; };
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
+		85A7D2F71B865662006C258D /* DataLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLog.h; sourceTree = "<group>"; };
+		85A7D2F81B865662006C258D /* DataLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLog.m; sourceTree = "<group>"; };
 		901399CA185B16CB0003D964 /* CBPeripheral+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Util.h"; sourceTree = "<group>"; };
 		901399CB185B16CB0003D964 /* CBPeripheral+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+Util.m"; sourceTree = "<group>"; };
 		901399CD185B22A80003D964 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
@@ -1021,6 +1024,8 @@
 				30C11812186B42A20068633C /* SentrySensor.m */,
 				30C11814186B4EB00068633C /* ThermoSensor.h */,
 				30C11815186B4EB00068633C /* ThermoSensor.m */,
+				85A7D2F71B865662006C258D /* DataLog.h */,
+				85A7D2F81B865662006C258D /* DataLog.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1512,6 +1517,7 @@
 				04079BB61B013D440013234E /* WPTemperaturePickerView.m in Sources */,
 				90D4ABC8184E562F004DDB1F /* ThermoSensorDetailsViewController.m in Sources */,
 				30B487F7184E0A4F002B0CD8 /* HelpViewController.m in Sources */,
+				85A7D2F91B865662006C258D /* DataLog.m in Sources */,
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
 				F72564BA1A41F12900BEF94B /* ioapi.c in Sources */,
 				30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */,
