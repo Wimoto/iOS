@@ -27,19 +27,19 @@ static NSString * const kDataLogJsonLogId          = @"LogId";
         
         int16_t year	= 0;
         [data getBytes:&year range:NSMakeRange(0, 2)];
-        _year = CFSwapInt16BigToHost(year);
+        _year = year;
         
         int16_t month	= 0;
         [data getBytes:&month range:NSMakeRange(2, 1)];
-        _month = CFSwapInt16BigToHost(month);
+        _month = month;
         
         int16_t day	= 0;
         [data getBytes:&day range:NSMakeRange(3, 1)];
-        _day = CFSwapInt16BigToHost(day);
+        _day = day;
         
         int16_t hour	= 0;
         [data getBytes:&hour range:NSMakeRange(4, 1)];
-        _hour = CFSwapInt16BigToHost(hour);
+        _hour = hour;
         
         int16_t minute	= 0;
         [data getBytes:&minute range:NSMakeRange(5, 1)];
