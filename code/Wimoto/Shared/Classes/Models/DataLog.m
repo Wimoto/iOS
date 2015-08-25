@@ -43,11 +43,11 @@ static NSString * const kDataLogJsonLogId          = @"LogId";
         
         int16_t minute	= 0;
         [data getBytes:&minute range:NSMakeRange(5, 1)];
-        _minute = CFSwapInt16BigToHost(minute);
+        _minute = minute;
         
         int16_t seconds	= 0;
         [data getBytes:&seconds range:NSMakeRange(6, 1)];
-        _seconds = CFSwapInt16BigToHost(seconds);
+        _seconds = seconds;
         
         int16_t logId	= 0;
         [data getBytes:&logId range:NSMakeRange(14, 2)];
