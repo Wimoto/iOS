@@ -137,6 +137,7 @@
         if (_sensorDataLogs) {
             [self.dataReadingDelegate didReadSensorDataLogger:_sensorDataLogs];
         }
+        _sensorDataLogs = nil;
     }
 }
 

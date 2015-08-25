@@ -363,15 +363,15 @@ static NSString * const kDataLogJsonHumidity        = @"Humidity";
     if (self) {
         int16_t temperature	= 0;
         [data getBytes:&temperature range:NSMakeRange(8, 2)];
-        _temperature = temperature;
+        _temperature = CFSwapInt16BigToHost(temperature);
         
         int16_t light	= 0;
         [data getBytes:&light range:NSMakeRange(10, 2)];
-        _light = light;
+        _light = CFSwapInt16BigToHost(light);
         
         int16_t humidity	= 0;
         [data getBytes:&humidity range:NSMakeRange(12, 2)];
-        _humidity = humidity;
+        _humidity = CFSwapInt16BigToHost(humidity);
     }
     return self;
 }
