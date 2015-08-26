@@ -10,9 +10,13 @@
 
 @interface ClimateDataLog : DataLog
 
-@property (nonatomic) NSUInteger temperature;
-@property (nonatomic) NSUInteger humidity;
-@property (nonatomic) NSUInteger light;
+@property (nonatomic) NSUInteger rawTemperature;
+@property (nonatomic) NSUInteger rawHumidity;
+@property (nonatomic) NSUInteger rawLight;
+
+@property (nonatomic) float temperature;
+@property (nonatomic) float humidity;
+@property (nonatomic) float light;
 
 @end
 
@@ -341,8 +345,8 @@
         //NSLog(@"strd data %@", [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:storeUrl] encoding:NSUTF8StringEncoding]);
         
         ClimateDataLog *climateDataLog = [[ClimateDataLog alloc] initWithData:characteristic.value];
-        climateDataLog.temperature = [self getTemperatureFromSensorTemperature:climateDataLog.temperature];
-        climateDataLog.humidity = [self getHumidityFromSensorHumidity:climateDataLog.humidity];
+        climateDataLog.temperature = [self getTemperatureFromSensorTemperature:climateDataLog.rawTemperature];
+        climateDataLog.humidity = [self getHumidityFromSensorHumidity:climateDataLog.rawHumidity];
         
         [self writeSensorDataLog:[climateDataLog dictionaryDescription]];
     }
@@ -361,24 +365,25 @@ static NSString * const kDataLogJsonHumidity        = @"Humidity";
     if (self) {
         int16_t temperature	= 0;
         [data getBytes:&temperature range:NSMakeRange(8, 2)];
-        _temperature = CFSwapInt16BigToHost(temperature);
+        _rawTemperature = CFSwapInt16BigToHost(temperature);
         
         int16_t light	= 0;
         [data getBytes:&light range:NSMakeRange(10, 2)];
-        _light = CFSwapInt16BigToHost(light);
+        _rawLight = CFSwapInt16BigToHost(light);
+        _light = 0.96f * _rawLight;
         
         int16_t humidity	= 0;
         [data getBytes:&humidity range:NSMakeRange(12, 2)];
-        _humidity = CFSwapInt16BigToHost(humidity);
+        _rawHumidity = CFSwapInt16BigToHost(humidity);
     }
     return self;
 }
 
 - (NSDictionary *)dictionaryDescription {
     NSMutableDictionary *mutableDictionary = [[super dictionaryDescription] mutableCopy];
-    [mutableDictionary setObject:[NSNumber numberWithInteger:_temperature] forKey:kDataLogJsonTemperature];
-    [mutableDictionary setObject:[NSNumber numberWithInteger:_light] forKey:kDataLogJsonLight];
-    [mutableDictionary setObject:[NSNumber numberWithInteger:_humidity] forKey:kDataLogJsonHumidity];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_temperature] forKey:kDataLogJsonTemperature];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_light] forKey:kDataLogJsonLight];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_humidity] forKey:kDataLogJsonHumidity];
     
     return mutableDictionary;
 }
