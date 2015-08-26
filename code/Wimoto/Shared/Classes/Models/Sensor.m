@@ -343,19 +343,17 @@
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ((characteristic.value) || !error) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
-                const uint8_t *bytes = [characteristic.value bytes];
-                int value = bytes[0];
-                
-                self.batteryLevel = [NSNumber numberWithInt:value];                
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU]]) {
-                NSLog(@"Sensor didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_DFU");
-                //self.dfuModeOn = YES;
-            }
+    if ((characteristic.value) || !error) {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_BATTERY_LEVEL_CHARACTERISTIC]]) {
+            const uint8_t *bytes = [characteristic.value bytes];
+            int value = bytes[0];
+            
+            self.batteryLevel = [NSNumber numberWithInt:value];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GENERIC_CHAR_UUID_DFU]]) {
+            NSLog(@"Sensor didUpdateValueForCharacteristic BLE_GENERIC_CHAR_UUID_DFU");
+            //self.dfuModeOn = YES;
         }
-    });
+    }
 }
 
 

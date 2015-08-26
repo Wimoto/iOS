@@ -161,61 +161,59 @@ static NSArray *valueFactors = nil;
         return;
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
-            int16_t xValue	= 0;
-            [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 1)];
-            
-            NSPredicate *xPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", xValue];
-            ValueFactor *xFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:xPredicate].lastObject;
-            self.x = [xFactor.angleXY floatValue];
-            
-            int16_t yValue	= 0;
-            [[characteristic value] getBytes:&yValue range:NSMakeRange(1, 1)];
-            
-            NSPredicate *yPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", yValue];
-            ValueFactor *yFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:yPredicate].lastObject;
-            self.y = [yFactor.angleXY floatValue];
-            
-            int16_t zValue	= 0;
-            [[characteristic value] getBytes:&zValue range:NSMakeRange(2, 1)];
-            
-            NSPredicate *zPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", zValue];
-            ValueFactor *zFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:zPredicate].lastObject;
-            self.z = [zFactor.angleZ floatValue];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
-            self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
-            [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
+        int16_t xValue	= 0;
+        [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 1)];
+        
+        NSPredicate *xPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", xValue];
+        ValueFactor *xFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:xPredicate].lastObject;
+        self.x = [xFactor.angleXY floatValue];
+        
+        int16_t yValue	= 0;
+        [[characteristic value] getBytes:&yValue range:NSMakeRange(1, 1)];
+        
+        NSPredicate *yPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", yValue];
+        ValueFactor *yFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:yPredicate].lastObject;
+        self.y = [yFactor.angleXY floatValue];
+        
+        int16_t zValue	= 0;
+        [[characteristic value] getBytes:&zValue range:NSMakeRange(2, 1)];
+        
+        NSPredicate *zPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", zValue];
+        ValueFactor *zFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:zPredicate].lastObject;
+        self.z = [zFactor.angleZ floatValue];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
+        self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
+        [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET]]) {
+        if (_accelerometerAlarmState == kAlarmStateUnknown) {
+            self.accelerometerAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM_SET]]) {
-            if (_accelerometerAlarmState == kAlarmStateUnknown) {
-                self.accelerometerAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
+        if (_pasInfraredAlarmState == kAlarmStateUnknown) {
+            self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM_SET]]) {
-            if (_pasInfraredAlarmState == kAlarmStateUnknown) {
-                self.pasInfraredAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]) {
-            NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
-            if ((currentTimeshot > [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate])) {
-                if ((_accelerometerAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_accelerometerAlarmTimeshot+30))) {
-                    _accelerometerAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                    
-                    [super showAlarmNotification:[NSString stringWithFormat:@"%@ accelerometer alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM];
-                }
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM]]) {
-            NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
-            if ((currentTimeshot > [_infraredAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_infraredAlarmDisabledTime timeIntervalSinceReferenceDate])) {
-                if ((_pasInfraredAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_infraredAlarmTimeshot+30))) {
-                    _infraredAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                    
-                    [super showAlarmNotification:[NSString stringWithFormat:@"%@ infrared alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM];
-                }
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]) {
+        NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
+        if ((currentTimeshot > [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate])) {
+            if ((_accelerometerAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_accelerometerAlarmTimeshot+30))) {
+                _accelerometerAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ accelerometer alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM];
             }
         }
-    });
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM]]) {
+        NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
+        if ((currentTimeshot > [_infraredAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_infraredAlarmDisabledTime timeIntervalSinceReferenceDate])) {
+            if ((_pasInfraredAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_infraredAlarmTimeshot+30))) {
+                _infraredAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+                
+                [super showAlarmNotification:[NSString stringWithFormat:@"%@ infrared alarm", self.name] forUuid:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_ALARM];
+            }
+        }
+    }
 }
 
 @end

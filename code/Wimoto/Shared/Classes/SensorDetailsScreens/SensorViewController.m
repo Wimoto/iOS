@@ -158,66 +158,66 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
-        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            self.view.backgroundColor = [UIColor lightGrayColor];
-            _rssiLabel.hidden           = YES;
-            _batteryLevelImage.hidden   = YES;
-//            _enableSensorDataLoggerButton.hidden    = NO;
-//            _enableSensorDataLoggerButton.enabled   = NO;
-//            _readSensorDataLoggerButton.hidden      = YES;
-            _dataReadbackButton.hidden  = YES;
-            _dfuButton.hidden           = YES;
-        } else {
-            _rssiLabel.hidden           = NO;
-            _batteryLevelImage.hidden   = NO;
-//            _enableSensorDataLoggerButton.hidden    = NO;
-//            _enableSensorDataLoggerButton.enabled   = NO;
-//            _readSensorDataLoggerButton.hidden      = YES;
-            _dataReadbackButton.hidden  = NO;
-            _dfuButton.hidden           = NO;
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
-        int rssi = 0;
-        
-        NSObject *rssiObject = [change objectForKey:NSKeyValueChangeNewKey];
-        if ([rssiObject isKindOfClass:[NSNumber class]]) {
-            rssi = [(NSNumber*)rssiObject intValue];
-        }
-        
-        if (rssi == 0) {
-            _rssiLabel.hidden = YES;
-        } else {
-            _rssiLabel.text = [NSString stringWithFormat:@"%idB", rssi];
-            _rssiLabel.hidden = NO;
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL]) {
-        int level = -1;
-        
-        NSObject *levelObject = [change objectForKey:NSKeyValueChangeNewKey];
-        if ([levelObject isKindOfClass:[NSNumber class]]) {
-            level = [(NSNumber *)levelObject intValue];
-        }
-        
-        if (level == -1) {
-            _batteryLevelImage.hidden = YES;
-        } else {
-            NSString *batteryImagePath = nil;
-            if (level > 75) {
-                batteryImagePath = @"battery-full";
-            } else if (level > 50) {
-                batteryImagePath = @"battery-high";
-            } else if (level > 25) {
-                batteryImagePath = @"battery-medium";
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+            if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                self.view.backgroundColor = [UIColor lightGrayColor];
+                _rssiLabel.hidden           = YES;
+                _batteryLevelImage.hidden   = YES;
+                //            _enableSensorDataLoggerButton.hidden    = NO;
+                //            _enableSensorDataLoggerButton.enabled   = NO;
+                //            _readSensorDataLoggerButton.hidden      = YES;
+                _dataReadbackButton.hidden  = YES;
+                _dfuButton.hidden           = YES;
             } else {
-                batteryImagePath = @"battery-low";
+                _rssiLabel.hidden           = NO;
+                _batteryLevelImage.hidden   = NO;
+                //            _enableSensorDataLoggerButton.hidden    = NO;
+                //            _enableSensorDataLoggerButton.enabled   = NO;
+                //            _readSensorDataLoggerButton.hidden      = YES;
+                _dataReadbackButton.hidden  = NO;
+                _dfuButton.hidden           = NO;
             }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_RSSI]) {
+            int rssi = 0;
+            
+            NSObject *rssiObject = [change objectForKey:NSKeyValueChangeNewKey];
+            if ([rssiObject isKindOfClass:[NSNumber class]]) {
+                rssi = [(NSNumber*)rssiObject intValue];
+            }
+            
+            if (rssi == 0) {
+                _rssiLabel.hidden = YES;
+            } else {
+                _rssiLabel.text = [NSString stringWithFormat:@"%idB", rssi];
+                _rssiLabel.hidden = NO;
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL]) {
+            int level = -1;
+            
+            NSObject *levelObject = [change objectForKey:NSKeyValueChangeNewKey];
+            if ([levelObject isKindOfClass:[NSNumber class]]) {
+                level = [(NSNumber *)levelObject intValue];
+            }
+            
+            if (level == -1) {
+                _batteryLevelImage.hidden = YES;
+            } else {
+                NSString *batteryImagePath = nil;
+                if (level > 75) {
+                    batteryImagePath = @"battery-full";
+                } else if (level > 50) {
+                    batteryImagePath = @"battery-high";
+                } else if (level > 25) {
+                    batteryImagePath = @"battery-medium";
+                } else {
+                    batteryImagePath = @"battery-low";
+                }
                 
-            _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
-            _batteryLevelImage.hidden = NO;
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DL_STATE]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+                _batteryLevelImage.image = [UIImage imageNamed:batteryImagePath];
+                _batteryLevelImage.hidden = NO;
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_DL_STATE]) {
             DataLoggerState dlState = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
             
             switch (dlState) {
@@ -250,11 +250,11 @@
                 default:
                     break;
             }
-//            _enableSensorDataLoggerButton.hidden = NO;
-//            _enableSensorDataLoggerButton.enabled = YES;
-//            //_enableSensorDataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
-        });
-    }
+            //            _enableSensorDataLoggerButton.hidden = NO;
+            //            _enableSensorDataLoggerButton.enabled = YES;
+            //            //_enableSensorDataLoggerButton.selected = (dlState == kDataLoggerStateEnabled);
+        }
+    });
 }
 
 #pragma mark - UITextFieldDelegate

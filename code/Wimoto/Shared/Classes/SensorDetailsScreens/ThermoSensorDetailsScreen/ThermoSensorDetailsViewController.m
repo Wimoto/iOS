@@ -113,61 +113,64 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    ThermoSensor *sensor = (ThermoSensor *)[self sensor];
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
-        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _irTempAlarmContainer.hidden = YES;
-            _probeTempAlarmContainer.hidden = YES;
-            [WPPickerView dismiss];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ThermoSensor *sensor = (ThermoSensor *)[self sensor];
+        if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+            if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                _irTempAlarmContainer.hidden = YES;
+                _probeTempAlarmContainer.hidden = YES;
+                [WPPickerView dismiss];
+                
+                _irTempView.text = SENSOR_VALUE_PLACEHOLDER;
+                _probeTempView.text = SENSOR_VALUE_PLACEHOLDER;
+            } else {
+                _irTempAlarmContainer.hidden = NO;
+                _probeTempAlarmContainer.hidden = NO;
+                [_irTempView setTemperature:[sensor irTemp]];
+                [_probeTempView setTemperature:[sensor probeTemp]];
+                self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
             
-            _irTempView.text = SENSOR_VALUE_PLACEHOLDER;
-            _probeTempView.text = SENSOR_VALUE_PLACEHOLDER;
-        } else {
-            _irTempAlarmContainer.hidden = NO;
-            _probeTempAlarmContainer.hidden = NO;
-            [_irTempView setTemperature:[sensor irTemp]];
-            [_probeTempView setTemperature:[sensor probeTemp]];
-            self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
+            if (self.sensor.peripheral) {
+                [_irTempView setTemperature:[sensor irTemp]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
+                _irTempSparkLine.dataValues = result;
+            }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
+            if (self.sensor.peripheral) {
+                [_probeTempView setTemperature:[sensor probeTemp]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
+                _probeTempSparkLine.dataValues = result;
+            }];
         }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE]) {
+            _irTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
         }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        
-        if (self.sensor.peripheral) {
-            [_irTempView setTemperature:[sensor irTemp]];
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE]) {
+            _probeTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
         }
-        [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
-            _irTempSparkLine.dataValues = result;
-        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
-        if (self.sensor.peripheral) {
-            [_probeTempView setTemperature:[sensor probeTemp]];
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW]) {
+            [_irTempLowValueLabel setTemperature:sensor.irTempAlarmLow];
         }
-        [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
-            _probeTempSparkLine.dataValues = result;
-        }];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE]) {
-        _irTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_STATE]) {
-        _probeTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_LOW]) {
-        [_irTempLowValueLabel setTemperature:sensor.irTempAlarmLow];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH]) {
-        [_irTempHighValueLabel setTemperature:sensor.irTempAlarmHigh];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW]) {
-        [_probeTempLowValueLabel setTemperature:sensor.probeTempAlarmLow];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
-        [_probeTempHighValueLabel setTemperature:sensor.probeTempAlarmHigh];
-    }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_HIGH]) {
+            [_irTempHighValueLabel setTemperature:sensor.irTempAlarmHigh];
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_LOW]) {
+            [_probeTempLowValueLabel setTemperature:sensor.probeTempAlarmLow];
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP_ALARM_HIGH]) {
+            [_probeTempHighValueLabel setTemperature:sensor.probeTempAlarmHigh];
+        }
+    });
 }
 
 @end

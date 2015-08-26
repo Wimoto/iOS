@@ -149,53 +149,51 @@
         return;
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
-    NSLog(@"ThermoSensor didUpdateValueForCharacteristic start");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
-            self.irTemp = [self roundToOne:[[self sensorStringValueForCharacteristic:characteristic] floatValue]];
-            [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
-            self.probeTemp = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
-            [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET]]) {
-            if (_irTempAlarmState == kAlarmStateUnknown) {
-                self.irTempAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
+
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_CURRENT]]) {
+        self.irTemp = [self roundToOne:[[self sensorStringValueForCharacteristic:characteristic] floatValue]];
+        [self.entity saveNewValueWithType:kValueTypeIRTemperature value:_irTemp];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_CURRENT]]) {
+        self.probeTemp = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
+        [self.entity saveNewValueWithType:kValueTypeProbeTemperature value:_probeTemp];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET]]) {
+        if (_irTempAlarmState == kAlarmStateUnknown) {
+            self.irTempAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET]]) {
-            if (_probeTempAlarmState == kAlarmStateUnknown) {
-                self.probeTempAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET]]) {
+        if (_probeTempAlarmState == kAlarmStateUnknown) {
+            self.probeTempAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM]]) {
-            if ((_irTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_irTempAlarmTimeshot+30))) {
-                _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
-                [super showAlarmNotification:[NSString stringWithFormat:@"%@ ir temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM]]) {
+        if ((_irTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_irTempAlarmTimeshot+30))) {
+            _irTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
+            AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ ir temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_SET];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM]]) {
-            if ((_probeTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_probeTempAlarmTimeshot+30))) {
-                _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
-                [super showAlarmNotification:[NSString stringWithFormat:@"%@ probe temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM]]) {
+        if ((_probeTempAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_probeTempAlarmTimeshot+30))) {
+            _probeTempAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
+            AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ probe temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_SET];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]]) {
-            self.irTempAlarmLow = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-            self.irTempAlarmHigh = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]]) {
-            self.probeTempAlarmLow = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-            self.probeTempAlarmHigh = [self alarmValueForCharacteristic:characteristic];
-        }
-    });
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_LOW_VALUE]]) {
+        self.irTempAlarmLow = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_IR_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+        self.irTempAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_LOW_VALUE]]) {
+        self.probeTempAlarmLow = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_THERMO_CHAR_UUID_PROBE_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+        self.probeTempAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+    }
 }
 
 @end

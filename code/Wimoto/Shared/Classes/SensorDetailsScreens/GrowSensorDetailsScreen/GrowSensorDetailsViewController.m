@@ -180,73 +180,76 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    GrowSensor *sensor = (GrowSensor*)self.sensor;
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
-        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _soilMoistureAlarmContainer.hidden = YES;
-            _soilTempAlarmContainer.hidden = YES;
-            _lightAlarmContainer.hidden = YES;
-            [WPPickerView dismiss];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        GrowSensor *sensor = (GrowSensor*)self.sensor;
+        if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+            if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                _soilMoistureAlarmContainer.hidden = YES;
+                _soilTempAlarmContainer.hidden = YES;
+                _lightAlarmContainer.hidden = YES;
+                [WPPickerView dismiss];
+                
+                _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
+                _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            } else {
+                _soilMoistureAlarmContainer.hidden = NO;
+                _soilTempAlarmContainer.hidden = NO;
+                _lightAlarmContainer.hidden = NO;
+                
+                [_soilTempView setTemperature:[sensor soilTemperature]];
+                _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
+                _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
+                self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
             
-            _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
-            _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
-        } else {
-            _soilMoistureAlarmContainer.hidden = NO;
-            _soilTempAlarmContainer.hidden = NO;
-            _lightAlarmContainer.hidden = NO;
-            
-            [_soilTempView setTemperature:[sensor soilTemperature]];
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
-            _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
-            self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
+            if (self.sensor.peripheral) {
+                [_soilTempView setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
+                _soilTempSparkLine.dataValues = result;
+            }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
+            if (self.sensor.peripheral) {
+                _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
+                _soilMoistureSparkLine.dataValues = result;
+            }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
+            if (self.sensor.peripheral) {
+                _lightLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+                _lightSparkLine.dataValues = result;
+            }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_STATE]) {
+            _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_STATE]) {
+            _soilMoistureSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_STATE]) {
+            _soilTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_LOW]) {
+            _lightLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmLow];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_HIGH]) {
+            _lightHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmHigh];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_LOW]) {
+            _soilMoistureLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmLow];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_HIGH]) {
+            _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmHigh];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW]) {
+            [_soilTempLowValueLabel setTemperature:sensor.soilTemperatureAlarmLow];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
+            [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
         }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        
-        if (self.sensor.peripheral) {
-            [_soilTempView setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-        [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
-            _soilTempSparkLine.dataValues = result;
-        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
-        if (self.sensor.peripheral) {
-            _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-        [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
-            _soilMoistureSparkLine.dataValues = result;
-        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
-        if (self.sensor.peripheral) {
-            _lightLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-        [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
-            _lightSparkLine.dataValues = result;
-        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_STATE]) {
-        _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_STATE]) {
-        _soilMoistureSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_STATE]) {
-        _soilTempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_LOW]) {
-        _lightLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmLow];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_HIGH]) {
-        _lightHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.lightAlarmHigh];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_LOW]) {
-        _soilMoistureLowValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmLow];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE_ALARM_HIGH]) {
-        _soilMoistureHighValueLabel.text = [NSString stringWithFormat:@"%.1f", sensor.soilMoistureAlarmHigh];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW]) {
-        [_soilTempLowValueLabel setTemperature:sensor.soilTemperatureAlarmLow];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
-        [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
-    }
+    });
 }
 
 @end

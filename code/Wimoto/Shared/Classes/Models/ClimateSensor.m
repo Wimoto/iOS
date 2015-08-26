@@ -256,98 +256,96 @@
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
-            self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
-            [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
-            self.humidity = [self getHumidityFromSensorHumidity:[self sensorValueForCharacteristic:characteristic]];
-            [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
-            self.light = 0.96 * [self sensorValueForCharacteristic:characteristic];
-            [self.entity saveNewValueWithType:kValueTypeLight value:_light];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]]) {
-            if (_temperatureAlarmState == kAlarmStateUnknown) {
-                self.temperatureAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]]) {
-            if (_lightAlarmState == kAlarmStateUnknown) {
-                self.lightAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET]]) {
-            if (_humidityAlarmState == kAlarmStateUnknown) {
-                self.humidityAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
-            if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
-                _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
-                [super showAlarmNotification:[NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
-            if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
-                _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
-                [super showAlarmNotification:[NSString stringWithFormat:@"%@ light %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
-            }
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
-            if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
-                _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
-                [super showAlarmNotification:[NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
-            }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_CURRENT]]) {
+        self.temperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
+        [self.entity saveNewValueWithType:kValueTypeTemperature value:_temperature];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_CURRENT]]) {
+        self.humidity = [self getHumidityFromSensorHumidity:[self sensorValueForCharacteristic:characteristic]];
+        [self.entity saveNewValueWithType:kValueTypeHumidity value:_humidity];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_CURRENT]]) {
+        self.light = 0.96 * [self sensorValueForCharacteristic:characteristic];
+        [self.entity saveNewValueWithType:kValueTypeLight value:_light];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET]]) {
+        if (_temperatureAlarmState == kAlarmStateUnknown) {
+            self.temperatureAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
-            int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
-            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
-            self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:rValue];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET]]) {
+        if (_lightAlarmState == kAlarmStateUnknown) {
+            self.lightAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-            int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
-            NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
-            self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET]]) {
+        if (_humidityAlarmState == kAlarmStateUnknown) {
+            self.humidityAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
-            self.humidityAlarmLow = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE]]) {
-            self.humidityAlarmHigh = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
-            self.lightAlarmLow = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
-            self.lightAlarmHigh = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic isEqual:self.dataLoggerEnableCharacteristic]) {
-            self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM]]) {
+        if ((_temperatureAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_temperatureAlarmTimeshot+30))) {
+            _temperatureAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
             
-            NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);            
+            AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ temperature %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_SET];
         }
-        else if ([characteristic isEqual:self.dataLoggerReadEnableCharacteristic]) {
-            NSLog(@"self.dataLoggerReadEnableCharacteristic %@", [characteristic value]);
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM]]) {
+        if ((_lightAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_lightAlarmTimeshot+30))) {
+            _lightAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
+            AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ light %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_SET];
         }
-        else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
-            //NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM]]) {
+        if ((_humidityAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_humidityAlarmTimeshot+30))) {
+            _humidityAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
             
-            NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSURL *storeUrl = [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:@"dax.data"]];
-//            
-//            [characteristic.value writeToURL:storeUrl atomically:YES];
-            
-            //NSLog(@"strd data %@", [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:storeUrl] encoding:NSUTF8StringEncoding]);
-            
-            ClimateDataLog *climateDataLog = [[ClimateDataLog alloc] initWithData:characteristic.value];
-            climateDataLog.temperature = [self getTemperatureFromSensorTemperature:climateDataLog.temperature];
-            climateDataLog.humidity = [self getHumidityFromSensorHumidity:climateDataLog.humidity];
-            
-            [self writeSensorDataLog:[climateDataLog dictionaryDescription]];
+            AlarmType alarmType = [super alarmTypeForCharacteristic:characteristic];
+            [super showAlarmNotification:[NSString stringWithFormat:@"%@ humidity %@", self.name, (alarmType == kAlarmHigh)?@"high value":@"low value"] forUuid:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_SET];
         }
-    });
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE]]) {
+        int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+        NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_LOW_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
+        self.temperatureAlarmLow = [self getTemperatureFromSensorTemperature:rValue];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE]]) {
+        int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+        NSLog(@"BLE_CLIMATE_CHAR_UUID_TEMPERATURE_ALARM_HIGH_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
+        self.temperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_LOW_VALUE]]) {
+        self.humidityAlarmLow = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_HUMIDITY_ALARM_HIGH_VALUE]]) {
+        self.humidityAlarmHigh = [self getHumidityFromSensorHumidity:[self alarmValueForCharacteristic:characteristic]];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_LOW_VALUE]]) {
+        self.lightAlarmLow = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CLIMATE_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE]]) {
+        self.lightAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic isEqual:self.dataLoggerEnableCharacteristic]) {
+        self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+        
+        NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);
+    }
+    else if ([characteristic isEqual:self.dataLoggerReadEnableCharacteristic]) {
+        NSLog(@"self.dataLoggerReadEnableCharacteristic %@", [characteristic value]);
+    }
+    else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
+        //NSString *dataLogger = [[NSString alloc] initWithData:characteristic.value encoding:NSASCIIStringEncoding];
+        
+        NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
+        //            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        //            NSURL *storeUrl = [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:@"dax.data"]];
+        //
+        //            [characteristic.value writeToURL:storeUrl atomically:YES];
+        
+        //NSLog(@"strd data %@", [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:storeUrl] encoding:NSUTF8StringEncoding]);
+        
+        ClimateDataLog *climateDataLog = [[ClimateDataLog alloc] initWithData:characteristic.value];
+        climateDataLog.temperature = [self getTemperatureFromSensorTemperature:climateDataLog.temperature];
+        climateDataLog.humidity = [self getHumidityFromSensorHumidity:climateDataLog.humidity];
+        
+        [self writeSensorDataLog:[climateDataLog dictionaryDescription]];
+    }
 }
 
 @end

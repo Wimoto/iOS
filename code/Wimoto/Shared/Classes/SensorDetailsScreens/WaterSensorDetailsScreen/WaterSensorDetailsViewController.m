@@ -110,56 +110,58 @@
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
-        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _levelAlarmContainer.hidden = YES;
-            _contactAlarmContainer.hidden = YES;
-            [_levelSlider hideAction:nil];
-            _levelLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _contactLabel.text = SENSOR_VALUE_PLACEHOLDER;
-        } else {
-            _levelAlarmContainer.hidden = NO;
-            _contactAlarmContainer.hidden = NO;
-            WaterSensor *sensor = (WaterSensor*)self.sensor;
-            _levelLabel.text = [NSString stringWithFormat:@"%.1f", [sensor level]];
-            _contactLabel.text = ([sensor presense])?@"Wet":@"Dry";
-            self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+            if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                _levelAlarmContainer.hidden = YES;
+                _contactAlarmContainer.hidden = YES;
+                [_levelSlider hideAction:nil];
+                _levelLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                _contactLabel.text = SENSOR_VALUE_PLACEHOLDER;
+            } else {
+                _levelAlarmContainer.hidden = NO;
+                _contactAlarmContainer.hidden = NO;
+                WaterSensor *sensor = (WaterSensor*)self.sensor;
+                _levelLabel.text = [NSString stringWithFormat:@"%.1f", [sensor level]];
+                _contactLabel.text = ([sensor presense])?@"Wet":@"Dry";
+                self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
+            
+            if (self.sensor.peripheral) {
+                _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypeLevel completionHandler:^(NSArray *result) {
+                _levelSparkLine.dataValues = result;
+            }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
+            if (self.sensor.peripheral) {
+                _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"Wet":@"Dry";
+            }
         }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE]) {
+            _levelSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
         }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
-        
-        if (self.sensor.peripheral) {
-            _levelLabel.text = [NSString stringWithFormat:@"%.1f", [level floatValue]];
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENSE_ALARM_STATE]) {
+            _contactSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
         }
-        [self.sensor.entity latestValuesWithType:kValueTypeLevel completionHandler:^(NSArray *result) {
-            _levelSparkLine.dataValues = result;
-        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
-        if (self.sensor.peripheral) {
-            _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"Wet":@"Dry";
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_LOW]) {
+            float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+            _levelLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+            [_levelSlider setLowerValue:value];
         }
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_STATE]) {
-        _levelSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENSE_ALARM_STATE]) {
-        _contactSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_LOW]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _levelLowValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_levelSlider setLowerValue:value];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_HIGH]) {
-        float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
-        _levelHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
-        [_levelSlider setUpperValue:value];
-    }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL_ALARM_HIGH]) {
+            float value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+            _levelHighValueLabel.text = [NSString stringWithFormat:@"%.f", value];
+            [_levelSlider setUpperValue:value];
+        }
+    });
 }
 
 @end

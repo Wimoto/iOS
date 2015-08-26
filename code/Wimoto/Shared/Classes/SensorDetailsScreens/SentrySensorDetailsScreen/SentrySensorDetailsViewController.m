@@ -151,102 +151,103 @@
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     
-    if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
-        if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-            _accelerometerAlarmContainer.hidden = YES;
-            _pasInfraredAlarmContainer.hidden = YES;
-            _xAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _yAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _zAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
-            _pasInfraredLabel.text = SENSOR_VALUE_PLACEHOLDER;
-        } else {
-            _accelerometerAlarmContainer.hidden = NO;
-            _pasInfraredAlarmContainer.hidden = NO;
-            SentrySensor *sensor = (SentrySensor*)self.sensor;
-            _xAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor x]];
-            _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor y]];
-            _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor z]];
-            _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [sensor pasInfrared]];
-            self.view.backgroundColor = [UIColor colorWithRed:(52.f/255.f) green:(80.f/255.f) blue:(159.f/255.f) alpha:1.f];
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_X]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        
-        if (self.sensor.peripheral) {
-            _xAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Y]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        
-        if (self.sensor.peripheral) {
-            _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Z]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
-        
-        if (self.sensor.peripheral) {
-            _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-        }
-        //        [self.sensor.entity latestValuesWithType:kValueTypeAccelerometer completionHandler:^(NSArray *result) {
-//            _accelerometerSparkLine.dataValues = result;
-//        }];
-    } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
-        if (self.sensor.peripheral) {
-            _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-            
-            int pir = 0;
-            
-            NSObject *pirObject = [change objectForKey:NSKeyValueChangeNewKey];
-            if ([pirObject isKindOfClass:[NSNumber class]]) {
-                pir = [(NSNumber*)pirObject intValue];
-            }
-            
-            if (pir == 0) {
-                _pasInfraredLabel.text = @"No movement";
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENSOR_PERIPHERAL]) {
+            if ([[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                _accelerometerAlarmContainer.hidden = YES;
+                _pasInfraredAlarmContainer.hidden = YES;
+                _xAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                _yAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                _zAccelerometerLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                _pasInfraredLabel.text = SENSOR_VALUE_PLACEHOLDER;
             } else {
-                _pasInfraredLabel.text = @"Movement";
+                _accelerometerAlarmContainer.hidden = NO;
+                _pasInfraredAlarmContainer.hidden = NO;
+                SentrySensor *sensor = (SentrySensor*)self.sensor;
+                _xAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor x]];
+                _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor y]];
+                _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [sensor z]];
+                _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [sensor pasInfrared]];
+                self.view.backgroundColor = [UIColor colorWithRed:(52.f/255.f) green:(80.f/255.f) blue:(159.f/255.f) alpha:1.f];
             }
-
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_X]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
             
+            if (self.sensor.peripheral) {
+                _xAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Y]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
             
+            if (self.sensor.peripheral) {
+                _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Z]) {
+            self.lastUpdateLabel.text = @"Just now";
+            if ([self.lastUpdateTimer isValid]) {
+                [self.lastUpdateTimer invalidate];
+            }
+            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            
+            if (self.sensor.peripheral) {
+                _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+            }
+            //        [self.sensor.entity latestValuesWithType:kValueTypeAccelerometer completionHandler:^(NSArray *result) {
+            //            _accelerometerSparkLine.dataValues = result;
+            //        }];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
+            if (self.sensor.peripheral) {
+                _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+                
+                int pir = 0;
+                
+                NSObject *pirObject = [change objectForKey:NSKeyValueChangeNewKey];
+                if ([pirObject isKindOfClass:[NSNumber class]]) {
+                    pir = [(NSNumber*)pirObject intValue];
+                }
+                
+                if (pir == 0) {
+                    _pasInfraredLabel.text = @"No movement";
+                } else {
+                    _pasInfraredLabel.text = @"Movement";
+                }
+                
+                
+                
+                
+            }
+            [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
+                _pasInfraredSparkLine.dataValues = result;
+            }];
             
         }
-        [self.sensor.entity latestValuesWithType:kValueTypePassiveInfrared completionHandler:^(NSArray *result) {
-            _pasInfraredSparkLine.dataValues = result;
-        }];
-        
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE]) {
-        _accelerometerSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE]) {
-        _pasInfraredSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_ENABLED]) {
-        [_accelerometerAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmEnabledTime]];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_DISABLED]) {
-        [_accelerometerAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmDisabledTime]];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_ENABLED]) {
-        [_pasInfraredAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmEnabledTime]];
-    }
-    else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_DISABLED]) {
-        [_pasInfraredAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmDisabledTime]];
-    }
-
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_STATE]) {
+            _accelerometerSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PAS_INFRARED_ALARM_STATE]) {
+            _pasInfraredSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_ENABLED]) {
+            [_accelerometerAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmEnabledTime]];
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_ACCELEROMETER_ALARM_DISABLED]) {
+            [_accelerometerAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor accelerometerAlarmDisabledTime]];
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_ENABLED]) {
+            [_pasInfraredAlarmEnabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmEnabledTime]];
+        }
+        else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_INFRARED_ALARM_DISABLED]) {
+            [_pasInfraredAlarmDisabledLabel setDate:[(SentrySensor *)self.sensor infraredAlarmDisabledTime]];
+        }
+    });
 }
 
 @end

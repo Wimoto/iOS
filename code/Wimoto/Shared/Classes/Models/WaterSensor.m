@@ -96,38 +96,37 @@
         return;
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
-            self.level = [self sensorValueForCharacteristic:characteristic];
-            [self.entity saveNewValueWithType:kValueTypeLevel value:_level];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
-            self.presense = [self sensorValueForCharacteristic:characteristic];
-            [self.entity saveNewValueWithType:kValueTypePresence value:_presense];
+    
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_CURRENT]]) {
+        self.level = [self sensorValueForCharacteristic:characteristic];
+        [self.entity saveNewValueWithType:kValueTypeLevel value:_level];
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_CURRENT]]) {
+        self.presense = [self sensorValueForCharacteristic:characteristic];
+        [self.entity saveNewValueWithType:kValueTypePresence value:_presense];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_SET]]) {
+        if (_levelAlarmState == kAlarmStateUnknown) {
+            self.levelAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_SET]]) {
-            if (_levelAlarmState == kAlarmStateUnknown) {
-                self.levelAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET]]) {
+        if (_presenseAlarmState == kAlarmStateUnknown) {
+            self.presenseAlarmState = [self alarmStateForCharacteristic:characteristic];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET]]) {
-            if (_presenseAlarmState == kAlarmStateUnknown) {
-                self.presenseAlarmState = [self alarmStateForCharacteristic:characteristic];
-            }
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM]]) {
+        if ((_presenseAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_presenceAlarmTimeshot+30))) {
+            _presenceAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
+            
+            [super showAlarmNotification:@"Water Presence" forUuid:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_PRESENCE_ALARM]]) {
-            if ((_presenseAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_presenceAlarmTimeshot+30))) {
-                _presenceAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
-                
-                [super showAlarmNotification:@"Water Presence" forUuid:BLE_WATER_CHAR_UUID_PRESENCE_ALARM_SET];
-            }
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_LOW_VALUE]]) {
-            self.levelAlarmLow = [self alarmValueForCharacteristic:characteristic];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_HIGH_VALUE]]) {
-            self.levelAlarmHigh = [self alarmValueForCharacteristic:characteristic];
-        }
-    });
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_LOW_VALUE]]) {
+        self.levelAlarmLow = [self alarmValueForCharacteristic:characteristic];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_WATER_CHAR_UUID_LEVEL_ALARM_HIGH_VALUE]]) {
+        self.levelAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+    }
 }
 
 @end
