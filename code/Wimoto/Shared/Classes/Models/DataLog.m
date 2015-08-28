@@ -27,7 +27,7 @@ static NSString * const kDataLogJsonLogId          = @"LogId";
         
         int16_t year	= 0;
         [data getBytes:&year range:NSMakeRange(0, 2)];
-        _year = year;
+        _year = CFSwapInt16BigToHost(year);
         
         int16_t month	= 0;
         [data getBytes:&month range:NSMakeRange(2, 1)];
