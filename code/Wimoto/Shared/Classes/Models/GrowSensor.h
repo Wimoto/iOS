@@ -25,6 +25,19 @@
 #define OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_LOW                           @"lightAlarmLow"
 #define OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_HIGH                          @"lightAlarmHigh"
 
+#define OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE                         @"calibrationState"
+
+typedef enum {
+    kGrowCalibrationStateDefault = 0,
+    kGrowCalibrationStateLowValueStarted,
+    kGrowCalibrationStateLowValueInProgress,
+    kGrowCalibrationStateLowValueFinished,
+    kGrowCalibrationStateHighValueStarted,
+    kGrowCalibrationStateHighValueInProgress,
+    kGrowCalibrationStateHighValueFinished,
+    kGrowCalibrationStateCompleted
+} GrowCalibrationState;
+
 @interface GrowSensor : Sensor
 
 @property (nonatomic) float soilTemperature;
@@ -43,5 +56,7 @@
 
 @property (nonatomic) float lightAlarmLow;
 @property (nonatomic) float lightAlarmHigh;
+
+@property (nonatomic) GrowCalibrationState calibrationState;
 
 @end

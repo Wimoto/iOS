@@ -15,6 +15,10 @@
 #import "WPTemperatureView.h"
 #import "WPTemperaturePickerView.h"
 
+#import "GrowSensorEntity.h"
+
+#import "UIAlertView+Blocks.h"
+
 @interface GrowSensorDetailsViewController ()
 
 @property (nonatomic, weak) IBOutlet WPTemperatureView *soilTempView;
@@ -91,6 +95,8 @@
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,6 +122,8 @@
         
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_LOW];
         [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH];
+        
+        [self.sensor removeObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE];
     }
     @catch (NSException *exception) {
         // No need to handle just prevent app crash
@@ -202,6 +210,19 @@
                 _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
                 self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
+                
+                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+                if ((![sensorEntity lowHumidityCalibration]) && (![sensorEntity highHumidityCalibration])) {
+                    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        if (buttonIndex == 1) {
+                            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                if (buttonIndex == 0) {
+                                    [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
+                                }
+                            }];
+                        }
+                    }];
+                }                
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
             self.lastUpdateLabel.text = @"Just now";
@@ -248,6 +269,17 @@
             [_soilTempLowValueLabel setTemperature:sensor.soilTemperatureAlarmLow];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
             [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
+        } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE]) {
+            if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateLowValueFinished) {
+                [UIAlertView showWithTitle:nil message:@"Pour water over the soil. Wait for the water to flow through the soil, then press Finish" cancelButtonTitle:@"Finish" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    if (buttonIndex == 0) {
+                        [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
+                    }
+                }];
+            } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateHighValueFinished) {
+                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+                [sensorEntity save:nil];
+            }
         }
     });
 }

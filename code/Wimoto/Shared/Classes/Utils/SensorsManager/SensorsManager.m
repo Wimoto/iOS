@@ -19,6 +19,9 @@
 #import "SentrySensor.h"
 #import "SentrySensorEntity.h"
 
+#import "GrowSensor.h"
+#import "GrowSensorEntity.h"
+
 #define kServerDbURL @"http://146.148.72.228:4984/wimoto"
 
 @interface SensorsManager ()
@@ -65,6 +68,7 @@ static SensorsManager *sensorsManager = nil;
         CBLModelFactory* factory = _cblDatabase.modelFactory;
         [factory registerClass:[SensorEntity class] forDocumentType:NSStringFromClass([SensorEntity class])];
         [factory registerClass:[SentrySensorEntity class] forDocumentType:NSStringFromClass([SentrySensorEntity class])];
+        [factory registerClass:[GrowSensorEntity class] forDocumentType:NSStringFromClass([GrowSensorEntity class])];
         
         NSURL* serverDbURL = [NSURL URLWithString: kServerDbURL];
         _push = [_cblDatabase createPushReplication: serverDbURL];
@@ -80,8 +84,11 @@ static SensorsManager *sensorsManager = nil;
             
             NSString* const kSensorEntityType = NSStringFromClass([SensorEntity class]);
             NSString* const kSentrySensorEntityType = NSStringFromClass([SentrySensorEntity class]);
+            NSString* const kGrowSensorEntityType = NSStringFromClass([GrowSensorEntity class]);
             [view setMapBlock:MAPBLOCK({
-                if (([doc[@"type"] isEqualToString:kSensorEntityType]) || ([doc[@"type"] isEqualToString:kSentrySensorEntityType])){
+                if (([doc[@"type"] isEqualToString:kSensorEntityType]) ||
+                    ([doc[@"type"] isEqualToString:kSentrySensorEntityType]) ||
+                    ([doc[@"type"] isEqualToString:kGrowSensorEntityType])){
                     emit(doc[@"systemId"], doc);
                 }
             }) version:@"1.0"];
@@ -90,6 +97,8 @@ static SensorsManager *sensorsManager = nil;
             CBLQueryEnumerator *queryEnumerator = [query run:nil];
             
             for (CBLQueryRow *row in queryEnumerator) {
+                NSLog(@"CBLQueryRow %@", row);
+                
                 Sensor *sensor = [Sensor sensorWithEntity:(SensorEntity *)[CBLModel modelForDocument:row.document]];
                 //[sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DFU_MODE options:NSKeyValueObservingOptionNew context:nil];
                 [_sensors addObject:sensor];
@@ -127,6 +136,9 @@ static SensorsManager *sensorsManager = nil;
         if ([sensor isKindOfClass:[SentrySensor class]]) {
             sensorEntity = [[SentrySensorEntity alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
             [sensorEntity setValue:NSStringFromClass([SentrySensorEntity class]) ofProperty:@"type"];
+        } else if ([sensor isKindOfClass:[GrowSensor class]]) {
+            sensorEntity = [[GrowSensorEntity alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
+            [sensorEntity setValue:NSStringFromClass([GrowSensorEntity class]) ofProperty:@"type"];
         } else {
             sensorEntity = [[SensorEntity alloc] initWithNewDocumentInDatabase:manager.cblDatabase];
             [sensorEntity setValue:NSStringFromClass([SensorEntity class]) ofProperty:@"type"];

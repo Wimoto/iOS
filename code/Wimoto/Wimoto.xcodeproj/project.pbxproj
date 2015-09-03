@@ -156,6 +156,7 @@
 		49E50BD91A017BEC00304549 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49E50BD81A017BEC00304549 /* Settings.bundle */; };
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		85A7D2F91B865662006C258D /* DataLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A7D2F81B865662006C258D /* DataLog.m */; };
+		85CD490F1B977BE8000B5DFF /* GrowSensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CD490E1B977BE8000B5DFF /* GrowSensorEntity.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
 		90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E23185A43B300F83210 /* NoSensorViewController.m */; };
 		90232E28185A440700F83210 /* NoSensorViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90232E27185A440700F83210 /* NoSensorViewController_iPhone.xib */; };
@@ -420,6 +421,8 @@
 		49F3F91218A510E600CDA950 /* SensorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorHelper.m; sourceTree = "<group>"; };
 		85A7D2F71B865662006C258D /* DataLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLog.h; sourceTree = "<group>"; };
 		85A7D2F81B865662006C258D /* DataLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLog.m; sourceTree = "<group>"; };
+		85CD490D1B977BE8000B5DFF /* GrowSensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensorEntity.h; sourceTree = "<group>"; };
+		85CD490E1B977BE8000B5DFF /* GrowSensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensorEntity.m; sourceTree = "<group>"; };
 		901399CA185B16CB0003D964 /* CBPeripheral+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Util.h"; sourceTree = "<group>"; };
 		901399CB185B16CB0003D964 /* CBPeripheral+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+Util.m"; sourceTree = "<group>"; };
 		901399CD185B22A80003D964 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
@@ -1012,6 +1015,8 @@
 				04EFF2FD195972540067589E /* SensorEntity.m */,
 				14F7374E1B4D1D35003350DD /* SentrySensorEntity.h */,
 				14F7374F1B4D1D35003350DD /* SentrySensorEntity.m */,
+				85CD490D1B977BE8000B5DFF /* GrowSensorEntity.h */,
+				85CD490E1B977BE8000B5DFF /* GrowSensorEntity.m */,
 				90C64239184E606D008F40D2 /* Sensor.h */,
 				90C6423A184E606D008F40D2 /* Sensor.m */,
 				90D80799185B409300FDF31D /* ClimateSensor.h */,
@@ -1521,6 +1526,7 @@
 				30B487FC184E0A6C002B0CD8 /* SettingsViewController.m in Sources */,
 				F72564BA1A41F12900BEF94B /* ioapi.c in Sources */,
 				30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */,
+				85CD490F1B977BE8000B5DFF /* GrowSensorEntity.m in Sources */,
 				90232E35185A46A300F83210 /* WimotoDeckController.m in Sources */,
 				90232E32185A467100F83210 /* IIWrapController.m in Sources */,
 				30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */,
@@ -1565,7 +1571,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
@@ -1602,7 +1608,7 @@
 					"$(PROJECT_DIR)/Shared/Frameworks",
 					"$(PROJECT_DIR)",
 				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
