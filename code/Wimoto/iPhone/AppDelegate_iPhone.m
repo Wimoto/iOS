@@ -82,6 +82,19 @@
     self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSURL *storeUrl = [NSURL fileURLWithPath:[[paths objectAtIndex:0] stringByAppendingPathComponent:@"dax.data"]];
+//    
+//    NSLog(@"dttt %@", [[NSData dataWithContentsOfURL:storeUrl] hexadecimalString]);
+    
+    char bytes[2] = { 0x00, 0x01 };
+    NSData *data = [NSData dataWithBytes:bytes length:2];
+    
+    int16_t logId	= 0;
+    [data getBytes:&logId range:NSMakeRange(0, 2)];
+
+    NSLog(@"dttt %@---%d", [data hexadecimalString], CFSwapInt16BigToHost(logId));
+    
     return YES;
 }
 

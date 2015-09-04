@@ -111,6 +111,12 @@
 		30CD5820192E618600FFF102 /* AlarmSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD581F192E618600FFF102 /* AlarmSlider.m */; };
 		30CD5822192E619700FFF102 /* AlarmSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD5821192E619700FFF102 /* AlarmSlider.xib */; };
 		30CF23311932A868006D19DC /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF232F1932A868006D19DC /* ASValuePopUpView.m */; };
+		30E700CD1B99B11F00FDB430 /* APChartLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E700C81B99B11F00FDB430 /* APChartLine.swift */; };
+		30E700CE1B99B11F00FDB430 /* APChartMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E700C91B99B11F00FDB430 /* APChartMarker.swift */; };
+		30E700CF1B99B11F00FDB430 /* APChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E700CA1B99B11F00FDB430 /* APChartPoint.swift */; };
+		30E700D01B99B11F00FDB430 /* APChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E700CB1B99B11F00FDB430 /* APChartView.swift */; };
+		30E700D11B99B11F00FDB430 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E700CC1B99B11F00FDB430 /* Utils.swift */; };
+		30E700D41B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E700D31B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib */; };
 		4901D3E4192EAF9A005EB15C /* thermometer.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E3192EAF9A005EB15C /* thermometer.png */; };
 		4901D3E6192EB1D7005EB15C /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E5192EB1D7005EB15C /* scale.png */; };
 		4901D3E8192EB294005EB15C /* droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4901D3E7192EB294005EB15C /* droplet.png */; };
@@ -369,6 +375,13 @@
 		30CD5821192E619700FFF102 /* AlarmSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmSlider.xib; sourceTree = "<group>"; };
 		30CF232F1932A868006D19DC /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		30CF23301932A868006D19DC /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
+		30E700C81B99B11F00FDB430 /* APChartLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APChartLine.swift; sourceTree = "<group>"; };
+		30E700C91B99B11F00FDB430 /* APChartMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APChartMarker.swift; sourceTree = "<group>"; };
+		30E700CA1B99B11F00FDB430 /* APChartPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APChartPoint.swift; sourceTree = "<group>"; };
+		30E700CB1B99B11F00FDB430 /* APChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APChartView.swift; sourceTree = "<group>"; };
+		30E700CC1B99B11F00FDB430 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		30E700D21B99B14D00FDB430 /* Wimoto-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wimoto-Bridging-Header.h"; sourceTree = "<group>"; };
+		30E700D31B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ClimateSensorDetailsViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Wimoto_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wimoto_Prefix.pch; sourceTree = "<group>"; };
 		4901D3E3192EAF9A005EB15C /* thermometer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermometer.png; sourceTree = "<group>"; };
 		4901D3E5192EB1D7005EB15C /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
@@ -663,6 +676,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				30E700D21B99B14D00FDB430 /* Wimoto-Bridging-Header.h */,
 				040829D71A65C58200B93306 /* sentryLookup.plist */,
 				90F56DDE184DD54000ADC38E /* Info.plist */,
 				49A347631B16002000A9E1B5 /* Lux-to-daylight.plist */,
@@ -778,6 +792,7 @@
 		30B487C0184DF328002B0CD8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				30E700C71B99B11F00FDB430 /* APChartView */,
 				14CD06B51B05EEE7009F8B61 /* TemperatureView */,
 				04079BA71B012C7D0013234E /* TemperatureLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
@@ -785,12 +800,6 @@
 				14C72C151B46D489004D8623 /* TimePickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
 				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
-				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
-				49CB68F01A04F00600D16ACD /* NSData+Conversion.m */,
-				49CB68F11A04F00600D16ACD /* NSString+Util.h */,
-				49CB68F21A04F00600D16ACD /* NSString+Util.m */,
-				49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */,
-				49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */,
 				3035CE5A1965AC58008DA202 /* QueueManager */,
 				309D2D691946279E007228B9 /* RelativeDateDescriptor */,
 				302A712F192D284B006E0A6C /* NMRangeSlider */,
@@ -798,6 +807,12 @@
 				30B487C1184DF328002B0CD8 /* ViewDeck */,
 				04EFF2FF195A08B20067589E /* SensorsManager */,
 				90232E37185A521900F83210 /* BLEManager */,
+				49CB68EF1A04F00600D16ACD /* NSData+Conversion.h */,
+				49CB68F01A04F00600D16ACD /* NSData+Conversion.m */,
+				49CB68F11A04F00600D16ACD /* NSString+Util.h */,
+				49CB68F21A04F00600D16ACD /* NSString+Util.m */,
+				49CB68F31A04F00600D16ACD /* UIAlertView+Blocks.h */,
+				49CB68F41A04F00600D16ACD /* UIAlertView+Blocks.m */,
 				49F3F91118A5108800CDA950 /* SensorHelper.h */,
 				49F3F91218A510E600CDA950 /* SensorHelper.m */,
 			);
@@ -918,6 +933,18 @@
 				30CD5821192E619700FFF102 /* AlarmSlider.xib */,
 			);
 			path = AlarmSlider;
+			sourceTree = "<group>";
+		};
+		30E700C71B99B11F00FDB430 /* APChartView */ = {
+			isa = PBXGroup;
+			children = (
+				30E700C81B99B11F00FDB430 /* APChartLine.swift */,
+				30E700C91B99B11F00FDB430 /* APChartMarker.swift */,
+				30E700CA1B99B11F00FDB430 /* APChartPoint.swift */,
+				30E700CB1B99B11F00FDB430 /* APChartView.swift */,
+				30E700CC1B99B11F00FDB430 /* Utils.swift */,
+			);
+			path = APChartView;
 			sourceTree = "<group>";
 		};
 		493A492B184EB4250000A2F6 /* Images */ = {
@@ -1160,6 +1187,7 @@
 				90D4ABC3184E55DB004DDB1F /* SentrySensorDetailsViewController_iPhone.xib */,
 				4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */,
 				90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */,
+				30E700D31B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib */,
 			);
 			path = SensorDetailsScreens;
 			sourceTree = "<group>";
@@ -1382,6 +1410,7 @@
 				040DC6991A796A00006FB584 /* FirmwareViewController_iPhone.xib in Resources */,
 				49A347641B16002000A9E1B5 /* Lux-to-daylight.plist in Resources */,
 				302A7158192D284B006E0A6C /* slider-default_trackBackground@2x.png in Resources */,
+				30E700D41B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib in Resources */,
 				90D4AB9A184E5420004DDB1F /* GrowSensorDetailsViewController_iPhone.xib in Resources */,
 				493A4932184EB81A0000A2F6 /* plant_under_rain-512.png in Resources */,
 				498CEFC919AA92E500EAEB98 /* cloudupload.png in Resources */,
@@ -1476,6 +1505,7 @@
 				30B487D7184DF801002B0CD8 /* RightMenuViewController.m in Sources */,
 				90232E30185A467100F83210 /* IISideController.m in Sources */,
 				30B487D0184DF3A5002B0CD8 /* LeftMenuViewController.m in Sources */,
+				30E700D01B99B11F00FDB430 /* APChartView.swift in Sources */,
 				3035CE5D1965AC68008DA202 /* QueueManager.m in Sources */,
 				F725649E1A41E82600BEF94B /* IntelHex2BinConverter.m in Sources */,
 				30B9E11819473866001E10A5 /* SBJSON.m in Sources */,
@@ -1488,6 +1518,7 @@
 				30B9E11919473866001E10A5 /* SBJsonBase.m in Sources */,
 				F72564951A41E82600BEF94B /* BLEOperations.m in Sources */,
 				F72564BE1A41F12900BEF94B /* SSZipArchive.m in Sources */,
+				30E700CF1B99B11F00FDB430 /* APChartPoint.swift in Sources */,
 				04EFF2FE195972540067589E /* SensorEntity.m in Sources */,
 				F72564BB1A41F12900BEF94B /* mztools.c in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
@@ -1495,6 +1526,7 @@
 				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
 				F72564961A41E82600BEF94B /* DFUOperations.m in Sources */,
 				F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */,
+				30E700CD1B99B11F00FDB430 /* APChartLine.swift in Sources */,
 				49CB68F51A04F00600D16ACD /* NSData+Conversion.m in Sources */,
 				90C6423B184E606D008F40D2 /* Sensor.m in Sources */,
 				14F737501B4D1D35003350DD /* SentrySensorEntity.m in Sources */,
@@ -1514,6 +1546,7 @@
 				49CB68F71A04F00600D16ACD /* UIAlertView+Blocks.m in Sources */,
 				90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */,
 				30C11816186B4EB00068633C /* ThermoSensor.m in Sources */,
+				30E700CE1B99B11F00FDB430 /* APChartMarker.swift in Sources */,
 				04079BBC1B014AF80013234E /* WPTemperatureSignLabel.m in Sources */,
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				F72564981A41E82600BEF94B /* FileOperations.m in Sources */,
@@ -1543,6 +1576,7 @@
 				F766A90D1A7B159800E0FDB7 /* WPPickerView.m in Sources */,
 				49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */,
 				F72564BC1A41F12900BEF94B /* unzip.c in Sources */,
+				30E700D11B99B11F00FDB430 /* Utils.swift in Sources */,
 				F70D31741A02BE7900ABD9AC /* DemoClimateSensor.m in Sources */,
 				90D4ABCF184E56A4004DDB1F /* WaterSensorDetailsViewController.m in Sources */,
 				90CFFEC317A7D01700353F80 /* AppViewController.m in Sources */,
@@ -1563,6 +1597,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
@@ -1570,6 +1605,7 @@
 					"$(PROJECT_DIR)/Shared/Frameworks",
 					"$(PROJECT_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1578,6 +1614,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1586,6 +1623,7 @@
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wimoto-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
@@ -1601,6 +1639,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
@@ -1608,17 +1647,20 @@
 					"$(PROJECT_DIR)/Shared/Frameworks",
 					"$(PROJECT_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Wimoto_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wimoto;
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wimoto-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -1635,6 +1677,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = Wimoto;
 				PROVISIONING_PROFILE = "d8167332-6c90-4363-800b-b6c22702eac6";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1652,6 +1695,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_MODULE_NAME = Wimoto;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";

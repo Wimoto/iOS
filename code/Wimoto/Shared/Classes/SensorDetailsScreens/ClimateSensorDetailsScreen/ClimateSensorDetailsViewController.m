@@ -8,7 +8,6 @@
 
 #import "ClimateSensorDetailsViewController.h"
 #import "WPPickerView.h"
-
 #import "WPTemperaturePickerView.h"
 
 @interface ClimateSensorDetailsViewController ()
