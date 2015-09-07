@@ -19,11 +19,13 @@
 
 #import "UIAlertView+Blocks.h"
 
+#import "SoilMoistureLabel.h"
+
 @interface GrowSensorDetailsViewController ()
 
 @property (nonatomic, weak) IBOutlet WPTemperatureView *soilTempView;
 
-@property (nonatomic, weak) IBOutlet UILabel *soilMoistureLabel;
+@property (nonatomic, weak) IBOutlet SoilMoistureLabel *soilMoistureLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *soilTempSparkLine;
@@ -207,11 +209,13 @@
                 _lightAlarmContainer.hidden = NO;
                 
                 [_soilTempView setTemperature:[sensor soilTemperature]];
-                _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [sensor soilMoisture]];
+                
+                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:[sensorEntity lowHumidityCalibration] andHighCalibrationValue:[sensorEntity highHumidityCalibration]];
+                
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
                 self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
                 
-                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
                 if ((![sensorEntity lowHumidityCalibration]) && (![sensorEntity highHumidityCalibration])) {
                     [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1) {
@@ -239,7 +243,8 @@
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
             if (self.sensor.peripheral) {
-                _soilMoistureLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
+                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+                [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:[sensorEntity lowHumidityCalibration] andHighCalibrationValue:[sensorEntity highHumidityCalibration]];
             }
             [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
                 _soilMoistureSparkLine.dataValues = result;

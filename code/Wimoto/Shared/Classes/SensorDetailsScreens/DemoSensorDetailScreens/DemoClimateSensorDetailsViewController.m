@@ -71,6 +71,9 @@
         self.tempView.text = SENSOR_VALUE_PLACEHOLDER;
         self.humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
         self.lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        self.temperatureChartLine = nil;
+        self.humidityChartLine = nil;
+        self.lightChartLine = nil;
     }
     self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
 }
