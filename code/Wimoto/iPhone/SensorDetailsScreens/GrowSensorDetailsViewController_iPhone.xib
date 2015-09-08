@@ -24,6 +24,7 @@
                 <outlet property="soilMoistureHighValueLabel" destination="h5X-ix-du9" id="GBa-NN-TSy"/>
                 <outlet property="soilMoistureLabel" destination="VwV-nP-PwZ" id="4OE-3j-Ock"/>
                 <outlet property="soilMoistureLowValueLabel" destination="wF0-Ev-dmK" id="CzG-WW-vKH"/>
+                <outlet property="soilMoisturePercentageLabel" destination="KXf-2z-0CD" id="UiZ-01-LiS"/>
                 <outlet property="soilMoistureSparkLine" destination="Q0W-zR-mPo" id="jBL-kO-ZCY"/>
                 <outlet property="soilMoistureSwitch" destination="OnN-R7-Lk6" id="7bm-cC-G2M"/>
                 <outlet property="soilTempAlarmContainer" destination="QTE-ya-KQq" id="Nh8-HO-uUd"/>

@@ -163,6 +163,8 @@
 		49F3F91318A510E600CDA950 /* SensorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F3F91218A510E600CDA950 /* SensorHelper.m */; };
 		85A7D2F91B865662006C258D /* DataLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A7D2F81B865662006C258D /* DataLog.m */; };
 		85C249EE1B9E294200F0F0DD /* SoilMoistureLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C249ED1B9E294200F0F0DD /* SoilMoistureLabel.m */; };
+		85C249F21B9E32B600F0F0DD /* MoisturePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C249F11B9E32B600F0F0DD /* MoisturePickerView.m */; };
+		85C249F41B9E336400F0F0DD /* MoisturePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85C249F31B9E336400F0F0DD /* MoisturePickerView.xib */; };
 		85CD490F1B977BE8000B5DFF /* GrowSensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CD490E1B977BE8000B5DFF /* GrowSensorEntity.m */; };
 		901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 901399CB185B16CB0003D964 /* CBPeripheral+Util.m */; };
 		90232E25185A43B300F83210 /* NoSensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90232E23185A43B300F83210 /* NoSensorViewController.m */; };
@@ -437,6 +439,9 @@
 		85A7D2F81B865662006C258D /* DataLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLog.m; sourceTree = "<group>"; };
 		85C249EC1B9E294200F0F0DD /* SoilMoistureLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoilMoistureLabel.h; sourceTree = "<group>"; };
 		85C249ED1B9E294200F0F0DD /* SoilMoistureLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoilMoistureLabel.m; sourceTree = "<group>"; };
+		85C249F01B9E32B600F0F0DD /* MoisturePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoisturePickerView.h; sourceTree = "<group>"; };
+		85C249F11B9E32B600F0F0DD /* MoisturePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoisturePickerView.m; sourceTree = "<group>"; };
+		85C249F31B9E336400F0F0DD /* MoisturePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoisturePickerView.xib; sourceTree = "<group>"; };
 		85CD490D1B977BE8000B5DFF /* GrowSensorEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowSensorEntity.h; sourceTree = "<group>"; };
 		85CD490E1B977BE8000B5DFF /* GrowSensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowSensorEntity.m; sourceTree = "<group>"; };
 		901399CA185B16CB0003D964 /* CBPeripheral+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Util.h"; sourceTree = "<group>"; };
@@ -800,6 +805,7 @@
 				04079BA71B012C7D0013234E /* TemperatureLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
 				14F737511B4D4273003350DD /* TimeLabel */,
+				85C249EF1B9E329500F0F0DD /* MoisturePickerView */,
 				14C72C151B46D489004D8623 /* TimePickerView */,
 				F72564AC1A41F12900BEF94B /* SSZipArchive */,
 				F70439C31A0D5A5D007F5B58 /* SVProgressHUD */,
@@ -1004,6 +1010,17 @@
 			);
 			name = Images;
 			sourceTree = "<group>";
+		};
+		85C249EF1B9E329500F0F0DD /* MoisturePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				85C249F01B9E32B600F0F0DD /* MoisturePickerView.h */,
+				85C249F11B9E32B600F0F0DD /* MoisturePickerView.m */,
+				85C249F31B9E336400F0F0DD /* MoisturePickerView.xib */,
+			);
+			name = MoisturePickerView;
+			path = Shared/Classes/Utils/MoisturePickerView;
+			sourceTree = SOURCE_ROOT;
 		};
 		90232E29185A467100F83210 /* Core */ = {
 			isa = PBXGroup;
@@ -1399,6 +1416,7 @@
 				302A7154192D284B006E0A6C /* slider-default-track@2x.png in Resources */,
 				040829CE1A65C40100B93306 /* wimoto-temperature-icon.png in Resources */,
 				498CEFC119AA8A5000EAEB98 /* leak 128px.png in Resources */,
+				85C249F41B9E336400F0F0DD /* MoisturePickerView.xib in Resources */,
 				498CEFCD19AA94FC00EAEB98 /* settingscogs.png in Resources */,
 				4995714D1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib in Resources */,
 				4901D3EA192EB35F005EB15C /* cloud-refresh.png in Resources */,
@@ -1556,6 +1574,7 @@
 				30B9E11719473866001E10A5 /* NSString+SBJSON.m in Sources */,
 				F72564981A41E82600BEF94B /* FileOperations.m in Sources */,
 				85C249EE1B9E294200F0F0DD /* SoilMoistureLabel.m in Sources */,
+				85C249F21B9E32B600F0F0DD /* MoisturePickerView.m in Sources */,
 				304B888119100110000F487B /* CBUUID+StringExtraction.m in Sources */,
 				14CFBCAC1B594BEA00F52EBC /* DemoCBPeripheral.m in Sources */,
 				04079BB61B013D440013234E /* WPTemperaturePickerView.m in Sources */,

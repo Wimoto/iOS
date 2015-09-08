@@ -8,7 +8,10 @@
 
 #import "GrowSensorDetailsViewController.h"
 #import "ASBSparkLineView.h"
+
 #import "WPPickerView.h"
+#import "MoisturePickerView.h"
+
 #import "GrowSensor.h"
 
 #import "WPTemperatureValueLabel.h"
@@ -26,6 +29,7 @@
 @property (nonatomic, weak) IBOutlet WPTemperatureView *soilTempView;
 
 @property (nonatomic, weak) IBOutlet SoilMoistureLabel *soilMoistureLabel;
+@property (nonatomic, weak) IBOutlet UILabel *soilMoisturePercentageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *lightLabel;
 
 @property (nonatomic, weak) IBOutlet ASBSparkLineView *soilTempSparkLine;
@@ -153,16 +157,25 @@
     GrowSensor *sensor = (GrowSensor *)self.sensor;
     sensor.soilMoistureAlarmState = (_soilMoistureSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilMoistureSwitch.on) {
-        float minValue = 10.0;
-        float maxValue = 50.0;
-        WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
-            sensor.soilMoistureAlarmLow = lowerValue;
-            sensor.soilMoistureAlarmHigh = upperValue;
-        } cancel:^{
-            //[_soilMoistureSwitch setOn:NO animated:YES];
-        }];
-        [pickerView setLowerValue:sensor.soilMoistureAlarmLow];
-        [pickerView setUpperValue:sensor.soilMoistureAlarmHigh];
+        GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+        if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
+            [MoisturePickerView showWithValue:120.f lowCalibrationValue:sensorEntity.lowHumidityCalibration highCalibrationValue:sensorEntity.highHumidityCalibration save:^(float value) {
+                sensor.soilMoistureAlarmHigh = value;
+            } cancel:^{
+                //
+            }];
+        } else {
+            float minValue = 10.0;
+            float maxValue = 50.0;
+            WPPickerView *pickerView = [WPPickerView showWithMinValue:minValue maxValue:maxValue save:^(float lowerValue, float upperValue) {
+                sensor.soilMoistureAlarmLow = lowerValue;
+                sensor.soilMoistureAlarmHigh = upperValue;
+            } cancel:^{
+                //[_soilMoistureSwitch setOn:NO animated:YES];
+            }];
+            [pickerView setLowerValue:sensor.soilMoistureAlarmLow];
+            [pickerView setUpperValue:sensor.soilMoistureAlarmHigh];
+        }
     }
 }
 
@@ -211,7 +224,10 @@
                 [_soilTempView setTemperature:[sensor soilTemperature]];
                 
                 GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:[sensorEntity lowHumidityCalibration] andHighCalibrationValue:[sensorEntity highHumidityCalibration]];
+//                sensorEntity.lowHumidityCalibration = [NSNumber numberWithFloat:100.f];
+//                sensorEntity.highHumidityCalibration = [NSNumber numberWithFloat:200.f];
+                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
+                _soilMoisturePercentageLabel.hidden = ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration));
                 
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
                 self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
@@ -244,7 +260,7 @@
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
             if (self.sensor.peripheral) {
                 GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-                [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:[sensorEntity lowHumidityCalibration] andHighCalibrationValue:[sensorEntity highHumidityCalibration]];
+                [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
             }
             [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
                 _soilMoistureSparkLine.dataValues = result;
@@ -283,6 +299,7 @@
                 }];
             } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateHighValueFinished) {
                 GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+                _soilMoisturePercentageLabel.hidden = YES;
                 [sensorEntity save:nil];
             }
         }

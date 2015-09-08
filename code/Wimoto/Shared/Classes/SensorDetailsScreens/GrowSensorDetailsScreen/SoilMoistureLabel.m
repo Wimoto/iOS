@@ -17,15 +17,15 @@
 
         float calibrationStep = (highCalibration - lowCalibration)/4;
         if ((lowCalibration + calibrationStep * 1) > moisture) {
-            self.text = @"Very wet";
+            self.text = @"Very dry";
         } else if ((lowCalibration + calibrationStep * 2) > moisture) {
-            self.text = @"Wet";
+            self.text = @"Dry";
         } else if ((lowCalibration + calibrationStep * 3) > moisture) {
             self.text = @"Normal";
         } else if ((lowCalibration + calibrationStep * 4) > moisture) {
-            self.text = @"Dry";
+            self.text = @"Wet";
         } else if (highCalibration > moisture) {
-            self.text = @"Very dry";
+            self.text = @"Very wet";
         }
     } else {
         self.text = [NSString stringWithFormat:@"%.1f", moisture];
