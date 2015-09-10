@@ -111,12 +111,12 @@
     GrowCalibrationState previousState = _calibrationState;
     _calibrationState = calibrationState;
     
-    if ((previousState == kGrowCalibrationStateDefault) && (_calibrationState == kGrowCalibrationStateLowValueStarted)) {
-        char bytes[1] = { 0x00 };
-        [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_soilMoistureAlarmLowValueCharacteristic type:CBCharacteristicWriteWithResponse];
-    } else if (_calibrationState == kGrowCalibrationStateHighValueStarted) {
+    if ((previousState == kGrowCalibrationStateDefault) && (_calibrationState == kGrowCalibrationStateHighValueStarted)) {
         char bytes[1] = { 0xFF };
-        [self.peripheral writeValue:[NSData dataWithBytes:bytes length:sizeof(bytes)] forCharacteristic:_soilMoistureAlarmHighValueCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_soilMoistureAlarmHighValueCharacteristic type:CBCharacteristicWriteWithResponse];
+    } else if (_calibrationState == kGrowCalibrationStateLowValueStarted) {
+        char bytes[1] = { 0x00 };
+        [self.peripheral writeValue:[NSData dataWithBytes:bytes length:1] forCharacteristic:_soilMoistureAlarmLowValueCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
@@ -252,11 +252,9 @@
         if (_calibrationState == kGrowCalibrationStateLowValueStarted) {
             self.calibrationState = kGrowCalibrationStateLowValueFinished;
             [(GrowSensorEntity *)self.entity setLowHumidityCalibration:[NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]]];
-            //[self.peripheral writeValue:characteristic.value forCharacteristic:_soilMoistureAlarmLowValueCharacteristic type:CBCharacteristicWriteWithResponse];
         } else if (_calibrationState == kGrowCalibrationStateHighValueStarted) {
             self.calibrationState = kGrowCalibrationStateHighValueFinished;
             [(GrowSensorEntity *)self.entity setHighHumidityCalibration:[NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]]];
-            //[self.peripheral writeValue:characteristic.value forCharacteristic:_soilMoistureAlarmHighValueCharacteristic type:CBCharacteristicWriteWithResponse];
         }
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_SET]]) {

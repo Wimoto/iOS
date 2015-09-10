@@ -18,6 +18,7 @@
                 <outlet property="lightLowValueLabel" destination="peD-v1-F85" id="c8e-YB-BAH"/>
                 <outlet property="lightSparkLine" destination="6hY-ns-rBL" id="Wzk-S1-J7K"/>
                 <outlet property="lightSwitch" destination="slv-V2-cZf" id="niz-2D-ipd"/>
+                <outlet property="reCalibrateButton" destination="Ulu-kp-5gd" id="ILz-GU-oAD"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
                 <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
                 <outlet property="soilMoistureAlarmContainer" destination="nLP-Kf-hzH" id="d0l-QG-FVK"/>
@@ -316,6 +317,16 @@
                     <rect key="frame" x="8" y="523" width="84" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ulu-kp-5gd">
+                    <rect key="frame" x="13" y="285" width="110" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Re-Calibrate">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="reCalibrateAction:" destination="-1" eventType="touchUpInside" id="lRx-ol-nLg"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.47450980392156861" green="0.74117647058823533" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="249" y="164"/>

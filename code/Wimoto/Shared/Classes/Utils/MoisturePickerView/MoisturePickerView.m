@@ -35,7 +35,7 @@
 }
 
 - (void)showWithValue:(float)value lowCalibrationValue:(NSNumber *)lowCalibrationValue highCalibrationValue:(NSNumber *)highCalibrationValue save:(MoistureSaveBlock)saveBlock cancel:(MoistureCancelBlock)cancelBlock {
-    _pickerValues = [NSArray arrayWithObjects:@"Very dry", @"Dry", @"Normal", @"Wet", @"Very wet", nil];
+    _pickerValues = [NSArray arrayWithObjects:@"Very wet", @"Wet", @"Normal", @"Dry", @"Very dry", nil];
     
     self.lowCalibrationValue = lowCalibrationValue;
     self.highCalibrationValue = highCalibrationValue;

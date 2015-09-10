@@ -53,11 +53,15 @@
 @property (nonatomic, weak) IBOutlet UIView *soilMoistureAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
 
+@property (nonatomic, weak) IBOutlet UIButton *reCalibrateButton;
+
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
 - (IBAction)soilTempAlarmAction:(id)sender;
 - (IBAction)soilMoistureAlarmAction:(id)sender;
 - (IBAction)lightAlarmAction:(id)sender;
+
+- (IBAction)reCalibrateAction:(id)sender;
 
 @end
 
@@ -103,6 +107,10 @@
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
+    
+    _reCalibrateButton.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _reCalibrateButton.layer.borderWidth = 1.f;
+    _reCalibrateButton.layer.cornerRadius = 5.f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -196,6 +204,25 @@
     }
 }
 
+- (IBAction)reCalibrateAction:(id)sender {
+    GrowSensor *sensor = (GrowSensor*)self.sensor;
+    
+    GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
+    sensorEntity.lowHumidityCalibration = nil;
+    sensorEntity.highHumidityCalibration = nil;
+    [sensorEntity save:nil];
+    
+    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    [sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
+                }
+            }];
+        }
+    }];
+}
+
 #pragma mark - Value Observer
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -227,12 +254,14 @@
 //                sensorEntity.lowHumidityCalibration = [NSNumber numberWithFloat:100.f];
 //                sensorEntity.highHumidityCalibration = [NSNumber numberWithFloat:200.f];
                 [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
-                _soilMoisturePercentageLabel.hidden = ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration));
                 
-                _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
-                self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
-                
-                if ((![sensorEntity lowHumidityCalibration]) && (![sensorEntity highHumidityCalibration])) {
+                if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
+                    _soilMoisturePercentageLabel.hidden = YES;
+                    _reCalibrateButton.hidden = NO;
+                } else {
+                    _soilMoisturePercentageLabel.hidden = NO;
+                    _reCalibrateButton.hidden = YES;
+                    
                     [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1) {
                             [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -242,7 +271,10 @@
                             }];
                         }
                     }];
-                }                
+                }
+
+                _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
+                self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
             self.lastUpdateLabel.text = @"Just now";
@@ -291,17 +323,29 @@
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE_ALARM_HIGH]) {
             [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE]) {
-            if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateLowValueFinished) {
+            if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateHighValueFinished) {
                 [UIAlertView showWithTitle:nil message:@"Pour water over the soil. Wait for the water to flow through the soil, then press Finish" cancelButtonTitle:@"Finish" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                     if (buttonIndex == 0) {
-                        [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
+                        [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
                     }
                 }];
-            } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateHighValueFinished) {
+            } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateLowValueFinished) {
                 GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-                _soilMoisturePercentageLabel.hidden = YES;
                 [sensorEntity save:nil];
+                
+                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
+                if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
+                    _soilMoisturePercentageLabel.hidden = YES;
+                    _reCalibrateButton.hidden = NO;
+                } else {
+                    _soilMoisturePercentageLabel.hidden = NO;
+                    _reCalibrateButton.hidden = YES;
+                }
+                
+                [sensor setCalibrationState:kGrowCalibrationStateDefault];
             }
+            
+            _reCalibrateButton.hidden = ([(GrowSensor *)sensor calibrationState] != kGrowCalibrationStateDefault);
         }
     });
 }
