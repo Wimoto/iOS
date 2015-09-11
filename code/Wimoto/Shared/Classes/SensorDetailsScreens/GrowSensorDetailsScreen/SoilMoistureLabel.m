@@ -24,7 +24,7 @@
             self.text = @"Normal";
         } else if ((lowCalibration + calibrationStep * 4) > moisture) {
             self.text = @"Dry";
-        } else if (highCalibration > moisture) {
+        } else if (highCalibration < moisture) {
             self.text = @"Very dry";
         }
     } else {

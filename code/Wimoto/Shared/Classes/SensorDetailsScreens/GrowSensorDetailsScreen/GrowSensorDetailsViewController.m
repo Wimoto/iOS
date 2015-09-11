@@ -212,15 +212,15 @@
     sensorEntity.highHumidityCalibration = nil;
     [sensorEntity save:nil];
     
-    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                if (buttonIndex == 0) {
-                    [sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
-                }
-            }];
-        }
-    }];
+//    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//        if (buttonIndex == 1) {
+//            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//                if (buttonIndex == 0) {
+//                    [sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
+//                }
+//            }];
+//        }
+//    }];
 }
 
 #pragma mark - Value Observer
@@ -264,10 +264,8 @@
                     
                     [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1) {
-                            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil then press 'Next'" cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                if (buttonIndex == 0) {
-                                    [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
-                                }
+                            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
                             }];
                         }
                     }];
@@ -324,10 +322,8 @@
             [_soilTempHighValueLabel setTemperature:sensor.soilTemperatureAlarmHigh];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_CALIBRATION_STATE]) {
             if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateHighValueFinished) {
-                [UIAlertView showWithTitle:nil message:@"Pour water over the soil. Wait for the water to flow through the soil, then press Finish" cancelButtonTitle:@"Finish" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                    if (buttonIndex == 0) {
-                        [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
-                    }
+                [UIAlertView showWithTitle:nil message:@"Pour water over the soil, then wait a few seconds." cancelButtonTitle:@"Finish" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
                 }];
             } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateLowValueFinished) {
                 GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
