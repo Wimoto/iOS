@@ -74,19 +74,19 @@
             NSInteger selectedValue = [_pickerView selectedRowInComponent:0];
             switch (selectedValue) {
                 case 0:
-                    _saveBlock(lowCalibration + calibrationStep * 1);
+                    _saveBlock(lowCalibration + calibrationStep * 0);
                     break;
                 case 1:
-                    _saveBlock(lowCalibration + calibrationStep * 2);
+                    _saveBlock(lowCalibration + calibrationStep * 1);
                     break;
                 case 2:
-                    _saveBlock(lowCalibration + calibrationStep * 3);
+                    _saveBlock(lowCalibration + calibrationStep * 2);
                     break;
                 case 3:
-                    _saveBlock(lowCalibration + calibrationStep * 4);
+                    _saveBlock(lowCalibration + calibrationStep * 3);
                     break;
                 case 4:
-                    _saveBlock(highCalibration);
+                    _saveBlock(lowCalibration + calibrationStep * 4);
                     break;
             }
         }
