@@ -212,15 +212,11 @@
     sensorEntity.highHumidityCalibration = nil;
     [sensorEntity save:nil];
     
-//    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//        if (buttonIndex == 1) {
-            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                if (buttonIndex == 0) {
-                    [sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
-                }
-            }];
-//        }
-//    }];
+    [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex == 0) {
+            [sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
+        }
+    }];
 }
 
 #pragma mark - Value Observer
@@ -262,13 +258,9 @@
                     _soilMoisturePercentageLabel.hidden = NO;
                     _reCalibrateButton.hidden = YES;
                     
-//                    [UIAlertView showWithTitle:nil message:@"Calibrate Device" cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//                        if (buttonIndex == 1) {
-                            [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
-                            }];
-//                        }
-//                    }];
+                    [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateHighValueStarted];
+                    }];
                 }
 
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [sensor light]];
