@@ -162,6 +162,8 @@ static NSArray *valueFactors = nil;
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_CURRENT]]) {
+        NSLog(@"hex Sentry %@", [[characteristic value] hexadecimalString]);
+        
         int16_t xValue	= 0;
         [[characteristic value] getBytes:&xValue range:NSMakeRange(0, 1)];
         
@@ -182,6 +184,8 @@ static NSArray *valueFactors = nil;
         NSPredicate *zPredicate = [NSPredicate predicateWithFormat:@"factorId == %d", zValue];
         ValueFactor *zFactor = [[SentrySensor valueFactors] filteredArrayUsingPredicate:zPredicate].lastObject;
         self.z = [zFactor.angleZ floatValue];
+        
+        NSLog(@"val Sentry %d   %d   %d", xValue, yValue, zValue);
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_PASSIVE_INFRARED_CURRENT]]) {
         self.pasInfrared = [self sensorValueForCharacteristic:characteristic];;
         [self.entity saveNewValueWithType:kValueTypePassiveInfrared value:_pasInfrared];
@@ -197,7 +201,7 @@ static NSArray *valueFactors = nil;
         }
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_SENTRY_CHAR_UUID_ACCELEROMETER_ALARM]]) {
         NSTimeInterval currentTimeshot = [NSDate timeIntervalSinceReferenceDate];
-        if ((currentTimeshot > [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate])) {
+        if ((currentTimeshot > [_accelerometerAlarmEnabledTime timeIntervalSinceReferenceDate]) && (currentTimeshot < [_accelerometerAlarmDisabledTime timeIntervalSinceReferenceDate])) {
             if ((_accelerometerAlarmState == kAlarmStateEnabled)&&([[NSDate date] timeIntervalSinceReferenceDate]>(_accelerometerAlarmTimeshot+30))) {
                 _accelerometerAlarmTimeshot = [[NSDate date] timeIntervalSinceReferenceDate];
                 

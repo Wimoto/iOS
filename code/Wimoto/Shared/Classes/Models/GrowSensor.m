@@ -69,12 +69,12 @@
 
 - (void)setSoilMoistureAlarmLow:(float)soilMoistureAlarmLow {
     _soilMoistureAlarmLow = soilMoistureAlarmLow;
-    [super writeAlarmValue:_soilMoistureAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
+    [self writeAlarmValue:_soilMoistureAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_LOW_VALUE];
 }
 
 - (void)setSoilMoistureAlarmHigh:(float)soilMoistureAlarmHigh {
     _soilMoistureAlarmHigh = soilMoistureAlarmHigh;
-    [super writeAlarmValue:_soilMoistureAlarmHigh forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
+    [self writeAlarmValue:_soilMoistureAlarmHigh forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_ALARM_HIGH_VALUE];
 }
 
 - (void)setSoilTemperatureAlarmLow:(float)soilTemperatureAlarmLow {
@@ -141,9 +141,9 @@
             return;
         }
         
-        int8_t value = (int8_t)alarmValue;
-        NSData *data = [NSData dataWithBytes:(void*)&value length:sizeof(value)];
-        NSLog(@"ALARM WRITE HIGH VALUE - %d  %@   %@   %lu", alarmValue, UUIDString, data, sizeof(value));
+        unsigned char value = (unsigned char)alarmValue;
+        NSData *data = [NSData dataWithBytes:&value length:sizeof(value)];
+        NSLog(@"GRowe ALARM WRITE HIGH VALUE - %d  %@   %@   %lu", alarmValue, UUIDString, data, sizeof(value));
         [self.peripheral writeValue:data forCharacteristic:alarmCharacteristic type:CBCharacteristicWriteWithResponse];
     } else {
         [super writeAlarmValue:alarmValue forCharacteristicWithUUIDString:UUIDString];
