@@ -204,9 +204,7 @@
             //            _accelerometerSparkLine.dataValues = result;
             //        }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_PASSIVE_INFRARED]) {
-            if (self.sensor.peripheral) {
-                _pasInfraredLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
-                
+            if (self.sensor.peripheral) {                
                 int pir = 0;
                 
                 NSObject *pirObject = [change objectForKey:NSKeyValueChangeNewKey];

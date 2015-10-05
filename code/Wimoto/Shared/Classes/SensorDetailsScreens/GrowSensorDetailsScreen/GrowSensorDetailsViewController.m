@@ -165,9 +165,8 @@
     GrowSensor *sensor = (GrowSensor *)self.sensor;
     sensor.soilMoistureAlarmState = (_soilMoistureSwitch.on)?kAlarmStateEnabled:kAlarmStateDisabled;
     if (_soilMoistureSwitch.on) {
-        GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-        if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
-            [MoisturePickerView showWithValue:120.f lowCalibrationValue:sensorEntity.lowHumidityCalibration highCalibrationValue:sensorEntity.highHumidityCalibration save:^(float value) {
+        if ((sensor.lowHumidityCalibration) && (sensor.highHumidityCalibration)) {
+            [MoisturePickerView showWithValue:120.f lowCalibrationValue:sensor.lowHumidityCalibration highCalibrationValue:sensor.highHumidityCalibration save:^(float value) {
                 sensor.soilMoistureAlarmHigh = value;
             } cancel:^{
                 //
@@ -207,10 +206,9 @@
 - (IBAction)reCalibrateAction:(id)sender {
     GrowSensor *sensor = (GrowSensor*)self.sensor;
     
-    GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-    sensorEntity.lowHumidityCalibration = nil;
-    sensorEntity.highHumidityCalibration = nil;
-    [sensorEntity save:nil];
+    sensor.lowHumidityCalibration = nil;
+    sensor.highHumidityCalibration = nil;
+    [sensor save];
     
     [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 0) {
@@ -246,12 +244,9 @@
                 
                 [_soilTempView setTemperature:[sensor soilTemperature]];
                 
-                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-//                sensorEntity.lowHumidityCalibration = [NSNumber numberWithFloat:100.f];
-//                sensorEntity.highHumidityCalibration = [NSNumber numberWithFloat:200.f];
-                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
+                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensor.lowHumidityCalibration andHighCalibrationValue:sensor.highHumidityCalibration];
                 
-                if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
+                if ((sensor.lowHumidityCalibration) && (sensor.highHumidityCalibration)) {
                     _soilMoisturePercentageLabel.hidden = YES;
                     _reCalibrateButton.hidden = NO;
                 } else {
@@ -281,8 +276,7 @@
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
             if (self.sensor.peripheral) {
-                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-                [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
+                [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:[(GrowSensor *)self.sensor lowHumidityCalibration] andHighCalibrationValue:[(GrowSensor *)self.sensor highHumidityCalibration]];
             }
             [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
                 _soilMoistureSparkLine.dataValues = result;
@@ -318,11 +312,10 @@
                     [(GrowSensor *)sensor setCalibrationState:kGrowCalibrationStateLowValueStarted];
                 }];
             } else if ([(GrowSensor *)sensor calibrationState] == kGrowCalibrationStateLowValueFinished) {
-                GrowSensorEntity *sensorEntity = (GrowSensorEntity *)[sensor entity];
-                [sensorEntity save:nil];
+                [(GrowSensor *)self.sensor save];
                 
-                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensorEntity.lowHumidityCalibration andHighCalibrationValue:sensorEntity.highHumidityCalibration];
-                if ((sensorEntity.lowHumidityCalibration) && (sensorEntity.highHumidityCalibration)) {
+                [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:[(GrowSensor *)self.sensor lowHumidityCalibration] andHighCalibrationValue:[(GrowSensor *)self.sensor highHumidityCalibration]];
+                if (([(GrowSensor *)self.sensor lowHumidityCalibration]) && ([(GrowSensor *)self.sensor highHumidityCalibration])) {
                     _soilMoisturePercentageLabel.hidden = YES;
                     _reCalibrateButton.hidden = NO;
                 } else {

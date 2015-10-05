@@ -39,6 +39,8 @@
     self = [super initWithEntity:entity];
     if (self) {
         _calibrationState = kGrowCalibrationStateDefault;
+        _lowHumidityCalibration     = [(GrowSensorEntity *)entity lowHumidityCalibration];
+        _highHumidityCalibration    = [(GrowSensorEntity *)entity highHumidityCalibration];
     }
     
     return self;
@@ -148,6 +150,15 @@
     } else {
         [super writeAlarmValue:alarmValue forCharacteristicWithUUIDString:UUIDString];
     }
+}
+
+- (void)save {
+    GrowSensorEntity *sensorEntity = (GrowSensorEntity *)self.entity;
+    sensorEntity.lowHumidityCalibration     = _lowHumidityCalibration;
+    sensorEntity.highHumidityCalibration    = _highHumidityCalibration;
+    dispatch_async([QueueManager databaseQueue], ^{
+        [sensorEntity save:nil];
+    });
 }
 
 #pragma mark - CBPeripheralDelegate
@@ -278,10 +289,10 @@
         [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:_soilMoisture];
         
         if (_calibrationState == kGrowCalibrationStateLowValueInProgress) {
-            [(GrowSensorEntity *)self.entity setLowHumidityCalibration:[NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]]];
+            self.lowHumidityCalibration = [NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]];
             self.calibrationState = kGrowCalibrationStateLowValueFinished;
         } else if (_calibrationState == kGrowCalibrationStateHighValueInProgress) {
-            [(GrowSensorEntity *)self.entity setHighHumidityCalibration:[NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]]];
+            self.highHumidityCalibration = [NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]];
             self.calibrationState = kGrowCalibrationStateHighValueFinished;
         }
     }

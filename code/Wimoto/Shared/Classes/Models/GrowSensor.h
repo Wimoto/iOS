@@ -59,4 +59,9 @@ typedef enum {
 
 @property (nonatomic) GrowCalibrationState calibrationState;
 
+@property (nonatomic, strong) NSNumber   *lowHumidityCalibration;
+@property (nonatomic, strong) NSNumber   *highHumidityCalibration;
+
+- (void)save;
+
 @end
