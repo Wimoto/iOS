@@ -136,7 +136,7 @@
             if ([self.lastUpdateTimer isValid]) {
                 [self.lastUpdateTimer invalidate];
             }
-            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
             
             if (self.sensor.peripheral) {
                 [_irTempView setTemperature:[sensor irTemp]];

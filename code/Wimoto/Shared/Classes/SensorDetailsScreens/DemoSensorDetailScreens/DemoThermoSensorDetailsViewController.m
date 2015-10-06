@@ -61,7 +61,7 @@
         if ([self.lastUpdateTimer isValid]) {
             [self.lastUpdateTimer invalidate];
         }
-        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+//        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
         [self.irTempView setTemperature:[sensor irTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             self.irTempSparkLine.dataValues = result;
