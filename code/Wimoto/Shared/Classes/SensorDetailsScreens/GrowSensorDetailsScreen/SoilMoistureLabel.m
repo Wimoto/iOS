@@ -26,6 +26,8 @@
             self.text = @"Dry";
         } else if (highCalibration < moisture) {
             self.text = @"Very dry";
+        } else {
+            self.text = @"Very dry";
         }
     } else {
         self.text = [NSString stringWithFormat:@"%.1f", moisture];
