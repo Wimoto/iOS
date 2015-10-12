@@ -262,11 +262,7 @@
                 self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_TEMPERATURE]) {
-            self.lastUpdateLabel.text = @"Just now";
-            if ([self.lastUpdateTimer isValid]) {
-                [self.lastUpdateTimer invalidate];
-            }
-//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            [self.lastUpdateLabel refresh];
             
             if (self.sensor.peripheral) {
                 [_soilTempView setTemperature:[[change objectForKey:NSKeyValueChangeNewKey] floatValue]];

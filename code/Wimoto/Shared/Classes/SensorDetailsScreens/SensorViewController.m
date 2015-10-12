@@ -58,6 +58,7 @@
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_BATTERY_LEVEL options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [_sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_SENSOR_DL_STATE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     
+    _lastUpdateLabel.sensor = _sensor;
     
     NSString *sensorName = [_sensor name];
     if ([sensorName isNotEmpty]) {
@@ -83,10 +84,9 @@
         // No need to handle just prevent app crash
     }
     
-    if ([self.lastUpdateTimer isValid]) {
-        [self.lastUpdateTimer invalidate];
-    }
-    self.lastUpdateTimer = nil;
+    NSLog(@"SensorViewController dealloc");
+    
+    [_lastUpdateLabel reset];
 }
 
 - (IBAction)firmwareUpdateAction:(id)sender {

@@ -92,15 +92,12 @@
     DemoClimateSensor *sensor = (DemoClimateSensor*)self.sensor;
     __weak typeof(self) weakSelf = self;
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-//        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+        [self.lastUpdateLabel refresh];
+        
         [self.tempView setTemperature:[sensor temperature]];
         [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
             weakSelf.temperatureSparkLine.dataValues = result;
-            weakSelf.temperatureChartLine.dots = @[];
+            //weakSelf.temperatureChartLine.dots = @[];
             CGFloat x = 1;
             for (NSNumber *value in result) {
                 [weakSelf.temperatureChartLine addPoint:CGPointMake(x, value.floatValue)];
@@ -112,7 +109,7 @@
         self.humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
             weakSelf.humiditySparkLine.dataValues = result;
-            weakSelf.humidityChartLine.dots = @[];
+            //weakSelf.humidityChartLine.dots = @[];
             CGFloat x = 1;
             for (NSNumber *value in result) {
                 [weakSelf.humidityChartLine addPoint:CGPointMake(x, value.floatValue)];
@@ -124,7 +121,7 @@
         self.lightLabel.text = [NSString stringWithFormat:@"%.f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
         [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
             weakSelf.lightSparkLine.dataValues = result;
-            weakSelf.lightChartLine.dots = @[];
+            //weakSelf.lightChartLine.dots = @[];
             CGFloat x = 1;
             for (NSNumber *value in result) {
                 [weakSelf.lightChartLine addPoint:CGPointMake(x, value.floatValue)];

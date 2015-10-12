@@ -127,11 +127,8 @@
                 self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_LEVEL]) {
-            self.lastUpdateLabel.text = @"Just now";
-            if ([self.lastUpdateTimer isValid]) {
-                [self.lastUpdateTimer invalidate];
-            }
-//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            [self.lastUpdateLabel refresh];
+            
             NSNumber *level = [change objectForKey:NSKeyValueChangeNewKey];
             
             if (self.sensor.peripheral) {

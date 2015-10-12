@@ -29,6 +29,7 @@
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
+		14BE9F2B1BCBFFBA0046039B /* LastUpdateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE9F2A1BCBFFBA0046039B /* LastUpdateLabel.m */; settings = {ASSET_TAGS = (); }; };
 		14C72C181B46D4A0004D8623 /* TimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C72C171B46D4A0004D8623 /* TimePickerView.m */; };
 		14C72C1A1B46D4F5004D8623 /* TimePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C72C191B46D4F5004D8623 /* TimePickerView.xib */; };
 		14CD06B81B05EF04009F8B61 /* WPTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CD06B71B05EF04009F8B61 /* WPTemperatureView.m */; };
@@ -257,6 +258,8 @@
 		04EFF2FD195972540067589E /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
 		04EFF300195A08CD0067589E /* SensorsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsManager.h; sourceTree = "<group>"; };
 		04EFF301195A08CD0067589E /* SensorsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorsManager.m; sourceTree = "<group>"; };
+		14BE9F291BCBFFBA0046039B /* LastUpdateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastUpdateLabel.h; sourceTree = "<group>"; };
+		14BE9F2A1BCBFFBA0046039B /* LastUpdateLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastUpdateLabel.m; sourceTree = "<group>"; };
 		14C72C161B46D4A0004D8623 /* TimePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePickerView.h; sourceTree = "<group>"; };
 		14C72C171B46D4A0004D8623 /* TimePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePickerView.m; sourceTree = "<group>"; };
 		14C72C191B46D4F5004D8623 /* TimePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimePickerView.xib; sourceTree = "<group>"; };
@@ -598,6 +601,15 @@
 			path = Shared/Classes/Utils/SensorsManager;
 			sourceTree = SOURCE_ROOT;
 		};
+		14BE9F281BCBFF810046039B /* LastUpdateLabel */ = {
+			isa = PBXGroup;
+			children = (
+				14BE9F291BCBFFBA0046039B /* LastUpdateLabel.h */,
+				14BE9F2A1BCBFFBA0046039B /* LastUpdateLabel.m */,
+			);
+			path = LastUpdateLabel;
+			sourceTree = "<group>";
+		};
 		14C72C151B46D489004D8623 /* TimePickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +815,7 @@
 				30E700C71B99B11F00FDB430 /* APChartView */,
 				14CD06B51B05EEE7009F8B61 /* TemperatureView */,
 				04079BA71B012C7D0013234E /* TemperatureLabel */,
+				14BE9F281BCBFF810046039B /* LastUpdateLabel */,
 				F766A90A1A7B154800E0FDB7 /* PickerView */,
 				14F737511B4D4273003350DD /* TimeLabel */,
 				85C249EF1B9E329500F0F0DD /* MoisturePickerView */,
@@ -1368,7 +1381,13 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastUpgradeCheck = 0610;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = PZQTBD3MKF;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Wimoto" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1546,6 +1565,7 @@
 				F72564BB1A41F12900BEF94B /* mztools.c in Sources */,
 				901399CC185B16CB0003D964 /* CBPeripheral+Util.m in Sources */,
 				30B9E11619473866001E10A5 /* NSObject+SBJSON.m in Sources */,
+				14BE9F2B1BCBFFBA0046039B /* LastUpdateLabel.m in Sources */,
 				30B9E0FE19473352001E10A5 /* Firmware.m in Sources */,
 				F72564961A41E82600BEF94B /* DFUOperations.m in Sources */,
 				F70D317D1A02DF8C00ABD9AC /* DemoClimateSensorDetailsViewController.m in Sources */,
@@ -1623,6 +1643,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
@@ -1665,6 +1686,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Shared/Frameworks\"",
@@ -1697,6 +1719,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1714,6 +1737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

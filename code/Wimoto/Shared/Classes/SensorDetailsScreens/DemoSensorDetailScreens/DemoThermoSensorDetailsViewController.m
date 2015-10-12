@@ -57,11 +57,8 @@
         return;
     }
     if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP]) {
-        self.lastUpdateLabel.text = @"Just now";
-        if ([self.lastUpdateTimer isValid]) {
-            [self.lastUpdateTimer invalidate];
-        }
-//        self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+        [self.lastUpdateLabel refresh];
+        
         [self.irTempView setTemperature:[sensor irTemp]];
         [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
             self.irTempSparkLine.dataValues = result;

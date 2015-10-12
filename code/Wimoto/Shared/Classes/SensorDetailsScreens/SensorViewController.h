@@ -12,6 +12,7 @@
 #import "Sensor.h"
 #import "NMRangeSlider.h"
 #import "AlarmSlider.h"
+#import "LastUpdateLabel.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
@@ -20,8 +21,7 @@
 @property (nonatomic, strong) Sensor *sensor;
 @property (nonatomic, strong) UISwitch *currentSwitch;
 @property (nonatomic, weak) IBOutlet UITextField *sensorNameField;
-@property (nonatomic, weak) IBOutlet UILabel *lastUpdateLabel;
-@property (nonatomic, strong) NSTimer *lastUpdateTimer;
+@property (nonatomic, weak) IBOutlet LastUpdateLabel *lastUpdateLabel;
 
 - (id)initWithSensor:(Sensor *)sensor;
 - (void)refreshLastUpdateLabel;

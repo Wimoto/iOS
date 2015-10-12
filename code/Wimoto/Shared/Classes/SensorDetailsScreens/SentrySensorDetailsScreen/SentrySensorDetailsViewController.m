@@ -171,31 +171,19 @@
                 self.view.backgroundColor = [UIColor colorWithRed:(52.f/255.f) green:(80.f/255.f) blue:(159.f/255.f) alpha:1.f];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_X]) {
-            self.lastUpdateLabel.text = @"Just now";
-            if ([self.lastUpdateTimer isValid]) {
-                [self.lastUpdateTimer invalidate];
-            }
-//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+          [self.lastUpdateLabel refresh];
             
             if (self.sensor.peripheral) {
                 _xAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Y]) {
-            self.lastUpdateLabel.text = @"Just now";
-            if ([self.lastUpdateTimer isValid]) {
-                [self.lastUpdateTimer invalidate];
-            }
-//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            [self.lastUpdateLabel refresh];
             
             if (self.sensor.peripheral) {
                 _yAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_SENTRY_SENSOR_Z]) {
-            self.lastUpdateLabel.text = @"Just now";
-            if ([self.lastUpdateTimer isValid]) {
-                [self.lastUpdateTimer invalidate];
-            }
-//            self.lastUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refreshLastUpdateLabel) userInfo:nil repeats:YES];
+            [self.lastUpdateLabel refresh];
             
             if (self.sensor.peripheral) {
                 _zAccelerometerLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
