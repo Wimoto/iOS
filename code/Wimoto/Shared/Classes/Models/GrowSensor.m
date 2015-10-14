@@ -81,12 +81,12 @@
 
 - (void)setSoilTemperatureAlarmLow:(float)soilTemperatureAlarmLow {
     _soilTemperatureAlarmLow = soilTemperatureAlarmLow;
-    [super writeAlarmValue:_soilTemperatureAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
+    [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_soilTemperatureAlarmLow] forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE];
 }
 
 - (void)setSoilTemperatureAlarmHigh:(float)soilTemperatureAlarmHigh {
     _soilTemperatureAlarmHigh = soilTemperatureAlarmHigh;
-    [super writeAlarmValue:_soilTemperatureAlarmHigh forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
+    [super writeAlarmValue:[self getSensorTemperatureFromTemperature:_soilTemperatureAlarmHigh] forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE];
 }
 
 - (void)setLightAlarmLow:(float)lightAlarmLow {
@@ -97,6 +97,29 @@
 - (void)setLightAlarmHigh:(float)lightAlarmHigh {
     _lightAlarmHigh = lightAlarmHigh;
     [super writeAlarmValue:_lightAlarmLow forCharacteristicWithUUIDString:BLE_GROW_CHAR_UUID_LIGHT_ALARM_HIGH_VALUE];
+}
+
+- (float)getTemperatureFromSensorTemperature:(int)sensorTemperature {
+    float converted_temp = 0;
+    if(sensorTemperature < 2048) {
+        converted_temp = sensorTemperature * 0.0625;
+    } else {
+        converted_temp = ((sensorTemperature + 1) & 0x00000FFF) * -0.0625;
+    }
+    
+    return [self roundToOne:converted_temp];
+}
+
+- (int)getSensorTemperatureFromTemperature:(float)temperature {
+    int converted_temp = 0;
+    if (temperature >= 0) {
+        converted_temp = temperature / 0.0625;
+    } else {
+        converted_temp = temperature / 0.0625;
+        converted_temp = ( ~-converted_temp|128 ) + 1;
+    }
+    
+    return converted_temp;
 }
 
 - (void)enableAlarm:(BOOL)enable forCharacteristicWithUUIDString:(NSString *)UUIDString {
@@ -279,7 +302,7 @@
     }
     [super peripheral:aPeripheral didUpdateValueForCharacteristic:characteristic error:error];
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_CURRENT]]) {
-        self.soilTemperature = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
+        self.soilTemperature = [self getTemperatureFromSensorTemperature:[self sensorValueForCharacteristic:characteristic]];
         [self.entity saveNewValueWithType:kValueTypeSoilTemperature value:_soilTemperature];
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_LIGHT_CURRENT]]) {
         self.light = [self sensorValueForCharacteristic:characteristic];
@@ -348,10 +371,14 @@
         self.soilMoistureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE]]) {
-        self.soilTemperatureAlarmLow = [self alarmValueForCharacteristic:characteristic];
+        int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+        NSLog(@"BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_LOW_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
+        self.soilTemperatureAlarmLow = [self getTemperatureFromSensorTemperature:rValue];
     }
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE]]) {
-        self.soilTemperatureAlarmHigh = [self alarmValueForCharacteristic:characteristic];
+        int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
+        NSLog(@"BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
+        self.soilTemperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
     }
 }
 
