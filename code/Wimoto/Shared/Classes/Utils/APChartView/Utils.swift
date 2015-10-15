@@ -22,22 +22,22 @@ extension UIColor {
     }
     
     class func fromHex(hex: Int) -> UIColor {
-        var red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
-        var green = CGFloat((hex & 0xFF00) >> 8) / 255.0
-        var blue = CGFloat((hex & 0xFF)) / 255.0
+        let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
+        let blue = CGFloat((hex & 0xFF)) / 255.0
         return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 }
 
 extension CGPoint {
     func distanceFrom(toPoint:CGPoint) -> CGFloat {
-        var xDist2:CGFloat  = abs(self.x - toPoint.x)*abs(self.y - toPoint.y)
-        var yDist2:CGFloat = abs(self.y - toPoint.y)*abs(self.y - toPoint.y);
+        let xDist2:CGFloat  = abs(self.x - toPoint.x)*abs(self.y - toPoint.y)
+        let yDist2:CGFloat = abs(self.y - toPoint.y)*abs(self.y - toPoint.y);
         return sqrt( xDist2 + yDist2 );
     }
     
     func distanceXFrom( toPoint:CGPoint) -> CGFloat {
-        var xDist2:CGFloat  = abs(self.x - toPoint.x)
+        let xDist2:CGFloat  = abs(self.x - toPoint.x)
         return xDist2;
     }
 

@@ -37,7 +37,7 @@ import QuartzCore
     }
     func addPoint(point:CGPoint) {
 
-        var dot = APChartPoint(point)
+        let dot = APChartPoint(point)
         dot.chart = chart
         dot.color = lineColor
         self.dots.append(dot)
@@ -45,7 +45,7 @@ import QuartzCore
     }
     func addPoint(point:CGPoint, extra:[String:AnyObject!]) {
 
-        var dot = APChartPoint(point)
+        let dot = APChartPoint(point)
         dot.chart = chart
         dot.color = lineColor
         dot.extra = extra
@@ -59,7 +59,7 @@ import QuartzCore
 
     func updatePoints(factorPoint:CGPoint, offset:CGPoint){
        
-        for (index, dot) in enumerate(dots){
+        for (index, dot) in dots.enumerate(){
             dots[index] = dot.updatePoint(factorPoint, offset: offset)
         }
     }
@@ -68,11 +68,11 @@ import QuartzCore
         if dots.count == 0 {
             return nil
         }
-        var bpath = UIBezierPath()
+        let bpath = UIBezierPath()
 
         bpath.moveToPoint(CGPoint(x: dots[0].point.x, y: dots[0].point.y))
         
-        for (index, dot) in enumerate(dots) {
+        for (index, dot) in dots.enumerate() {
             
             bpath.addLineToPoint(dot.point)
             if showMeanValue {
@@ -90,10 +90,10 @@ import QuartzCore
         }
         
         UIColor.clearColor().setStroke()
-        bpath.lineCapStyle = kCGLineCapRound
+        bpath.lineCapStyle = CGLineCap.Round
         bpath.stroke()
 //
-        var layer = CAShapeLayer()
+        let layer = CAShapeLayer()
         layer.frame = self.chart.bounds
         layer.path = bpath.CGPath
         layer.strokeColor = lineColor.CGColor //colors[lineIndex].CGColor
@@ -125,16 +125,16 @@ import QuartzCore
         if dots.count == 0 {
             return
         }
-        var bpath = UIBezierPath()
+        let bpath = UIBezierPath()
         bpath.moveToPoint(CGPoint(x: dots[0].point.x, y: chart.pointZero.y))
         for dot in dots {
             bpath.addLineToPoint(dot.point)
         }
         bpath.addLineToPoint(CGPoint(x: dots[dots.count-1].point.x, y: chart.pointZero.y))
-        var bgColor = lineColor.lighterColorForColor()
+        let bgColor = lineColor.lighterColorForColor()
         
         bgColor.setFill()
-        bpath.lineCapStyle = kCGLineCapRound
+        bpath.lineCapStyle = CGLineCap.Round
         bpath.fill()
         bpath.stroke()
         
@@ -145,9 +145,9 @@ import QuartzCore
             return
         }
         
-        var meanPath = UIBezierPath()
+        let meanPath = UIBezierPath()
         meanPath.moveToPoint(CGPoint(x: dots[0].point.x, y: meanCoordsProgressive[0]))
-        for (index,curr) in enumerate(dots) {
+        for (index,curr) in dots.enumerate() {
             meanPath.addLineToPoint(CGPoint(x: curr.point.x, y: meanCoordsProgressive[index]))
             
         }
@@ -157,7 +157,7 @@ import QuartzCore
         meanPath.stroke()
         
         //
-        var layer = CAShapeLayer()
+        let layer = CAShapeLayer()
         layer.frame = chart.bounds
         layer.path = meanPath.CGPath
         layer.strokeColor = lineColor.CGColor //colors[lineIndex].CGColor
@@ -171,7 +171,7 @@ import QuartzCore
         //animation.toValue = 1
         //layer.addAnimation(animation, forKey: "strokeEnd")
 
-        var lblMean = UILabel(frame: CGRect(origin: CGPoint(x: chart.drawingArea.origin.x, y: meanCoord), size: chart.labelAxesSize))
+        let lblMean = UILabel(frame: CGRect(origin: CGPoint(x: chart.drawingArea.origin.x, y: meanCoord), size: chart.labelAxesSize))
         lblMean.font = UIFont.italicSystemFontOfSize(10.0)
         lblMean.textAlignment = .Left
         lblMean.text = "\(meanValue.round2dec())"
@@ -187,7 +187,7 @@ import QuartzCore
             return
         }
         
-        var meanPath = UIBezierPath()
+        let meanPath = UIBezierPath()
         meanPath.moveToPoint(CGPoint(x: chart.drawingArea.origin.x, y: meanCoord))
         meanPath.addLineToPoint(CGPoint(x: chart.drawingArea.origin.x+chart.drawingArea.width, y: meanCoord))
         
@@ -196,7 +196,7 @@ import QuartzCore
         meanPath.stroke()
         
         //
-        var layer = CAShapeLayer()
+        let layer = CAShapeLayer()
         layer.frame = chart.bounds
         layer.path = meanPath.CGPath
         layer.strokeColor = lineColor.CGColor //colors[lineIndex].CGColor
@@ -209,7 +209,7 @@ import QuartzCore
         //animation.fromValue = 0
         //animation.toValue = 1
         //layer.addAnimation(animation, forKey: "strokeEnd")
-        var lblMean = UILabel(frame: CGRect(origin: CGPoint(x: chart.drawingArea.origin.x, y: meanCoord), size: chart.labelAxesSize))
+        let lblMean = UILabel(frame: CGRect(origin: CGPoint(x: chart.drawingArea.origin.x, y: meanCoord), size: chart.labelAxesSize))
         lblMean.font = UIFont.italicSystemFontOfSize(10.0)
         lblMean.textAlignment = .Left
         lblMean.text = "\(meanValue.round2dec())"

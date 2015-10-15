@@ -37,12 +37,12 @@ class APChartMarkerLine  {
     
     func updatePoints(factorPoint:CGPoint, offset:CGPoint){
         
-        if var x_marker = x {
+        if let x_marker = x {
             x?.point = x_marker.value.updatePointX(factorPoint.x, offset.x)
             return
         }
         
-        if var y_marker = y {
+        if let y_marker = y {
             y?.point = y_marker.value.updatePointY(factorPoint.y, offset.y)
             return
         }
@@ -53,11 +53,11 @@ class APChartMarkerLine  {
     func drawLine() -> CAShapeLayer? {
         //        let currentLine = linesDataStore[lineIndex]
                 
-        var bpath = UIBezierPath()
+        let bpath = UIBezierPath()
         
         var labelTitle:UILabel?
         var labelValue:UILabel?
-        if var x_marker = x
+        if let x_marker = x
         {
             labelTitle = UILabel(frame: CGRect(origin: CGPoint(x: x_marker.point-8.0, y: chart.pointZero.y-chart.drawingArea.height), size: chart.labelAxesSize))
             labelTitle?.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI)/2)
@@ -70,7 +70,7 @@ class APChartMarkerLine  {
             
         }
         
-        if var y_marker = y
+        if let y_marker = y
         {
             labelTitle = UILabel(frame: CGRect(origin: CGPoint(x: chart.pointZero.x+chart.drawingArea.width-chart.labelAxesSize.width, y: y_marker.point), size: chart.labelAxesSize))
             labelValue = UILabel(frame: CGRect(origin: CGPoint(x: chart.pointZero.x+chart.drawingArea.width-chart.labelAxesSize.width, y: y_marker.point-16), size: chart.labelAxesSize))
@@ -94,10 +94,10 @@ class APChartMarkerLine  {
         
         
         UIColor.clearColor().setStroke()
-        bpath.lineCapStyle = kCGLineCapRound
+        bpath.lineCapStyle = CGLineCap.Round
         bpath.stroke()
         //
-        var layer = CAShapeLayer()
+        let layer = CAShapeLayer()
         layer.frame = self.chart.bounds
         layer.path = bpath.CGPath
         layer.strokeColor = lineColor.CGColor //colors[lineIndex].CGColor

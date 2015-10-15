@@ -62,17 +62,17 @@ class APChartPoint {
     */
     func drawDot(bgColor:UIColor) -> CALayer{
         
-        var xValue = point.x - outerRadius/2
-        var yValue = point.y - outerRadius/2
+        let xValue = point.x - outerRadius/2
+        let yValue = point.y - outerRadius/2
         
         // draw custom layer with another layer in the center
-        var dotLayer = CALayer()
+        let dotLayer = CALayer()
         dotLayer.backgroundColor = bgColor.CGColor
         dotLayer.cornerRadius = outerRadius / 2
         dotLayer.frame = CGRect(x: xValue, y: yValue, width: outerRadius, height: outerRadius)
         
-        var dotLayerInner = CALayer()
-        var inset = dotLayer.bounds.size.width - innerRadius
+        let dotLayerInner = CALayer()
+        let inset = dotLayer.bounds.size.width - innerRadius
         dotLayerInner.backgroundColor = color.CGColor
         dotLayerInner.cornerRadius = innerRadius / 2
         dotLayerInner.frame = CGRectInset(dotLayer.bounds, inset/2, inset/2)
