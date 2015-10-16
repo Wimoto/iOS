@@ -124,14 +124,6 @@
     }
 }
 
-- (void)refreshLastUpdateLabel {
-    NSDate *lastUpdateDate = [self.sensor.entity lastActivityAt];
-    if (lastUpdateDate) {
-        RelativeDateDescriptor *descriptor = [[RelativeDateDescriptor alloc] initWithPriorDateDescriptionFormat:@"%@ ago" postDateDescriptionFormat:@"in %@"];
-        _lastUpdateLabel.text = [descriptor describeDate:lastUpdateDate relativeTo:[NSDate date]];
-    }
-}
-
 #pragma mark - SensorDelegate
 
 - (void)didUpdateAlarmStateWithUUIDString:(NSString *)UUIDString {

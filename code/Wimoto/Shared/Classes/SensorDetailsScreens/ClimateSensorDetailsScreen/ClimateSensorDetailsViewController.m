@@ -16,30 +16,29 @@
 
 @implementation ClimateSensorDetailsViewController
 
+- (id)initWithSensor:(Sensor*)sensor {
+    self = [super initWithNibName:[self nibNameForInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation] bundle:nil];
+    if (self) {
+        self.sensor = sensor;
+    }
+    return self;
+}
+
+- (id)init {
+    self = [super initWithNibName:[self nibNameForInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation] bundle:nil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
     
-    _temperatureSparkLine.labelText = @"";
-    _temperatureSparkLine.showCurrentValue = NO;
-    _temperatureSparkLine.currentValueColor = [UIColor redColor];
-    [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
-        _temperatureSparkLine.dataValues = result;
-    }];
-    
-    _humiditySparkLine.labelText = @"";
-    _humiditySparkLine.showCurrentValue = NO;
-    [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
-        _humiditySparkLine.dataValues = result;
-    }];
-    
-    _lightSparkLine.labelText = @"";
-    _lightSparkLine.showCurrentValue = NO;
-    [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
-        _lightSparkLine.dataValues = result;
-    }];
+    [self refresh];
     
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
     [self.sensor addObserver:self forKeyPath:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
@@ -62,6 +61,67 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refresh {
+    _temperatureSparkLine.labelText = @"";
+    _temperatureSparkLine.showCurrentValue = NO;
+    _temperatureSparkLine.currentValueColor = [UIColor redColor];
+    [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
+        _temperatureSparkLine.dataValues = result;
+    }];
+    
+    _humiditySparkLine.labelText = @"";
+    _humiditySparkLine.showCurrentValue = NO;
+    [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
+        _humiditySparkLine.dataValues = result;
+    }];
+    
+    _lightSparkLine.labelText = @"";
+    _lightSparkLine.showCurrentValue = NO;
+    [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
+        _lightSparkLine.dataValues = result;
+    }];
+    
+    [self.lastUpdateLabel refresh];
+}
+
+- (NSString *)nibNameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    BOOL isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    NSString *nibName = [NSString stringWithFormat:@"ClimateSensorDetailsViewController_%@", (isIpad)?@"iPad":@"iPhone"];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        nibName = [nibName stringByAppendingString:@"-landscape"];
+    }
+    return nibName;
+}
+
+- (void)refreshToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        _chartView.animationEnabled = NO;
+        self.temperatureChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Temperature" lineWidth:2.0 lineColor:[UIColor greenColor]];
+        self.humidityChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Humidity" lineWidth:2.0 lineColor:[UIColor yellowColor]];
+        self.lightChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Light" lineWidth:2.0 lineColor:[UIColor redColor]];
+        [_chartView addLine:self.temperatureChartLine];
+        [_chartView addLine:self.humidityChartLine];
+        [_chartView addLine:self.lightChartLine];
+    } else {
+        [self refresh];
+        
+        self.sensorNameField.text = self.sensor.name;
+        
+        _tempView.text = SENSOR_VALUE_PLACEHOLDER;
+        _humidityLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        self.temperatureChartLine = nil;
+        self.humidityChartLine = nil;
+        self.lightChartLine = nil;
+    }
+    self.view.backgroundColor = [UIColor colorWithRed:(102.f/255.f) green:(204.f/255.f) blue:(255.f/255.f) alpha:1.f];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[NSBundle mainBundle] loadNibNamed:[self nibNameForInterfaceOrientation:toInterfaceOrientation] owner:self options:nil];
+    [self refreshToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)dealloc {
@@ -180,13 +240,29 @@
             
             [self.sensor.entity latestValuesWithType:kValueTypeTemperature completionHandler:^(NSArray *result) {
                 _temperatureSparkLine.dataValues = result;
-            }];
+                
+                [_temperatureChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_temperatureChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
+            }];            
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
             if (self.sensor.peripheral) {
                 _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
             [self.sensor.entity latestValuesWithType:kValueTypeHumidity completionHandler:^(NSArray *result) {
                 _humiditySparkLine.dataValues = result;
+                
+                [_humidityChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_humidityChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
             if (self.sensor.peripheral) {
@@ -194,6 +270,14 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
                 _lightSparkLine.dataValues = result;
+                
+                [_lightChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_lightChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_TEMPERATURE_ALARM_STATE]) {
             _tempSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;

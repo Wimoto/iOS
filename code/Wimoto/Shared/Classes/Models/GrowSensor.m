@@ -104,7 +104,7 @@
     if(sensorTemperature < 2048) {
         converted_temp = sensorTemperature * 0.0625;
     } else {
-        converted_temp = ((sensorTemperature + 1) & 0x00000FFF) * -0.0625;
+        converted_temp = ((~sensorTemperature + 1) & 0x00000FFF) * -0.0625;
     }
     
     return [self roundToOne:converted_temp];
@@ -116,7 +116,7 @@
         converted_temp = temperature / 0.0625;
     } else {
         converted_temp = temperature / 0.0625;
-        converted_temp = ( ~-converted_temp|128 ) + 1;
+        converted_temp = ( ~-converted_temp|2048 ) + 1;
     }
     
     return converted_temp;

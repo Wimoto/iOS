@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClimateSensorDetailsViewController">
             <connections>
-                <outlet property="chartView" destination="EDJ-6f-CNo" id="5ki-1h-5MC"/>
+                <outlet property="chartView" destination="EDJ-6f-CNo" id="VTS-s1-3Dm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="AgF-8N-ec9"/>
             </connections>
         </placeholder>
@@ -19,6 +19,7 @@
                 <view contentMode="scaleToFill" id="EDJ-6f-CNo" customClass="APChartView" customModule="Wimoto" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showAxes" value="YES"/>
@@ -34,7 +35,6 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showLabelsX" value="NO"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showLabelsY" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showDots" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="showUnderLines" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showMean" value="NO"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showMeanProgressive" value="NO"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showMax" value="NO"/>
@@ -42,14 +42,10 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" red="1" green="0.85882352939999995" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <point key="canvasLocation" x="385" y="374"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
