@@ -24,6 +24,8 @@
 
 #import "SoilMoistureLabel.h"
 
+#import "Wimoto-Swift.h"
+
 @interface GrowSensorDetailsViewController ()
 
 @property (nonatomic, weak) IBOutlet WPTemperatureView *soilTempView;
@@ -53,6 +55,11 @@
 @property (nonatomic, weak) IBOutlet UIView *soilMoistureAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *lightAlarmContainer;
 
+@property (nonatomic, weak) IBOutlet APChartView *chartView;
+@property (nonatomic, strong) APChartLine *soilTempChartLine;
+@property (nonatomic, strong) APChartLine *soilMoistureChartLine;
+@property (nonatomic, strong) APChartLine *lightChartLine;
+
 @property (nonatomic, weak) IBOutlet UIButton *reCalibrateButton;
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
@@ -66,6 +73,14 @@
 @end
 
 @implementation GrowSensorDetailsViewController
+
+- (id)initWithSensor:(Sensor*)sensor {
+    self = [super initWithNibName:[self nibNameForInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation] bundle:nil];
+    if (self) {
+        self.sensor = sensor;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -116,6 +131,41 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *)nibNameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    BOOL isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    NSString *nibName = [NSString stringWithFormat:@"GrowSensorDetailsViewController_%@", (isIpad)?@"iPad":@"iPhone"];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        nibName = [nibName stringByAppendingString:@"-landscape"];
+    }
+    return nibName;
+}
+
+- (void)refreshToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [self viewDidLoad];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        _chartView.animationEnabled = NO;
+        self.soilTempChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Temperature" lineWidth:2.0 lineColor:[UIColor greenColor]];
+        self.soilMoistureChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Moisture" lineWidth:2.0 lineColor:[UIColor yellowColor]];
+        self.lightChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Light" lineWidth:2.0 lineColor:[UIColor redColor]];
+        [_chartView addLine:_soilTempChartLine];
+        [_chartView addLine:_soilMoistureChartLine];
+        [_chartView addLine:_lightChartLine];
+    } else {
+        _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
+        _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        self.soilTempChartLine = nil;
+        self.soilMoistureChartLine = nil;
+        self.lightChartLine = nil;
+    }
+    self.view.backgroundColor = [UIColor colorWithRed:(153.f/255.f) green:(233.f/255.f) blue:(124.f/255.f) alpha:1.f];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[NSBundle mainBundle] loadNibNamed:[self nibNameForInterfaceOrientation:toInterfaceOrientation] owner:self options:nil];
+    [self refreshToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)dealloc {
@@ -269,6 +319,15 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeSoilTemperature completionHandler:^(NSArray *result) {
                 _soilTempSparkLine.dataValues = result;
+                
+                [_soilTempChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_soilTempChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
+
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
             if (self.sensor.peripheral) {
@@ -276,6 +335,14 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
                 _soilMoistureSparkLine.dataValues = result;
+                
+                [_soilMoistureChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_soilMoistureChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
             if (self.sensor.peripheral) {
@@ -283,6 +350,14 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeLight completionHandler:^(NSArray *result) {
                 _lightSparkLine.dataValues = result;
+                
+                [_lightChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_lightChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT_ALARM_STATE]) {
             _lightSwitch.on = ([[change objectForKey:NSKeyValueChangeNewKey] intValue] == kAlarmStateEnabled)?YES:NO;

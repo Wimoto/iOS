@@ -29,6 +29,8 @@
 		04E60A77195ACA6800570833 /* WimotoCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E60A76195ACA6800570833 /* WimotoCentralManager.m */; };
 		04EFF2FE195972540067589E /* SensorEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF2FD195972540067589E /* SensorEntity.m */; };
 		04EFF302195A08CD0067589E /* SensorsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF301195A08CD0067589E /* SensorsManager.m */; };
+		1417CB061BD50F78009D415A /* GrowSensorDetailsViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1417CB051BD50F78009D415A /* GrowSensorDetailsViewController_iPhone-landscape.xib */; settings = {ASSET_TAGS = (); }; };
+		1417CB081BD54931009D415A /* ThermoSensorDetailsViewController_iPhone-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1417CB071BD54931009D415A /* ThermoSensorDetailsViewController_iPhone-landscape.xib */; settings = {ASSET_TAGS = (); }; };
 		14BE9F2B1BCBFFBA0046039B /* LastUpdateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE9F2A1BCBFFBA0046039B /* LastUpdateLabel.m */; settings = {ASSET_TAGS = (); }; };
 		14C72C181B46D4A0004D8623 /* TimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C72C171B46D4A0004D8623 /* TimePickerView.m */; };
 		14C72C1A1B46D4F5004D8623 /* TimePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C72C191B46D4F5004D8623 /* TimePickerView.xib */; };
@@ -258,6 +260,8 @@
 		04EFF2FD195972540067589E /* SensorEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorEntity.m; sourceTree = "<group>"; };
 		04EFF300195A08CD0067589E /* SensorsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsManager.h; sourceTree = "<group>"; };
 		04EFF301195A08CD0067589E /* SensorsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorsManager.m; sourceTree = "<group>"; };
+		1417CB051BD50F78009D415A /* GrowSensorDetailsViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GrowSensorDetailsViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
+		1417CB071BD54931009D415A /* ThermoSensorDetailsViewController_iPhone-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ThermoSensorDetailsViewController_iPhone-landscape.xib"; sourceTree = "<group>"; };
 		14BE9F291BCBFFBA0046039B /* LastUpdateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastUpdateLabel.h; sourceTree = "<group>"; };
 		14BE9F2A1BCBFFBA0046039B /* LastUpdateLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastUpdateLabel.m; sourceTree = "<group>"; };
 		14C72C161B46D4A0004D8623 /* TimePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePickerView.h; sourceTree = "<group>"; };
@@ -1223,6 +1227,8 @@
 				4995714C1A09284500338FAC /* ThermoSensorDetailsViewController_iPhone.xib */,
 				90D4ABD1184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib */,
 				30E700D31B99B19200FDB430 /* ClimateSensorDetailsViewController_iPhone-landscape.xib */,
+				1417CB051BD50F78009D415A /* GrowSensorDetailsViewController_iPhone-landscape.xib */,
+				1417CB071BD54931009D415A /* ThermoSensorDetailsViewController_iPhone-landscape.xib */,
 			);
 			path = SensorDetailsScreens;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				4901D3EF192F885D005EB15C /* battery-full.png in Resources */,
 				302A7153192D284B006E0A6C /* slider-default-track.png in Resources */,
 				90D4ABD2184E56C2004DDB1F /* WaterSensorDetailsViewController_iPhone.xib in Resources */,
+				1417CB081BD54931009D415A /* ThermoSensorDetailsViewController_iPhone-landscape.xib in Resources */,
 				49E50BD91A017BEC00304549 /* Settings.bundle in Resources */,
 				4995714A1A09238600338FAC /* Media.xcassets in Resources */,
 				4901D3F2192F885D005EB15C /* battery-medium.png in Resources */,
@@ -1513,6 +1520,7 @@
 				040829D61A65C4F500B93306 /* wimoto-settings-icon.png in Resources */,
 				302A715A192D284B006E0A6C /* slider-default7-handle@2x.png in Resources */,
 				302A7160192D284B006E0A6C /* slider-default7-trackCrossedOver@2x.png in Resources */,
+				1417CB061BD50F78009D415A /* GrowSensorDetailsViewController_iPhone-landscape.xib in Resources */,
 				493A4945184ECC390000A2F6 /* mail.png in Resources */,
 				493A4935184EB9C80000A2F6 /* plant_temperature-512.png in Resources */,
 				498CEFBD19AA887D00EAEB98 /* sentry 128px.png in Resources */,
@@ -1718,8 +1726,8 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugene Brusov (LRFLB5C96Y)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vladimir Aridov (TSZ3WP6KZ4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vladimir Aridov (TSZ3WP6KZ4)";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1727,7 +1735,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = Wimoto;
-				PROVISIONING_PROFILE = "d8167332-6c90-4363-800b-b6c22702eac6";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1737,7 +1745,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vladimir Aridov (TSZ3WP6KZ4)";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

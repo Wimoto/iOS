@@ -18,6 +18,14 @@
 
 @implementation ThermoSensorDetailsViewController
 
+- (id)initWithSensor:(Sensor*)sensor {
+    self = [super initWithNibName:[self nibNameForInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation] bundle:nil];
+    if (self) {
+        self.sensor = sensor;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
@@ -48,8 +56,39 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+- (NSString *)nibNameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    BOOL isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    NSString *nibName = [NSString stringWithFormat:@"ThermoSensorDetailsViewController_%@", (isIpad)?@"iPad":@"iPhone"];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        nibName = [nibName stringByAppendingString:@"-landscape"];
+    }
+    return nibName;
+}
+
+- (void)refreshToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [self viewDidLoad];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        _chartView.animationEnabled = NO;
+        self.irTempChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Infrared" lineWidth:2.0 lineColor:[UIColor greenColor]];
+        self.probeTempChartLine = [[APChartLine alloc] initWithChartView:self.chartView title:@"Probe" lineWidth:2.0 lineColor:[UIColor yellowColor]];
+        [_chartView addLine:_irTempChartLine];
+        [_chartView addLine:_probeTempChartLine];
+    } else {
+        _irTempView.text = SENSOR_VALUE_PLACEHOLDER;
+        _probeTempView.text = SENSOR_VALUE_PLACEHOLDER;
+        self.irTempChartLine = nil;
+        self.probeTempChartLine = nil;
+    }
+    self.view.backgroundColor = [UIColor colorWithRed:(255.f/255.f) green:(159.f/255.f) blue:(17.f/255.f) alpha:1.f];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[NSBundle mainBundle] loadNibNamed:[self nibNameForInterfaceOrientation:toInterfaceOrientation] owner:self options:nil];
+    [self refreshToInterfaceOrientation:toInterfaceOrientation];
+}
+
 
 - (void)dealloc {
     @try {
@@ -139,6 +178,14 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeIRTemperature completionHandler:^(NSArray *result) {
                 _irTempSparkLine.dataValues = result;
+                
+                [_irTempChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_irTempChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
             if (self.sensor.peripheral) {
@@ -146,6 +193,14 @@
             }
             [self.sensor.entity latestValuesWithType:kValueTypeProbeTemperature completionHandler:^(NSArray *result) {
                 _probeTempSparkLine.dataValues = result;
+                
+                [_probeTempChartLine clear];
+                CGFloat x = 1;
+                for (NSNumber *value in result) {
+                    [_probeTempChartLine addPoint:CGPointMake(x, value.floatValue)];
+                    x++;
+                }
+                [_chartView setNeedsDisplay];
             }];
         }
         else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_IR_TEMP_ALARM_STATE]) {

@@ -24,6 +24,5 @@
 @property (nonatomic, weak) IBOutlet LastUpdateLabel *lastUpdateLabel;
 
 - (id)initWithSensor:(Sensor *)sensor;
-- (void)refreshLastUpdateLabel;
 
 @end

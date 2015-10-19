@@ -14,6 +14,8 @@
 #import "WPTemperatureView.h"
 #import "WPTemperatureValueLabel.h"
 
+#import "Wimoto-Swift.h"
+
 @interface ThermoSensorDetailsViewController : SensorViewController
 
 @property (nonatomic, weak) IBOutlet WPTemperatureView *irTempView;
@@ -32,6 +34,10 @@
 
 @property (nonatomic, weak) IBOutlet UIView *irTempAlarmContainer;
 @property (nonatomic, weak) IBOutlet UIView *probeTempAlarmContainer;
+
+@property (nonatomic, weak) IBOutlet APChartView *chartView;
+@property (nonatomic, strong) APChartLine *irTempChartLine;
+@property (nonatomic, strong) APChartLine *probeTempChartLine;
 
 @property (nonatomic, strong) NSString *currentAlarmUUIDString;
 
