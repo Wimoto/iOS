@@ -75,7 +75,6 @@ typedef enum {
 @property (nonatomic, weak) id<SensorDataReadingDelegate> dataReadingDelegate;
 
 + (id)sensorWithPeripheral:(CBPeripheral*)peripheral;
-+ (id)sensorWithDemoPeripheral:(DemoCBPeripheral*)demoPeripheral;
 + (id)sensorWithEntity:(SensorEntity*)entity;
 - (id)initWithEntity:(SensorEntity*)entity;
 

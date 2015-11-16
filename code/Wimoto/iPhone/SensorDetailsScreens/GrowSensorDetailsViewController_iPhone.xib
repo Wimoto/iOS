@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GrowSensorDetailsViewController">
@@ -11,6 +11,7 @@
                 <outlet property="dataReadbackButton" destination="jVn-Tj-fIz" id="QAb-PT-SMG"/>
                 <outlet property="dataReadbackIndicatorView" destination="XqC-sT-wrS" id="GyC-gZ-vk7"/>
                 <outlet property="dfuButton" destination="iwY-Um-wpd" id="5O7-KI-Fbi"/>
+                <outlet property="enableSensorDataLoggerButton" destination="kjR-Qp-DnQ" id="Y25-ov-NjA"/>
                 <outlet property="lastUpdateLabel" destination="pWs-7t-A5o" id="ELg-OR-Ca5"/>
                 <outlet property="lightAlarmContainer" destination="JPN-VM-v8d" id="B1I-tG-asr"/>
                 <outlet property="lightHighValueLabel" destination="LfP-gO-UfK" id="CCg-8f-JX5"/>
@@ -19,6 +20,7 @@
                 <outlet property="lightSparkLine" destination="6hY-ns-rBL" id="Wzk-S1-J7K"/>
                 <outlet property="lightSwitch" destination="slv-V2-cZf" id="niz-2D-ipd"/>
                 <outlet property="reCalibrateButton" destination="Ulu-kp-5gd" id="ILz-GU-oAD"/>
+                <outlet property="readSensorDataLoggerButton" destination="Csj-R1-ozg" id="6P4-km-rTl"/>
                 <outlet property="rssiLabel" destination="0Ga-hY-Pb2" id="XwA-eT-PO1"/>
                 <outlet property="sensorNameField" destination="kBc-bx-CTj" id="Agy-ls-faJ"/>
                 <outlet property="soilMoistureAlarmContainer" destination="nLP-Kf-hzH" id="d0l-QG-FVK"/>
@@ -64,18 +66,6 @@
                         <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SLc-oF-ESd"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Mor-oa-Xrn">
-                    <rect key="frame" x="146" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" title="dataLoggerEnable" image="wimoto-datalogger-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
-                    <connections>
-                        <action selector="enableDataLogger:" destination="-1" eventType="touchUpInside" id="s74-1k-APu"/>
-                    </connections>
-                </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="iwY-Um-wpd" userLabel="firmwareUpdate">
                     <rect key="frame" x="210" y="466" width="34" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,6 +75,31 @@
                     </state>
                     <connections>
                         <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="Bbk-ZN-eMy"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="kjR-Qp-DnQ">
+                    <rect key="frame" x="143" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="enableSensorDataLogger" image="wimoto-datalogger-icon.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="enableSensorDataLogger:" destination="-1" eventType="touchUpInside" id="U2v-qQ-TvM"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Csj-R1-ozg">
+                    <rect key="frame" x="143" y="466" width="34" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="readSensorDataLogger" image="wimoto-datalogger-icon-enabled.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
+                    <connections>
+                        <action selector="readSensorDataLogger:" destination="-1" eventType="touchUpInside" id="TDr-lh-9JC"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6OS-sT-HQf" userLabel="firmwareUpdate">
@@ -372,7 +387,7 @@
                 </button>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.47450980392156861" green="0.74117647058823533" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.59999999999999998" green="0.9137254901960784" blue="0.48627450980392156" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="249" y="164"/>
         </view>
     </objects>

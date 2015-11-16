@@ -29,10 +29,6 @@
     return [[[Sensor classForType:[peripheral peripheralType]] alloc] initWithPeripheral:peripheral];
 }
 
-+ (id)sensorWithDemoPeripheral:(DemoCBPeripheral *)demoPeripheral {
-    return [[[Sensor classForType:[demoPeripheral peripheralType]] alloc] initWithPeripheral:demoPeripheral];
-}
-
 + (id)sensorWithEntity:(SensorEntity*)entity {
     return [[[Sensor classForType:[entity.sensorType intValue]] alloc] initWithEntity:entity];
 }
@@ -267,6 +263,7 @@
 }
 
 - (void)writeSensorDataLog:(NSDictionary *)dataLog {
+    NSLog(@"write datalog %@", NSStringFromClass([dataLog class]));
     [_sensorDataLogs addObject:dataLog];
 }
 

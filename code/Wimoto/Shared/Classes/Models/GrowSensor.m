@@ -6,6 +6,20 @@
 //
 //
 
+#import "DataLog.h"
+
+@interface GrowDataLog : DataLog
+
+@property (nonatomic) NSUInteger rawSoilTemperature;
+@property (nonatomic) NSUInteger rawSoilMoisture;
+@property (nonatomic) NSUInteger rawLight;
+
+@property (nonatomic) float soilTemperature;
+@property (nonatomic) float soilMoisture;
+@property (nonatomic) float light;
+
+@end
+
 #import "GrowSensor.h"
 #import "AppConstants.h"
 
@@ -233,6 +247,13 @@
                                                   [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM],
                                                   nil]
                                       forService:aService];
+        } else if ([aService.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_DATA_LOGGER]]) {
+            [aPeripheral discoverCharacteristics:[NSArray arrayWithObjects:
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_ENABLE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_READ_ENABLE],
+                                                  [CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_READ],
+                                                  nil]
+                                      forService:aService];
         }
     }
 }
@@ -294,6 +315,24 @@
             }
         }
     }
+    else if ([service.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_SERVICE_UUID_DATA_LOGGER]]) {
+        for (CBCharacteristic *aChar in service.characteristics) {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_ENABLE]]) {
+                self.dataLoggerEnableCharacteristic = aChar;
+                [aPeripheral readValueForCharacteristic:aChar];
+                
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_READ_ENABLE]]) {
+                self.dataLoggerReadEnableCharacteristic = aChar;
+                
+                [aPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_DATA_LOGGER_READ]]) {
+                self.dataLoggerReadNotificationCharacteristic = aChar;
+            }
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
@@ -309,7 +348,7 @@
         [self.entity saveNewValueWithType:kValueTypeGrowLight value:_light];
     } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_GROW_CHAR_UUID_SOIL_MOISTURE_CURRENT]]) {
         self.soilMoisture = [self roundToOne:[self sensorValueForCharacteristic:characteristic]];
-        [self.entity saveNewValueWithType:kValueTypeSoilHumidity value:_soilMoisture];
+        [self.entity saveNewValueWithType:kValueTypeSoilMoisture value:_soilMoisture];
         
         if (_calibrationState == kGrowCalibrationStateLowValueInProgress) {
             self.lowHumidityCalibration = [NSNumber numberWithFloat:[self roundToOne:[self sensorValueForCharacteristic:characteristic]]];
@@ -379,7 +418,59 @@
         int16_t rValue = CFSwapInt16BigToHost((int16_t)[self alarmValueForCharacteristic:characteristic]);
         NSLog(@"BLE_GROW_CHAR_UUID_SOIL_TEMPERATURE_ALARM_HIGH_VALUE - %@ %d %f %@", aPeripheral.name, rValue, [self alarmValueForCharacteristic:characteristic], [characteristic value]);
         self.soilTemperatureAlarmHigh = [self getTemperatureFromSensorTemperature:rValue];
+    } else if ([characteristic isEqual:self.dataLoggerEnableCharacteristic]) {
+        self.dataLoggerState = [self dataLoggerStateForCharacteristic:characteristic];
+        
+        NSLog(@"dataLoggerEnableCharacteristic %@", [characteristic value]);
+    }
+    else if ([characteristic isEqual:self.dataLoggerReadEnableCharacteristic]) {
+        NSLog(@"self.dataLoggerReadEnableCharacteristic %@", [characteristic value]);
+    }
+    else if ([characteristic isEqual:self.dataLoggerReadNotificationCharacteristic]) {
+        NSLog(@"dataLogger is %@", [characteristic.value hexadecimalString]);
+        
+        GrowDataLog *growDataLog = [[GrowDataLog alloc] initWithData:characteristic.value];
+        growDataLog.soilTemperature = [self getTemperatureFromSensorTemperature:growDataLog.rawSoilTemperature];
+        
+        [self writeSensorDataLog:[growDataLog dictionaryDescription]];
     }
 }
 
 @end
+
+static NSString * const kDataLogJsonTemperature     = @"Temperature";
+static NSString * const kDataLogJsonLight           = @"Light";
+static NSString * const kDataLogJsonMoisture        = @"Moisture";
+
+@implementation GrowDataLog
+
+- (id)initWithData:(NSData *)data {
+    self = [super initWithData:data];
+    if (self) {
+        int16_t temperature	= 0;
+        [data getBytes:&temperature range:NSMakeRange(8, 2)];
+        _rawSoilTemperature = CFSwapInt16BigToHost(temperature);
+        
+        int16_t light	= 0;
+        [data getBytes:&light range:NSMakeRange(10, 2)];
+        _rawLight = CFSwapInt16BigToHost(light);
+        //_light = 0.96f * _rawLight;
+        
+        int16_t moisture  = 0;
+        [data getBytes:&moisture range:NSMakeRange(12, 2)];
+        _rawSoilMoisture = CFSwapInt16BigToHost(moisture);
+    }
+    return self;
+}
+
+- (NSDictionary *)dictionaryDescription {
+    NSMutableDictionary *mutableDictionary = [[super dictionaryDescription] mutableCopy];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_soilTemperature] forKey:kDataLogJsonTemperature];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_light] forKey:kDataLogJsonLight];
+    [mutableDictionary setObject:[NSNumber numberWithFloat:_soilMoisture] forKey:kDataLogJsonMoisture];
+    
+    return mutableDictionary;
+}
+
+@end
+

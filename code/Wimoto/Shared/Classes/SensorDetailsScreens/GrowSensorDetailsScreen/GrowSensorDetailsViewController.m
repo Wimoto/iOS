@@ -94,7 +94,7 @@
     
     _soilMoistureSparkLine.labelText = @"";
     _soilMoistureSparkLine.showCurrentValue = NO;
-    [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
+    [self.sensor.entity latestValuesWithType:kValueTypeSoilMoisture completionHandler:^(NSArray *result) {
         _soilMoistureSparkLine.dataValues = result;
     }];
     
@@ -333,7 +333,7 @@
             if (self.sensor.peripheral) {
                 [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:[(GrowSensor *)self.sensor lowHumidityCalibration] andHighCalibrationValue:[(GrowSensor *)self.sensor highHumidityCalibration]];
             }
-            [self.sensor.entity latestValuesWithType:kValueTypeSoilHumidity completionHandler:^(NSArray *result) {
+            [self.sensor.entity latestValuesWithType:kValueTypeSoilMoisture completionHandler:^(NSArray *result) {
                 _soilMoistureSparkLine.dataValues = result;
                 
                 [_soilMoistureChartLine clear];

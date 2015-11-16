@@ -17,7 +17,7 @@ typedef enum {
     kValueTypePresence,
     kValueTypeLevel,
     kValueTypeSoilTemperature,
-    kValueTypeSoilHumidity,
+    kValueTypeSoilMoisture,
     kValueTypeGrowLight,
     kValueTypeAccelerometer,
     kValueTypePassiveInfrared,

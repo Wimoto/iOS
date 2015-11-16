@@ -46,8 +46,8 @@
         case kValueTypeSoilTemperature:
             parameter = @"Temperature";
             break;
-        case kValueTypeSoilHumidity:
-            parameter = @"Humidity";
+        case kValueTypeSoilMoisture:
+            parameter = @"Moisture";
             break;
         case kValueTypeGrowLight:
             parameter = @"Light";

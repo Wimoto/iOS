@@ -301,6 +301,8 @@
             [mailController setMessageBody:[NSString stringWithFormat:@"Content from Wimoto %@ Sensor %@", [self.sensor codename], [self.sensor uniqueIdentifier]] isHTML:NO];
             [mailController addAttachmentData:data mimeType:@"application/json" fileName:@"AppData.json"];
             
+            //NSLog(@"Mail Content String = %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            
             [self presentViewController:mailController animated:YES completion:nil];
         }
     }

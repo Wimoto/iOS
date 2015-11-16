@@ -12,8 +12,6 @@
 @implementation LastUpdateLabel
 
 - (void) dealloc {
-    NSLog(@"LastUpdateLabel dealloc");
-    
     [self reset];
 }
 
