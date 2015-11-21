@@ -454,11 +454,13 @@ static NSString * const kDataLogJsonMoisture        = @"Moisture";
         int16_t light	= 0;
         [data getBytes:&light range:NSMakeRange(10, 2)];
         _rawLight = CFSwapInt16BigToHost(light);
+        _light  = _rawLight;
         //_light = 0.96f * _rawLight;
         
         int16_t moisture  = 0;
         [data getBytes:&moisture range:NSMakeRange(12, 2)];
         _rawSoilMoisture = CFSwapInt16BigToHost(moisture);
+        _soilMoisture = _rawSoilMoisture;
     }
     return self;
 }
