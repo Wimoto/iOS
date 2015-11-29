@@ -188,6 +188,8 @@
                 [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_THERMO_SENSOR_PROBE_TEMP]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 [_probeTempView setTemperature:[sensor probeTemp]];
             }

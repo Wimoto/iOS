@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WPTemperatureView">
@@ -13,17 +13,19 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="125" height="42"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xG0-0M-gAP" userLabel="temperatureCurrent" customClass="WPTemperatureValueLabel">
-                    <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xG0-0M-gAP" userLabel="temperatureCurrent" customClass="WPTemperatureValueLabel">
+                    <rect key="frame" x="0.0" y="0.0" width="125" height="42"/>
+                    <animations/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-R6-U7C">
-                    <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-R6-U7C">
+                    <rect key="frame" x="0.0" y="0.0" width="125" height="42"/>
+                    <animations/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -32,7 +34,18 @@
                     </connections>
                 </button>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="xG0-0M-gAP" secondAttribute="trailing" id="ECK-iD-6fc"/>
+                <constraint firstAttribute="bottom" secondItem="5sA-R6-U7C" secondAttribute="bottom" id="Emc-Hv-DHO"/>
+                <constraint firstAttribute="trailing" secondItem="5sA-R6-U7C" secondAttribute="trailing" id="KZ5-Ln-0Uv"/>
+                <constraint firstItem="5sA-R6-U7C" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RNr-uY-ZDd"/>
+                <constraint firstItem="xG0-0M-gAP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ahy-Rw-0hA"/>
+                <constraint firstAttribute="bottom" secondItem="xG0-0M-gAP" secondAttribute="bottom" id="b65-tz-rAA"/>
+                <constraint firstItem="xG0-0M-gAP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hJd-Rm-0fy"/>
+                <constraint firstItem="5sA-R6-U7C" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="n3f-Cx-iEP"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="260" y="98"/>
         </view>

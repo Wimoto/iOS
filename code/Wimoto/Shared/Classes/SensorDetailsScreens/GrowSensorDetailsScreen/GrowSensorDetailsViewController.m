@@ -154,7 +154,7 @@
         [_chartView addLine:_lightChartLine];
     } else {
         _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
-        _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
+        //_soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
         _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
         self.soilTempChartLine = nil;
         self.soilMoistureChartLine = nil;
@@ -285,7 +285,7 @@
                 [WPPickerView dismiss];
                 
                 _soilTempView.text = SENSOR_VALUE_PLACEHOLDER;
-                _soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
+                //_soilMoistureLabel.text = SENSOR_VALUE_PLACEHOLDER;
                 _lightLabel.text = SENSOR_VALUE_PLACEHOLDER;
             } else {
                 _soilMoistureAlarmContainer.hidden = NO;
@@ -297,10 +297,10 @@
                 [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:sensor.lowHumidityCalibration andHighCalibrationValue:sensor.highHumidityCalibration];
                 
                 if ((sensor.lowHumidityCalibration) && (sensor.highHumidityCalibration)) {
-                    _soilMoisturePercentageLabel.hidden = YES;
+                    //_soilMoisturePercentageLabel.hidden = YES;
                     _reCalibrateButton.hidden = NO;
                 } else {
-                    _soilMoisturePercentageLabel.hidden = NO;
+                    //_soilMoisturePercentageLabel.hidden = NO;
                     _reCalibrateButton.hidden = YES;
                     
                     [UIAlertView showWithTitle:nil message:@"Place the device in dry soil." cancelButtonTitle:@"Next" otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -330,6 +330,8 @@
 
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_SOIL_MOISTURE]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 [_soilMoistureLabel setSoilMoisture:[[change objectForKey:NSKeyValueChangeNewKey] floatValue] withLowCalibrationValue:[(GrowSensor *)self.sensor lowHumidityCalibration] andHighCalibrationValue:[(GrowSensor *)self.sensor highHumidityCalibration]];
             }
@@ -345,6 +347,8 @@
                 [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_GROW_SENSOR_LIGHT]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
@@ -387,10 +391,10 @@
                 
                 [_soilMoistureLabel setSoilMoisture:[sensor soilMoisture] withLowCalibrationValue:[(GrowSensor *)self.sensor lowHumidityCalibration] andHighCalibrationValue:[(GrowSensor *)self.sensor highHumidityCalibration]];
                 if (([(GrowSensor *)self.sensor lowHumidityCalibration]) && ([(GrowSensor *)self.sensor highHumidityCalibration])) {
-                    _soilMoisturePercentageLabel.hidden = YES;
+                    //_soilMoisturePercentageLabel.hidden = YES;
                     _reCalibrateButton.hidden = NO;
                 } else {
-                    _soilMoisturePercentageLabel.hidden = NO;
+                    //_soilMoisturePercentageLabel.hidden = NO;
                     _reCalibrateButton.hidden = YES;
                 }
                 

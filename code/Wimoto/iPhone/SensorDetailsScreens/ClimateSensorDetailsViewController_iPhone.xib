@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -32,347 +32,620 @@
                 <outlet property="tempHighValueLabel" destination="Qf0-L1-lSS" id="9yU-S4-niE"/>
                 <outlet property="tempLowValueLabel" destination="0On-zC-d98" id="5K4-5g-122"/>
                 <outlet property="tempSwitch" destination="psa-nU-Tq1" id="cwu-Io-2hq"/>
-                <outlet property="tempView" destination="NQv-fT-6Qp" id="LPt-mH-f7K"/>
+                <outlet property="tempView" destination="fzV-hU-wXv" id="xqM-ih-bEe"/>
                 <outlet property="temperatureSparkLine" destination="8qC-Wx-gN1" id="ocf-HR-IEw"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buttons.png" id="Yct-rA-kTU">
-                    <rect key="frame" x="0.0" y="408" width="320" height="124"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" id="dK8-dU-cmJ">
-                    <rect key="frame" x="-2" y="508" width="325" height="62"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="8H7-EI-ZbH">
-                    <rect key="frame" x="81" y="472" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </activityIndicatorView>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="battery-full.png" id="jtb-bI-I3k" userLabel="batteryLevel">
-                    <rect key="frame" x="8" y="20" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <inset key="insetFor6xAndEarlier" minX="-8" minY="0.0" maxX="8" maxY="0.0"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Climate 128px.png" id="eII-tK-1Ny">
-                    <rect key="frame" x="177" y="522" width="136" height="51"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="FtF-p4-4EG" userLabel="climateLastUpdated" customClass="LastUpdateLabel">
-                    <rect key="frame" x="8" y="85" width="304" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" id="Os1-Xo-6Nt">
-                    <rect key="frame" x="129" y="376" width="191" height="49"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sd-o9-uht" userLabel="Header View">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="kKQ-lz-v1h">
-                            <rect key="frame" x="10" y="11" width="28" height="28"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQe-F7-Ykb">
+                            <rect key="frame" x="0.0" y="20" width="600" height="25"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="battery-full.png" translatesAutoresizingMaskIntoConstraints="NO" id="jtb-bI-I3k" userLabel="batteryLevel">
+                                    <rect key="frame" x="8" y="0.0" width="24" height="24"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="kpb-XN-KnZ"/>
+                                        <constraint firstAttribute="width" constant="24" id="wcY-9V-Cyr"/>
+                                    </constraints>
+                                    <inset key="insetFor6xAndEarlier" minX="-8" minY="0.0" maxX="8" maxY="0.0"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdY-vM-CDd" userLabel="climateRSSI">
+                                    <rect key="frame" x="547" y="0.0" width="45" height="25"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="2Nh-tF-JxZ"/>
+                                        <constraint firstAttribute="width" constant="45" id="Cfh-Hs-6aQ"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <animations/>
-                        </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="OuQ-gf-Ef7" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="46" y="9" width="51" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="BdX-iY-NgY"/>
+                                <constraint firstAttribute="bottom" secondItem="jtb-bI-I3k" secondAttribute="bottom" constant="1" id="FxI-uH-PpD"/>
+                                <constraint firstItem="KdY-vM-CDd" firstAttribute="top" secondItem="GQe-F7-Ykb" secondAttribute="top" id="Pda-K3-gj3"/>
+                                <constraint firstAttribute="width" constant="600" id="WPq-3K-y5x"/>
+                                <constraint firstAttribute="bottom" secondItem="KdY-vM-CDd" secondAttribute="bottom" id="Xbv-Tw-GT5"/>
+                                <constraint firstAttribute="trailing" secondItem="KdY-vM-CDd" secondAttribute="trailing" constant="8" id="Zv3-C0-0ms"/>
+                                <constraint firstItem="jtb-bI-I3k" firstAttribute="top" secondItem="GQe-F7-Ykb" secondAttribute="top" id="dkH-HA-4lV"/>
+                                <constraint firstItem="jtb-bI-I3k" firstAttribute="leading" secondItem="GQe-F7-Ykb" secondAttribute="leading" constant="8" id="sPs-2I-dw4"/>
+                            </constraints>
+                        </view>
+                        <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTx-TC-b7C">
+                            <rect key="frame" x="8" y="36" width="584" height="48"/>
                             <animations/>
-                            <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <accessibility key="accessibilityConfiguration" hint="Sensor Name" label="Sensor Name"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="ayw-qm-aW5"/>
+                            </constraints>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="48"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             <connections>
-                                <action selector="lightAlarmAction:" destination="-1" eventType="valueChanged" id="qB9-Yz-2Ra"/>
+                                <outlet property="delegate" destination="-1" id="sIq-IK-rHn"/>
                             </connections>
-                        </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" id="D2e-Pi-KEg">
-                            <rect key="frame" x="102" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </textField>
+                        <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-p4-4EG" userLabel="climateLastUpdated" customClass="LastUpdateLabel">
+                            <rect key="frame" x="8" y="85" width="584" height="19"/>
                             <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" id="H9Q-Sr-s9L">
-                            <rect key="frame" x="147" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="UrO-M0-TDJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="BTx-TC-b7C" firstAttribute="top" secondItem="6sd-o9-uht" secondAttribute="top" constant="36" id="06D-n9-1Du"/>
+                        <constraint firstItem="GQe-F7-Ykb" firstAttribute="top" secondItem="6sd-o9-uht" secondAttribute="top" constant="20" id="C8C-U7-GQV"/>
+                        <constraint firstAttribute="height" constant="104" id="OOd-JE-cXa"/>
+                        <constraint firstItem="GQe-F7-Ykb" firstAttribute="leading" secondItem="6sd-o9-uht" secondAttribute="leading" id="T6T-GA-jBd"/>
+                        <constraint firstAttribute="trailing" secondItem="BTx-TC-b7C" secondAttribute="trailing" constant="8" id="U7f-du-HnF"/>
+                        <constraint firstItem="FtF-p4-4EG" firstAttribute="leading" secondItem="6sd-o9-uht" secondAttribute="leading" constant="8" id="VJa-3Q-JBf"/>
+                        <constraint firstAttribute="trailing" secondItem="GQe-F7-Ykb" secondAttribute="trailing" id="aUQ-wH-qvl"/>
+                        <constraint firstItem="BTx-TC-b7C" firstAttribute="leading" secondItem="6sd-o9-uht" secondAttribute="leading" constant="8" id="aap-nz-daz"/>
+                        <constraint firstAttribute="trailing" secondItem="FtF-p4-4EG" secondAttribute="trailing" constant="8" id="c4l-So-edj"/>
+                        <constraint firstItem="FtF-p4-4EG" firstAttribute="top" secondItem="BTx-TC-b7C" secondAttribute="bottom" constant="1" id="ukw-zU-fi6"/>
+                        <constraint firstAttribute="bottom" secondItem="FtF-p4-4EG" secondAttribute="bottom" id="w1M-SY-WdH"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" id="CGB-gn-EQp">
-                    <rect key="frame" x="129" y="273" width="191" height="49"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWY-Ls-CoB" userLabel="Temperature View">
+                    <rect key="frame" x="0.0" y="109" width="600" height="96"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="Aub-Z5-hod">
-                            <rect key="frame" x="10" y="11" width="28" height="28"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thermometer.png" translatesAutoresizingMaskIntoConstraints="NO" id="1j2-uV-OeQ">
+                            <rect key="frame" x="8" y="10" width="34" height="34"/>
                             <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="fZQ-Cf-zDp"/>
+                                <constraint firstAttribute="height" constant="34" id="heR-jt-6Cd"/>
+                            </constraints>
                         </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="nkW-sV-s4W" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="46" y="9" width="51" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qC-Wx-gN1" userLabel="sparkLineTemperature" customClass="ASBSparkLineView">
+                            <rect key="frame" x="49" y="6" width="100" height="42"/>
                             <animations/>
-                            <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="humidityAlarmAction:" destination="-1" eventType="valueChanged" id="fT9-xG-wBA"/>
-                            </connections>
-                        </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JHg-Ef-sea">
-                            <rect key="frame" x="147" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="Iz9-1n-1Rm"/>
+                                <constraint firstAttribute="width" constant="100" id="cjv-gT-Y0d"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzV-hU-wXv" customClass="WPTemperatureView">
+                            <rect key="frame" x="440" y="6" width="125" height="42"/>
                             <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="HPB-u9-LfU"/>
+                                <constraint firstAttribute="width" constant="125" id="Owq-JE-Qez"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="˚C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHQ-ix-ysS" customClass="WPTemperatureSignLabel">
+                            <rect key="frame" x="567" y="0.0" width="26" height="25"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="Ikb-IY-05q"/>
+                                <constraint firstAttribute="width" constant="26" id="N9L-Lh-LPX"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cum-OL-1Cq">
-                            <rect key="frame" x="102" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="guB-ja-Mj9">
+                            <rect key="frame" x="409" y="47" width="191" height="49"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarm_clock-512-white.png" translatesAutoresizingMaskIntoConstraints="NO" id="T20-IC-sUn">
+                                    <rect key="frame" x="10" y="11" width="28" height="28"/>
+                                    <animations/>
+                                </imageView>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="psa-nU-Tq1" userLabel="alarmSwitchTemperature">
+                                    <rect key="frame" x="46" y="9" width="51" height="31"/>
+                                    <animations/>
+                                    <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="temperatureAlarmAction:" destination="-1" eventType="valueChanged" id="Wso-Fm-FCZ"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="0On-zC-d98" customClass="WPTemperatureValueLabel">
+                                    <rect key="frame" x="102" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-L1-lSS" customClass="WPTemperatureValueLabel">
+                                    <rect key="frame" x="147" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="49" id="KxJ-Ps-KRc"/>
+                                <constraint firstAttribute="width" constant="191" id="zUD-WD-u49"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="OHQ-ix-ysS" firstAttribute="top" secondItem="dWY-Ls-CoB" secondAttribute="top" id="Dgy-3g-Odf"/>
+                        <constraint firstItem="8qC-Wx-gN1" firstAttribute="top" secondItem="dWY-Ls-CoB" secondAttribute="top" constant="6" id="HbJ-Yx-nrh"/>
+                        <constraint firstAttribute="bottom" secondItem="guB-ja-Mj9" secondAttribute="bottom" id="IAZ-Qf-whZ"/>
+                        <constraint firstItem="1j2-uV-OeQ" firstAttribute="leading" secondItem="dWY-Ls-CoB" secondAttribute="leading" constant="8" id="IWg-YW-wBc"/>
+                        <constraint firstItem="fzV-hU-wXv" firstAttribute="top" secondItem="dWY-Ls-CoB" secondAttribute="top" constant="6" id="VSx-Mg-mXH"/>
+                        <constraint firstAttribute="height" constant="96" id="c8t-Cp-sui"/>
+                        <constraint firstAttribute="trailing" secondItem="OHQ-ix-ysS" secondAttribute="trailing" constant="7" id="jaw-ac-jbZ"/>
+                        <constraint firstItem="guB-ja-Mj9" firstAttribute="top" secondItem="OHQ-ix-ysS" secondAttribute="bottom" constant="22" id="lro-by-pS1"/>
+                        <constraint firstItem="OHQ-ix-ysS" firstAttribute="leading" secondItem="fzV-hU-wXv" secondAttribute="trailing" constant="2" id="skD-n0-3En"/>
+                        <constraint firstItem="1j2-uV-OeQ" firstAttribute="top" secondItem="dWY-Ls-CoB" secondAttribute="top" constant="10" id="t0d-FZ-ok3"/>
+                        <constraint firstItem="8qC-Wx-gN1" firstAttribute="leading" secondItem="1j2-uV-OeQ" secondAttribute="trailing" constant="7" id="tng-7O-pXE"/>
+                        <constraint firstAttribute="trailing" secondItem="guB-ja-Mj9" secondAttribute="trailing" id="upg-Fm-mMs"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" id="guB-ja-Mj9">
-                    <rect key="frame" x="129" y="176" width="191" height="49"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUX-Mj-0un" userLabel="Humidity View">
+                    <rect key="frame" x="0.0" y="203" width="600" height="96"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_clock-512-white.png" id="T20-IC-sUn">
-                            <rect key="frame" x="10" y="11" width="28" height="28"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto-droplet-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-Po-8Wp">
+                            <rect key="frame" x="8" y="10" width="34" height="34"/>
                             <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="VYM-Jd-7pG"/>
+                                <constraint firstAttribute="height" constant="34" id="bWa-dX-pwL"/>
+                            </constraints>
                         </imageView>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="psa-nU-Tq1" userLabel="alarmSwitchTemperature">
-                            <rect key="frame" x="46" y="9" width="51" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTM-6t-ZAh" userLabel="sparkLineHumidity" customClass="ASBSparkLineView">
+                            <rect key="frame" x="49" y="6" width="100" height="42"/>
                             <animations/>
-                            <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="temperatureAlarmAction:" destination="-1" eventType="valueChanged" id="Wso-Fm-FCZ"/>
-                            </connections>
-                        </switch>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" id="0On-zC-d98" customClass="WPTemperatureValueLabel">
-                            <rect key="frame" x="102" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="pW0-1F-anU"/>
+                                <constraint firstAttribute="width" constant="100" id="rLU-z4-Vvo"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bou-t8-gdO" userLabel="humidityCurrent">
+                            <rect key="frame" x="440" y="6" width="125" height="42"/>
                             <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="QQ4-yS-DzK"/>
+                                <constraint firstAttribute="width" constant="125" id="tyc-RG-RFt"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" id="Qf0-L1-lSS" customClass="WPTemperatureValueLabel">
-                            <rect key="frame" x="147" y="14" width="41" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-TZ-UlN">
+                            <rect key="frame" x="566" y="0.0" width="26" height="22"/>
                             <animations/>
-                            <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="26" id="Qkg-L8-FbL"/>
+                                <constraint firstAttribute="height" constant="22" id="hok-vx-azM"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGB-gn-EQp">
+                            <rect key="frame" x="409" y="47" width="191" height="49"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarm_clock-512-white.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aub-Z5-hod">
+                                    <rect key="frame" x="10" y="11" width="28" height="28"/>
+                                    <animations/>
+                                </imageView>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nkW-sV-s4W" userLabel="alarmSwitchTemperature">
+                                    <rect key="frame" x="46" y="9" width="51" height="31"/>
+                                    <animations/>
+                                    <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="humidityAlarmAction:" destination="-1" eventType="valueChanged" id="fT9-xG-wBA"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHg-Ef-sea">
+                                    <rect key="frame" x="147" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cum-OL-1Cq">
+                                    <rect key="frame" x="102" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="49" id="LTJ-og-ZCl"/>
+                                <constraint firstAttribute="width" constant="191" id="aHU-7B-SFL"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="bou-t8-gdO" firstAttribute="top" secondItem="VUX-Mj-0un" secondAttribute="top" constant="6" id="2zT-5v-lnI"/>
+                        <constraint firstItem="vTM-6t-ZAh" firstAttribute="leading" secondItem="OSr-Po-8Wp" secondAttribute="trailing" constant="7" id="AzC-JZ-aoj"/>
+                        <constraint firstItem="OSr-Po-8Wp" firstAttribute="leading" secondItem="VUX-Mj-0un" secondAttribute="leading" constant="8" id="Ivb-nO-4S7"/>
+                        <constraint firstAttribute="trailing" secondItem="CGB-gn-EQp" secondAttribute="trailing" id="Ka9-GF-gHz"/>
+                        <constraint firstItem="8Lg-TZ-UlN" firstAttribute="leading" secondItem="bou-t8-gdO" secondAttribute="trailing" constant="1" id="NAo-VG-a2o"/>
+                        <constraint firstItem="OSr-Po-8Wp" firstAttribute="top" secondItem="VUX-Mj-0un" secondAttribute="top" constant="10" id="ZQh-TH-zcN"/>
+                        <constraint firstAttribute="bottom" secondItem="CGB-gn-EQp" secondAttribute="bottom" id="ZVY-yw-l0t"/>
+                        <constraint firstItem="8Lg-TZ-UlN" firstAttribute="top" secondItem="VUX-Mj-0un" secondAttribute="top" id="cxR-5y-zjJ"/>
+                        <constraint firstItem="vTM-6t-ZAh" firstAttribute="top" secondItem="VUX-Mj-0un" secondAttribute="top" constant="6" id="gQ4-nI-3XK"/>
+                        <constraint firstAttribute="trailing" secondItem="8Lg-TZ-UlN" secondAttribute="trailing" constant="8" id="gR2-qr-vfm"/>
+                        <constraint firstAttribute="height" constant="96" id="qUo-nf-xPf"/>
+                    </constraints>
                 </view>
-                <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="--" textAlignment="center" minimumFontSize="17" id="BTx-TC-b7C">
-                    <rect key="frame" x="8" y="36" width="304" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <accessibility key="accessibilityConfiguration" hint="Sensor Name" label="Sensor Name"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="48"/>
-                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="sIq-IK-rHn"/>
-                    </connections>
-                </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto-sun-icon.png" id="9SH-rM-QSb">
-                    <rect key="frame" x="8" y="337" width="36" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto-droplet-icon.png" id="OSr-Po-8Wp">
-                    <rect key="frame" x="8" y="236" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thermometer.png" id="1j2-uV-OeQ">
-                    <rect key="frame" x="8" y="139" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <view contentMode="scaleToFill" id="8qC-Wx-gN1" userLabel="sparkLineTemperature" customClass="ASBSparkLineView">
-                    <rect key="frame" x="49" y="135" width="100" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdt-aW-RlP" userLabel="Light View">
+                    <rect key="frame" x="0.0" y="297" width="600" height="96"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto-sun-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="9SH-rM-QSb">
+                            <rect key="frame" x="8" y="10" width="36" height="36"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="36" id="8nV-na-9f3"/>
+                                <constraint firstAttribute="height" constant="36" id="OS2-GT-KsV"/>
+                            </constraints>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUy-t8-EfU" userLabel="sparkLineLight" customClass="ASBSparkLineView">
+                            <rect key="frame" x="49" y="6" width="100" height="42"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="9LY-um-A2N"/>
+                                <constraint firstAttribute="width" constant="100" id="Pkf-dp-7fh"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8uL-Ie-P0I" userLabel="lightCurrent">
+                            <rect key="frame" x="440" y="6" width="125" height="42"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="CNk-5M-0Qy"/>
+                                <constraint firstAttribute="width" constant="125" id="q4k-Cp-hvz"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="lux" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9z-wz-4FN">
+                            <rect key="frame" x="565" y="0.0" width="30" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="9ha-xn-1UC"/>
+                                <constraint firstAttribute="width" constant="30" id="yP5-Eb-sby"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Os1-Xo-6Nt">
+                            <rect key="frame" x="409" y="47" width="191" height="49"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarm_clock-512-white.png" translatesAutoresizingMaskIntoConstraints="NO" id="kKQ-lz-v1h">
+                                    <rect key="frame" x="10" y="11" width="28" height="28"/>
+                                    <animations/>
+                                </imageView>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OuQ-gf-Ef7" userLabel="alarmSwitchTemperature">
+                                    <rect key="frame" x="46" y="9" width="51" height="31"/>
+                                    <animations/>
+                                    <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="lightAlarmAction:" destination="-1" eventType="valueChanged" id="qB9-Yz-2Ra"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" translatesAutoresizingMaskIntoConstraints="NO" id="D2e-Pi-KEg">
+                                    <rect key="frame" x="102" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature Low"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-Sr-s9L">
+                                    <rect key="frame" x="147" y="14" width="41" height="21"/>
+                                    <animations/>
+                                    <accessibility key="accessibilityConfiguration" hint="Temperature High" label="Temperature High"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="191" id="fVf-7f-JmW"/>
+                                <constraint firstAttribute="height" constant="49" id="kaq-xW-euH"/>
+                            </constraints>
+                        </view>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="9SH-rM-QSb" firstAttribute="leading" secondItem="fdt-aW-RlP" secondAttribute="leading" constant="8" id="3Gg-WC-vDD"/>
+                        <constraint firstAttribute="trailing" secondItem="i9z-wz-4FN" secondAttribute="trailing" constant="5" id="6sg-NY-Ws4"/>
+                        <constraint firstItem="9SH-rM-QSb" firstAttribute="top" secondItem="fdt-aW-RlP" secondAttribute="top" constant="10" id="FNR-9i-u3a"/>
+                        <constraint firstItem="i9z-wz-4FN" firstAttribute="leading" secondItem="8uL-Ie-P0I" secondAttribute="trailing" id="IPf-vt-SdD"/>
+                        <constraint firstItem="8uL-Ie-P0I" firstAttribute="top" secondItem="fdt-aW-RlP" secondAttribute="top" constant="6" id="Svg-ZO-77X"/>
+                        <constraint firstAttribute="trailing" secondItem="Os1-Xo-6Nt" secondAttribute="trailing" id="agl-8K-PwA"/>
+                        <constraint firstAttribute="height" constant="96" id="dCP-5j-3js"/>
+                        <constraint firstAttribute="bottom" secondItem="Os1-Xo-6Nt" secondAttribute="bottom" id="ftE-qk-oWp"/>
+                        <constraint firstItem="i9z-wz-4FN" firstAttribute="top" secondItem="fdt-aW-RlP" secondAttribute="top" id="lyx-JK-DFR"/>
+                        <constraint firstItem="GUy-t8-EfU" firstAttribute="leading" secondItem="9SH-rM-QSb" secondAttribute="trailing" constant="5" id="vjB-ve-HMX"/>
+                        <constraint firstItem="GUy-t8-EfU" firstAttribute="top" secondItem="fdt-aW-RlP" secondAttribute="top" constant="6" id="ygh-sd-wdE"/>
+                    </constraints>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="lux" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i9z-wz-4FN">
-                    <rect key="frame" x="282" y="330" width="30" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" id="8uL-Ie-P0I" userLabel="lightCurrent">
-                    <rect key="frame" x="160" y="334" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" id="GUy-t8-EfU" userLabel="sparkLineLight" customClass="ASBSparkLineView">
-                    <rect key="frame" x="49" y="334" width="100" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3rx-Cj-nTu" userLabel="Bottom View">
+                    <rect key="frame" x="0.0" y="481" width="600" height="119"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buttons.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yct-rA-kTU">
+                            <rect key="frame" x="0.0" y="5" width="600" height="90"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="90" id="f3m-Ke-5n1"/>
+                                <constraint firstAttribute="width" constant="600" id="zS0-fU-XVC"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" translatesAutoresizingMaskIntoConstraints="NO" id="dK8-dU-cmJ">
+                            <rect key="frame" x="0.0" y="76" width="600" height="43"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="600" id="Dra-az-aVE"/>
+                                <constraint firstAttribute="height" constant="43" id="E3u-gs-Iv3"/>
+                            </constraints>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kav-Tp-KdG" userLabel="Bottom Buttons">
+                            <rect key="frame" x="0.0" y="40" width="600" height="34"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5g-Np-V5o" userLabel="firmwareUpdate">
+                                    <rect key="frame" x="8" y="0.0" width="34" height="34"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="34" id="6Ve-uK-pmg"/>
+                                        <constraint firstAttribute="width" constant="34" id="aWc-FH-e8W"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="showLeftMenu:" destination="-1" eventType="touchUpInside" id="4JQ-wv-NGi"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zle-Fg-zf3">
+                                    <rect key="frame" x="42" y="0.0" width="241" height="34"/>
+                                    <subviews>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8H7-EI-ZbH">
+                                            <rect key="frame" x="110" y="7" width="20" height="20"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="6Xj-UH-2Q2"/>
+                                                <constraint firstAttribute="height" constant="20" id="NdK-rJ-yYg"/>
+                                            </constraints>
+                                        </activityIndicatorView>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvl-hv-kV4" userLabel="cloudSync">
+                                            <rect key="frame" x="103" y="0.0" width="34" height="34"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="34" id="OLb-ih-ugf"/>
+                                                <constraint firstAttribute="height" constant="34" id="cHI-2u-tY4"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="wimoto-cloud-sync.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SK8-xm-2W0"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="tvl-hv-kV4" firstAttribute="centerY" secondItem="zle-Fg-zf3" secondAttribute="centerY" id="PPa-Hl-iiH"/>
+                                        <constraint firstAttribute="height" constant="34" id="QnF-N5-ai8"/>
+                                        <constraint firstItem="tvl-hv-kV4" firstAttribute="centerX" secondItem="zle-Fg-zf3" secondAttribute="centerX" id="UMK-33-Be2"/>
+                                        <constraint firstItem="8H7-EI-ZbH" firstAttribute="centerX" secondItem="zle-Fg-zf3" secondAttribute="centerX" id="hoj-C6-MxU"/>
+                                        <constraint firstItem="8H7-EI-ZbH" firstAttribute="centerY" secondItem="zle-Fg-zf3" secondAttribute="centerY" id="yyg-Cq-Ta2"/>
+                                    </constraints>
+                                </view>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-fW-Ewb">
+                                    <rect key="frame" x="283" y="0.0" width="34" height="34"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="34" id="CFf-YG-6qM"/>
+                                        <constraint firstAttribute="height" constant="34" id="z7u-MZ-Wh3"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <state key="normal" title="enableSensorDataLogger" image="wimoto-datalogger-icon.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="enableSensorDataLogger:" destination="-1" eventType="touchUpInside" id="GdI-Xk-AhW"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZL-B2-kpO">
+                                    <rect key="frame" x="283" y="0.0" width="34" height="34"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="34" id="Aa6-FV-VRe"/>
+                                        <constraint firstAttribute="height" constant="34" id="Kqt-4M-xF2"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <state key="normal" title="readSensorDataLogger" image="wimoto-datalogger-icon-enabled.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
+                                    <connections>
+                                        <action selector="readSensorDataLogger:" destination="-1" eventType="touchUpInside" id="24e-Tw-KCZ"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ja0-QP-d7P">
+                                    <rect key="frame" x="317" y="0.0" width="240" height="34"/>
+                                    <subviews>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
+                                            <rect key="frame" x="103" y="0.0" width="34" height="34"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="MQj-bQ-bii"/>
+                                                <constraint firstAttribute="width" constant="34" id="ldh-Kr-LY8"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="wimoto-firmware-icon.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="GhK-2U-Ctl" firstAttribute="centerY" secondItem="Ja0-QP-d7P" secondAttribute="centerY" id="M1X-Nz-PC4"/>
+                                        <constraint firstAttribute="height" constant="34" id="Nlk-H1-TNK"/>
+                                        <constraint firstItem="GhK-2U-Ctl" firstAttribute="centerX" secondItem="Ja0-QP-d7P" secondAttribute="centerX" id="rY3-Q6-8fl"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCl-u3-cXF" userLabel="firmwareUpdate">
+                                    <rect key="frame" x="558" y="0.0" width="34" height="34"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="34" id="EAj-Wk-Lty"/>
+                                        <constraint firstAttribute="height" constant="34" id="kma-Av-Rfp"/>
+                                    </constraints>
+                                    <state key="normal" title="rightMenuButton" image="Wimoto-menu-icon.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="showRightMenu:" destination="-1" eventType="touchUpInside" id="L5J-ZA-Nqn"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Ja0-QP-d7P" secondAttribute="bottom" id="1D4-Xg-wls"/>
+                                <constraint firstAttribute="bottom" secondItem="zle-Fg-zf3" secondAttribute="bottom" id="27h-o3-qAY"/>
+                                <constraint firstItem="w5g-Np-V5o" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="Cl7-kx-QlG"/>
+                                <constraint firstAttribute="height" constant="34" id="JoF-Mn-zXg"/>
+                                <constraint firstAttribute="bottom" secondItem="KZL-B2-kpO" secondAttribute="bottom" id="O8k-lv-jYP"/>
+                                <constraint firstItem="Ja0-QP-d7P" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="PoX-VD-y4m"/>
+                                <constraint firstAttribute="bottom" secondItem="1vN-fW-Ewb" secondAttribute="bottom" id="PuD-1D-ns4"/>
+                                <constraint firstAttribute="trailing" secondItem="kCl-u3-cXF" secondAttribute="trailing" constant="8" id="Q6b-au-e8b"/>
+                                <constraint firstItem="KZL-B2-kpO" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="XI2-hj-t3F"/>
+                                <constraint firstItem="zle-Fg-zf3" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="XW1-ad-tdf"/>
+                                <constraint firstItem="zle-Fg-zf3" firstAttribute="leading" secondItem="w5g-Np-V5o" secondAttribute="trailing" id="YgR-Vd-2Oi"/>
+                                <constraint firstItem="1vN-fW-Ewb" firstAttribute="centerX" secondItem="kav-Tp-KdG" secondAttribute="centerX" id="Ypt-bj-RZ5"/>
+                                <constraint firstItem="kCl-u3-cXF" firstAttribute="leading" secondItem="Ja0-QP-d7P" secondAttribute="trailing" constant="1" id="cJt-Of-s3w"/>
+                                <constraint firstItem="KZL-B2-kpO" firstAttribute="leading" secondItem="zle-Fg-zf3" secondAttribute="trailing" id="dJB-tj-jw1"/>
+                                <constraint firstItem="KZL-B2-kpO" firstAttribute="centerX" secondItem="kav-Tp-KdG" secondAttribute="centerX" id="fb9-DI-CGG"/>
+                                <constraint firstItem="1vN-fW-Ewb" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="iki-rI-zTd"/>
+                                <constraint firstAttribute="bottom" secondItem="w5g-Np-V5o" secondAttribute="bottom" id="jFk-Yd-tBX"/>
+                                <constraint firstItem="kCl-u3-cXF" firstAttribute="top" secondItem="kav-Tp-KdG" secondAttribute="top" id="kJZ-fq-Dyb"/>
+                                <constraint firstItem="w5g-Np-V5o" firstAttribute="leading" secondItem="kav-Tp-KdG" secondAttribute="leading" constant="8" id="nDq-JT-uoj"/>
+                                <constraint firstItem="Ja0-QP-d7P" firstAttribute="leading" secondItem="KZL-B2-kpO" secondAttribute="trailing" id="uBy-LA-XJZ"/>
+                                <constraint firstAttribute="bottom" secondItem="kCl-u3-cXF" secondAttribute="bottom" id="zEw-CR-28v"/>
+                            </constraints>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLH-D5-8Az">
+                            <rect key="frame" x="8" y="82" width="84" height="37"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="37" id="4GR-6I-MiM"/>
+                                <constraint firstAttribute="width" constant="84" id="Acy-WP-qvF"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Climate 128px.png" translatesAutoresizingMaskIntoConstraints="NO" id="eII-tK-1Ny">
+                            <rect key="frame" x="457" y="79" width="136" height="45"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="Tae-W5-OvC"/>
+                                <constraint firstAttribute="width" constant="136" id="dNr-Xe-0eA"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Lg-TZ-UlN">
-                    <rect key="frame" x="286" y="226" width="26" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="bou-t8-gdO" userLabel="humidityCurrent">
-                    <rect key="frame" x="160" y="232" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" id="vTM-6t-ZAh" userLabel="sparkLineHumidity" customClass="ASBSparkLineView">
-                    <rect key="frame" x="49" y="232" width="100" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="˚C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OHQ-ix-ysS" customClass="WPTemperatureSignLabel">
-                    <rect key="frame" x="286" y="127" width="26" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="KdY-vM-CDd" userLabel="climateRSSI">
-                    <rect key="frame" x="262" y="20" width="50" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="kCl-u3-cXF" userLabel="firmwareUpdate">
-                    <rect key="frame" x="278" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" title="rightMenuButton" image="Wimoto-menu-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="showRightMenu:" destination="-1" eventType="touchUpInside" id="L5J-ZA-Nqn"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1vN-fW-Ewb">
-                    <rect key="frame" x="143" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <state key="normal" title="enableSensorDataLogger" image="wimoto-datalogger-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="enableSensorDataLogger:" destination="-1" eventType="touchUpInside" id="GdI-Xk-AhW"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="KZL-B2-kpO">
-                    <rect key="frame" x="143" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <state key="normal" title="readSensorDataLogger" image="wimoto-datalogger-icon-enabled.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="selected" image="wimoto-datalogger-icon-enabled.png"/>
-                    <connections>
-                        <action selector="readSensorDataLogger:" destination="-1" eventType="touchUpInside" id="24e-Tw-KCZ"/>
-                    </connections>
-                </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="cLH-D5-8Az">
-                    <rect key="frame" x="8" y="525" width="84" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="GhK-2U-Ctl" userLabel="firmwareUpdate">
-                    <rect key="frame" x="207" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" title="Button" image="wimoto-firmware-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="firmwareUpdateAction:" destination="-1" eventType="touchUpInside" id="ZiI-q0-eLQ"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w5g-Np-V5o" userLabel="firmwareUpdate">
-                    <rect key="frame" x="8" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" title="Button" image="wimoto-settings-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="showLeftMenu:" destination="-1" eventType="touchUpInside" id="4JQ-wv-NGi"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="tvl-hv-kV4" userLabel="cloudSync">
-                    <rect key="frame" x="74" y="466" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" title="Button" image="wimoto-cloud-sync.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="readDataLogger:" destination="-1" eventType="touchUpInside" id="SK8-xm-2W0"/>
-                    </connections>
-                </button>
-                <view contentMode="scaleToFill" id="NQv-fT-6Qp" userLabel="temperatureCurrent" customClass="WPTemperatureView">
-                    <rect key="frame" x="160" y="131" width="125" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="119" id="A7l-R9-Dmj"/>
+                        <constraint firstItem="Yct-rA-kTU" firstAttribute="top" secondItem="3rx-Cj-nTu" secondAttribute="top" constant="5" id="CaH-ig-Ofw"/>
+                        <constraint firstAttribute="bottom" secondItem="eII-tK-1Ny" secondAttribute="bottom" constant="-5" id="JM3-Nf-vjt"/>
+                        <constraint firstItem="Yct-rA-kTU" firstAttribute="leading" secondItem="3rx-Cj-nTu" secondAttribute="leading" id="LmQ-Vf-1E2"/>
+                        <constraint firstAttribute="bottom" secondItem="cLH-D5-8Az" secondAttribute="bottom" id="OkA-2J-vGx"/>
+                        <constraint firstItem="cLH-D5-8Az" firstAttribute="leading" secondItem="3rx-Cj-nTu" secondAttribute="leading" constant="8" id="PnP-8H-gqF"/>
+                        <constraint firstAttribute="trailing" secondItem="eII-tK-1Ny" secondAttribute="trailing" constant="7" id="Qwt-sa-sHt"/>
+                        <constraint firstAttribute="trailing" secondItem="Yct-rA-kTU" secondAttribute="trailing" id="RFX-fV-7Ro"/>
+                        <constraint firstItem="kav-Tp-KdG" firstAttribute="top" secondItem="3rx-Cj-nTu" secondAttribute="top" constant="40" id="SFN-uc-NUo"/>
+                        <constraint firstAttribute="trailing" secondItem="kav-Tp-KdG" secondAttribute="trailing" id="SpY-sI-j7r"/>
+                        <constraint firstAttribute="trailing" secondItem="dK8-dU-cmJ" secondAttribute="trailing" id="Zwj-eu-IgU"/>
+                        <constraint firstItem="kav-Tp-KdG" firstAttribute="top" secondItem="3rx-Cj-nTu" secondAttribute="top" constant="40" id="qA2-aL-vK2"/>
+                        <constraint firstItem="kav-Tp-KdG" firstAttribute="leading" secondItem="3rx-Cj-nTu" secondAttribute="leading" id="qIC-nz-aNA"/>
+                        <constraint firstItem="dK8-dU-cmJ" firstAttribute="leading" secondItem="3rx-Cj-nTu" secondAttribute="leading" id="vrm-ki-yo1"/>
+                        <constraint firstAttribute="bottom" secondItem="dK8-dU-cmJ" secondAttribute="bottom" id="xCs-Px-nZa"/>
+                        <constraint firstItem="kav-Tp-KdG" firstAttribute="leading" secondItem="3rx-Cj-nTu" secondAttribute="leading" id="zBM-RC-IG7"/>
+                    </constraints>
                 </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="dWY-Ls-CoB" secondAttribute="trailing" id="26N-Qr-B0h"/>
+                <constraint firstItem="dWY-Ls-CoB" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="FFK-hU-z3N"/>
+                <constraint firstItem="3rx-Cj-nTu" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="GqW-qT-t5F"/>
+                <constraint firstItem="6sd-o9-uht" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Ldc-pX-mcj"/>
+                <constraint firstAttribute="bottom" secondItem="3rx-Cj-nTu" secondAttribute="bottom" id="QR3-2V-j5q"/>
+                <constraint firstItem="VUX-Mj-0un" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="RO3-9V-cLA"/>
+                <constraint firstItem="dWY-Ls-CoB" firstAttribute="top" secondItem="6sd-o9-uht" secondAttribute="bottom" constant="5" id="Tyw-wA-743"/>
+                <constraint firstItem="fdt-aW-RlP" firstAttribute="top" secondItem="VUX-Mj-0un" secondAttribute="bottom" constant="-2" id="UEs-uX-0D1"/>
+                <constraint firstItem="6sd-o9-uht" firstAttribute="top" secondItem="1" secondAttribute="top" id="USS-YX-bTg"/>
+                <constraint firstAttribute="trailing" secondItem="3rx-Cj-nTu" secondAttribute="trailing" id="Uwe-d0-9gf"/>
+                <constraint firstAttribute="trailing" secondItem="VUX-Mj-0un" secondAttribute="trailing" id="tTv-ZM-rvF"/>
+                <constraint firstItem="VUX-Mj-0un" firstAttribute="top" secondItem="dWY-Ls-CoB" secondAttribute="bottom" constant="-2" id="wJY-Pa-y0v"/>
+                <constraint firstAttribute="trailing" secondItem="6sd-o9-uht" secondAttribute="trailing" id="xWZ-2w-s42"/>
+                <constraint firstAttribute="trailing" secondItem="fdt-aW-RlP" secondAttribute="trailing" id="yLU-bB-Ymy"/>
+                <constraint firstItem="fdt-aW-RlP" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="zF9-jd-XaU"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="500" y="322"/>
         </view>
     </objects>
     <resources>

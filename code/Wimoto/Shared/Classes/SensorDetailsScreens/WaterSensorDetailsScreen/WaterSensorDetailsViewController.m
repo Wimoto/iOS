@@ -138,6 +138,8 @@
                 _levelSparkLine.dataValues = result;
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_WATER_SENSOR_PRESENCE]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 _contactLabel.text = ([[change objectForKey:NSKeyValueChangeNewKey] boolValue])?@"Wet":@"Dry";
             }

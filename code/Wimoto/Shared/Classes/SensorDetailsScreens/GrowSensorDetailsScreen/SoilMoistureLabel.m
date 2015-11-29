@@ -29,9 +29,10 @@
         } else {
             self.text = @"Very dry";
         }
-    } else {
-        self.text = [NSString stringWithFormat:@"%.1f", moisture];
     }
+//    else {
+//        self.text = [NSString stringWithFormat:@"%.1f", moisture];
+//    }
 }
 
 @end

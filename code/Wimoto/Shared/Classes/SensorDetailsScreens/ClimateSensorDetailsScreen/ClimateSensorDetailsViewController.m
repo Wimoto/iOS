@@ -240,6 +240,8 @@
                 [_chartView setNeedsDisplay];
             }];            
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_HUMIDITY]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 _humidityLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
@@ -255,6 +257,8 @@
                 [_chartView setNeedsDisplay];
             }];
         } else if ([keyPath isEqualToString:OBSERVER_KEY_PATH_CLIMATE_SENSOR_LIGHT]) {
+            [self.lastUpdateLabel refresh];
+            
             if (self.sensor.peripheral) {
                 _lightLabel.text = [NSString stringWithFormat:@"%.1f", [[change objectForKey:NSKeyValueChangeNewKey] floatValue]];
             }
