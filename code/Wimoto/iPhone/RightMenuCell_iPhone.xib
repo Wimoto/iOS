@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RightMenuViewController">
@@ -12,29 +13,47 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RightMenuCell" id="5ly-JV-NDH" customClass="RightMenuCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5ly-JV-NDH" id="Djj-z2-9i8">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IhE-Ro-19A">
-                        <rect key="frame" x="137" y="11" width="169" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhE-Ro-19A">
+                        <rect key="frame" x="137" y="11" width="455" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="twQ-RB-GGW"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" id="PyB-hE-QDx">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wimoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="PyB-hE-QDx">
                         <rect key="frame" x="85" y="0.0" width="44" height="43"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="G7h-uk-luI"/>
+                            <constraint firstAttribute="height" constant="43" id="yC9-5J-jsb"/>
+                        </constraints>
                     </imageView>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="IhE-Ro-19A" firstAttribute="top" secondItem="Djj-z2-9i8" secondAttribute="topMargin" constant="3" id="0y5-de-WoC"/>
+                    <constraint firstItem="IhE-Ro-19A" firstAttribute="leading" secondItem="PyB-hE-QDx" secondAttribute="trailing" constant="8" id="9B1-TP-YtV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="IhE-Ro-19A" secondAttribute="bottom" constant="3" id="kTd-2r-Shq"/>
+                    <constraint firstItem="PyB-hE-QDx" firstAttribute="centerY" secondItem="Djj-z2-9i8" secondAttribute="centerY" id="lIc-DX-fdU"/>
+                    <constraint firstItem="IhE-Ro-19A" firstAttribute="trailing" secondItem="Djj-z2-9i8" secondAttribute="trailingMargin" id="uQ7-Q4-Nkx"/>
+                    <constraint firstItem="PyB-hE-QDx" firstAttribute="leading" secondItem="Djj-z2-9i8" secondAttribute="leadingMargin" constant="77" id="zg4-FQ-srv"/>
+                </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="sensorNameLabel" destination="IhE-Ro-19A" id="HbH-Lv-otn"/>
             </connections>
+            <point key="canvasLocation" x="500" y="302"/>
         </tableViewCell>
     </objects>
     <resources>

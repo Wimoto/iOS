@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9060"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThermoSensorDetailsViewController">
@@ -13,12 +13,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="4SP-ee-7Qe">
-            <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="cdk-QE-8Fg" customClass="APChartView" customModule="Wimoto" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdk-QE-8Fg" customClass="APChartView" customModule="Wimoto" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
@@ -44,6 +43,14 @@
             </subviews>
             <animations/>
             <color key="backgroundColor" red="1" green="0.85882352939999995" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="cdk-QE-8Fg" firstAttribute="centerX" secondItem="4SP-ee-7Qe" secondAttribute="centerX" id="asa-dn-Ld6"/>
+                <constraint firstItem="cdk-QE-8Fg" firstAttribute="leading" secondItem="4SP-ee-7Qe" secondAttribute="leading" id="nZO-bg-CEi"/>
+                <constraint firstItem="cdk-QE-8Fg" firstAttribute="centerY" secondItem="4SP-ee-7Qe" secondAttribute="centerY" id="nqJ-Av-43n"/>
+                <constraint firstAttribute="bottom" secondItem="cdk-QE-8Fg" secondAttribute="bottom" id="peB-P4-QUP"/>
+                <constraint firstItem="cdk-QE-8Fg" firstAttribute="top" secondItem="4SP-ee-7Qe" secondAttribute="top" id="s8N-zc-M3w"/>
+                <constraint firstAttribute="trailing" secondItem="cdk-QE-8Fg" secondAttribute="trailing" id="wck-ht-Kyl"/>
+            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <point key="canvasLocation" x="385" y="374"/>
         </view>
